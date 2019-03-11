@@ -154,93 +154,37 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-tags- 技术 Java" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-java多线程之线程的创建" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/11/java多线程之线程的创建/">java创建线程的三种方式</a>
+    </h1>
+  
+
+        
+        <a href="/2019/03/11/java多线程之线程的创建/" class="archive-article-date">
+  	<time datetime="2019-03-11T10:08:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-11</time>
+</a>
+        
+      </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <hr>
-<p>title: java创建线程的三种方式<br>date: 2019-03-11 18:08:12</p>
-<h2 id="tags-技术-Java"><a href="#tags-技术-Java" class="headerlink" title="tags: 技术 Java"></a>tags: 技术 Java</h2><p>#Java创建线程的三种方式</p>
-<ul>
+        <h1 id="Java创建线程的三种方式"><a href="#Java创建线程的三种方式" class="headerlink" title="Java创建线程的三种方式"></a>Java创建线程的三种方式</h1><ul>
 <li>继承Thread类，并重写run方法</li>
 <li>通过Runnable接口创建线程类</li>
 <li>通过Callable和Future创建线程</li>
 </ul>
 <hr>
-<p>###1. 继承Thread类来实现</p>
-<pre><code>继承Thread并重写run方法，创建该子类的示例，即创建了一个线程对象，调用线程对象的start()方法来启动该线程
-</code></pre><pre><code class="java"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ThreadDemo</span> <span class="keyword">extends</span> <span class="title">Thread</span></span>{
-    <span class="comment">//重写run方法</span>
-    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>{
-        System.out.println(<span class="string">"线程执行"</span>);    
-    }
-
-    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>{
-        <span class="comment">//创建该子类的实例，并启动该线程</span>
-        <span class="keyword">new</span> ThreadDemo().start();
-    }
-}
-</code></pre>
-<hr>
-<p>###2.实现Runnable接口来创建线程类</p>
-<pre><code>定义一个实现Runnable，并重写Run()方法。创建该实现类的实例，并以此实例作为Thread的target来创建Thread对象。该Thread对象才是真正的线程对象。使用start()方法来启动该线程
-</code></pre><pre><code class="java">    <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">threadDemo</span> <span class="keyword">implements</span> <span class="title">Runnable</span></span>{
-    <span class="meta">@Override</span>
-    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>{
-        System.out.println(<span class="string">"线程运行"</span>);
-    }
-
-    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>{
-        <span class="keyword">new</span> Thread(<span class="keyword">new</span> threadDemo()).start();
-    }
-}
-</code></pre>
-<hr>
-<p>####使用lambda表达式</p>
-<pre><code class="java"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">threadDemo</span> </span>{
-
-    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>{
-        <span class="keyword">new</span> Thread(()-&gt;{
-            System.out.println(<span class="string">"线程运行"</span>);
-        }).start();
-    }
-}
-</code></pre>
-<hr>
-<p>###3.通过Callable和Future创建线程</p>
-<pre><code>创建Callable接口的实现类，并实现call()方法，call()方法是线程执行体。创建该实现类的实例，使用FutureTask类包装Callable对象，该FutureTask对象封装了Callable对象call()方法的返回值。使用FutureTask作为Thread对象的target创建线程，使用start()方法启动，调用FutrueTask对象的get方法来获得子线程执行结束后的返回值。
-</code></pre><pre><code class="java">
-    <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">threadDemo</span>  <span class="keyword">implements</span> <span class="title">Callable</span>&lt;<span class="title">Integer</span>&gt; </span>{
-
-    <span class="meta">@Override</span>
-    <span class="function"><span class="keyword">public</span> Integer <span class="title">call</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>{
-        System.out.println(<span class="string">"线程运行"</span>);
-        <span class="keyword">return</span> <span class="number">666</span>;
-    }
-
-    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>{
-        FutureTask futureTask=<span class="keyword">new</span> FutureTask(<span class="keyword">new</span> threadDemo());
-
-        <span class="keyword">new</span> Thread(futureTask).start();
-        <span class="keyword">try</span> {
-            System.out.println(<span class="string">"子线程执行结束后返回了："</span>+futureTask.get());
-        } <span class="keyword">catch</span> (InterruptedException e) {
-            e.printStackTrace();
-        } <span class="keyword">catch</span> (ExecutionException e) {
-            e.printStackTrace();
-        }
-    }
-}
-</code></pre>
-<h2 id="几种创建线程的方法的优缺点比较"><a href="#几种创建线程的方法的优缺点比较" class="headerlink" title="几种创建线程的方法的优缺点比较"></a>几种创建线程的方法的优缺点比较</h2><p>####1.通过继承Thread类来创建</p>
-<pre><code>优点：实现简单。
-缺点：使用了继承，java有单继承局限。不能在继承其它类了。
-</code></pre><p>####2.使用Runnable接口来创建</p>
-<pre><code>优点：不影响继承其它的类。多个线程即Thread可以公用一个target对象。就可以用Runnable来表示资源。结构清晰，符合面向对象的思想
-缺点：创建过程较复杂。无法获得线程执行后的结果
-</code></pre><p>####3.使用Callable接口创建的对象<br>        优点：不影响继承其它类。可以获得线程运行结束后的返回值.多个线程即Thread可以公用一个target对象。call()方法可以抛出异常。<br>        缺点：编程复杂</p>
-
+<h3 id="1-继承Thread类来实现"><a href="#1-继承Thread类来实现" class="headerlink" title="1. 继承Thread类来实现"></a>1. 继承Thread类来实现</h3><pre><code>继承Thread并重写run方法，创建该子类的示例，即创建了一个线程对象，调用线程对象的start()方法来启动该线程
+</code></pre><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ThreadDemo</span> <span class="keyword">extends</span> <span class="title">Thread</span></span>&#123;</span><br><span class="line">    <span class="comment">//重写run方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"线程执行"</span>);    </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        <span class="comment">//创建该子类的实例，并启动该线程</span></span><br><span class="line">        <span class="keyword">new</span> ThreadDemo().start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        
+          <a class="article-more-a" href="/2019/03/11/java多线程之线程的创建/#more">more >></a>
+        
       
 
       
@@ -248,11 +192,26 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/03/11/tags- 技术 Java/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/03/11/java多线程之线程的创建/">展开全文 >></a>
         </p>
       
 
@@ -546,6 +505,10 @@ MathJax.Hub.Queue(function() {
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">技术</a>
               </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
+              </li>
             
             <div class="clearfix"></div>
           </ul>
@@ -596,11 +559,11 @@ MathJax.Hub.Queue(function() {
         <ul class="search-ul">
           
             <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接1</a>
+              <a href="https://github.com/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接1</a>
             </li>
           
             <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接2</a>
+              <a href="http://www.swpu.edu.cn/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接2</a>
             </li>
           
         </ul>
@@ -611,7 +574,7 @@ MathJax.Hub.Queue(function() {
     
     	<section class="tools-section tools-section-me" q-show="aboutme">
   	  	
-  	  		<div class="aboutme-wrap" id="js-aboutme">很惭愧&lt;br&gt;&lt;br&gt;只做了一点微小的工作&lt;br&gt;谢谢大家</div>
+  	  		<div class="aboutme-wrap" id="js-aboutme">软件工程小菜鸡一枚&lt;br&gt;&lt;br&gt;好好学习&lt;br&gt;天天向上！</div>
   	  	
     	</section>
     

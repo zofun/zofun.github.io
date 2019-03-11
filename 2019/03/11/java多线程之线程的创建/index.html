@@ -6,19 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Hello World | 唐才伟的个人博客</title>
+  <title>java创建线程的三种方式 | 唐才伟的个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+  <meta name="description" content="Java创建线程的三种方式 继承Thread类，并重写run方法 通过Runnable接口创建线程类 通过Callable和Future创建线程   1. 继承Thread类来实现继承Thread并重写run方法，创建该子类的示例，即创建了一个线程对象，调用线程对象的start()方法来启动该线程 1234567891011public class ThreadDemo extends Threa">
+<meta name="keywords" content="技术,java">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://yoursite.com/2019/03/10/hello-world/index.html">
+<meta property="og:title" content="java创建线程的三种方式">
+<meta property="og:url" content="http://yoursite.com/2019/03/11/java多线程之线程的创建/index.html">
 <meta property="og:site_name" content="唐才伟的个人博客">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:description" content="Java创建线程的三种方式 继承Thread类，并重写run方法 通过Runnable接口创建线程类 通过Callable和Future创建线程   1. 继承Thread类来实现继承Thread并重写run方法，创建该子类的示例，即创建了一个线程对象，调用线程对象的start()方法来启动该线程 1234567891011public class ThreadDemo extends Threa">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-10T08:34:40.632Z">
+<meta property="og:updated_time" content="2019-03-11T10:38:32.466Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="twitter:title" content="java创建线程的三种方式">
+<meta name="twitter:description" content="Java创建线程的三种方式 继承Thread类，并重写run方法 通过Runnable接口创建线程类 通过Callable和Future创建线程   1. 继承Thread类来实现继承Thread并重写run方法，创建该子类的示例，即创建了一个线程对象，调用线程对象的start()方法来启动该线程 1234567891011public class ThreadDemo extends Threa">
   
     <link rel="alternative" href="/atom.xml" title="唐才伟的个人博客" type="application/atom+xml">
   
@@ -156,36 +157,50 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-hello-world" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-java多线程之线程的创建" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Hello World
+      java创建线程的三种方式
     </h1>
   
 
         
-        <a href="/2019/03/10/hello-world/" class="archive-article-date">
-  	<time datetime="2019-03-10T08:34:40.632Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-10</time>
+        <a href="/2019/03/11/java多线程之线程的创建/" class="archive-article-date">
+  	<time datetime="2019-03-11T10:08:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-11</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
+        <h1 id="Java创建线程的三种方式"><a href="#Java创建线程的三种方式" class="headerlink" title="Java创建线程的三种方式"></a>Java创建线程的三种方式</h1><ul>
+<li>继承Thread类，并重写run方法</li>
+<li>通过Runnable接口创建线程类</li>
+<li>通过Callable和Future创建线程</li>
+</ul>
+<hr>
+<h3 id="1-继承Thread类来实现"><a href="#1-继承Thread类来实现" class="headerlink" title="1. 继承Thread类来实现"></a>1. 继承Thread类来实现</h3><pre><code>继承Thread并重写run方法，创建该子类的示例，即创建了一个线程对象，调用线程对象的start()方法来启动该线程
+</code></pre><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ThreadDemo</span> <span class="keyword">extends</span> <span class="title">Thread</span></span>&#123;</span><br><span class="line">    <span class="comment">//重写run方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"线程执行"</span>);    </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        <span class="comment">//创建该子类的实例，并启动该线程</span></span><br><span class="line">        <span class="keyword">new</span> ThreadDemo().start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<hr>
+<h3 id="2-实现Runnable接口来创建线程类"><a href="#2-实现Runnable接口来创建线程类" class="headerlink" title="2.实现Runnable接口来创建线程类"></a>2.实现Runnable接口来创建线程类</h3><pre><code>定义一个实现Runnable，并重写Run()方法。创建该实现类的实例，并以此实例作为Thread的target来创建Thread对象。该Thread对象才是真正的线程对象。使用start()方法来启动该线程
+</code></pre><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">    <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">threadDemo</span> <span class="keyword">implements</span> <span class="title">Runnable</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"线程运行"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        <span class="keyword">new</span> Thread(<span class="keyword">new</span> threadDemo()).start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h4 id="使用lambda表达式"><a href="#使用lambda表达式" class="headerlink" title="使用lambda表达式"></a>使用lambda表达式</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">threadDemo</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        <span class="keyword">new</span> Thread(()-&gt;&#123;</span><br><span class="line">            System.out.println(<span class="string">"线程运行"</span>);</span><br><span class="line">        &#125;).start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="3-通过Callable和Future创建线程"><a href="#3-通过Callable和Future创建线程" class="headerlink" title="3.通过Callable和Future创建线程"></a>3.通过Callable和Future创建线程</h3><pre><code>创建Callable接口的实现类，并实现call()方法，call()方法是线程执行体。创建该实现类的实例，使用FutureTask类包装Callable对象，该FutureTask对象封装了Callable对象call()方法的返回值。使用FutureTask作为Thread对象的target创建线程，使用start()方法启动，调用FutrueTask对象的get方法来获得子线程执行结束后的返回值。
+</code></pre><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">threadDemo</span>  <span class="keyword">implements</span> <span class="title">Callable</span>&lt;<span class="title">Integer</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Integer <span class="title">call</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"线程运行"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">666</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        FutureTask futureTask=<span class="keyword">new</span> FutureTask(<span class="keyword">new</span> threadDemo());</span><br><span class="line"></span><br><span class="line">        <span class="keyword">new</span> Thread(futureTask).start();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            System.out.println(<span class="string">"子线程执行结束后返回了："</span>+futureTask.get());</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (ExecutionException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="几种创建线程的方法的优缺点比较"><a href="#几种创建线程的方法的优缺点比较" class="headerlink" title="几种创建线程的方法的优缺点比较"></a>几种创建线程的方法的优缺点比较</h2><h4 id="1-通过继承Thread类来创建"><a href="#1-通过继承Thread类来创建" class="headerlink" title="1.通过继承Thread类来创建"></a>1.通过继承Thread类来创建</h4><pre><code>优点：实现简单。
+缺点：使用了继承，java有单继承局限。不能在继承其它类了。
+</code></pre><h4 id="2-使用Runnable接口来创建"><a href="#2-使用Runnable接口来创建" class="headerlink" title="2.使用Runnable接口来创建"></a>2.使用Runnable接口来创建</h4><pre><code>优点：不影响继承其它的类。多个线程即Thread可以公用一个target对象。就可以用Runnable来表示资源。结构清晰，符合面向对象的思想
+缺点：创建过程较复杂。无法获得线程执行后的结果
+</code></pre><h4 id="3-使用Callable接口创建的对象"><a href="#3-使用Callable接口创建的对象" class="headerlink" title="3.使用Callable接口创建的对象"></a>3.使用Callable接口创建的对象</h4><pre><code>优点：不影响继承其它类。可以获得线程运行结束后的返回值.多个线程即Thread可以公用一个target对象。call()方法可以抛出异常。
+缺点：编程复杂
+</code></pre>
       
 
       
@@ -224,6 +239,21 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -274,7 +304,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/03/10/hello-world/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/03/11/java多线程之线程的创建/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -288,15 +318,11 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/03/11/tags- 技术/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          第一次编写博客的测试
-        
-      </div>
-    </a>
   
+    <a href="/2019/03/11/tags- 技术/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">第一次编写博客的测试</div>
+      <i class="icon-circle-right"></i>
+    </a>
   
 </nav>
 
