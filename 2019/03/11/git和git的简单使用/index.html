@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="唐才伟的个人博客">
 <meta property="og:description" content="git是一个开源的分布式版本控制系统，可以有效、高速的处理从很小到非常大的项目版本管理工作。  如何理解git是一个分布式版本控制系统 分布式  区别于集中式的版本控制系统典型的如SVN。分布式是指没有中央服务器，每个人的本地都有一份完整的项目文件。而集中式版本控制系统，有中央服务器，每个人从中央服务器获取一份项目文件，在本地开发，开发完成后提交给中央服务器。分布式版本控制系统的优点在于网络依赖">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-13T08:01:29.708Z">
+<meta property="og:updated_time" content="2019-03-13T08:33:30.711Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="git与git的简单使用">
 <meta name="twitter:description" content="git是一个开源的分布式版本控制系统，可以有效、高速的处理从很小到非常大的项目版本管理工作。  如何理解git是一个分布式版本控制系统 分布式  区别于集中式的版本控制系统典型的如SVN。分布式是指没有中央服务器，每个人的本地都有一份完整的项目文件。而集中式版本控制系统，有中央服务器，每个人从中央服务器获取一份项目文件，在本地开发，开发完成后提交给中央服务器。分布式版本控制系统的优点在于网络依赖">
@@ -192,58 +192,81 @@ Git的版本库就是.git文件夹。
 *理解Git的工作区、暂存区和版本库是理解git命令的关键*
 </code></pre><h3 id="Git的基本操作"><a href="#Git的基本操作" class="headerlink" title="Git的基本操作"></a>Git的基本操作</h3><ul>
 <li><p>创建仓库<br>  创建仓库，通俗的讲就是生成一个隐藏文件夹.git。我们可以使用如下名命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br></pre></td></tr></table></figure>
+<p>  git init </p>
 </li>
 <li><p>从Git仓库中拷贝项目（类似svn中的捡出项目，这里的Git仓库一般是指GitHub上的仓库）</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone &lt;Git仓库的地址&gt;         &lt;本地目录，可以省略&gt;</span><br></pre></td></tr></table></figure>
+<p>  git clone &lt;Git仓库的地址&gt;         &lt;本地目录，可以省略&gt;</p>
 </li>
 </ul>
-<p>例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/0Eternity0/0Eternity0.github.io.git f:/MyDir//</span><br></pre></td></tr></table></figure></p>
-<p> 该句的意思是从该地址克隆一份项目文件到MyDir文件夹。如何不指定本地目录，就克隆到命令行工具运行的当前目录</p>
+<p>例如：</p>
+<pre><code>git clone https://github.com/0Eternity0/0Eternity0.github.io.git f:/MyDir//
+</code></pre><p> 该句的意思是从该地址克隆一份项目文件到MyDir文件夹。如何不指定本地目录，就克隆到命令行工具运行的当前目录</p>
 <a id="more"></a>
 <ul>
-<li>将工作区的文件放到暂存区<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git add hello.java fun.java</span><br></pre></td></tr></table></figure>
+<li><p>将工作区的文件放到暂存区</p>
+<p>  git add hello.java fun.java</p>
 </li>
 </ul>
 <p>add后面可以跟上文件列表，也可以是文件夹如dir/。也可以跟上一个点 . 将工作区的所有文件全部加入暂存区</p>
 <ul>
 <li><p>查看工作区的文件是否被添加到了暂存区</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git status -s</span><br></pre></td></tr></table></figure>
+<p>  git status -s</p>
 </li>
 <li><p>比较工作区的文件和已经放到暂存区文件的差异</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git diff</span><br></pre></td></tr></table></figure>
+<p>  git diff</p>
 </li>
 </ul>
 <p>该命令后面还可以跟上各种参数，因为本文只是简要介绍。就不再赘述。实际操作中IDE中的图形化界面更加方便</p>
 <ul>
-<li><p>将暂存区的文件放入版本库(此处指本地版本库)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">git commit -m &apos;本次提交的说明，如修复了某某bug&apos;</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">- 删除添加到暂存区中的文件</span><br><span class="line">``` </span><br><span class="line">git rm --cache 文件名或文件夹</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>删除工作区和暂存区中的文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git rm -f 文件名或文件夹</span><br></pre></td></tr></table></figure>
-</li>
+<li>将暂存区的文件放入版本库(此处指本地版本库)</li>
 </ul>
-<h2 id="Git分支管理"><a href="#Git分支管理" class="headerlink" title="Git分支管理"></a>Git分支管理</h2><pre><code>使用分支可以将人们从开发主线上分离开来。在不影响开发主线上继续工作。比如，你需要尝试开发一个不一定会上线的新功能时，你需要在开发主线之外的分支上工作，防止影响开发主线。
+<pre><code>git commit -m &apos;本次提交的说明，如修复了某某bug&apos;
 </code></pre><ul>
-<li>查询本地存在的分支<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git branch</span><br><span class="line">``` </span><br><span class="line">    初始时有一个分支master，可以理解为开发主线</span><br><span class="line"></span><br><span class="line">- 创建新的分支</span><br></pre></td></tr></table></figure>
-</li>
+<li>删除添加到暂存区中的文件</li>
 </ul>
-<p>git branch &lt;新分支的名称，实际不需要括号&gt;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">*值得注意的是，创建分支前至少进行了一次commit操作*</span><br><span class="line"></span><br><span class="line">- 切换分支</span><br></pre></td></tr></table></figure></p>
-<p>git checkout &lt;分支名称&gt;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> 从当前分支切换到指定分支。合并时也会合并修改，所以很容易产生冲突。一般可以手动修改来解决冲突</span><br><span class="line"></span><br><span class="line">- 合并分支</span><br></pre></td></tr></table></figure></p>
-<p>git merge<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">将当前分支合并到master(开发主线)上去</span><br><span class="line"></span><br><span class="line">- 删除分支</span><br><span class="line">``` </span><br><span class="line">git branch -d &lt;分支名&gt;</span><br></pre></td></tr></table></figure></p>
-<p>删除指定分支。不能删除当前工作的分支。</p>
-<h3 id="Git其它操作"><a href="#Git其它操作" class="headerlink" title="Git其它操作"></a>Git其它操作</h3><ul>
-<li>查看提交历史<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git log</span><br></pre></td></tr></table></figure>
-</li>
+<pre><code>git rm --cache 文件名或文件夹
+</code></pre><ul>
+<li>删除工作区和暂存区中的文件</li>
 </ul>
-<p>该命令后可以跟许多参数。</p>
+<pre><code>git rm -f 文件名或文件夹
+</code></pre><h2 id="Git分支管理"><a href="#Git分支管理" class="headerlink" title="Git分支管理"></a>Git分支管理</h2><p>使用分支可以将人们从开发主线上分离开来。在不影响开发主线上继续工作。比如，你需要尝试开发一个不一定会上线的新功能时，你需要在开发主线之外的分支上工作，防止影响开发主线。</p>
 <ul>
-<li>标签<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git tag -a v1.0</span><br></pre></td></tr></table></figure>
-</li>
+<li>查询本地存在的分支</li>
 </ul>
-<p>为最新的提交打伤v1.0的标签。-a表示要参数要为该标签添加注解，git会自动打开编辑器让你填写注解。</p>
+<pre><code>git branch
+</code></pre><p>初始时有一个分支master，可以理解为开发主线</p>
+<ul>
+<li>创建新的分支</li>
+</ul>
+<pre><code>git branch &lt;新分支的名称，实际不需要括号&gt;
+</code></pre><p><em>值得注意的是，创建分支前至少进行了一次commit操作</em></p>
+<ul>
+<li>切换分支</li>
+</ul>
+<pre><code>git checkout &lt;分支名称&gt;
+</code></pre><p> 从当前分支切换到指定分支。合并时也会合并修改，所以很容易产生冲突。一般可以手动修改来解决冲突</p>
+<ul>
+<li>合并分支</li>
+</ul>
+<pre><code>git merge
+</code></pre><p>将当前分支合并到master(开发主线)上去</p>
+<ul>
+<li>删除分支</li>
+</ul>
+<pre><code>git branch -d &lt;分支名&gt;
+</code></pre><p>删除指定分支。不能删除当前工作的分支。</p>
+<h3 id="Git其它操作"><a href="#Git其它操作" class="headerlink" title="Git其它操作"></a>Git其它操作</h3><ul>
+<li>查看提交历史</li>
+</ul>
+<pre><code>git log
+</code></pre><p>该命令后可以跟许多参数。</p>
+<ul>
+<li>标签</li>
+</ul>
+<pre><code>git tag -a v1.0
+</code></pre><p>为最新的提交打伤v1.0的标签。-a表示要参数要为该标签添加注解，git会自动打开编辑器让你填写注解。</p>
 <hr>
-<p>Git一般还搭配远程仓库GitHub来使用。欲知后事，下回分解。</p>
+<p>Git一般还搭配远程仓库GitHub来使用。欲知后事,下回分解。</p>
 
       
 
