@@ -181,31 +181,13 @@
 <li><p>IP首部包含的信息<br>1.接收端IP地址和发送端IP地址<br>2.上一层协议类型标志<br>3.接收端的MAC（物理地址）地址</p>
 </li>
 <li><p>MAC地址<br>1.MAC地址用于识别数据链路中互联的节点。<br>2.MAC地址长48bit，在使用网卡（NIC）的情况下，MAC地址一般烧录在ROM中。<br><a href="https://imgchr.com/i/AN0E9O" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/03/26/AN0E9O.md.png" alt="MAC地址结构图"></a><br><em>理论上讲MAC地址是不会重复的，但是实际上MAC地址有重复的可能，比如虚拟机上</em></p>
-</li>
-<li><p>共享介质型网络的两种介质访问控制方式<br>1.征用方式CSMA（载波监听多路访问，网络拥堵情况下，性能会下降）<br>2.令牌传递方式（沿令牌环发售一中叫做令牌的特殊报文，每个站获得到令牌的机会相等，只有获得令牌的站才能发送数据，网络拥堵的情况下，性能也不会下降）</p>
-</li>
-<li><p>非共享介质网络<br>不共享传输介质，对介质采用专用的一中传输控制方式，网络中的每个站都直连交换机。可以实现全双工通信。<br><a href="https://imgchr.com/i/ANzB8I" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/03/26/ANzB8I.md.png" alt="ANzB8I.md.png"></a></p>
-</li>
-<li><p>交换集线器（以太网交换机）<br>它根据数据链路层中每个帧的目标MAC地址 ，决定从那个网络接口发送数据。用于记录发售那个接口的表叫做转发表（可以自动生成）</p>
-</li>
-<li><p>交换机转发的两种方式<br>1.存储转发，检测以太网数据帧末尾的FCS（帧校验序列）后再进行转发，可以避免发送错误帧。需要将一个帧全部收下后，经过校验后再发送。<br>2.直通转发，当知道目标地址后，将收到的数据逐个转发。延迟低，但不能避免的发送错误帧的可能。</p>
-</li>
-<li><p>VLAN(虚拟局域网)<br>交换机根据其端口区分多个网段，从而区分了数据传播的范围，减少网络负载，提高网络的安全性。可以不用修改布线，就能改变网络拓扑结构<br><a href="https://imgchr.com/i/AUSweU" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/03/26/AUSweU.png" alt="AUSweU.png"></a></p>
-</li>
-</ul>
-<hr>
-<p>跨越交换机的VLAN<br><img src="https://s2.ax1x.com/2019/03/26/AUSrFJ.png" alt="AUSrFJ.png"></p>
-<ul>
-<li><p>以太网帧格式<br>1.以太网前端有一个前导码，由零一数字交替组合而成，表示一个以太网帧的开始，帮助两端网卡的同步。<br>2.前导码之后是一个SFD（start frame delimiter）域，其后及时以太网帧的本体<br>3.以太网帧本体的首部共占14个字节。其中包括6个字节的目标MAC地址和6个字节的源MAC地址，和两个字节的上层协议标志。<br>4.以太网帧之后是数据<br>5.数据之后是4个字节的FCS标记（frame check squence，帧检验序列）。</p>
-</li>
-<li><p>PPP<br>是点对点的通信，只与数据链路层有关，和物理层没有关系。</p>
-</li>
-</ul>
-
+        
+          <a class="article-more-a" href="/2019/03/27/TCPIP学习笔记一/#more">more >></a>
+        
       
 
       
-    </div>
+    </li></ul></div>
     <div class="article-info article-info-index">
       
       
