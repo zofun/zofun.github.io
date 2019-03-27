@@ -6,15 +6,25 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2019/3 | 唐才伟的个人博客</title>
+  <title>TCP/IP协议学习笔记(一) | 唐才伟的个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="唐才伟的个人博客">
-<meta property="og:url" content="http://yoursite.com/archives/2019/03/index.html">
+  <meta name="description" content="TCP/IP协议的分层模型1.应用层 2.传输层 3.互联网层 4.网卡层 5.硬件层（物理层）  TCP首部包含的信息1.源端口号和目标端口号（用于识别发送主机和接收主机的应用，每个应用占用特定的端口）2.数据包的序号3.校验和（用于判断数据是否被损坏）  IP首部包含的信息1.接收端IP地址和发送端IP地址2.上一层协议类型标志3.接收端的MAC（物理地址）地址  MAC地址1.MAC地址用于">
+<meta name="keywords" content="技术,TCP&#x2F;IP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TCP&#x2F;IP协议学习笔记(一)">
+<meta property="og:url" content="http://yoursite.com/2019/03/27/TCPIP学习笔记一/index.html">
 <meta property="og:site_name" content="唐才伟的个人博客">
+<meta property="og:description" content="TCP/IP协议的分层模型1.应用层 2.传输层 3.互联网层 4.网卡层 5.硬件层（物理层）  TCP首部包含的信息1.源端口号和目标端口号（用于识别发送主机和接收主机的应用，每个应用占用特定的端口）2.数据包的序号3.校验和（用于判断数据是否被损坏）  IP首部包含的信息1.接收端IP地址和发送端IP地址2.上一层协议类型标志3.接收端的MAC（物理地址）地址  MAC地址1.MAC地址用于">
 <meta property="og:locale" content="default">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/26/AN0E9O.md.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/26/ANzB8I.md.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/26/AUSweU.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/26/AUSrFJ.png">
+<meta property="og:updated_time" content="2019-03-27T07:45:11.691Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="唐才伟的个人博客">
+<meta name="twitter:title" content="TCP&#x2F;IP协议学习笔记(一)">
+<meta name="twitter:description" content="TCP/IP协议的分层模型1.应用层 2.传输层 3.互联网层 4.网卡层 5.硬件层（物理层）  TCP首部包含的信息1.源端口号和目标端口号（用于识别发送主机和接收主机的应用，每个应用占用特定的端口）2.数据包的序号3.校验和（用于判断数据是否被损坏）  IP首部包含的信息1.接收端IP地址和发送端IP地址2.上一层协议类型标志3.接收端的MAC（物理地址）地址  MAC地址1.MAC地址用于">
+<meta name="twitter:image" content="https://s2.ax1x.com/2019/03/26/AN0E9O.md.png">
   
     <link rel="alternative" href="/atom.xml" title="唐才伟的个人博客" type="application/atom+xml">
   
@@ -152,36 +162,92 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-TCPIP学习笔记一" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/03/27/TCPIP学习笔记一/" class="archive-article-date">
-  	<time datetime="2019-03-27T08:38:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-27</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/03/27/TCPIP学习笔记一/">TCP/IP协议学习笔记(一)</a>
+    <h1 class="article-title" itemprop="name">
+      TCP/IP协议学习笔记(一)
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2019/03/27/TCPIP学习笔记一/" class="archive-article-date">
+  	<time datetime="2019-03-27T08:38:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-27</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="TCP-IP协议的分层模型"><a href="#TCP-IP协议的分层模型" class="headerlink" title="TCP/IP协议的分层模型"></a>TCP/IP协议的分层模型</h4><p>1.应用层 2.传输层 3.互联网层 4.网卡层 5.硬件层（物理层）</p>
+<ul>
+<li><p>TCP首部包含的信息<br>1.源端口号和目标端口号（用于识别发送主机和接收主机的应用，每个应用占用特定的端口）<br>2.数据包的序号<br>3.校验和（用于判断数据是否被损坏）</p>
+</li>
+<li><p>IP首部包含的信息<br>1.接收端IP地址和发送端IP地址<br>2.上一层协议类型标志<br>3.接收端的MAC（物理地址）地址</p>
+</li>
+<li><p>MAC地址<br>1.MAC地址用于识别数据链路中互联的节点。<br>2.MAC地址长48bit，在使用网卡（NIC）的情况下，MAC地址一般烧录在ROM中。<br><a href="https://imgchr.com/i/AN0E9O" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/03/26/AN0E9O.md.png" alt="MAC地址结构图"></a><br><em>理论上讲MAC地址是不会重复的，但是实际上MAC地址有重复的可能，比如虚拟机上</em></p>
+</li>
+<li><p>共享介质型网络的两种介质访问控制方式<br>1.征用方式CSMA（载波监听多路访问，网络拥堵情况下，性能会下降）<br>2.令牌传递方式（沿令牌环发售一中叫做令牌的特殊报文，每个站获得到令牌的机会相等，只有获得令牌的站才能发送数据，网络拥堵的情况下，性能也不会下降）</p>
+</li>
+<li><p>非共享介质网络<br>不共享传输介质，对介质采用专用的一中传输控制方式，网络中的每个站都直连交换机。可以实现全双工通信。<br><a href="https://imgchr.com/i/ANzB8I" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/03/26/ANzB8I.md.png" alt="ANzB8I.md.png"></a></p>
+</li>
+<li><p>交换集线器（以太网交换机）<br>它根据数据链路层中每个帧的目标MAC地址 ，决定从那个网络接口发送数据。用于记录发售那个接口的表叫做转发表（可以自动生成）</p>
+</li>
+<li><p>交换机转发的两种方式<br>1.存储转发，检测以太网数据帧末尾的FCS（帧校验序列）后再进行转发，可以避免发送错误帧。需要将一个帧全部收下后，经过校验后再发送。<br>2.直通转发，当知道目标地址后，将收到的数据逐个转发。延迟低，但不能避免的发送错误帧的可能。</p>
+</li>
+<li><p>VLAN(虚拟局域网)<br>交换机根据其端口区分多个网段，从而区分了数据传播的范围，减少网络负载，提高网络的安全性。可以不用修改布线，就能改变网络拓扑结构<br><a href="https://imgchr.com/i/AUSweU" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/03/26/AUSweU.png" alt="AUSweU.png"></a></p>
+</li>
+</ul>
+<hr>
+<p>跨越交换机的VLAN<br><img src="https://s2.ax1x.com/2019/03/26/AUSrFJ.png" alt="AUSrFJ.png"></p>
+<ul>
+<li><p>以太网帧格式<br>1.以太网前端有一个前导码，由零一数字交替组合而成，表示一个以太网帧的开始，帮助两端网卡的同步。<br>2.前导码之后是一个SFD（start frame delimiter）域，其后及时以太网帧的本体<br>3.以太网帧本体的首部共占14个字节。其中包括6个字节的目标MAC地址和6个字节的源MAC地址，和两个字节的上层协议标志。<br>4.以太网帧之后是数据<br>5.数据之后是4个字节的FCS标记（frame check squence，帧检验序列）。</p>
+</li>
+<li><p>PPP<br>是点对点的通信，只与数据链路层有关，和物理层没有关系。</p>
+</li>
+</ul>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/img/alipay.png">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/img/weixin.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -197,210 +263,122 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/03/27/TCPIP学习笔记一/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/03/23/wav音频的剪切/" class="archive-article-date">
-  	<time datetime="2019-03-23T06:29:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-23</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2019/03/23/wav音频的剪切/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">wav音频的剪切</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/03/23/wav音频的剪切/">wav音频的剪切</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">项目小技巧</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/03/11/git和git的简单使用/" class="archive-article-date">
-  	<time datetime="2019-03-11T10:08:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/03/11/git和git的简单使用/">git与git的简单使用</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">git</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/03/11/java多线程之线程的创建/" class="archive-article-date">
-  	<time datetime="2019-03-11T10:08:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/03/11/java多线程之线程的创建/">java创建线程的三种方式</a>
-    </h1>
+    <section id="comments">
+      <div id="disqus_thread"></div>
+        <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'true'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </section>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/03/11/tags- 技术/" class="archive-article-date">
-  	<time datetime="2019-03-11T02:05:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/03/11/tags- 技术/">第一次编写博客的测试</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/03/10/hello-world/" class="archive-article-date">
-  	<time datetime="2019-03-10T08:34:40.632Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-10</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/03/10/hello-world/">Hello World</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -423,8 +401,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
