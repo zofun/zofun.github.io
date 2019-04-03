@@ -6,19 +6,31 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Hello World | 唐才伟的个人博客</title>
+  <title>TCP/IP学习笔记(三) | 唐才伟的个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+  <meta name="description" content="DNS（域名解析服务）DNS可以将字符串自动转化位具体的IP地址。  ARP（地址解析协议）  以目标IP地址位线索，来定位下一个应该接收数据分包的网络设别对应的MAC地址。ARP只适用于IPv4. 通过广播发送一个ARP请求包，其中含有想要了解MAC地址的IP。同一个链路中的主机接收并解析。如何发现需要解析自己的IP地址对应的MAC地址的话。就将自己的MAC地址加入ARP响应包中。然后把获取到">
+<meta name="keywords" content="技术,TCP&#x2F;IP">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://yoursite.com/2019/03/10/hello-world/index.html">
+<meta property="og:title" content="TCP&#x2F;IP学习笔记(三)">
+<meta property="og:url" content="http://yoursite.com/2019/04/03/TCPIP学习笔记三/index.html">
 <meta property="og:site_name" content="唐才伟的个人博客">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:description" content="DNS（域名解析服务）DNS可以将字符串自动转化位具体的IP地址。  ARP（地址解析协议）  以目标IP地址位线索，来定位下一个应该接收数据分包的网络设别对应的MAC地址。ARP只适用于IPv4. 通过广播发送一个ARP请求包，其中含有想要了解MAC地址的IP。同一个链路中的主机接收并解析。如何发现需要解析自己的IP地址对应的MAC地址的话。就将自己的MAC地址加入ARP响应包中。然后把获取到">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-10T08:34:40.632Z">
+<meta property="og:image" content="https://s2.ax1x.com/2019/04/02/AygKb9.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/04/02/A6ZEFS.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/04/03/Ac7X8g.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/04/03/AcHkPU.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/04/03/AcHmrR.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/04/03/AcHddP.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/04/03/AcbLcQ.md.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/04/03/Acqruj.md.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/04/03/AcOFm9.md.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/04/03/AcONp8.md.png">
+<meta property="og:updated_time" content="2019-04-03T08:00:26.486Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="twitter:title" content="TCP&#x2F;IP学习笔记(三)">
+<meta name="twitter:description" content="DNS（域名解析服务）DNS可以将字符串自动转化位具体的IP地址。  ARP（地址解析协议）  以目标IP地址位线索，来定位下一个应该接收数据分包的网络设别对应的MAC地址。ARP只适用于IPv4. 通过广播发送一个ARP请求包，其中含有想要了解MAC地址的IP。同一个链路中的主机接收并解析。如何发现需要解析自己的IP地址对应的MAC地址的话。就将自己的MAC地址加入ARP响应包中。然后把获取到">
+<meta name="twitter:image" content="https://s2.ax1x.com/2019/04/02/AygKb9.png">
   
     <link rel="alternative" href="/atom.xml" title="唐才伟的个人博客" type="application/atom+xml">
   
@@ -156,35 +168,97 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-hello-world" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-TCPIP学习笔记三" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Hello World
+      TCP/IP学习笔记(三)
     </h1>
   
 
         
-        <a href="/2019/03/10/hello-world/" class="archive-article-date">
-  	<time datetime="2019-03-10T08:34:40.632Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-10</time>
+        <a href="/2019/04/03/TCPIP学习笔记三/" class="archive-article-date">
+  	<time datetime="2019-04-03T07:58:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-03</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+        <ul>
+<li><p>DNS（域名解析服务）<br>DNS可以将字符串自动转化位具体的IP地址。</p>
+</li>
+<li><p>ARP（地址解析协议）</p>
+<ul>
+<li>以目标IP地址位线索，来定位下一个应该接收数据分包的网络设别对应的MAC地址。ARP只适用于IPv4.</li>
+<li>通过广播发送一个ARP请求包，其中含有想要了解MAC地址的IP。同一个链路中的主机接收并解析。如何发现需要解析自己的IP地址对应的MAC地址的话。就将自己的MAC地址加入ARP响应包中。然后把获取到的MAC地址与IP建立映射。然后缓存一段时间。</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>RARP</p>
+<ul>
+<li>从MAC地址获取IP地址的一种协议。</li>
+<li>为了解决一些潜入式设别无法通过DHCP获得自己的IP地址的问题。所以需要建立一个RARP服务器。</li>
+<li><img src="https://s2.ax1x.com/2019/04/02/AygKb9.png" alt="AygKb9.png"></li>
+</ul>
+</li>
+<li><p>NAT技术</p>
+<ul>
+<li>实在本地网络中使用私有地址，在连接互联网式转而使用全局IP地址的技术。</li>
+<li>内部有一张进行转换的地址的表。</li>
+<li>NAPT为了解决私有网络内部多台机器同时于玩不通信时，可能会造成全局IP地址不够用。NAPT采用将端口号一起转换的方式来解决这个问题。</li>
+<li><img src="https://s2.ax1x.com/2019/04/02/A6ZEFS.png" alt="A6ZEFS.png"></li>
+<li>无法从NAT外部向内部服务器建立连接。</li>
+<li>转换表的生成和转换操作都会产生一定的开销。</li>
+<li>通信过程中如果NAT遇到异常所有的TCP连接都会被重置。即使做了容灾备份也无法避免TCP连接的重置。</li>
+</ul>
+</li>
+</ul>
+<a id="more"></a>
+<ul>
+<li><p>IP隧道<br>为了解决IPv6数据包在IPv4网络中传递的问题。可以采用IP隧道的原理，将整个IPv6数据包作为数据体，并加上Ipv4的首部。就可以在IPv4的网络中传递Ipv6的数据包了。</p>
+</li>
+<li><p>TCP协议</p>
+<ul>
+<li>时面向连接的，可靠的流协议。是传输层协议。</li>
+<li>为了提供可靠的传输，实行“顺序控制”或“重发控制”，‘流量控制’、‘拥塞控制’、‘拥塞控制’、提高网络的利用率。</li>
+</ul>
+</li>
+<li><p>UDP协议</p>
+<ul>
+<li>UDP是具有不可靠型的数据包协议。不能保证消息一定会到达。</li>
+</ul>
+</li>
+<li><p>端口号<br>端口号用来识别同一台计算机中进行通信的不同应用程序。因此也被称为程序地址。</p>
+</li>
+</ul>
+<p>TCP/IP或UDP/IP通常采用 源IP地址，目标IP地址，协议号，源端口号，目标端口号来标识一个通信。</p>
+<ul>
+<li><p>UDP</p>
+<ul>
+<li>UDP协议不提供复杂的控制机制。利用IP提供不可靠的无连接的通信。它在收到数据后，立刻发送。UDP协议不会进行流量控制和重发，包到达的顺序也无法保证。</li>
+<li>UDP协议简单又高效。多用于实时性的，数据准确性要求不高的网络通信。</li>
+</ul>
+</li>
+<li><p>TCP协议</p>
+<ul>
+<li>它是一种面向连接的可靠的传输层协议。它可以流量控制，重发控制，顺序控制等。</li>
+<li>它通过检验和，序列号，确认应答，重发控制，连接管理以及窗口控制等来实现可靠性传输。</li>
+<li>通过序列号于确认应答提高可靠性<img src="https://s2.ax1x.com/2019/04/03/Ac7X8g.png" alt="Ac7X8g.png"> <em>确认是ACK，否认是NACK</em><img src="https://s2.ax1x.com/2019/04/03/AcHkPU.png" alt="AcHkPU.png"><a href="https://imgchr.com/i/AcHmrR" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/04/03/AcHmrR.png" alt="AcHmrR.png"></a></li>
+<li>通过序列号与确认应答号。应答号就是自己下一步需要接收的数据的序列号<a href="https://imgchr.com/i/AcHddP" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/04/03/AcHddP.png" alt="AcHddP.png"></a></li>
+<li>重发超时的时间计算。每次发包时都会计算往返时间及其偏差。将往返时间和偏差相加结果略大的值就是重发超时的值。</li>
+<li>TCP连接管理。在通信进行前要先建立连接，在通信结束时会进行断开连接。<a href="https://imgchr.com/i/AcbLcQ" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/04/03/AcbLcQ.md.png" alt="AcbLcQ.md.png"></a></li>
+<li>TCP以段为单位发送数据，在TCP三次握手的同时会在确定“最大消息长度”（MSS），理想状态下为不会被IP协议分片的最大数据长度。</li>
+<li>利用窗口控制提高速度。<a href="https://imgchr.com/i/Acqruj" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/04/03/Acqruj.md.png" alt="Acqruj.md.png"></a>。窗口大小就是指无需等待确认应答而可以继续发送数据的最大值。窗口大小是由接收端决定的。在使用窗口控制后，有少部分ACK消息丢失也不会重发，因为下一个ACK成功发送，就确认了上一个数据是收到了的。</li>
+<li>流控制。在数据接收中，接收端会根据网络状况，和自身处理能力的情况，发送端会不时的向接收端发送窗口探测，请求接收端更新窗口大小。<a href="https://imgchr.com/i/AcOFm9" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/04/03/AcOFm9.md.png" alt="AcOFm9.md.png"></a></li>
+<li>拥塞控制。TCP采用慢启动的方式。<a href="https://imgchr.com/i/AcONp8" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/04/03/AcONp8.md.png" alt="AcONp8.md.png"></a></li>
+</ul>
+</li>
+</ul>
 
       
 
@@ -224,6 +298,21 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">TCP/IP</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -274,7 +363,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/03/10/hello-world/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/04/03/TCPIP学习笔记三/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -288,15 +377,11 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/03/11/tags- 技术/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          第一次编写博客的测试
-        
-      </div>
-    </a>
   
+    <a href="/2019/03/29/TCPIP学习笔记二/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">TCP/IP学习笔记(二)</div>
+      <i class="icon-circle-right"></i>
+    </a>
   
 </nav>
 
