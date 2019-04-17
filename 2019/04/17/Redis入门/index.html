@@ -6,31 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>TCP/IP学习笔记(三) | 唐才伟的个人博客</title>
+  <title>Redis入门 | 唐才伟的个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="DNS（域名解析服务）DNS可以将字符串自动转化位具体的IP地址。  ARP（地址解析协议）  以目标IP地址位线索，来定位下一个应该接收数据分包的网络设别对应的MAC地址。ARP只适用于IPv4. 通过广播发送一个ARP请求包，其中含有想要了解MAC地址的IP。同一个链路中的主机接收并解析。如何发现需要解析自己的IP地址对应的MAC地址的话。就将自己的MAC地址加入ARP响应包中。然后把获取到">
-<meta name="keywords" content="技术,TCP&#x2F;IP">
+  <meta name="description" content="RedisRedis是一个开源的使用ANSI C语言编写、遵守BSD协议、支持网络、可基于内存亦可持久化的日志型、Key-Value数据库，  redis支持数据的持久化，可以将内存中的数据存储到磁盘中。 不仅仅支持key-value类型的数据，还支持list，set，zset，hash等数据结构 支持数据的备份  redis的特点 极高的性能，读取速度可达110000次/s；写的速度高达8100">
+<meta name="keywords" content="技术,Redis">
 <meta property="og:type" content="article">
-<meta property="og:title" content="TCP&#x2F;IP学习笔记(三)">
-<meta property="og:url" content="http://yoursite.com/2019/04/03/TCPIP学习笔记三/index.html">
+<meta property="og:title" content="Redis入门">
+<meta property="og:url" content="http://yoursite.com/2019/04/17/Redis入门/index.html">
 <meta property="og:site_name" content="唐才伟的个人博客">
-<meta property="og:description" content="DNS（域名解析服务）DNS可以将字符串自动转化位具体的IP地址。  ARP（地址解析协议）  以目标IP地址位线索，来定位下一个应该接收数据分包的网络设别对应的MAC地址。ARP只适用于IPv4. 通过广播发送一个ARP请求包，其中含有想要了解MAC地址的IP。同一个链路中的主机接收并解析。如何发现需要解析自己的IP地址对应的MAC地址的话。就将自己的MAC地址加入ARP响应包中。然后把获取到">
+<meta property="og:description" content="RedisRedis是一个开源的使用ANSI C语言编写、遵守BSD协议、支持网络、可基于内存亦可持久化的日志型、Key-Value数据库，  redis支持数据的持久化，可以将内存中的数据存储到磁盘中。 不仅仅支持key-value类型的数据，还支持list，set，zset，hash等数据结构 支持数据的备份  redis的特点 极高的性能，读取速度可达110000次/s；写的速度高达8100">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://s2.ax1x.com/2019/04/02/AygKb9.png">
-<meta property="og:image" content="https://s2.ax1x.com/2019/04/02/A6ZEFS.png">
-<meta property="og:image" content="https://s2.ax1x.com/2019/04/03/Ac7X8g.png">
-<meta property="og:image" content="https://s2.ax1x.com/2019/04/03/AcHkPU.png">
-<meta property="og:image" content="https://s2.ax1x.com/2019/04/03/AcHmrR.png">
-<meta property="og:image" content="https://s2.ax1x.com/2019/04/03/AcHddP.png">
-<meta property="og:image" content="https://s2.ax1x.com/2019/04/03/AcbLcQ.md.png">
-<meta property="og:image" content="https://s2.ax1x.com/2019/04/03/Acqruj.md.png">
-<meta property="og:image" content="https://s2.ax1x.com/2019/04/03/AcOFm9.md.png">
-<meta property="og:image" content="https://s2.ax1x.com/2019/04/03/AcONp8.md.png">
-<meta property="og:updated_time" content="2019-04-03T08:00:26.486Z">
+<meta property="og:image" content="https://s2.ax1x.com/2019/04/17/Az13Xd.png">
+<meta property="og:updated_time" content="2019-04-17T08:41:59.478Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="TCP&#x2F;IP学习笔记(三)">
-<meta name="twitter:description" content="DNS（域名解析服务）DNS可以将字符串自动转化位具体的IP地址。  ARP（地址解析协议）  以目标IP地址位线索，来定位下一个应该接收数据分包的网络设别对应的MAC地址。ARP只适用于IPv4. 通过广播发送一个ARP请求包，其中含有想要了解MAC地址的IP。同一个链路中的主机接收并解析。如何发现需要解析自己的IP地址对应的MAC地址的话。就将自己的MAC地址加入ARP响应包中。然后把获取到">
-<meta name="twitter:image" content="https://s2.ax1x.com/2019/04/02/AygKb9.png">
+<meta name="twitter:title" content="Redis入门">
+<meta name="twitter:description" content="RedisRedis是一个开源的使用ANSI C语言编写、遵守BSD协议、支持网络、可基于内存亦可持久化的日志型、Key-Value数据库，  redis支持数据的持久化，可以将内存中的数据存储到磁盘中。 不仅仅支持key-value类型的数据，还支持list，set，zset，hash等数据结构 支持数据的备份  redis的特点 极高的性能，读取速度可达110000次/s；写的速度高达8100">
+<meta name="twitter:image" content="https://s2.ax1x.com/2019/04/17/Az13Xd.png">
   
     <link rel="alternative" href="/atom.xml" title="唐才伟的个人博客" type="application/atom+xml">
   
@@ -168,97 +159,136 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-TCPIP学习笔记三" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-Redis入门" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      TCP/IP学习笔记(三)
+      Redis入门
     </h1>
   
 
         
-        <a href="/2019/04/03/TCPIP学习笔记三/" class="archive-article-date">
-  	<time datetime="2019-04-03T07:58:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-03</time>
+        <a href="/2019/04/17/Redis入门/" class="archive-article-date">
+  	<time datetime="2019-04-17T08:40:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-17</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <ul>
-<li><p>DNS（域名解析服务）<br>DNS可以将字符串自动转化位具体的IP地址。</p>
-</li>
-<li><p>ARP（地址解析协议）</p>
+        <h3><span id="redis">Redis</span></h3><p>Redis是一个开源的使用ANSI C语言编写、遵守BSD协议、支持网络、可基于内存亦可持久化的日志型、Key-Value数据库，</p>
 <ul>
-<li>以目标IP地址位线索，来定位下一个应该接收数据分包的网络设别对应的MAC地址。ARP只适用于IPv4.</li>
-<li>通过广播发送一个ARP请求包，其中含有想要了解MAC地址的IP。同一个链路中的主机接收并解析。如何发现需要解析自己的IP地址对应的MAC地址的话。就将自己的MAC地址加入ARP响应包中。然后把获取到的MAC地址与IP建立映射。然后缓存一段时间。</li>
+<li>redis支持数据的持久化，可以将内存中的数据存储到磁盘中。</li>
+<li>不仅仅支持key-value类型的数据，还支持list，set，zset，hash等数据结构</li>
+<li>支持数据的备份</li>
 </ul>
-</li>
+<h3><span id="redis的特点">redis的特点</span></h3><ul>
+<li>极高的性能，读取速度可达110000次/s；写的速度高达81000次/s</li>
+<li>支持多种数据类型</li>
+<li>所有操作都是原子性的（包括多步操作）</li>
+<li>其它特性</li>
 </ul>
-<ul>
-<li><p>RARP</p>
-<ul>
-<li>从MAC地址获取IP地址的一种协议。</li>
-<li>为了解决一些潜入式设别无法通过DHCP获得自己的IP地址的问题。所以需要建立一个RARP服务器。</li>
-<li><img src="https://s2.ax1x.com/2019/04/02/AygKb9.png" alt="AygKb9.png"></li>
+<h3><span id="redis的数据类型和相关命令">redis的数据类型和相关命令</span></h3><ul>
+<li>string 字符串</li>
 </ul>
-</li>
-<li><p>NAT技术</p>
-<ul>
-<li>实在本地网络中使用私有地址，在连接互联网式转而使用全局IP地址的技术。</li>
-<li>内部有一张进行转换的地址的表。</li>
-<li>NAPT为了解决私有网络内部多台机器同时于玩不通信时，可能会造成全局IP地址不够用。NAPT采用将端口号一起转换的方式来解决这个问题。</li>
-<li><img src="https://s2.ax1x.com/2019/04/02/A6ZEFS.png" alt="A6ZEFS.png"></li>
-<li>无法从NAT外部向内部服务器建立连接。</li>
-<li>转换表的生成和转换操作都会产生一定的开销。</li>
-<li>通信过程中如果NAT遇到异常所有的TCP连接都会被重置。即使做了容灾备份也无法避免TCP连接的重置。</li>
-</ul>
-</li>
-</ul>
+<p>一个键最大可以存512mb<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">//存入</span><br><span class="line">set mykey &quot;hello word&quot;</span><br><span class="line">//取出</span><br><span class="line">get mykey</span><br><span class="line">//返回key中的字符串的子字符串</span><br><span class="line">getrange key start end</span><br><span class="line">// 将key的值设为value并返回旧值</span><br><span class="line">getset key value</span><br><span class="line">//对key所存储的字符串，获取指定偏移量上的位</span><br><span class="line">getbit key offset</span><br><span class="line">//获取所有给定key的值</span><br><span class="line">mget key1 [key2...]</span><br><span class="line">//对所有key存储的字符串，设置或清除指定偏移量上的位</span><br><span class="line">setbit key offset value</span><br><span class="line">//将值value关联到key，并将key的过期时间设为seconds</span><br><span class="line">setex key seconds value</span><br><span class="line">//只有在key不存在时设置key的值</span><br><span class="line">setnx key value</span><br><span class="line">//返回key所存储的字符串的长度</span><br><span class="line">srtlen key</span><br><span class="line">//将key中存储的值加一</span><br><span class="line">incr key</span><br><span class="line">//将key所存储的值加上给定的增量值</span><br><span class="line">incrbyfloat key increment</span><br><span class="line">//在key后面追加字符串</span><br><span class="line">append key value</span><br></pre></td></tr></table></figure></p>
 <a id="more"></a>
 <ul>
-<li><p>IP隧道<br>为了解决IPv6数据包在IPv4网络中传递的问题。可以采用IP隧道的原理，将整个IPv6数据包作为数据体，并加上Ipv4的首部。就可以在IPv4的网络中传递Ipv6的数据包了。</p>
-</li>
-<li><p>TCP协议</p>
+<li>hash 哈希<br>适合存储对象</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">// 存入</span><br><span class="line">hmset myhash mykey01 &quot;hello&quot; </span><br><span class="line">//取出</span><br><span class="line">hget myhash mykey01</span><br><span class="line">// 获取存储在哈希表中指定key的所有字段和值</span><br><span class="line">hgetall key</span><br><span class="line">//为哈希表key中的指定字段的整数值加上增量increment</span><br><span class="line">hincrby key field incremtn</span><br><span class="line">//获取所有哈希表中的字段</span><br><span class="line">hkeys key</span><br><span class="line">//获取哈希表中字段的数量</span><br><span class="line">hlen key</span><br><span class="line">// 将哈希表key中的字段field的值设为value</span><br><span class="line">heset key field value</span><br><span class="line">//只有在字符按field不存在时，设置哈希表字段的值</span><br><span class="line">hsetnx  key field value</span><br><span class="line">// 获取哈希表中所有的值</span><br><span class="line">hvals ksy</span><br></pre></td></tr></table></figure>
 <ul>
-<li>时面向连接的，可靠的流协议。是传输层协议。</li>
-<li>为了提供可靠的传输，实行“顺序控制”或“重发控制”，‘流量控制’、‘拥塞控制’、‘拥塞控制’、提高网络的利用率。</li>
-</ul>
+<li><p>list 列表<br>列表是字符串列表，按照存入顺序排序</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">//从头部插入</span><br><span class="line">lpush mylist hello</span><br><span class="line">//从尾部追加</span><br><span class="line">rpush mylist word</span><br><span class="line">//列出</span><br><span class="line">lange mylist 0 10</span><br><span class="line">//移除并获取第一个元素 ，如果没有元素会阻塞列表直到等待超时会发现可弹出的元素为止</span><br><span class="line">blpop key1 [key] timeout</span><br><span class="line">//移除并获取列表的最后一个元素。如果没有元素则会阻塞列表，直到等待时间超时，或发现可弹出的元素为止。</span><br><span class="line">brpop key1 [key2] timeout</span><br><span class="line">//从列表中弹出一值，并将弹出的元素插入到另一个列表中并返回它；如果没有元素则会阻塞直到超时，或发现可以弹出的元素</span><br><span class="line">brpoplpush source destination timeout</span><br><span class="line">//通过元素的索引获取列表中的元素</span><br><span class="line">lindex key index</span><br><span class="line">//获取列表的长度</span><br><span class="line">llen key</span><br><span class="line">//移除列表的第一个原元素</span><br><span class="line">lpop  key</span><br><span class="line">//将一个值插入到已存在的列表的头部</span><br><span class="line">lpushx key value</span><br><span class="line">//获取列表指定范围内的元素</span><br><span class="line">lrange key start stop</span><br><span class="line">//移除列表元素</span><br><span class="line">lrem key count</span><br><span class="line">//通过索引设置列表元素的值</span><br><span class="line">lset key index value</span><br><span class="line">//让列表只保留指定区间的元素</span><br><span class="line">Ltrim key start stop</span><br><span class="line">//移除列表的最后一个元素</span><br><span class="line">rpop key</span><br><span class="line">//移除列表的最后一个元素，并将该元素添加到另一个列表并防护</span><br><span class="line">rpoplpush source destination</span><br><span class="line">//为列表章添加多个值</span><br><span class="line">rpush key value1 [value2]</span><br><span class="line">//为已存在的列表添加值</span><br><span class="line">rpushhx key value</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>UDP协议</p>
+<li><p>set 集合<br>是通过哈希表实现的，所以添加，删除，查找的复杂度都是O(1)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">//加入</span><br><span class="line">sadd myset aaa</span><br><span class="line">sadd myset bbb</span><br><span class="line">//列出</span><br><span class="line">smembers myset</span><br><span class="line">//获取结合的成员数</span><br><span class="line">scard key</span><br><span class="line">//返回指定结合的差集</span><br><span class="line">sdiff key1 [key2]</span><br><span class="line">//返回给定集合的差集并存储在destination中</span><br><span class="line">sinterstore destionation key1 [key2]</span><br><span class="line">//判断memeber元素是否是集合key的成员</span><br><span class="line">sismember key member</span><br><span class="line">//将member从source结合移动到destination集合</span><br><span class="line">smove source destionation member</span><br><span class="line">//移除并返回集合中的一个随机元素</span><br><span class="line">spop key</span><br><span class="line">//返回集合中的一个或多个随机数</span><br><span class="line">srandmember key [count]</span><br><span class="line">//返回给定集合的并集</span><br><span class="line">sunion key1 [key2]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>zset 有序集合<br>不允许重复的成员，每个成员都关联一个double类型的分数。按分数，从小到大排序</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line">//加入</span><br><span class="line">zadd mysset 0 aaa</span><br><span class="line">zadd mysset 1 bbb</span><br><span class="line">//列出</span><br><span class="line">zrangebysocre mysset 0 10</span><br><span class="line"></span><br><span class="line">//向有序集合添加一个或多个成员，或者更新已存在成员的分数</span><br><span class="line">ZADD key score1 member1 [score2 member2]</span><br><span class="line"></span><br><span class="line">//获取有序集合的成员数</span><br><span class="line">ZCARD key</span><br><span class="line"></span><br><span class="line">//计算在有序集合中指定区间分数的成员数</span><br><span class="line">ZCOUNT key min max</span><br><span class="line"></span><br><span class="line">//有序集合中对指定成员的分数加上增量 increment</span><br><span class="line">ZINCRBY key increment member</span><br><span class="line"></span><br><span class="line">//计算给定的一个或多个有序集的交集并将结果集存储在新的有序集合 key 中</span><br><span class="line">ZINTERSTORE destination numkeys key [key ...]</span><br><span class="line"></span><br><span class="line">//在有序集合中计算指定字典区间内成员数量</span><br><span class="line">ZLEXCOUNT key min max</span><br><span class="line"></span><br><span class="line">//通过索引区间返回有序集合成指定区间内的成员</span><br><span class="line">ZRANGE key start stop [WITHSCORES]</span><br><span class="line"></span><br><span class="line">//通过字典区间返回有序集合的成员</span><br><span class="line">ZRANGEBYLEX key min max [LIMIT offset count]</span><br><span class="line"></span><br><span class="line">//通过分数返回有序集合指定区间内的成员</span><br><span class="line">ZRANGEBYSCORE key min max [WITHSCORES] [LIMIT]</span><br><span class="line"></span><br><span class="line">//返回有序集合中指定成员的索引</span><br><span class="line">ZRANK key member</span><br><span class="line"></span><br><span class="line">//移除有序集合中的一个或多个成员</span><br><span class="line">ZREM key member [member ...]</span><br><span class="line"></span><br><span class="line">//移除有序集合中给定的字典区间的所有成员</span><br><span class="line">ZREMRANGEBYLEX key min max</span><br><span class="line"></span><br><span class="line">//移除有序集合中给定的排名区间的所有成员</span><br><span class="line">ZREMRANGEBYRANK key start stop</span><br><span class="line"></span><br><span class="line">//移除有序集合中给定的分数区间的所有成员</span><br><span class="line">ZREMRANGEBYSCORE key min max</span><br><span class="line"></span><br><span class="line">//返回有序集中指定区间内的成员，通过索引，分数从高到底</span><br><span class="line">ZREVRANGE key start stop [WITHSCORES]</span><br><span class="line"></span><br><span class="line">//返回有序集中指定分数区间内的成员，分数从高到低排序</span><br><span class="line">ZREVRANGEBYSCORE key max min [WITHSCORES]</span><br><span class="line"></span><br><span class="line">//返回有序集合中指定成员的排名，有序集成员按分数值递减(从大到小)排序</span><br><span class="line">ZREVRANK key member</span><br><span class="line"></span><br><span class="line">//返回有序集中，成员的分数值</span><br><span class="line">ZSCORE key member</span><br><span class="line"></span><br><span class="line">//计算给定的一个或多个有序集的并集，并存储在新的 key 中</span><br><span class="line">ZUNIONSTORE destination numkeys key [key ...]</span><br><span class="line"></span><br><span class="line">//迭代有序集合中的元素（包括元素成员和元素分值）</span><br><span class="line">ZSCAN key cursor [MATCH pattern] [COUNT count]</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3><span id="redis键的管理">redis键的管理</span></h3><ul>
+<li><p>删除key</p>
+<blockquote>
+<p>del key</p>
+</blockquote>
+</li>
+<li><p>序列化指定的key，并返回杯序列化的值</p>
+<blockquote>
+<p>dump key</p>
+</blockquote>
+</li>
+<li><p>检查给定的ksy是否存在</p>
+<blockquote>
+<p>exists key</p>
+</blockquote>
+</li>
+<li><p>给指定的key设置过期时间（秒）</p>
+<blockquote>
+<p>expire key seconds</p>
+</blockquote>
+</li>
+<li><p>给指定的key设置过期时间戳</p>
+<blockquote>
+<p>expireat key timestamp</p>
+</blockquote>
+</li>
+<li><p>查找符合给定模式的key</p>
+<blockquote>
+<p>keys pattern</p>
+</blockquote>
+</li>
+<li><p>移动key到指定的数据库</p>
+<blockquote>
+<p>move key db</p>
+</blockquote>
+</li>
+<li><p>persist key</p>
+<blockquote>
+<p>移除key的过期时间</p>
+</blockquote>
+</li>
+<li><p>以毫秒为单位返回key的剩余的过期时间</p>
+<blockquote>
+<p>pttl key</p>
+</blockquote>
+</li>
+<li><p>以秒为单位返回key的剩余的过期时间</p>
+<blockquote>
+<p>ttl key</p>
+</blockquote>
+</li>
+<li><p>修改key的名称 </p>
+<blockquote>
+<p>rename key newkey</p>
+</blockquote>
+</li>
+<li><p>只当newkey不存在的时候改名</p>
+<blockquote>
+<p>renamenx key newkey</p>
+</blockquote>
+</li>
+<li><p>返回key所存储的值的类型</p>
+<blockquote>
+<p>type key</p>
+</blockquote>
+</li>
+</ul>
+<h3><span id="redis-hyperloglog">Redis HyperLogLog</span></h3><p>用来做基数统计。其优点在于当数据数据的量或体积很大的时候，计算基数的空间是固定的，并且是很小的。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//添加指定元素到 HyperLogLog 中。</span><br><span class="line">PFADD key element [element ...]</span><br><span class="line"></span><br><span class="line">//返回给定 HyperLogLog 的基数估算值。</span><br><span class="line">PFCOUNT key [key ...]</span><br><span class="line"></span><br><span class="line">//将多个 HyperLogLog 合并为一个 HyperLogLog </span><br><span class="line">PFMERGE destkey sourcekey [sourcekey ...]</span><br></pre></td></tr></table></figure></p>
+<h3><span id="发布订阅">发布订阅</span></h3><p>redis发布订阅是一种消息通信模式；发送者发送消息，接受者接收消息。redis客户端可以订阅任意数量的频道。<br><img src="https://s2.ax1x.com/2019/04/17/Az13Xd.png" alt="Az13Xd.png"></p>
+<h3><span id="redis事务">redis事务</span></h3><p>一个事务从开始到执行会经历以下三个阶段</p>
 <ul>
-<li>UDP是具有不可靠型的数据包协议。不能保证消息一定会到达。</li>
+<li>开始事务</li>
+<li>命令入队</li>
+<li>执行事务</li>
 </ul>
-</li>
-<li><p>端口号<br>端口号用来识别同一台计算机中进行通信的不同应用程序。因此也被称为程序地址。</p>
-</li>
-</ul>
-<p>TCP/IP或UDP/IP通常采用 源IP地址，目标IP地址，协议号，源端口号，目标端口号来标识一个通信。</p>
-<ul>
-<li><p>UDP</p>
-<ul>
-<li>UDP协议不提供复杂的控制机制。利用IP提供不可靠的无连接的通信。它在收到数据后，立刻发送。UDP协议不会进行流量控制和重发，包到达的顺序也无法保证。</li>
-<li>UDP协议简单又高效。多用于实时性的，数据准确性要求不高的网络通信。</li>
-</ul>
-</li>
-<li><p>TCP协议</p>
-<ul>
-<li>它是一种面向连接的可靠的传输层协议。它可以流量控制，重发控制，顺序控制等。</li>
-<li>它通过检验和，序列号，确认应答，重发控制，连接管理以及窗口控制等来实现可靠性传输。</li>
-<li>通过序列号于确认应答提高可靠性<img src="https://s2.ax1x.com/2019/04/03/Ac7X8g.png" alt="Ac7X8g.png"> <em>确认是ACK，否认是NACK</em><img src="https://s2.ax1x.com/2019/04/03/AcHkPU.png" alt="AcHkPU.png"><a href="https://imgchr.com/i/AcHmrR" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/04/03/AcHmrR.png" alt="AcHmrR.png"></a></li>
-<li>通过序列号与确认应答号。应答号就是自己下一步需要接收的数据的序列号<a href="https://imgchr.com/i/AcHddP" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/04/03/AcHddP.png" alt="AcHddP.png"></a></li>
-<li>重发超时的时间计算。每次发包时都会计算往返时间及其偏差。将往返时间和偏差相加结果略大的值就是重发超时的值。</li>
-<li>TCP连接管理。在通信进行前要先建立连接，在通信结束时会进行断开连接。<a href="https://imgchr.com/i/AcbLcQ" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/04/03/AcbLcQ.md.png" alt="AcbLcQ.md.png"></a></li>
-<li>TCP以段为单位发送数据，在TCP三次握手的同时会在确定“最大消息长度”（MSS），理想状态下为不会被IP协议分片的最大数据长度。</li>
-<li>利用窗口控制提高速度。<a href="https://imgchr.com/i/Acqruj" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/04/03/Acqruj.md.png" alt="Acqruj.md.png"></a>。窗口大小就是指无需等待确认应答而可以继续发送数据的最大值。窗口大小是由接收端决定的。在使用窗口控制后，有少部分ACK消息丢失也不会重发，因为下一个ACK成功发送，就确认了上一个数据是收到了的。</li>
-<li>流控制。在数据接收中，接收端会根据网络状况，和自身处理能力的情况，发送端会不时的向接收端发送窗口探测，请求接收端更新窗口大小。<a href="https://imgchr.com/i/AcOFm9" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/04/03/AcOFm9.md.png" alt="AcOFm9.md.png"></a></li>
-<li>拥塞控制。TCP采用慢启动的方式。<a href="https://imgchr.com/i/AcONp8" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/04/03/AcONp8.md.png" alt="AcONp8.md.png"></a></li>
-</ul>
-</li>
-</ul>
+<p>以multi开始一个事务，以exec结束一个事务。</p>
+<h4><span id="相关的事务命理">相关的事务命理</span></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">//取消事务</span><br><span class="line">discard</span><br><span class="line"></span><br><span class="line">//执行事务块内的名利</span><br><span class="line">exec</span><br><span class="line"></span><br><span class="line">//标记一个事务块的开始</span><br><span class="line">multi</span><br><span class="line"></span><br><span class="line">//取消watch命令对所有key的监视</span><br><span class="line">unwatch</span><br><span class="line"></span><br><span class="line">//监视指定的key，如果在执行事务之前这些key杯其它名利改动则事务被打断</span><br><span class="line">watch</span><br></pre></td></tr></table></figure>
+<h3><span id="redis连接">redis连接</span></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">//验证密码是否正确</span><br><span class="line">auth password</span><br><span class="line"></span><br><span class="line">//打印字符串</span><br><span class="line">echo message</span><br><span class="line"></span><br><span class="line">//查看服务是否运行</span><br><span class="line">ping </span><br><span class="line"></span><br><span class="line">//关闭当前连接</span><br><span class="line">quit</span><br><span class="line"></span><br><span class="line">//切换到指定的数据库</span><br><span class="line">select index</span><br></pre></td></tr></table></figure>
 
       
 
@@ -307,7 +337,7 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">TCP/IP</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Redis</a>
         		</li>
       		
 		</ul>
@@ -363,7 +393,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/04/03/TCPIP学习笔记三/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/04/17/Redis入门/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -377,18 +407,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/04/06/汇编学习笔记一/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          汇编学习笔记一
-        
-      </div>
-    </a>
   
-  
-    <a href="/2019/03/29/TCPIP学习笔记二/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">TCP/IP学习笔记(二)</div>
+    <a href="/2019/04/10/MySQL技术内幕学习笔记二/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">MySQL技术内幕学习笔记二</div>
       <i class="icon-circle-right"></i>
     </a>
   

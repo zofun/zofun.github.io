@@ -180,17 +180,17 @@
         <blockquote>
 <p>git是一个开源的分布式版本控制系统，可以有效、高速的处理从很小到非常大的项目版本管理工作。</p>
 </blockquote>
-<h3 id="如何理解git是一个分布式版本控制系统"><a href="#如何理解git是一个分布式版本控制系统" class="headerlink" title="如何理解git是一个分布式版本控制系统"></a>如何理解git是一个分布式版本控制系统</h3><ul>
+<h3><span id="如何理解git是一个分布式版本控制系统">如何理解git是一个分布式版本控制系统</span></h3><ul>
 <li><p>分布式<br>  区别于集中式的版本控制系统典型的如SVN。分布式是指没有中央服务器，每个人的本地都有一份完整的项目文件。而集中式版本控制系统，有中央服务器，每个人从中央服务器获取一份项目文件，在本地开发，开发完成后提交给中央服务器。分布式版本控制系统的优点在于网络依赖小，只有在需要合并分支时才需要网络；本地文件存储采用元数据，体积小；分支操作互不影响。</p>
 </li>
 <li><p>版本控制系统<br>  版本控制是指在软件开发过程中各种代码、配置文件和说明文档等文件变更的管理。</p>
 </li>
 </ul>
-<h3 id="Git工作区、暂存区和版本库"><a href="#Git工作区、暂存区和版本库" class="headerlink" title="Git工作区、暂存区和版本库"></a>Git工作区、暂存区和版本库</h3><pre><code>Git工作区通俗的讲就是除了隐藏文件夹.git以外的所有文件和文件夹。我们平时直接操作的文件就是存放在Git工作区的文件。
+<h3><span id="git工作区-暂存区和版本库">Git工作区、暂存区和版本库</span></h3><pre><code>Git工作区通俗的讲就是除了隐藏文件夹.git以外的所有文件和文件夹。我们平时直接操作的文件就是存放在Git工作区的文件。
 Git暂存区是指隐藏文件夹.git中的index文件。我们也可以把暂存区叫做索引
 Git的版本库就是.git文件夹。
 *理解Git的工作区、暂存区和版本库是理解git命令的关键*
-</code></pre><h3 id="Git的基本操作"><a href="#Git的基本操作" class="headerlink" title="Git的基本操作"></a>Git的基本操作</h3><ul>
+</code></pre><h3><span id="git的基本操作">Git的基本操作</span></h3><ul>
 <li><p>创建仓库<br>  创建仓库，通俗的讲就是生成一个隐藏文件夹.git。我们可以使用如下名命令：</p>
 <p>  git init </p>
 </li>
@@ -229,7 +229,7 @@ Git的版本库就是.git文件夹。
 <li>删除工作区和暂存区中的文件</li>
 </ul>
 <pre><code>git rm -f 文件名或文件夹
-</code></pre><h2 id="Git分支管理"><a href="#Git分支管理" class="headerlink" title="Git分支管理"></a>Git分支管理</h2><p>使用分支可以将人们从开发主线上分离开来。在不影响开发主线上继续工作。比如，你需要尝试开发一个不一定会上线的新功能时，你需要在开发主线之外的分支上工作，防止影响开发主线。</p>
+</code></pre><h2><span id="git分支管理">Git分支管理</span></h2><p>使用分支可以将人们从开发主线上分离开来。在不影响开发主线上继续工作。比如，你需要尝试开发一个不一定会上线的新功能时，你需要在开发主线之外的分支上工作，防止影响开发主线。</p>
 <ul>
 <li>查询本地存在的分支</li>
 </ul>
@@ -255,7 +255,7 @@ Git的版本库就是.git文件夹。
 </ul>
 <pre><code>git branch -d &lt;分支名&gt;
 </code></pre><p>删除指定分支。不能删除当前工作的分支。</p>
-<h3 id="Git其它操作"><a href="#Git其它操作" class="headerlink" title="Git其它操作"></a>Git其它操作</h3><ul>
+<h3><span id="git其它操作">Git其它操作</span></h3><ul>
 <li>查看提交历史</li>
 </ul>
 <pre><code>git log
@@ -448,6 +448,8 @@ Git的版本库就是.git文件夹。
   
 
 
+
+
           </div>
         </div>
       </div>
@@ -479,7 +481,7 @@ Git的版本库就是.git文件夹。
 		toc_hide_index: true,
 		root: "/",
 		innerArchive: true,
-		showTags: false
+		showTags: true
 	}
 </script>
 
@@ -574,15 +576,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">innodb引擎</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">TCP/IP</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">IP协议</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -594,11 +596,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">汇编</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">innodb引擎</a>
+                <a href="javascript:void(0)" class="js-tag color1">Redis</a>
               </li>
             
             <div class="clearfix"></div>
@@ -650,11 +656,11 @@ MathJax.Hub.Queue(function() {
         <ul class="search-ul">
           
             <li class="search-li">
-              <a href="https://github.com/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接1</a>
+              <a href="https://github.com/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>GitHub</a>
             </li>
           
             <li class="search-li">
-              <a href="http://www.swpu.edu.cn/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接2</a>
+              <a href="http://www.swpu.edu.cn/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>swpu</a>
             </li>
           
         </ul>
