@@ -6,19 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Hello World | 唐才伟的个人博客</title>
+  <title>MySQL技术内幕学习笔记四 | 唐才伟的个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+  <meta name="description" content="视图视图是基于基表的虚表，它由sql查询来定义，可以当作表使用，但是视图中的数据没有实际的物理存储。视图可以作为安全层使用。其作用在于一些应用程序本身并不关心基表，只需要按照视图定义来存取数据。 oracle提供的物化视图Oracle支持物化视图，其不再是虚表，而是基于基表实际存在的表。物化视图可以用于预先计算并保存多表的链接或聚集等耗时操作的结果。在SQL server数据库中称为索引视图。在m">
+<meta name="keywords" content="技术,MySQL,innodb存储引擎">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://yoursite.com/2019/03/10/hello-world/index.html">
+<meta property="og:title" content="MySQL技术内幕学习笔记四">
+<meta property="og:url" content="http://yoursite.com/2019/04/28/MySQL技术内幕学习笔记四/index.html">
 <meta property="og:site_name" content="唐才伟的个人博客">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:description" content="视图视图是基于基表的虚表，它由sql查询来定义，可以当作表使用，但是视图中的数据没有实际的物理存储。视图可以作为安全层使用。其作用在于一些应用程序本身并不关心基表，只需要按照视图定义来存取数据。 oracle提供的物化视图Oracle支持物化视图，其不再是虚表，而是基于基表实际存在的表。物化视图可以用于预先计算并保存多表的链接或聚集等耗时操作的结果。在SQL server数据库中称为索引视图。在m">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-10T08:34:40.632Z">
+<meta property="og:image" content="https://s2.ax1x.com/2019/04/27/EK1s7d.md.jpg">
+<meta property="og:updated_time" content="2019-04-28T12:38:01.479Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="twitter:title" content="MySQL技术内幕学习笔记四">
+<meta name="twitter:description" content="视图视图是基于基表的虚表，它由sql查询来定义，可以当作表使用，但是视图中的数据没有实际的物理存储。视图可以作为安全层使用。其作用在于一些应用程序本身并不关心基表，只需要按照视图定义来存取数据。 oracle提供的物化视图Oracle支持物化视图，其不再是虚表，而是基于基表实际存在的表。物化视图可以用于预先计算并保存多表的链接或聚集等耗时操作的结果。在SQL server数据库中称为索引视图。在m">
+<meta name="twitter:image" content="https://s2.ax1x.com/2019/04/27/EK1s7d.md.jpg">
   
     <link rel="alternative" href="/atom.xml" title="唐才伟的个人博客" type="application/atom+xml">
   
@@ -156,35 +159,60 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-hello-world" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-MySQL技术内幕学习笔记四" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Hello World
+      MySQL技术内幕学习笔记四
     </h1>
   
 
         
-        <a href="/2019/03/10/hello-world/" class="archive-article-date">
-  	<time datetime="2019-03-10T08:34:40.632Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-10</time>
+        <a href="/2019/04/28/MySQL技术内幕学习笔记四/" class="archive-article-date">
+  	<time datetime="2019-04-28T12:38:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-28</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2><span id="quick-start">Quick Start</span></h2><h3><span id="create-a-new-post">Create a new post</span></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3><span id="run-server">Run server</span></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3><span id="generate-static-files">Generate static files</span></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3><span id="deploy-to-remote-sites">Deploy to remote sites</span></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+        <h3><span id="视图">视图</span></h3><p>视图是基于基表的虚表，它由sql查询来定义，可以当作表使用，但是视图中的数据没有实际的物理存储。视图可以作为安全层使用。<br>其作用在于一些应用程序本身并不关心基表，只需要按照视图定义来存取数据。</p>
+<h4><span id="oracle提供的物化视图">oracle提供的物化视图</span></h4><p>Oracle支持物化视图，其不再是虚表，而是基于基表实际存在的表。物化视图可以用于预先计算并保存多表的链接或聚集等耗时操作的结果。在SQL server数据库中称为索引视图。在mysql 中可以使用基表加触发器的策略来实现“物化视图”。</p>
+<h3><span id="分区表">分区表</span></h3><p>innodb存储引擎支持水平分区，主要用于数据库的高可用管理。</p>
+<p>MySQL数据库支持以下几种分区</p>
+<ul>
+<li>range分区<br>行数据基于给定分一个连续区间的列值杯放入分区</li>
+<li>list分区<br>行数据基于一些离散的值被放入分区。</li>
+<li>hash分区<br>根据用户自定义的表达式的返回值进行分区（返回值不能是负，必须是整数）</li>
+<li>key分区<br>根据mysql提供的哈希函数进行分区</li>
+</ul>
+<p><em>如果表中存在唯一索引或主键那么分区列必须是其的一部分</em><br><a id="more"></a></p>
+<h4><span id="子分区">子分区</span></h4><p>子分区就是在分区的基础上再进行分区。MySQL支持在range和list分区上再进行hash或key子分区。<br><em>每个子分区的数量必须相等</em></p>
+<h3><span id="索引与算法">索引与算法</span></h3><p>innodb支持几种常见的索引</p>
+<ul>
+<li>B+树索引</li>
+<li>全文索引</li>
+<li>哈希索引</li>
+</ul>
+<p><em>innodb支持的哈希索引是自适应的，储存引擎或根据表的使用情况自动为表生成哈希索引，不能认为干预</em></p>
+<h4><span id="b树">B+树</span></h4><p><a href="https://imgchr.com/i/EK1s7d" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/04/27/EK1s7d.md.jpg" alt="EK1s7d.md.jpg"></a><br><em>B+树相关的定义和算法较为复杂，以后专门搞一篇B+树相关的笔记</em></p>
+<h4><span id="聚集索引">聚集索引</span></h4><p>innodb存储引擎将表中的数据按照主键顺序进行存放的。聚集索引就是根据每张表的主键构造一个B+树，叶子节点存放整张表的行记录数据。聚集索引的叶子节点也被称为数据页。在多数情况下查询器优化倾向于采用聚集索引。</p>
+<p>聚集索引在物理存储上是不连续的，但在逻辑上是连续的。聚集索引子在排序查找和范围查找是分非常高效的。</p>
+<h4><span id="辅助索引">辅助索引</span></h4><p>辅助索引有叫做非聚集索引。辅助索引的叶子节点并不包含完整的行数据。叶子节点除了包括键值外谋害包含了指向完整行数据的书签。辅助索引的书签就是相应的行数据的聚集索引键。</p>
+<p>辅助索引的存在并不会影响聚集索引，所以可以有多个辅助索引。</p>
+<p>什么时候添加B+树索引<br>访问表中很少的一部分时使用B+树索引才有意义。对于低选择性的字段，不适合使用B+树索引。<br>通过查看列的Cardinality来观察所以是否时高选择性的。Cardinality表示索引中不从夫记录数量的预估值。建立索引的前提时列中的数据时高选择性的。</p>
+<h3><span id="b树索引的使用">B+树索引的使用</span></h3><h4><span id="联合索引">联合索引</span></h4><p>联合索引是指队表上的多个列进行索引。联合索引也时一颗B+树，不同的是联合索引的键值的数量是大于2的。</p>
+<h4><span id="覆盖索引">覆盖索引</span></h4><p>即直接可以从辅助索引中就可以查询到想要的记录，而不需要查询聚集索引中的记录。使用覆盖索引的一个好处就是辅助索引不包含整行记录的说有信息，故其大小要远小于聚集索引，减少了IO操作的次数。</p>
+<h3><span id="multi-range-read优化">Multi-Range Read优化</span></h3><p>Multi-Range Read优化的目的是减少离散的读取，并将随机访问转化为较为顺序阿数据访问。<br>MRR优化的好处：</p>
+<ul>
+<li>MRR使得数据的访问变得顺序，在辅助查询索引时，首先根据得到的查询结果，按照主键的进行排序，并按照主键的顺序进行书签查找。</li>
+<li>减少缓冲池中页被替换的次数</li>
+<li>批量处理队键值的查询操作</li>
+</ul>
+<h3><span id="index-condition-pushdown优化">index condition pushdown优化</span></h3><p>在使用了icp优化后，mysql数据库在根据where条件进行过滤记录时，会在取出索引的同时，判断是否可以进行where条件的过滤，将where的部分过滤操作放在了储存引擎层。</p>
 
       
 
@@ -224,6 +252,25 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">innodb存储引擎</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -274,7 +321,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/03/10/hello-world/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/04/28/MySQL技术内幕学习笔记四/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -288,15 +335,11 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/03/11/tags- 技术/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          第一次编写博客的测试
-        
-      </div>
-    </a>
   
+    <a href="/2019/04/22/MySQL技术内幕学习笔记三/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">MySQL技术内幕学习笔记三</div>
+      <i class="icon-circle-right"></i>
+    </a>
   
 </nav>
 
