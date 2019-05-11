@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="个人博客">
 <meta property="og:description" content="正则表达式中的字符分类普通字符普通字符包括没有显示指定为元字符的所有可打印和不可打印字符。这包括所有大写和小写字母，所有数字，所有标点符号和一些其它符号。  非打印字符非打印字符也可以是正则表达式的一部分。    \cx \f \n \r \s \S \t \v     匹配由x指明的控制字符 匹配一个换页符 匹配一个换行符 匹配一个回车 匹配任何空白字符，入空格，制表符，换页符 匹配任何非空白字">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-05-10T07:26:46.300Z">
+<meta property="og:updated_time" content="2019-05-11T10:00:19.293Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="正则表达式">
 <meta name="twitter:description" content="正则表达式中的字符分类普通字符普通字符包括没有显示指定为元字符的所有可打印和不可打印字符。这包括所有大写和小写字母，所有数字，所有标点符号和一些其它符号。  非打印字符非打印字符也可以是正则表达式的一部分。    \cx \f \n \r \s \S \t \v     匹配由x指明的控制字符 匹配一个换页符 匹配一个换行符 匹配一个回车 匹配任何空白字符，入空格，制表符，换页符 匹配任何非空白字">
@@ -207,10 +207,65 @@
 </tbody>
 </table>
 <hr>
-<h4><span id="特殊字符">特殊字符</span></h4><p>特殊字符就是有特殊含义的字符。<br>| $ | () | * | . | [ | ? | \ | ^ | { | | |<br>| — |— |— |— |— |— |— |— |— |— |— |<br>|匹配输入字符串的结尾位置|标记一个子表达式的开始和结束|匹配前面的子表达式零次货多次|匹配前面的子表达式一次或多次|匹配除换行符之外的任何单字符|标记一个中括号表达式的开始|匹配前面的子表达式零次或一次|将下一个字符标记为特殊字符、或原意字符、或向后应用、或八进制转义字符|匹配输入字符串的开始|标记限定符表达式的开始|表明在两项之间的一个选择|</p>
+<h4><span id="特殊字符">特殊字符</span></h4><p>特殊字符就是有特殊含义的字符。</p>
+<table>
+<thead>
+<tr>
+<th>$</th>
+<th>()</th>
+<th>*</th>
+<th>+</th>
+<th>.</th>
+<th>[</th>
+<th>?</th>
+<th>\</th>
+<th>^</th>
+<th>{</th>
+<th>\</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>匹配输入字符串的结尾位置</td>
+<td>标记一个子表达式的开始和结束</td>
+<td>匹配前面的子表达式零次货多次</td>
+<td>匹配前面的子表达式一次或多次</td>
+<td>匹配除换行符之外的任何单字符</td>
+<td>标记一个中括号表达式的开始</td>
+<td>匹配前面的子表达式零次或一次</td>
+<td>将下一个字符标记为特殊字符、或原意字符、或向后应用、或八进制转义字符</td>
+<td>匹配输入字符串的开始</td>
+<td>标记限定符表达式的开始</td>
+<td>表明在两项之间的一个选择</td>
+</tr>
+</tbody>
+</table>
 <a id="more"></a>
 <hr>
-<h4><span id="限定符">限定符</span></h4><p>限定符用来指定正则表达式的一个给定组件必须要出现多少次才能满足匹配。<br>| * | + | ？| {n} | {n,} | {n,m} |<br>| — | — | — | — | — | — |<br>|匹配前面的子表达式零次后多次|匹配前面的子表达式一次或多次|匹配前面的子表达式零次或一次|n是一个非负整数，匹配确定的n次|n是一个非负整数，至少匹配n次|m和n均是非负整数，至少匹配n次且最多匹配m次|</p>
+<h4><span id="限定符">限定符</span></h4><p>限定符用来指定正则表达式的一个给定组件必须要出现多少次才能满足匹配。</p>
+<table>
+<thead>
+<tr>
+<th>*</th>
+<th>+</th>
+<th>？</th>
+<th>{n}</th>
+<th>{n,}</th>
+<th>{n,m}</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>匹配前面的子表达式零次后多次</td>
+<td>匹配前面的子表达式一次或多次</td>
+<td>匹配前面的子表达式零次或一次</td>
+<td>n是一个非负整数，匹配确定的n次</td>
+<td>n是一个非负整数，至少匹配n次</td>
+<td>m和n均是非负整数，至少匹配n次且最多匹配m次</td>
+</tr>
+</tbody>
+</table>
 <hr>
 <h4><span id="定位符">定位符</span></h4><p>定位符能将正则表达式固定到行首或行尾。</p>
 <table>
@@ -538,11 +593,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">TCP/IP</a>
+                <a href="javascript:void(0)" class="js-tag color1">innodb存储引擎</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">innodb存储引擎</a>
+                <a href="javascript:void(0)" class="js-tag color2">TCP/IP</a>
               </li>
              
               <li class="article-tag-list-item">
