@@ -154,6 +154,95 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-javastatic关键字的几种用法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/05/14/javastatic关键字的几种用法/">Java static关键字的几种用法</a>
+    </h1>
+  
+
+        
+        <a href="/2019/05/14/javastatic关键字的几种用法/" class="archive-article-date">
+  	<time datetime="2019-05-14T02:38:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-14</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="static关键字的几种用法"><a href="#static关键字的几种用法" class="headerlink" title="static关键字的几种用法"></a>static关键字的几种用法</h3><ul>
+<li>修饰成员变量，和方法</li>
+<li>修饰内部类</li>
+<li>修饰代码块</li>
+<li>静态导包</li>
+</ul>
+<h3 id="修饰成员变量和方法"><a href="#修饰成员变量和方法" class="headerlink" title="修饰成员变量和方法"></a>修饰成员变量和方法</h3><p>static修饰的成员变量或方法属于类，不属于对象。所有该类的实例都共享一个变量或方法。放在内存的方法区</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JavaStatic</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 静态成员变量</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> age;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 静态方法</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">printName</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Name"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">/*静态成员变量或方法直接使用类名进行调用*/</span></span><br><span class="line">        System.out.println(JavaStatic.age);</span><br><span class="line">        JavaStatic.printName();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        
+          <a class="article-more-a" href="/2019/05/14/javastatic关键字的几种用法/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/05/14/javastatic关键字的几种用法/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+  
     <article id="post-正则表达式" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -657,11 +746,11 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">innoDB引擎</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">innoDB引擎</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
         		</li>
       		
 		</ul>
@@ -976,11 +1065,11 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">innoDB引擎</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">innoDB引擎</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
         		</li>
       		
 		</ul>
@@ -1086,117 +1175,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2019/04/06/汇编学习笔记一/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-  
-    <article id="post-TCPIP学习笔记三" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/04/03/TCPIP学习笔记三/">TCP/IP学习笔记(三)</a>
-    </h1>
-  
-
-        
-        <a href="/2019/04/03/TCPIP学习笔记三/" class="archive-article-date">
-  	<time datetime="2019-04-03T07:58:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <ul>
-<li><p>DNS（域名解析服务）<br>DNS可以将字符串自动转化位具体的IP地址。</p>
-</li>
-<li><p>ARP（地址解析协议）</p>
-<ul>
-<li>以目标IP地址位线索，来定位下一个应该接收数据分包的网络设别对应的MAC地址。ARP只适用于IPv4.</li>
-<li>通过广播发送一个ARP请求包，其中含有想要了解MAC地址的IP。同一个链路中的主机接收并解析。如何发现需要解析自己的IP地址对应的MAC地址的话。就将自己的MAC地址加入ARP响应包中。然后把获取到的MAC地址与IP建立映射。然后缓存一段时间。</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li><p>RARP</p>
-<ul>
-<li>从MAC地址获取IP地址的一种协议。</li>
-<li>为了解决一些潜入式设别无法通过DHCP获得自己的IP地址的问题。所以需要建立一个RARP服务器。</li>
-<li><img src="https://s2.ax1x.com/2019/04/02/AygKb9.png" alt="AygKb9.png"></li>
-</ul>
-</li>
-<li><p>NAT技术</p>
-<ul>
-<li>实在本地网络中使用私有地址，在连接互联网式转而使用全局IP地址的技术。</li>
-<li>内部有一张进行转换的地址的表。</li>
-<li>NAPT为了解决私有网络内部多台机器同时于玩不通信时，可能会造成全局IP地址不够用。NAPT采用将端口号一起转换的方式来解决这个问题。</li>
-<li><img src="https://s2.ax1x.com/2019/04/02/A6ZEFS.png" alt="A6ZEFS.png"></li>
-<li>无法从NAT外部向内部服务器建立连接。</li>
-<li>转换表的生成和转换操作都会产生一定的开销。</li>
-<li>通信过程中如果NAT遇到异常所有的TCP连接都会被重置。即使做了容灾备份也无法避免TCP连接的重置。</li>
-</ul>
-</li>
-</ul>
-        
-          <a class="article-more-a" href="/2019/04/03/TCPIP学习笔记三/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">TCP/IP</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/04/03/TCPIP学习笔记三/">展开全文 >></a>
         </p>
       
 
@@ -1353,15 +1331,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">innoDB引擎</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">innodb引擎</a>
+                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1373,11 +1347,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">IP协议</a>
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
+                <a href="javascript:void(0)" class="js-tag color5">IP协议</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1385,7 +1359,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">并发编程</a>
+                <a href="javascript:void(0)" class="js-tag color4">innodb引擎</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">正则表达式</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1393,7 +1371,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">正则表达式</a>
+                <a href="javascript:void(0)" class="js-tag color5">并发编程</a>
               </li>
              
               <li class="article-tag-list-item">
