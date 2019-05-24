@@ -6,22 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>MySQL技术内幕学习笔记二 | 个人博客</title>
+  <title>java synchronized关键字 | 个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="目录   重做日志缓存 额外的内存池 SQL语句的分类 checkpoint技术 master thread 的工作方式 索引 innodb的关键特性 插入缓存 两次写 自适应哈希索引 异步IO 刷新邻接页     重做日志缓存 重做日志缓冲（redo log buffer） 重做日志缓冲同样也在innodb内存区。innodb存储引擎会将重做日志信息先放到重做日志缓冲区，然后以一定的频率刷新到重">
-<meta name="keywords" content="技术,MySQL,innodb引擎">
+  <meta name="description" content="在java编程中，当可能存在多个线程同时访问一部分资源时，可能会出现一些访问冲突。为了解决冲突，java提供了synchronized关键值，通过加锁的方式，保证访问的有序性。 synchronized关键字的两种作用范围1.作用于对象. 12345678910public synchronized void method()&amp;#123;   //&amp;#125;等价写法public void met">
+<meta name="keywords" content="技术,java">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MySQL技术内幕学习笔记二">
-<meta property="og:url" content="http://yoursite.com/2019/04/10/MySQL技术内幕学习笔记二/index.html">
+<meta property="og:title" content="java synchronized关键字">
+<meta property="og:url" content="http://yoursite.com/2019/05/24/java_synchronized关键字/index.html">
 <meta property="og:site_name" content="个人博客">
-<meta property="og:description" content="目录   重做日志缓存 额外的内存池 SQL语句的分类 checkpoint技术 master thread 的工作方式 索引 innodb的关键特性 插入缓存 两次写 自适应哈希索引 异步IO 刷新邻接页     重做日志缓存 重做日志缓冲（redo log buffer） 重做日志缓冲同样也在innodb内存区。innodb存储引擎会将重做日志信息先放到重做日志缓冲区，然后以一定的频率刷新到重">
+<meta property="og:description" content="在java编程中，当可能存在多个线程同时访问一部分资源时，可能会出现一些访问冲突。为了解决冲突，java提供了synchronized关键值，通过加锁的方式，保证访问的有序性。 synchronized关键字的两种作用范围1.作用于对象. 12345678910public synchronized void method()&amp;#123;   //&amp;#125;等价写法public void met">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://s2.ax1x.com/2019/04/10/ATNJL8.md.png">
-<meta property="og:updated_time" content="2019-04-10T09:42:41.405Z">
+<meta property="og:updated_time" content="2019-05-24T13:29:54.134Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="MySQL技术内幕学习笔记二">
-<meta name="twitter:description" content="目录   重做日志缓存 额外的内存池 SQL语句的分类 checkpoint技术 master thread 的工作方式 索引 innodb的关键特性 插入缓存 两次写 自适应哈希索引 异步IO 刷新邻接页     重做日志缓存 重做日志缓冲（redo log buffer） 重做日志缓冲同样也在innodb内存区。innodb存储引擎会将重做日志信息先放到重做日志缓冲区，然后以一定的频率刷新到重">
-<meta name="twitter:image" content="https://s2.ax1x.com/2019/04/10/ATNJL8.md.png">
+<meta name="twitter:title" content="java synchronized关键字">
+<meta name="twitter:description" content="在java编程中，当可能存在多个线程同时访问一部分资源时，可能会出现一些访问冲突。为了解决冲突，java提供了synchronized关键值，通过加锁的方式，保证访问的有序性。 synchronized关键字的两种作用范围1.作用于对象. 12345678910public synchronized void method()&amp;#123;   //&amp;#125;等价写法public void met">
   
     <link rel="alternative" href="/atom.xml" title="个人博客" type="application/atom+xml">
   
@@ -159,165 +157,44 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-MySQL技术内幕学习笔记二" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-java_synchronized关键字" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      MySQL技术内幕学习笔记二
+      java synchronized关键字
     </h1>
   
 
         
-        <a href="/2019/04/10/MySQL技术内幕学习笔记二/" class="archive-article-date">
-  	<time datetime="2019-04-10T09:26:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-10</time>
+        <a href="/2019/05/24/java_synchronized关键字/" class="archive-article-date">
+  	<time datetime="2019-05-24T13:24:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-24</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>目录</p>
-<!-- toc -->
-<ul>
-<li><a href="#重做日志缓存">重做日志缓存</a></li>
-<li><a href="#额外的内存池">额外的内存池</a></li>
-<li><a href="#sql语句的分类">SQL语句的分类</a></li>
-<li><a href="#checkpoint技术">checkpoint技术</a></li>
-<li><a href="#master-thread-的工作方式">master thread 的工作方式</a></li>
-<li><a href="#索引">索引</a></li>
-<li><a href="#innodb的关键特性">innodb的关键特性</a><ul>
-<li><a href="#插入缓存">插入缓存</a></li>
-<li><a href="#两次写">两次写</a></li>
-<li><a href="#自适应哈希索引">自适应哈希索引</a></li>
-<li><a href="#异步io">异步IO</a></li>
-<li><a href="#刷新邻接页">刷新邻接页</a></li>
-</ul>
-</li>
-</ul>
-<!-- tocstop -->
-<h4><span id="重做日志缓存">重做日志缓存</span></h4><ul>
-<li>重做日志缓冲（redo log buffer）<ul>
-<li>重做日志缓冲同样也在innodb内存区。innodb存储引擎会将重做日志信息先放到重做日志缓冲区，然后以一定的频率刷新到重做日志中。</li>
-<li>重做日志缓冲不必太大。因为一般每一秒都会刷新到重做日志文件中。默认为8MB，该值可以由innodb_log_buffer_size控制</li>
-<li>重做日志缓冲刷新的三种情况。1.master thread每一秒都会刷新一次。 2.每次事务提交时都会刷新一次。 3.重做日志缓冲池剩余空间小于1/2时，会刷新。</li>
-</ul>
-</li>
-</ul>
-<h4><span id="额外的内存池">额外的内存池</span></h4><ul>
-<li>额外的内存池<ul>
-<li>innodb存储引擎采用一种称为内存堆的方式进行。在给一些数据结构分配内存时，会从额外的内存池中申请，但该内存中的内存不足时，会从缓冲池中申请。</li>
-</ul>
-</li>
-</ul>
-<h4><span id="sql语句的分类">SQL语句的分类</span></h4><ul>
-<li>数据库查询语言DQL<br>  -各种查询</li>
-<li>数据操纵语言DML<ul>
-<li>增删改</li>
-</ul>
-</li>
-<li>数据定义语言DDL<ul>
-<li>用来创建数据库中的各种对象，如表，视图，索引等</li>
-</ul>
-</li>
-<li>数据控制语言DCL<ul>
-<li>授权，回滚数据库等<a id="more"></a>
-<h4><span id="checkpoint技术">checkpoint技术</span></h4></li>
-</ul>
-</li>
-<li>checkpoint技术的目的<ul>
-<li>缩短数据库恢复时间</li>
-<li>缓冲池不够用时，将脏页刷新到磁盘</li>
-<li>重做日志不可用时，刷新脏页</li>
-</ul>
-</li>
-<li>两种checkpoint<ul>
-<li>sharp checkpoint（默认）；在数据库关闭时将所有脏页刷新到磁盘，配置参数为innodb_fast-shutdown=1</li>
-<li>fuzzy checkpoint发生的几种情况<ul>
-<li>master thread checkpoint</li>
-<li>FLUSH_LRU_LIST checkpoint</li>
-<li>Async/Sync Flush checkpoint</li>
-<li>dirty page too much checkpoint</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h4><span id="master-thread-的工作方式">master thread 的工作方式</span></h4><ul>
-<li>1.0.x之前的版本<ul>
-<li>master thread既有最高的线程优先级。内部包括多个循环。有主循环，后台循环，刷新循环，暂停循环。master thread会根据数据库的运行状态在这几个循环之间切换<ul>
-<li>主循环以一定的频率执行。每秒执行一次：1.将日志缓冲刷新到磁盘，即使事务还没有提交 2.可能会合并插入缓冲 3.最多刷新100个缓冲池中的脏页到磁盘。 4.没有用户执行任何操作时切换到后台循环</li>
-<li>每10秒执行一次：1.刷新100个脏页到磁盘（可能）。 2。合并至多20个插入缓冲（总是） 3.将日志缓冲刷新到磁盘（总是） 4.删除无用的undo页（总是） 5.刷新100个或者10个脏页到磁盘（总是）</li>
-<li>为了解决innodb硬编码规定的每秒刷新100个脏页合并20个插入缓冲的问题。可以使用innodb_io_capacity来控制刷新到磁盘的脏页的百分比。参数innodb_max_dirty_pages_pct调整脏页所占的比例。</li>
-</ul>
-</li>
-<li>background loop<ul>
-<li>刷新无用的undo页（总是）</li>
-<li>合并20个插入缓冲（总是）</li>
-<li>跳回到主循环（总是）</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h4><span id="索引">索引</span></h4><ul>
-<li>索引是一种特殊的文件，它包含着对数据表里所有记录的引用指针。</li>
-<li>索引分为聚簇索引和非聚簇索引。聚簇索引是按数据存放的物理顺序为顺序的，而非聚簇索引则不是。聚簇索引能提高多行数据的检索速度，而非聚簇索引对单行数据检索更有效</li>
-<li>MySQL索引的分类<ul>
-<li>普通索引，没有任何限制</li>
-<li>唯一索引，索引列的值必须唯一，但可以为空。</li>
-<li>全文索引，仅可用于myisam表</li>
-<li>单列索引，多列索引</li>
-<li>组合索引</li>
-</ul>
-</li>
-</ul>
-<h4><span id="innodb的关键特性">innodb的关键特性</span></h4><h5><span id="插入缓存">插入缓存</span></h5><ul>
-<li>插入缓存<ul>
-<li>为了解决非聚集索引页的离散性访问会使性能下降。在插入时，先判断该页是否在缓冲池中，如果在则之间插入。否则，加入插入缓存，再以一定的频率进行插入合并操作。</li>
-<li>插入缓存的使用条件<ul>
-<li>索引时辅助索引</li>
-<li>索引不是唯一的</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h5><span id="两次写">两次写</span></h5><ul>
-<li>两次写<ul>
-<li>为了提高可靠性，会牺牲一点可靠性</li>
-<li>为了避免部分写失效时，无法使用重做日志缓存恢复数据（因为重做日志缓存记录的是对页的修改，当页被破坏后，将无法用其恢复数据。）</li>
-<li>基本原理：1.当刷新缓冲区的脏页时，不直接写到磁盘。而是送到两次写缓冲区。2.从两次写缓冲区分两次写入共享表空间（每次写1MB）。3.最后将两次写缓冲区中的数据写入磁盘。</li>
-<li>原理图<a href="https://imgchr.com/i/ATNJL8" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/04/10/ATNJL8.md.png" alt="ATNJL8.md.png"></a></li>
-</ul>
-</li>
-</ul>
-<h5><span id="自适应哈希索引">自适应哈希索引</span></h5><ul>
-<li>自适应哈希索引<ul>
-<li>为了提高查找的效率，innodb会自动的为某些热点页建立哈希索引。</li>
-<li>访问模式：是指查询条件一样</li>
-<li>建立哈希索引的条件<ul>
-<li>该模式访问了100次</li>
-<li>页通过该模式访问了N次，其中N=页记录*1/16</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h5><span id="异步io">异步IO</span></h5><ul>
-<li>异步IO<ul>
-<li>为了提高磁盘操作的性能，采用了异步的IO，即AIO</li>
-</ul>
-</li>
-</ul>
-<h5><span id="刷新邻接页">刷新邻接页</span></h5><ul>
-<li>刷新邻接页<ul>
-<li>当innodb存储引擎在刷新脏页到磁盘时，会检测该页所在的区是否还有脏页需要刷新到磁盘，有的化则一并刷新到磁盘。对应传统的机械硬盘性能提示较大。</li>
-</ul>
-</li>
-</ul>
+        <p>在java编程中，当可能存在多个线程同时访问一部分资源时，可能会出现一些访问冲突。<br>为了解决冲突，java提供了synchronized关键值，通过加锁的方式，保证访问的有序性。</p>
+<h3><span id="synchronized关键字的两种作用范围">synchronized关键字的两种作用范围</span></h3><p>1.作用于对象.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">method</span><span class="params">()</span></span>&#123;</span><br><span class="line">   <span class="comment">//</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">等价写法</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">synchronized</span>(<span class="keyword">this</span>)&#123;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>作用于对象可以防止多个线程同时访问<strong>该对象</strong>的sychronized方法。所以不同实例时不干扰的，也就是说，以该类创建的其它对象依然可以同时访问该sychronized方法。</p>
+<p>2.作用于类<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">method</span><span class="params">()</span></span>&#123;</span><br><span class="line">   </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">等价写法：</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">synchronized</span>(Myclass.class)&#123;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>作用于类可以防止多个线程同时访问<strong>该类的实例</strong>的synchronized方法。所以该类的实例之间时存在干扰的。也就是说，该类创建的对象不能同时访问该synchronized方法了。<br><a id="more"></a></p>
+<h3><span id="synchronized方法">synchronized方法</span></h3><p>每个调用sychronized方法的线程都必须获得调用给方法的类实例的锁才能执行，否者所属的线程阻塞。方法一旦执行就独占该锁，直到从该方法返回时财将锁释放。同步方法实质是将synchronized作用于object reference。将一个大的方法什么伟synchronized会严重影响效率。</p>
+<h3><span id="synchronized代码块">synchronized代码块</span></h3><p>对一块代码进行加锁，表示只对这个区块的资源进行互斥访问，他的作用域是当前对象，当没有明确的对象作为锁时，可以创建一个特殊的instance变量，来充当锁。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span> <span class="keyword">implements</span> <span class="title">Runnable</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">byte</span>[] lock=<span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">0</span>];</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">methodA</span><span class="params">()</span></span>&#123;</span><br><span class="line">            <span class="keyword">synchronized</span>(lock)&#123;</span><br><span class="line">                <span class="comment">//</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>零长度的byte数组，创建的时候只需要三行字节码即可。</p>
+<h3><span id="重进入">重进入</span></h3><p>内部锁是可重进入的，因此线程在试图获得它自己占有的锁时，请求会成功。重进入意味着请求是基于“每线程”，而不是基于”每调用的“。原理是每个锁都关联一个请求计数器。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Widget</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">doSomething</span><span class="params">()</span></span>&#123;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LoggingWidget</span> <span class="keyword">extends</span> <span class="title">Widget</span></span>&#123;</span><br><span class="line">    <span class="comment">//代码没有死锁，说明内部锁是可重入的</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> doSomething&#123;</span><br><span class="line">        System.out.println(toString()+<span class="string">":calling doSomething"</span>);</span><br><span class="line">        <span class="keyword">super</span>.doSomething();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3><span id="synchronized-与原子性">synchronized 与原子性</span></h3><p>原子性是指一个操作时不可中断的，要么全部执行完成，要么都不执行。<br>线程时CPU调度的基本单位，CPU有时间篇的概念，会根据不同的调度算法来进行线程的调度。当一个线程获得时间片之后开始执行，在时间片耗尽之后，就会失去CPU的使用权。所以在多线程的场景下，就会出现原子性的问题。<br>java提供了<code>monitorenter</code>和<code>monitorexit</code>两个高级操作字节码，来确保被synchronized修饰的代码在同一时间只能被同一个线程访问到，在锁为释放之前，其它线程无法获得该段代码的执行权。<br>原理是：<br>线程1在执行<code>monitorenter</code>时，会对Monitor进行加锁，加锁后其它线程无法获得锁，除非线程1主动释放锁。及时在执行过程中，线程1放弃了CPU使用权，但是因为它没有释放锁，由于<code>synchronized</code>是<strong>可重进入的</strong>，下一次还是只有线程1才能获得执行权，还会继续执行代码，保证所有的代码在没有其它线程打扰下执行完，所以保证了原子性。</p>
+<h3><span id="synchronzied-与可见性">synchronzied 与可见性</span></h3><p>可见性是指当多个线程访问同一个变量时，一个线程修改了这个变量，其它线程是能够立刻看到修改的值。<br><strong>synchronized锁住的对象，其值具有可见性。</strong><br>原理是：<br>java内存模型规定了所有的变量都存放在主存中，每个线程还有自己的工作内存，线程会将要主存中的变量拷贝到工作内存中，线程对所有的操作都必须在工作内存中进行，不能直接读写主内存，不同的线程之间也无法直接访问对方的工作内存，线程之间变量需要借助主存作为中转。<br>为了保证可见性，对一个变量解锁之前，必须要将变量同步会主存。这样解锁后，后续线程就可以访问到被修改后的值。</p>
+<h3><span id="synchronized与有序性">synchronized与有序性</span></h3><p>有序性即程序执行的顺序按照代码的先后顺序执行。<br><strong>synchronized提供了有序性保证</strong><br>由于存在处理器优化和指令重排，CPU可能对代码乱序执行。当synchronized是不能禁止指令重拍和处理优化的。</p>
+<blockquote>
+<p>如果在本线程内观察，所有操作都是天然有序的。如果在一个线程中观察另一个线程，所有操作都是无序的。</p>
+</blockquote>
+<p>重排序是有规则限制的，其必须保证单线程程序执行的结果不能因为重排序而改变。由于synchronized确保了同一时间只能被唯一线程访问（单线程执行），所以可以保证有序性。</p>
 
       
 
@@ -366,11 +243,7 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">innodb引擎</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
         		</li>
       		
 		</ul>
@@ -426,7 +299,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/04/10/MySQL技术内幕学习笔记二/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/05/24/java_synchronized关键字/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -440,18 +313,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/04/17/Redis入门/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Redis入门
-        
-      </div>
-    </a>
   
-  
-    <a href="/2019/04/07/MySQL技术内幕学习笔记一/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">MySQL技术内幕学习笔记一</div>
+    <a href="/2019/05/14/javastatic关键字的几种用法/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Java static关键字的几种用法</div>
       <i class="icon-circle-right"></i>
     </a>
   
