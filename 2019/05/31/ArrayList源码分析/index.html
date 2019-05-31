@@ -6,23 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>MySQL技术内幕学习笔记一 | 个人博客</title>
+  <title>ArrayList源码分析 | 个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="数据库是物理操作系统文件或其它形式文件类型得集合。 实例是数据库后台线程和共享内存区。通常数据库和实例是一一对应的关系。一个数据库对应一个实例。 MySQL是一个单进程多线程架构的应用。 MySQL数据库启动时会按照/etc/my.cnf–&amp;gt;/tec/mysql/my.cnf–&amp;gt;/usr/local/mysql/etc/mycnf–&amp;gt;~/.my.cnf的顺序读取配置文件（也可能">
-<meta name="keywords" content="技术,innoDB引擎,MySQL">
+  <meta name="description" content="概览12public class ArrayList&amp;lt;E&amp;gt; extends AbstractList&amp;lt;E&amp;gt;        implements List&amp;lt;E&amp;gt;, RandomAccess, Cloneable, java.io.Serializable ArrayList是基于数组实现的，所以支持快速的随机访问。 属性解释1private static fina">
+<meta name="keywords" content="技术,java,源码">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MySQL技术内幕学习笔记一">
-<meta property="og:url" content="http://yoursite.com/2019/04/07/MySQL技术内幕学习笔记一/index.html">
+<meta property="og:title" content="ArrayList源码分析">
+<meta property="og:url" content="http://yoursite.com/2019/05/31/ArrayList源码分析/index.html">
 <meta property="og:site_name" content="个人博客">
-<meta property="og:description" content="数据库是物理操作系统文件或其它形式文件类型得集合。 实例是数据库后台线程和共享内存区。通常数据库和实例是一一对应的关系。一个数据库对应一个实例。 MySQL是一个单进程多线程架构的应用。 MySQL数据库启动时会按照/etc/my.cnf–&amp;gt;/tec/mysql/my.cnf–&amp;gt;/usr/local/mysql/etc/mycnf–&amp;gt;~/.my.cnf的顺序读取配置文件（也可能">
+<meta property="og:description" content="概览12public class ArrayList&amp;lt;E&amp;gt; extends AbstractList&amp;lt;E&amp;gt;        implements List&amp;lt;E&amp;gt;, RandomAccess, Cloneable, java.io.Serializable ArrayList是基于数组实现的，所以支持快速的随机访问。 属性解释1private static fina">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://s2.ax1x.com/2019/04/06/AWHdJ0.png">
-<meta property="og:image" content="https://s2.ax1x.com/2019/04/06/AfSKBV.png">
-<meta property="og:updated_time" content="2019-04-06T12:21:06.473Z">
+<meta property="og:updated_time" content="2019-05-31T08:38:49.385Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="MySQL技术内幕学习笔记一">
-<meta name="twitter:description" content="数据库是物理操作系统文件或其它形式文件类型得集合。 实例是数据库后台线程和共享内存区。通常数据库和实例是一一对应的关系。一个数据库对应一个实例。 MySQL是一个单进程多线程架构的应用。 MySQL数据库启动时会按照/etc/my.cnf–&amp;gt;/tec/mysql/my.cnf–&amp;gt;/usr/local/mysql/etc/mycnf–&amp;gt;~/.my.cnf的顺序读取配置文件（也可能">
-<meta name="twitter:image" content="https://s2.ax1x.com/2019/04/06/AWHdJ0.png">
+<meta name="twitter:title" content="ArrayList源码分析">
+<meta name="twitter:description" content="概览12public class ArrayList&amp;lt;E&amp;gt; extends AbstractList&amp;lt;E&amp;gt;        implements List&amp;lt;E&amp;gt;, RandomAccess, Cloneable, java.io.Serializable ArrayList是基于数组实现的，所以支持快速的随机访问。 属性解释1private static fina">
   
     <link rel="alternative" href="/atom.xml" title="个人博客" type="application/atom+xml">
   
@@ -160,70 +157,55 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-MySQL技术内幕学习笔记一" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-ArrayList源码分析" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      MySQL技术内幕学习笔记一
+      ArrayList源码分析
     </h1>
   
 
         
-        <a href="/2019/04/07/MySQL技术内幕学习笔记一/" class="archive-article-date">
-  	<time datetime="2019-04-07T08:38:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-07</time>
+        <a href="/2019/05/31/ArrayList源码分析/" class="archive-article-date">
+  	<time datetime="2019-05-31T08:24:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-31</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <ul>
-<li>数据库是物理操作系统文件或其它形式文件类型得集合。</li>
-<li>实例是数据库后台线程和共享内存区。通常数据库和实例是一一对应的关系。一个数据库对应一个实例。</li>
-<li>MySQL是一个单进程多线程架构的应用。</li>
-<li>MySQL数据库启动时会按照/etc/my.cnf–&gt;/tec/mysql/my.cnf–&gt;/usr/local/mysql/etc/mycnf–&gt;~/.my.cnf的顺序读取配置文件（也可能是.ini后缀）。如果配置文件中有相同的配置则按最后一个读取的文件进行配置。如果没有配置文件，则使用数据库默认参数。</li>
-<li>innodb采用聚集的方式存储数据。每张表都是按主键的顺序进行存放的。如果没有显示的在表中定义主键。innodb会为每一行生成一个6字节的ROWID作为主键。</li>
-<li>innodb存储引擎的体系架构<br><img src="https://s2.ax1x.com/2019/04/06/AWHdJ0.png" alt="体系架构"><br>后台线程的主要作用是负责刷新内存池中的数据，保证缓冲池中的内存缓存的是最近的数据。还要负责将已修改的数据文件刷新到新的磁盘文件。还要保证数据库发生异常情况时，能恢复innodb存储引擎到正常的运行状态。<a id="more"></a></li>
-<li><p>innodb存储引擎的undo和redo</p>
-<ul>
-<li>undo log是为了实现事务的原子性（即操作要么完成，要么不完成，不会有完成一半的情况）</li>
-<li>undo log在操作前，都将数据备份到undo log中，然后再对数据进行操作。操作成功后将undo log中的数据持久化到存储上。（数据是先读取到内存中的，然后再进行操作，然后再持久化到存储上）</li>
-<li>redo log是为了备份新数据，确保事务的持久性。在事务提交前将redo持久化。当系统崩溃时可以将数据恢复到最新的状态。</li>
-<li>redo和undo事务的简化示例：假设有A，B两个数据；1.事务开始。2.记录A=1备份到undo log 3.修改 A=3 4.记录A=3到redo log 5.修改B=4 6.记录B=4到redo log 7.将redo log写入磁盘（持久化）</li>
-<li>undo+redo事务的特点：1.为了保证持久性，必须在事务提交前将redo log持久化 2.数据不需要在事务提交前写入磁盘，而是缓存再内存中（直接将redo log写入即可）。3.redo log确保了事务的持久性 4.undo log确保了事务的原子性</li>
-</ul>
-</li>
-<li><p>脏页<br>因为硬盘的读写速度远远低于内存的速度。为了提高读写速度，系统就把读写较频繁的部分写入到内存给中，这叫高速缓存。linux以页作为高速缓存的单位。当修改了高速缓存中的数据后，linux内核就将该页数据标记为脏页。内核需要在合适的时间将脏页的数据写入磁盘，以保证数据的一致性。</p>
-</li>
-</ul>
-<ul>
-<li><p>不同的后台线程复制不同的任务</p>
-<ul>
-<li>master thread：负责异步的把缓冲区的数据写入磁盘，保证数据的一致性。包括脏页的刷新，合并插入缓冲。undo页的回收等</li>
-<li>io thread ：在innodb存储引擎中采用了大量的AIO（async io异步非阻塞IO）来处理IO请求。可以提高数据库的性能。io thread的只要作用是处理io请求的回调</li>
-<li>purge thread：回收undo log</li>
-<li>page cleaner thread：将脏页的刷新放到单独的线程中来完成</li>
-</ul>
-</li>
-<li><p>缓冲池</p>
-<ul>
-<li>innodb存储引擎是基于磁盘的，并按页的方式管理记录。为了解决磁盘读取速度慢的问题。引入了缓冲池。缓冲池简单来说就是一块内存。为了获得更大的缓冲池，建议数据库服务器经历使用64位的系统。数据库从磁盘读取页到内存（fix），下一次读取时，会先判断该页是否已经在内存中了。如果已经在内存中，则称为该页在缓冲池中被命中。否则，从磁盘中读页到内存。innodb使用一种（checkpoint）机制在合适的时间将缓冲池中的页刷新到磁盘中。</li>
-<li>缓冲池中包括索引页，数据页，undo页，插入缓冲，自适应哈希索引，innodb存储的锁信息，数据字典信息。</li>
-<li>每个页的大小为16KB</li>
-<li><img src="https://s2.ax1x.com/2019/04/06/AfSKBV.png" alt="缓冲池"></li>
-</ul>
-</li>
-<li><p>LRU</p>
-<ul>
-<li>为了管理缓冲池，innodb存储引擎采用了LRU算法来管理内存。使用最频繁的页在LRU列表的最前端，使用最少的页放在LRU列表的尾端。当缓冲池的空间即将用尽时，首先释放掉LRU列表末端的页。</li>
-<li>缓冲池中的页默认大小为16kb，新读取到的页放到midpoint，而不是LRU列表的首部。midpoint的值默认为5/8处，可以由参数innodb_old_block_pct控制。之所以不把从磁盘读取对的页放到LRU列表的首部，是因为有些sql会访问许多页，但只是一次需要，读取的页并不是活跃的数据，如果放到LRU首部，可能会使真正的热点数据页被刷出。可以通过配置参数innodb_old_blocks_time来控制页读取到midpoint位置后多久才会被放到LRU的前段。</li>
-<li>innodb存储引擎在1.0.x后对原本16kb的页进行压缩为1kb，2kb，4kb，8kb。非16kb的页使用unzip_LRU来进行管理。其对不同大小的页分别进行管理，并且采用伙伴算法分配内存。</li>
-</ul>
-</li>
-</ul>
+        <h3><span id="概览">概览</span></h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ArrayList</span>&lt;<span class="title">E</span>&gt; <span class="keyword">extends</span> <span class="title">AbstractList</span>&lt;<span class="title">E</span>&gt;</span></span><br><span class="line"><span class="class">        <span class="keyword">implements</span> <span class="title">List</span>&lt;<span class="title">E</span>&gt;, <span class="title">RandomAccess</span>, <span class="title">Cloneable</span>, <span class="title">java</span>.<span class="title">io</span>.<span class="title">Serializable</span></span></span><br></pre></td></tr></table></figure>
+<p>ArrayList是基于数组实现的，所以支持快速的随机访问。</p>
+<h3><span id="属性解释">属性解释</span></h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> DEFAULT_CAPACITY = <span class="number">10</span>;</span><br></pre></td></tr></table></figure>
+<p>默认的初始容量。在创建ArrayList实例的时候可以不用指定其大小，默认的容量大小为10；但建议提前预估好合适的容量大小，因为扩容的开销比较大。后面会专门分析。</p>
+<hr>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Object[] EMPTY_ELEMENTDATA = &#123;&#125;;</span><br></pre></td></tr></table></figure>
+<p>共享的空数组实例。在创建ArrayList对象实例的时候，如果容量大小指定为为0时，会让elementData引用共享的整个空数组。</p>
+<hr>
+<a id="more"></a>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Object[] DEFAULTCAPACITY_EMPTY_ELEMENTDATA = &#123;&#125;;</span><br></pre></td></tr></table></figure>
+<p>共享的容量为10空数组。当我们使用无参构造器创建一个ArrayList对象时，该对象共享这个容量为10的空数组。官方注释中解释到：共享空数组实例，用于默认大小的空实例。我们将其与<code>EMPTY_ELEMENTDATA</code>区分开来，以了解何时添加第一个元素。在创建对象之初，并没有为它创建一个长度为10的数组，而在添加元素的时候，判断如果此时 <code>elementData==DEFAULTCAPACITY_EMPTY_ELEMENTDATA</code>的话，就以10为大小为其开辟了空间。</p>
+<hr>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">transient</span> Object[] elementData</span><br></pre></td></tr></table></figure>
+<p>这就是ArrayList存取元素的数组了。它使用了<code>transient</code>修饰，说明它在不会被序列化。</p>
+<hr>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">int</span> size;</span><br></pre></td></tr></table></figure>
+<p>记录ArrayList的大小，即它包含的元素的大小。</p>
+<hr>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protected</span> <span class="keyword">transient</span> <span class="keyword">int</span> modCount = <span class="number">0</span>;</span><br></pre></td></tr></table></figure>
+<p>ArrayList中的方法中频繁出现了一个modCount的属性，它继承于AbstractList，用于记录List结构修改了多少次，所以每个修改List结构的方法中都存在<code>modCount++</code> 。其作用在于在迭代或序列化时，需要比较前后的modCount的值，防止在迭代或序列化的同时List结构发生了改变。如果在这个过程之中发生了List结构改变，那么就会抛出<code>ConcurrentModificationException</code> 异常。</p>
+<h3><span id="重要方法分析">重要方法分析</span></h3><p>1.添加</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">add</span><span class="params">(E e)</span> </span>&#123;</span><br><span class="line">    ensureCapacityInternal(size + <span class="number">1</span>);  <span class="comment">// Increments modCount!!</span></span><br><span class="line">    elementData[size++] = e;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">ensureCapacityInternal</span><span class="params">(<span class="keyword">int</span> minCapacity)</span> </span>&#123;</span><br><span class="line">    ensureExplicitCapacity(calculateCapacity(elementData, minCapacity));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">calculateCapacity</span><span class="params">(Object[] elementData, <span class="keyword">int</span> minCapacity)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (elementData == DEFAULTCAPACITY_EMPTY_ELEMENTDATA) &#123;</span><br><span class="line">        <span class="keyword">return</span> Math.max(DEFAULT_CAPACITY, minCapacity);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> minCapacity;</span><br><span class="line">&#125;</span><br><span class="line"> <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">ensureExplicitCapacity</span><span class="params">(<span class="keyword">int</span> minCapacity)</span> </span>&#123;</span><br><span class="line">    modCount++;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// overflow-conscious code</span></span><br><span class="line">    <span class="keyword">if</span> (minCapacity - elementData.length &gt; <span class="number">0</span>)</span><br><span class="line">        grow(minCapacity);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">grow</span><span class="params">(<span class="keyword">int</span> minCapacity)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// overflow-conscious code</span></span><br><span class="line">    <span class="keyword">int</span> oldCapacity = elementData.length;</span><br><span class="line">    <span class="keyword">int</span> newCapacity = oldCapacity + (oldCapacity &gt;&gt; <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">if</span> (newCapacity - minCapacity &lt; <span class="number">0</span>)</span><br><span class="line">        newCapacity = minCapacity;</span><br><span class="line">    <span class="keyword">if</span> (newCapacity - MAX_ARRAY_SIZE &gt; <span class="number">0</span>)</span><br><span class="line">        newCapacity = hugeCapacity(minCapacity);</span><br><span class="line">    <span class="comment">// minCapacity is usually close to size, so this is a win:</span></span><br><span class="line">    elementData = Arrays.copyOf(elementData, newCapacity);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>虽然看起来add(E e)方法牵扯的方法很多，但是其实它一点也不复杂。在添加之前调用了<code>ensureCapacityInternal(size+1)</code>先确保容量是否足够。然后调用<code>calculateCapacity(elementData, minCapacity)</code>计算明确的需要的容量的大小。在这个方法中判断了如果<code>elementData == DEFAULTCAPACITY_EMPTY_ELEMENTDATA</code>则返回需要的容量为10。现在已经知道了需要的容量大小了，下面就需要看一看现在的<code>elementData</code>够不够了，如果够的话，就可以直接添加了，否者就扩容。这个步骤方法<code>ensureExplicitCapacity(int minCapacity)</code>完成了。它还完成了<code>modCount++</code>,事情发展到了这一步，List结构的改变的结果已经不可逆转了，所以现在就可以记录List结构改变的次数了。如果这个时候容量不够，那么它就会调用<code>grow(int minCapacity)</code>.这个方法会把容量拓展1.5倍，然后把所有的数据拷贝到新的<code>elementData</code>里面去。这一步是非常低效的，这也解释了为什么建议提前预估好容量。</p>
+<hr>
+<h3><span id="删除">删除</span></h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> E <span class="title">remove</span><span class="params">(<span class="keyword">int</span> index)</span> </span>&#123;</span><br><span class="line">    rangeCheck(index);</span><br><span class="line"></span><br><span class="line">    modCount++;</span><br><span class="line">    E oldValue = elementData(index);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> numMoved = size - index - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span> (numMoved &gt; <span class="number">0</span>)</span><br><span class="line">        System.arraycopy(elementData, index+<span class="number">1</span>, elementData, index,</span><br><span class="line">                         numMoved);</span><br><span class="line">    elementData[--size] = <span class="keyword">null</span>; <span class="comment">// clear to let GC do its work</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> oldValue;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">rangeCheck</span><span class="params">(<span class="keyword">int</span> index)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (index &gt;= size)</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IndexOutOfBoundsException(outOfBoundsMsg(index));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>首先确保index的有效性，它调用了<code>rangeCheck(int index)</code>这里有一个非常有趣的现象，代码中它只在<code>index&gt;=size</code>才抛异常。难道它没考虑index为负数的情况吗？其实它是考虑了的，只不过这个检查交给了Array处理。像<code>get(-1)</code>时会报异常<code>ArrayIndexOutOfBoundsException</code>。确保了index的有效性后，就可以删除了，这些大佬工程师写的数组的删除和大家一样，都是把<code>index+1</code>后面的元素复制到index位置上。这个操作的时间复杂度为O(N),代价还是比较高的。</p>
+<h3><span id="fail-fast">fail-fast</span></h3><p>fail-fast 机制是java集合(Collection)中的一种错误机制。当多个线程对同一个集合的内容进行操作时，就可能会产生fail-fast事件。例如：当某一个线程A通过iterator去遍历某集合的过程中，若该集合的内容被其他线程所改变了；那么线程A访问集合时，就会抛出<code>ConcurrentModificationException</code>异常，产生fail-fast事件。</p>
+<p>ArrayList中的modCount<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">private void writeObject(java.io.ObjectOutputStream s)</span><br><span class="line">    throws java.io.IOException&#123;</span><br><span class="line">    // Write out element count, and any hidden stuff</span><br><span class="line">    int expectedModCount = modCount;</span><br><span class="line">    s.defaultWriteObject();</span><br><span class="line"></span><br><span class="line">    // Write out size as capacity for behavioural compatibility with clone()</span><br><span class="line">    s.writeInt(size);</span><br><span class="line"></span><br><span class="line">    // Write out all elements in the proper order.</span><br><span class="line">    for (int i=0; i&lt;size; i++) &#123;</span><br><span class="line">        s.writeObject(elementData[i]);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if (modCount != expectedModCount) &#123;</span><br><span class="line">        throw new ConcurrentModificationException();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在序列化的时候，比较了前后的modCount值，防止序列化途中List结构发生了改变。</p>
 
       
 
@@ -272,11 +254,11 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">innoDB引擎</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">源码</a>
         		</li>
       		
 		</ul>
@@ -332,7 +314,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/04/07/MySQL技术内幕学习笔记一/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/05/31/ArrayList源码分析/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -346,18 +328,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/04/10/MySQL技术内幕学习笔记二/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          MySQL技术内幕学习笔记二
-        
-      </div>
-    </a>
   
-  
-    <a href="/2019/04/06/汇编学习笔记一/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">汇编学习笔记一</div>
+    <a href="/2019/05/30/java并发编程实践学习笔记二/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">java并发编程学习笔记二</div>
       <i class="icon-circle-right"></i>
     </a>
   

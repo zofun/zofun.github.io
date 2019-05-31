@@ -6,23 +6,15 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>MySQL技术内幕学习笔记一 | 个人博客</title>
+  <title>个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="数据库是物理操作系统文件或其它形式文件类型得集合。 实例是数据库后台线程和共享内存区。通常数据库和实例是一一对应的关系。一个数据库对应一个实例。 MySQL是一个单进程多线程架构的应用。 MySQL数据库启动时会按照/etc/my.cnf–&amp;gt;/tec/mysql/my.cnf–&amp;gt;/usr/local/mysql/etc/mycnf–&amp;gt;~/.my.cnf的顺序读取配置文件（也可能">
-<meta name="keywords" content="技术,innoDB引擎,MySQL">
-<meta property="og:type" content="article">
-<meta property="og:title" content="MySQL技术内幕学习笔记一">
-<meta property="og:url" content="http://yoursite.com/2019/04/07/MySQL技术内幕学习笔记一/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="个人博客">
+<meta property="og:url" content="http://yoursite.com/page/3/index.html">
 <meta property="og:site_name" content="个人博客">
-<meta property="og:description" content="数据库是物理操作系统文件或其它形式文件类型得集合。 实例是数据库后台线程和共享内存区。通常数据库和实例是一一对应的关系。一个数据库对应一个实例。 MySQL是一个单进程多线程架构的应用。 MySQL数据库启动时会按照/etc/my.cnf–&amp;gt;/tec/mysql/my.cnf–&amp;gt;/usr/local/mysql/etc/mycnf–&amp;gt;~/.my.cnf的顺序读取配置文件（也可能">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://s2.ax1x.com/2019/04/06/AWHdJ0.png">
-<meta property="og:image" content="https://s2.ax1x.com/2019/04/06/AfSKBV.png">
-<meta property="og:updated_time" content="2019-04-06T12:21:06.473Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="MySQL技术内幕学习笔记一">
-<meta name="twitter:description" content="数据库是物理操作系统文件或其它形式文件类型得集合。 实例是数据库后台线程和共享内存区。通常数据库和实例是一一对应的关系。一个数据库对应一个实例。 MySQL是一个单进程多线程架构的应用。 MySQL数据库启动时会按照/etc/my.cnf–&amp;gt;/tec/mysql/my.cnf–&amp;gt;/usr/local/mysql/etc/mycnf–&amp;gt;~/.my.cnf的顺序读取配置文件（也可能">
-<meta name="twitter:image" content="https://s2.ax1x.com/2019/04/06/AWHdJ0.png">
+<meta name="twitter:title" content="个人博客">
   
     <link rel="alternative" href="/atom.xml" title="个人博客" type="application/atom+xml">
   
@@ -160,209 +152,58 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-MySQL技术内幕学习笔记一" class="article article-type-post " itemscope itemprop="blogPost">
+            
+  
+    <article id="post-hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 class="article-title" itemprop="name">
-      MySQL技术内幕学习笔记一
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/10/hello-world/">Hello World</a>
     </h1>
   
 
         
-        <a href="/2019/04/07/MySQL技术内幕学习笔记一/" class="archive-article-date">
-  	<time datetime="2019-04-07T08:38:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-07</time>
+        <a href="/2019/03/10/hello-world/" class="archive-article-date">
+  	<time datetime="2019-03-10T08:34:40.632Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-10</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <ul>
-<li>数据库是物理操作系统文件或其它形式文件类型得集合。</li>
-<li>实例是数据库后台线程和共享内存区。通常数据库和实例是一一对应的关系。一个数据库对应一个实例。</li>
-<li>MySQL是一个单进程多线程架构的应用。</li>
-<li>MySQL数据库启动时会按照/etc/my.cnf–&gt;/tec/mysql/my.cnf–&gt;/usr/local/mysql/etc/mycnf–&gt;~/.my.cnf的顺序读取配置文件（也可能是.ini后缀）。如果配置文件中有相同的配置则按最后一个读取的文件进行配置。如果没有配置文件，则使用数据库默认参数。</li>
-<li>innodb采用聚集的方式存储数据。每张表都是按主键的顺序进行存放的。如果没有显示的在表中定义主键。innodb会为每一行生成一个6字节的ROWID作为主键。</li>
-<li>innodb存储引擎的体系架构<br><img src="https://s2.ax1x.com/2019/04/06/AWHdJ0.png" alt="体系架构"><br>后台线程的主要作用是负责刷新内存池中的数据，保证缓冲池中的内存缓存的是最近的数据。还要负责将已修改的数据文件刷新到新的磁盘文件。还要保证数据库发生异常情况时，能恢复innodb存储引擎到正常的运行状态。<a id="more"></a></li>
-<li><p>innodb存储引擎的undo和redo</p>
-<ul>
-<li>undo log是为了实现事务的原子性（即操作要么完成，要么不完成，不会有完成一半的情况）</li>
-<li>undo log在操作前，都将数据备份到undo log中，然后再对数据进行操作。操作成功后将undo log中的数据持久化到存储上。（数据是先读取到内存中的，然后再进行操作，然后再持久化到存储上）</li>
-<li>redo log是为了备份新数据，确保事务的持久性。在事务提交前将redo持久化。当系统崩溃时可以将数据恢复到最新的状态。</li>
-<li>redo和undo事务的简化示例：假设有A，B两个数据；1.事务开始。2.记录A=1备份到undo log 3.修改 A=3 4.记录A=3到redo log 5.修改B=4 6.记录B=4到redo log 7.将redo log写入磁盘（持久化）</li>
-<li>undo+redo事务的特点：1.为了保证持久性，必须在事务提交前将redo log持久化 2.数据不需要在事务提交前写入磁盘，而是缓存再内存中（直接将redo log写入即可）。3.redo log确保了事务的持久性 4.undo log确保了事务的原子性</li>
-</ul>
-</li>
-<li><p>脏页<br>因为硬盘的读写速度远远低于内存的速度。为了提高读写速度，系统就把读写较频繁的部分写入到内存给中，这叫高速缓存。linux以页作为高速缓存的单位。当修改了高速缓存中的数据后，linux内核就将该页数据标记为脏页。内核需要在合适的时间将脏页的数据写入磁盘，以保证数据的一致性。</p>
-</li>
-</ul>
-<ul>
-<li><p>不同的后台线程复制不同的任务</p>
-<ul>
-<li>master thread：负责异步的把缓冲区的数据写入磁盘，保证数据的一致性。包括脏页的刷新，合并插入缓冲。undo页的回收等</li>
-<li>io thread ：在innodb存储引擎中采用了大量的AIO（async io异步非阻塞IO）来处理IO请求。可以提高数据库的性能。io thread的只要作用是处理io请求的回调</li>
-<li>purge thread：回收undo log</li>
-<li>page cleaner thread：将脏页的刷新放到单独的线程中来完成</li>
-</ul>
-</li>
-<li><p>缓冲池</p>
-<ul>
-<li>innodb存储引擎是基于磁盘的，并按页的方式管理记录。为了解决磁盘读取速度慢的问题。引入了缓冲池。缓冲池简单来说就是一块内存。为了获得更大的缓冲池，建议数据库服务器经历使用64位的系统。数据库从磁盘读取页到内存（fix），下一次读取时，会先判断该页是否已经在内存中了。如果已经在内存中，则称为该页在缓冲池中被命中。否则，从磁盘中读页到内存。innodb使用一种（checkpoint）机制在合适的时间将缓冲池中的页刷新到磁盘中。</li>
-<li>缓冲池中包括索引页，数据页，undo页，插入缓冲，自适应哈希索引，innodb存储的锁信息，数据字典信息。</li>
-<li>每个页的大小为16KB</li>
-<li><img src="https://s2.ax1x.com/2019/04/06/AfSKBV.png" alt="缓冲池"></li>
-</ul>
-</li>
-<li><p>LRU</p>
-<ul>
-<li>为了管理缓冲池，innodb存储引擎采用了LRU算法来管理内存。使用最频繁的页在LRU列表的最前端，使用最少的页放在LRU列表的尾端。当缓冲池的空间即将用尽时，首先释放掉LRU列表末端的页。</li>
-<li>缓冲池中的页默认大小为16kb，新读取到的页放到midpoint，而不是LRU列表的首部。midpoint的值默认为5/8处，可以由参数innodb_old_block_pct控制。之所以不把从磁盘读取对的页放到LRU列表的首部，是因为有些sql会访问许多页，但只是一次需要，读取的页并不是活跃的数据，如果放到LRU首部，可能会使真正的热点数据页被刷出。可以通过配置参数innodb_old_blocks_time来控制页读取到midpoint位置后多久才会被放到LRU的前段。</li>
-<li>innodb存储引擎在1.0.x后对原本16kb的页进行压缩为1kb，2kb，4kb，8kb。非16kb的页使用unzip_LRU来进行管理。其对不同大小的页分别进行管理，并且采用伙伴算法分配内存。</li>
-</ul>
-</li>
-</ul>
+        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<h2><span id="quick-start">Quick Start</span></h2><h3><span id="create-a-new-post">Create a new post</span></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3><span id="run-server">Run server</span></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3><span id="generate-static-files">Generate static files</span></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3><span id="deploy-to-remote-sites">Deploy to remote sites</span></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
 
       
 
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="/img/alipay.png">
-                      <span class="reward-type">支付宝</span>
-                    </div>
-                    
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="/img/weixin.png">
-                      <span class="reward-type">微信</span>
-                    </div>
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
       
     </div>
     <div class="article-info article-info-index">
       
       
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">innoDB引擎</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
       
 
       
-
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/03/10/hello-world/">展开全文 >></a>
+        </p>
       
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
-        </div>
-      </div>
-    </span>
-  </div>
-</div>
 
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/04/07/MySQL技术内幕学习笔记一/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2019/04/10/MySQL技术内幕学习笔记二/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          MySQL技术内幕学习笔记二
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2019/04/06/汇编学习笔记一/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">汇编学习笔记一</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -382,33 +223,15 @@
 
 
 
-  
-  
-  
-
-  
-
-  
-    <section id="comments">
-      <div id="disqus_thread"></div>
-        <script type="text/javascript">
-        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-        var disqus_shortname = 'true'; // required: replace example with your forum shortname
-
-        /* * * DON'T EDIT BELOW THIS LINE * * */
-        (function() {
-          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-          dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-        })();
-      </script>
-      <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-    </section>
-  
-
-  
 
 
+
+  
+  
+    <nav id="page-nav">
+      <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
+    </nav>
+  
 
 
           </div>
@@ -433,8 +256,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: true,
-		isHome: false,
-		isPost: true,
+		isHome: true,
+		isPost: false,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
