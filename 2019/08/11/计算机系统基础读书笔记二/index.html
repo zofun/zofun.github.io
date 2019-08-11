@@ -6,15 +6,29 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives | 个人博客</title>
+  <title>深入理解计算机系统读书笔记二 | 个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="个人博客">
-<meta property="og:url" content="http://yoursite.com/archives/page/3/index.html">
+  <meta name="description" content="内存映射I/O技术CPU使用内存映射I/O技术来向I/O设备发射命令。在使用内存映射I/O的系统中，地址空间中有一块地址是为了与I/O设备通信保留的。每个这样的地址称为I/O端口。当一个设备连接到总线时，它被映射到一个或多个端口。通过内存映射I/O技术将I/O设备放置到内存空间而不是I/O空间，使得访问系统设备和访问内存一样，简化了程序设计的难度和接口的复杂性。 直接内存访问（DMA）设备可以字节">
+<meta name="keywords" content="技术,计算机系统基础">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深入理解计算机系统读书笔记二">
+<meta property="og:url" content="http://yoursite.com/2019/08/11/计算机系统基础读书笔记二/index.html">
 <meta property="og:site_name" content="个人博客">
+<meta property="og:description" content="内存映射I/O技术CPU使用内存映射I/O技术来向I/O设备发射命令。在使用内存映射I/O的系统中，地址空间中有一块地址是为了与I/O设备通信保留的。每个这样的地址称为I/O端口。当一个设备连接到总线时，它被映射到一个或多个端口。通过内存映射I/O技术将I/O设备放置到内存空间而不是I/O空间，使得访问系统设备和访问内存一样，简化了程序设计的难度和接口的复杂性。 直接内存访问（DMA）设备可以字节">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://s2.ax1x.com/2019/08/06/efXZPP.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/08/06/ehCgDf.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/08/09/ebcqhT.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/08/09/eb4Vv8.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/08/11/evZXGT.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/08/11/evm1B9.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/08/11/ev8ehj.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/08/11/ev8Y4J.png">
+<meta property="og:updated_time" content="2019-08-11T09:50:44.432Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="个人博客">
+<meta name="twitter:title" content="深入理解计算机系统读书笔记二">
+<meta name="twitter:description" content="内存映射I/O技术CPU使用内存映射I/O技术来向I/O设备发射命令。在使用内存映射I/O的系统中，地址空间中有一块地址是为了与I/O设备通信保留的。每个这样的地址称为I/O端口。当一个设备连接到总线时，它被映射到一个或多个端口。通过内存映射I/O技术将I/O设备放置到内存空间而不是I/O空间，使得访问系统设备和访问内存一样，简化了程序设计的难度和接口的复杂性。 直接内存访问（DMA）设备可以字节">
+<meta name="twitter:image" content="https://s2.ax1x.com/2019/08/06/efXZPP.png">
   
     <link rel="alternative" href="/atom.xml" title="个人博客" type="application/atom+xml">
   
@@ -156,36 +170,87 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-计算机系统基础读书笔记二" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      深入理解计算机系统读书笔记二
+    </h1>
+  
+
+        
+        <a href="/2019/08/11/计算机系统基础读书笔记二/" class="archive-article-date">
+  	<time datetime="2019-08-11T09:49:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-11</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2><span id="内存映射io技术">内存映射I/O技术</span></h2><p>CPU使用内存映射I/O技术来向I/O设备发射命令。在使用内存映射I/O的系统中，地址空间中有一块地址是为了与I/O设备通信保留的。每个这样的地址称为I/O端口。当一个设备连接到总线时，它被映射到一个或多个端口。通过内存映射I/O技术将I/O设备放置到内存空间而不是I/O空间，使得访问系统设备和访问内存一样，简化了程序设计的难度和接口的复杂性。</p>
+<h2><span id="直接内存访问dma">直接内存访问（DMA）</span></h2><p>设备可以字节执行读或写总线事务而不需要CPU干涉的过程，称为直接内存访问，这种数据传送被称为DMA传送。</p>
+<h2><span id="为什么ssd随机写比随机读慢">为什么SSD随机写比随机读慢</span></h2><p><img src="https://s2.ax1x.com/2019/08/06/efXZPP.png" alt="efXZPP.png"><br>数据是以页为单位进行读写的。只有在一页所属的块整个被擦出后才能写。随机写的速度慢有两方面的原因。首先擦除块需要相对较长的时间，比访问页的的时间一般会高出一个数量级。另以方面，如果试图写的页所属的块中包含其它数据，就必须将块中带有数据的页复制到一个已经擦除的块中，然后再将块进行擦除然后写入数据页。显然，这会耗费很多时间。为了解决这个问题，制造商再内存翻译层中实现了复杂的逻辑，最小化内部写的次数，但是随即写的性能也很难与随机读一样好。<br><a id="more"></a></p>
+<h2><span id="局部性">局部性</span></h2><p>一个编写良好的程序常常具有良好的局部性，他们更加倾向于应用临近于其它最近引用过的数据项的数据项，或者最近引用过的数据项的本身。这种倾向性被称为局部性原理。</p>
+<h3><span id="时间局部性">时间局部性</span></h3><p>再一个良好时间局部性的程序中，被引用过一次的内存位置很可能再不远的将来再被多次引用</p>
+<h3><span id="空间局部性">空间局部性</span></h3><p>在一个具有良好的空间局部性的程序中，如果一个内存位置被引用过一次，那么程序很可能在不远的将来引用附近的一个内存位置。</p>
+<h3><span id="利用局部性我们能做什么">利用局部性我们能做什么</span></h3><p>1.局部性原理允许计算机设计者通过引入称为高数缓存存储器的小而快速的存储器来保存最近被引用的指令和数据项，从而提高对主存的访问效率<br>2.一般而言，有良好的局部性的程序比局部性差的程序运行得更快.(比如在遍历二位数组时按列扫描的效率比按行扫描低很多)</p>
+<h2><span id="存储器层次结构中的缓存">存储器层次结构中的缓存</span></h2><p>高速缓存（cache）四一个小而快速的存储设备，它作为存储在更大、也更慢的设备中的数据对象的缓存区域。使用高速缓存的过程被称为缓存。<br><img src="https://s2.ax1x.com/2019/08/06/ehCgDf.png" alt="ehCgDf.png"><br>对于每个k，位于k层的更快更小的存储设备作为位于k+1层的更大更慢的存储设备的缓存。存储器被划分成连续的数据对象块（chunk），称为块（block）。数据总是以块大小为传送单位在第k层和第k+1层之间来回复制的。</p>
+<h3><span id="缓存命中">缓存命中</span></h3><p>当程序需要第k+1层的某个数据对象d时，它首先在当前存储在第k层的一个块中查找d。如果d刚好缓存在第k层中，那么就说缓存命中（cache hit）。</p>
+<h3><span id="缓存不命中">缓存不命中</span></h3><p>如果第k层中没有缓存数据对象d，那么就是我们说说的缓存不命中（cache miss）。当发生缓存不命中时，第k层的缓存从第k+1层缓存中取出包含d的那个块，如果第k层的缓存已经满了，就会覆盖现存的一个块。覆盖一个现存的块的过程被称为替换或驱逐这个块。被驱逐的这个块也被称为牺牲块。常用的替换策略有随机替换策略和最近最少被使用替换策略（LRU）。</p>
+<h3><span id="缓存不命中的种类">缓存不命中的种类</span></h3><p>1.如果缓存是空的，那么对任何数据对象的访问都不能被命中，一个空的缓存被称为冷缓存，此类不命中称为强制性不命中或冷不命中。这种缓存不命中是非常短暂的，缓存暖身后将进入稳定状态。<br>2.冲突不命中。前面也提到，缓存是以块为单位进行存储的，这些块再缓存中需要遵循一些放置策略。一种是k+1层中任何块可以放置到k层中的任何块，这中方式实现起来成本昂贵（因为定位起来代价很高）。所以，还有一种放置策略将块根据一定的规则映射到指定的位置（类似与hash），那么显然就会存在冲突的情况，这个时候，缓存的空间可能还是有空闲的，但是因为存在放置位置的冲突而使得一些块被覆盖，而出现冲突不命中。<br>3.容量不命中。程序运行时所需的工作集大于缓存容量，造成缓存不得刷出一些块，所造成的缓存不命中称为容量不命中。</p>
+<p><img src="https://s2.ax1x.com/2019/08/09/ebcqhT.png" alt="ebcqhT.png"></p>
+<h2><span id="高速缓存存储器">高速缓存存储器</span></h2><p>高速缓存存储器的存在是为了解决CPu寄存器，DRAM主存储器之间速度的巨大差异。系统设计者再CPU和主存之间插入一块SRAM高速缓存存储器，称为L1高数缓存（一级缓存）。访问L1高速缓存只需要4个时钟周期，几乎和访问寄存器一样快。后来又设计了L2高速缓存和L3高速缓存。</p>
+<h3><span id="通用的高数缓存存储器组织结构">通用的高数缓存存储器组织结构</span></h3><p>计算机中将高速缓存组织为高速缓存组，每个组包含E个高速缓存行。每个行由有效位，标记位和数据块组成。<br><img src="https://s2.ax1x.com/2019/08/09/eb4Vv8.png" alt="eb4Vv8.png"></p>
+<h2><span id="直接映射高速缓存">直接映射高速缓存</span></h2><p>根据每个组的高速缓存行的行数，将高速缓存分为不同的类，每个组只有一行的高数缓存倍称为直接映射高速缓存（direct-mapped cache）</p>
+<h3><span id="组选择">组选择</span></h3><p>直接映射高速缓存从待缓存的数据的地址中取出一部分，将这些位解释位一个对应的组号。<br><img src="https://s2.ax1x.com/2019/08/11/evZXGT.png" alt="evZXGT.png"></p>
+<h3><span id="行匹配">行匹配</span></h3><p>行匹配对于直接映射高速缓存非常简单，因为直接映射高速缓存的每个组只有一行。待缓存的数据w的地址的一部分也被解释为标记，如果该缓存行的标记位的值与数据w解释出的标记相等，那么该缓存行中包含该数据的一个副本。<br><img src="https://s2.ax1x.com/2019/08/11/evm1B9.png" alt="evm1B9.png"></p>
+<h3><span id="字选择">字选择</span></h3><p>字选择也很简单，确定了缓存行，将数据w的地址中的一段解释为偏移量，如果将高数缓存看成一行数组的话，那么偏移量就相当于索引。</p>
+<h3><span id="直接映射高速缓存中的冲突不命中">直接映射高速缓存中的冲突不命中</span></h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">float</span> <span class="title">dotprod</span><span class="params">(<span class="keyword">float</span> x[<span class="number">8</span>],<span class="keyword">float</span> y[<span class="number">8</span>])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">float</span> sum=<span class="number">0.0</span>;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">8</span>;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        sum+=x[i]+y[i];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个函数具有良好的空间局部性。但如果x[i]和y[i]被映射到相同的高速缓存组中，那么在运行时，会出现冲突不命中。高速缓存会反复地加载和驱逐相同的高速缓存块的组。</p>
+<h2><span id="组相联高速缓存">组相联高速缓存</span></h2><p>在组相联高速缓存（set associative cache）中每个组都保存有多于一个的高速缓存行。<br><img src="https://s2.ax1x.com/2019/08/11/ev8ehj.png" alt="ev8ehj.png"></p>
+<h2><span id="全相联高速缓存">全相联高速缓存</span></h2><p>全相联高速缓存（fully associative cache）是由一个包含所有高速缓存行的组组成的，<br><img src="https://s2.ax1x.com/2019/08/11/ev8Y4J.png" alt="ev8Y4J.png"><br>全相联高速缓存只适合左小的高速缓存，例如虚拟内存系统中的翻译备用缓冲器（TLB），它缓存也表项。</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/img/alipay.png">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/img/weixin.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/04/03/TCPIP学习笔记三/" class="archive-article-date">
-  	<time datetime="2019-04-03T07:58:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-03</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/04/03/TCPIP学习笔记三/">TCP/IP学习笔记(三)</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -195,304 +260,130 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">TCP/IP</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">计算机系统基础</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/08/11/计算机系统基础读书笔记二/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/03/29/TCPIP学习笔记二/" class="archive-article-date">
-  	<time datetime="2019-03-29T08:32:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-29</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2019/08/06/HashSet源码分析/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">HashSet源码分析</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/03/29/TCPIP学习笔记二/">TCP/IP学习笔记(二)</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">IP协议</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/03/27/TCPIP学习笔记一/" class="archive-article-date">
-  	<time datetime="2019-03-27T08:38:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-27</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/03/27/TCPIP学习笔记一/">TCP/IP协议学习笔记(一)</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">TCP/IP</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/03/23/wav音频的剪切/" class="archive-article-date">
-  	<time datetime="2019-03-23T06:29:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-23</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/03/23/wav音频的剪切/">wav音频的剪切</a>
-    </h1>
+    <section id="comments">
+      <div id="disqus_thread"></div>
+        <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'true'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </section>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">项目小技巧</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/03/11/java多线程之线程的创建/" class="archive-article-date">
-  	<time datetime="2019-03-11T10:08:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/03/11/java多线程之线程的创建/">java创建线程的三种方式</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/03/11/git和git的简单使用/" class="archive-article-date">
-  	<time datetime="2019-03-11T10:08:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/03/11/git和git的简单使用/">git与git的简单使用</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">git</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/03/11/tags- 技术/" class="archive-article-date">
-  	<time datetime="2019-03-11T02:05:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/03/11/tags- 技术/">第一次编写博客的测试</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/03/10/hello-world/" class="archive-article-date">
-  	<time datetime="2019-03-10T08:34:40.632Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-10</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/03/10/hello-world/">Hello World</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/page/2/">&laquo; Prev</a><a class="page-number" href="/archives/">1</a><a class="page-number" href="/archives/page/2/">2</a><span class="page-number current">3</span>
-    </nav>
-  
 
 
           </div>
@@ -518,8 +409,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
