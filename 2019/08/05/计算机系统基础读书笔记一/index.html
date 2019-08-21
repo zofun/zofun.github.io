@@ -184,6 +184,9 @@
         
       </header>
     
+    <!-- 目录内容 -->
+
+<!-- 目录内容结束 -->
     <div class="article-entry" itemprop="articleBody">
       
         <h1><span id="基础知识">基础知识</span></h1><h2><span id="为什么计算机需要高速缓存">为什么计算机需要高速缓存？</span></h2><p>计算机程序是存储在磁盘中的。程序运行时，需要将程序加载到主存(内存条)中，但处理器处理程序时，又需要将指令从主存复制到处理器。程序的复制是开销。需要使用一种方式来使复制操作尽可能快的执行。根据机械原理，存储能力较大的设备的读写速度较慢。为了解决主存与处理器之间存在的读取数据的差距，就使用一种更小更快的存储设备，称为高数缓存存储器（cache memory）作为暂时集结的地方。<br><img src="https://s2.ax1x.com/2019/08/01/eaYWxx.png" alt="eaYWxx.png"></p>
@@ -357,22 +360,26 @@
         </div>
         
         
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">基础知识</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.1.</span> <span class="toc-text">为什么计算机需要高速缓存？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.</span> <span class="toc-text">操作系统的两个基本功能</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.3.</span> <span class="toc-text">什么是进程？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.4.</span> <span class="toc-text">什么是线程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.5.</span> <span class="toc-text">什么是虚拟内存</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.6.</span> <span class="toc-text">文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.7.</span> <span class="toc-text">什么是指令集体系结构，它有什么作用？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.8.</span> <span class="toc-text">影响编译器对程序进行优化的几个因数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.9.</span> <span class="toc-text">流水线优化和分支预测技术</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.9.1.</span> <span class="toc-text">静态分支预测技术</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.9.2.</span> <span class="toc-text">动态分支预测技术</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.10.</span> <span class="toc-text">访问主存</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.11.</span> <span class="toc-text">CPU是如何将主存中的内容加载到寄存器的</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.12.</span> <span class="toc-text">CPU是如何将寄存器中的值写到主存</span></a></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
+        
     </div>
 </aside>
 
 
 
-  
-  
-  
 
-  
-
-  
-
-  
-
-
+<!-- valine部分 -->
 
 <section id="comments" class="comments">
   <style>
@@ -387,23 +394,35 @@
    var verify = 'false' == true ? true : false;
     window.onload = function() {
         new Valine({
-            el: '.comment',
+            el: '#vcomment',
             notify: notify,
             verify: verify,
             app_id: "ziNrp7174hrBh9XMtg91L1UH-9Nh9j0Va",
             app_key: "uGDaWde4F3KHfdgjTumfbXdp",
             placeholder: "没事唠两句？",
-            avatar:"mm"
+            avatar:"robohash"
         });
     }
 </script>
   </section>
 
+<!-- valine部分 -->
+  
+  
+  
+
+  
+
+  
+
+  
 
 
-<!-- 目录内容 -->
-   
-<!-- 目录内容结束 -->
+
+
+
+
+
 
 
 
@@ -537,11 +556,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">innodb引擎</a>
+                <a href="javascript:void(0)" class="js-tag color4">innoDB引擎</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">innoDB引擎</a>
+                <a href="javascript:void(0)" class="js-tag color4">innodb引擎</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -553,11 +572,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
+                <a href="javascript:void(0)" class="js-tag color5">IP协议</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">IP协议</a>
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">

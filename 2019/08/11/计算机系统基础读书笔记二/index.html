@@ -188,6 +188,9 @@
         
       </header>
     
+    <!-- 目录内容 -->
+
+<!-- 目录内容结束 -->
     <div class="article-entry" itemprop="articleBody">
       
         <h2><span id="内存映射io技术">内存映射I/O技术</span></h2><p>CPU使用内存映射I/O技术来向I/O设备发射命令。在使用内存映射I/O的系统中，地址空间中有一块地址是为了与I/O设备通信保留的。每个这样的地址称为I/O端口。当一个设备连接到总线时，它被映射到一个或多个端口。通过内存映射I/O技术将I/O设备放置到内存空间而不是I/O空间，使得访问系统设备和访问内存一样，简化了程序设计的难度和接口的复杂性。</p>
@@ -361,22 +364,26 @@
         </div>
         
         
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">内存映射I/O技术</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">2.</span> <span class="toc-text">直接内存访问（DMA）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">3.</span> <span class="toc-text">为什么SSD随机写比随机读慢</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">4.</span> <span class="toc-text">局部性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">4.1.</span> <span class="toc-text">时间局部性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">4.2.</span> <span class="toc-text">空间局部性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">4.3.</span> <span class="toc-text">利用局部性我们能做什么</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">5.</span> <span class="toc-text">存储器层次结构中的缓存</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">5.1.</span> <span class="toc-text">缓存命中</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">5.2.</span> <span class="toc-text">缓存不命中</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">5.3.</span> <span class="toc-text">缓存不命中的种类</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">6.</span> <span class="toc-text">高速缓存存储器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">6.1.</span> <span class="toc-text">通用的高数缓存存储器组织结构</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">7.</span> <span class="toc-text">直接映射高速缓存</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">7.1.</span> <span class="toc-text">组选择</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">7.2.</span> <span class="toc-text">行匹配</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">7.3.</span> <span class="toc-text">字选择</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">7.4.</span> <span class="toc-text">直接映射高速缓存中的冲突不命中</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">8.</span> <span class="toc-text">组相联高速缓存</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">9.</span> <span class="toc-text">全相联高速缓存</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
+        
     </div>
 </aside>
 
 
 
-  
-  
-  
 
-  
-
-  
-
-  
-
-
+<!-- valine部分 -->
 
 <section id="comments" class="comments">
   <style>
@@ -391,23 +398,35 @@
    var verify = 'false' == true ? true : false;
     window.onload = function() {
         new Valine({
-            el: '.comment',
+            el: '#vcomment',
             notify: notify,
             verify: verify,
             app_id: "ziNrp7174hrBh9XMtg91L1UH-9Nh9j0Va",
             app_key: "uGDaWde4F3KHfdgjTumfbXdp",
             placeholder: "没事唠两句？",
-            avatar:"mm"
+            avatar:"robohash"
         });
     }
 </script>
   </section>
 
+<!-- valine部分 -->
+  
+  
+  
+
+  
+
+  
+
+  
 
 
-<!-- 目录内容 -->
-   
-<!-- 目录内容结束 -->
+
+
+
+
+
 
 
 
@@ -541,11 +560,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">innodb引擎</a>
+                <a href="javascript:void(0)" class="js-tag color4">innoDB引擎</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">innoDB引擎</a>
+                <a href="javascript:void(0)" class="js-tag color4">innodb引擎</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -557,11 +576,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
+                <a href="javascript:void(0)" class="js-tag color5">IP协议</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">IP协议</a>
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
