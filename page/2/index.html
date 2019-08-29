@@ -85,7 +85,7 @@
 		        
 					<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/luo-bu-dun-zhu-25/activities" title="zhihu"><i class="icon-zhihu"></i></a>
 		        
-					<a class="mail" target="_blank" href="/1483674736@qq.com" title="mail"><i class="icon-mail"></i></a>
+					<a class="mail" target="_blank" href="https://s2.ax1x.com/2019/08/21/mUbpAH.png" title="mail"><i class="icon-mail"></i></a>
 		        
 			</div>
 		</nav>
@@ -128,7 +128,7 @@
 			        
 						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/luo-bu-dun-zhu-25/activities" title="zhihu"><i class="icon-zhihu"></i></a>
 			        
-						<a class="mail" target="_blank" href="/1483674736@qq.com" title="mail"><i class="icon-mail"></i></a>
+						<a class="mail" target="_blank" href="https://s2.ax1x.com/2019/08/21/mUbpAH.png" title="mail"><i class="icon-mail"></i></a>
 			        
 				</div>
 			</nav>
@@ -157,6 +157,108 @@
           </div>
           <div id="js-content" class="content-ll">
             
+  
+    <article id="post-ArrayList源码分析" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/05/31/ArrayList源码分析/">ArrayList源码分析</a>
+    </h1>
+  
+
+        
+        <a href="/2019/05/31/ArrayList源码分析/" class="archive-article-date">
+  	<time datetime="2019-05-31T08:24:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-31</time>
+</a>
+        
+      </header>
+    
+    <!-- 目录内容 -->
+
+<!-- 目录内容结束 -->
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ArrayList</span>&lt;<span class="title">E</span>&gt; <span class="keyword">extends</span> <span class="title">AbstractList</span>&lt;<span class="title">E</span>&gt;</span></span><br><span class="line"><span class="class">        <span class="keyword">implements</span> <span class="title">List</span>&lt;<span class="title">E</span>&gt;, <span class="title">RandomAccess</span>, <span class="title">Cloneable</span>, <span class="title">java</span>.<span class="title">io</span>.<span class="title">Serializable</span></span></span><br></pre></td></tr></table></figure>
+<p>ArrayList是基于数组实现的，所以支持快速的随机访问。</p>
+<h3 id="属性解释"><a href="#属性解释" class="headerlink" title="属性解释"></a>属性解释</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> DEFAULT_CAPACITY = <span class="number">10</span>;</span><br></pre></td></tr></table></figure>
+<p>默认的初始容量。在创建ArrayList实例的时候可以不用指定其大小，默认的容量大小为10；但建议提前预估好合适的容量大小，因为扩容的开销比较大。后面会专门分析。</p>
+<hr>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Object[] EMPTY_ELEMENTDATA = &#123;&#125;;</span><br></pre></td></tr></table></figure>
+<p>共享的空数组实例。在创建ArrayList对象实例的时候，如果容量大小指定为为0时，会让elementData引用共享的整个空数组。</p>
+<hr>
+        
+          <a class="article-more-a" href="/2019/05/31/ArrayList源码分析/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">源码</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/05/31/ArrayList源码分析/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+
+
+
+
+
   
     <article id="post-java并发编程实践学习笔记二" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
@@ -1155,148 +1257,9 @@
 
 
   
-    <article id="post-MySQL技术内幕学习笔记二" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/04/10/MySQL技术内幕学习笔记二/">MySQL技术内幕学习笔记二</a>
-    </h1>
-  
-
-        
-        <a href="/2019/04/10/MySQL技术内幕学习笔记二/" class="archive-article-date">
-  	<time datetime="2019-04-10T09:26:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-10</time>
-</a>
-        
-      </header>
-    
-    <!-- 目录内容 -->
-
-<!-- 目录内容结束 -->
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>目录</p>
-<!-- toc -->
-<ul>
-<li><a href="#重做日志缓存">重做日志缓存</a></li>
-<li><a href="#额外的内存池">额外的内存池</a></li>
-<li><a href="#sql语句的分类">SQL语句的分类</a></li>
-<li><a href="#checkpoint技术">checkpoint技术</a></li>
-<li><a href="#master-thread-的工作方式">master thread 的工作方式</a></li>
-<li><a href="#索引">索引</a></li>
-<li><a href="#innodb的关键特性">innodb的关键特性</a><ul>
-<li><a href="#插入缓存">插入缓存</a></li>
-<li><a href="#两次写">两次写</a></li>
-<li><a href="#自适应哈希索引">自适应哈希索引</a></li>
-<li><a href="#异步io">异步IO</a></li>
-<li><a href="#刷新邻接页">刷新邻接页</a></li>
-</ul>
-</li>
-</ul>
-<!-- tocstop -->
-<h4 id="重做日志缓存"><a href="#重做日志缓存" class="headerlink" title="重做日志缓存"></a>重做日志缓存</h4><ul>
-<li>重做日志缓冲（redo log buffer）<ul>
-<li>重做日志缓冲同样也在innodb内存区。innodb存储引擎会将重做日志信息先放到重做日志缓冲区，然后以一定的频率刷新到重做日志中。</li>
-<li>重做日志缓冲不必太大。因为一般每一秒都会刷新到重做日志文件中。默认为8MB，该值可以由innodb_log_buffer_size控制</li>
-<li>重做日志缓冲刷新的三种情况。1.master thread每一秒都会刷新一次。 2.每次事务提交时都会刷新一次。 3.重做日志缓冲池剩余空间小于1/2时，会刷新。</li>
-</ul>
-</li>
-</ul>
-<h4 id="额外的内存池"><a href="#额外的内存池" class="headerlink" title="额外的内存池"></a>额外的内存池</h4><ul>
-<li>额外的内存池<ul>
-<li>innodb存储引擎采用一种称为内存堆的方式进行。在给一些数据结构分配内存时，会从额外的内存池中申请，但该内存中的内存不足时，会从缓冲池中申请。</li>
-</ul>
-</li>
-</ul>
-<h4 id="SQL语句的分类"><a href="#SQL语句的分类" class="headerlink" title="SQL语句的分类"></a>SQL语句的分类</h4><ul>
-<li>数据库查询语言DQL<br>  -各种查询</li>
-<li>数据操纵语言DML<ul>
-<li>增删改</li>
-</ul>
-</li>
-<li>数据定义语言DDL<ul>
-<li>用来创建数据库中的各种对象，如表，视图，索引等</li>
-</ul>
-</li>
-<li>数据控制语言DCL<ul>
-<li>授权，回滚数据库等
-        
-          <a class="article-more-a" href="/2019/04/10/MySQL技术内幕学习笔记二/#more">more >></a>
-        
-      
-
-      
-    </li></ul></li></ul></div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">innodb引擎</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/04/10/MySQL技术内幕学习笔记二/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
     </nav>
   
 
@@ -1431,15 +1394,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">innoDB引擎</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">innodb引擎</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">innodb存储引擎</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">innoDB引擎</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1459,7 +1422,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">正则表达式</a>
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1468,6 +1431,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">汇编</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">正则表达式</a>
               </li>
              
               <li class="article-tag-list-item">
