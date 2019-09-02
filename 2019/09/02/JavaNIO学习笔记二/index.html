@@ -6,15 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2019/6 | 个人博客</title>
+  <title>Java NIO 学习笔记二 | 个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="个人博客">
-<meta property="og:url" content="http://yoursite.com/archives/2019/06/index.html">
+  <meta name="description" content="通道基础Channel表示IO源与目标打开的连接。在NIO中所有的IO都是从通道开始的。从通道进行数据的读取或者从通道进行数据写入。通道的顶层接口只Channel接口。其中定义了两个方法。12public boolean isOpen()public void close() throws IOException; 由Channel引申的实现类都是面向ByteBuffer的。将IO从广义上分类，可">
+<meta name="keywords" content="技术,Java NIO">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java NIO 学习笔记二">
+<meta property="og:url" content="http://yoursite.com/2019/09/02/JavaNIO学习笔记二/index.html">
 <meta property="og:site_name" content="个人博客">
+<meta property="og:description" content="通道基础Channel表示IO源与目标打开的连接。在NIO中所有的IO都是从通道开始的。从通道进行数据的读取或者从通道进行数据写入。通道的顶层接口只Channel接口。其中定义了两个方法。12public boolean isOpen()public void close() throws IOException; 由Channel引申的实现类都是面向ByteBuffer的。将IO从广义上分类，可">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://s2.ax1x.com/2019/08/30/mX9uWT.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/09/02/ni1Q5F.png">
+<meta property="og:updated_time" content="2019-09-02T12:48:54.024Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="个人博客">
+<meta name="twitter:title" content="Java NIO 学习笔记二">
+<meta name="twitter:description" content="通道基础Channel表示IO源与目标打开的连接。在NIO中所有的IO都是从通道开始的。从通道进行数据的读取或者从通道进行数据写入。通道的顶层接口只Channel接口。其中定义了两个方法。12public boolean isOpen()public void close() throws IOException; 由Channel引申的实现类都是面向ByteBuffer的。将IO从广义上分类，可">
+<meta name="twitter:image" content="https://s2.ax1x.com/2019/08/30/mX9uWT.png">
   
     <link rel="alternative" href="/atom.xml" title="个人博客" type="application/atom+xml">
   
@@ -156,36 +164,131 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-JavaNIO学习笔记二" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Java NIO 学习笔记二
+    </h1>
+  
+
+        
+        <a href="/2019/09/02/JavaNIO学习笔记二/" class="archive-article-date">
+  	<time datetime="2019-09-02T12:48:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-02</time>
+</a>
+        
+      </header>
     
+    <!-- 目录内容 -->
+
+    <p class="show-toc-btn" id="show-toc-btn" onclick="showToc();">
+          <span class="btn-bg"></span>
+          <span class="btn-text">文章导航</span>
+          </p>
+  <div id="toc-article" class="toc-article" style="display:none">
+      <span id="toc-close" class="toc-close" title="隐藏导航" onclick="showBtn();">×</span>
+    <strong class="toc-title">文章目录</strong>
+           <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">通道基础</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">2.</span> <span class="toc-text">简单的使用Channel</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">2.1.</span> <span class="toc-text">关闭通道</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">2.2.</span> <span class="toc-text">Scatter/Gather</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">3.</span> <span class="toc-text">文件通道</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">3.1.</span> <span class="toc-text">文件通道的创建</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">3.2.</span> <span class="toc-text">使用文件通道</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">3.2.1.</span> <span class="toc-text">绝对读和绝对写</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">3.2.2.</span> <span class="toc-text">截断文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">3.2.3.</span> <span class="toc-text">force(boolean metaData)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">3.2.4.</span> <span class="toc-text">文件锁定</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">3.3.</span> <span class="toc-text">Channel-to-Channel传输</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">4.</span> <span class="toc-text">内存映射文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">5.</span> <span class="toc-text">Socket通道</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">5.1.</span> <span class="toc-text">通道的非阻塞模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">5.2.</span> <span class="toc-text">ServerSocketChannel</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">5.3.</span> <span class="toc-text">SocketChannel</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">5.4.</span> <span class="toc-text">DatagramChannel</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">6.</span> <span class="toc-text">管道</span></a></li></ol>
+         </div>
+   <script type="text/javascript">
+  function showToc(){
+    var toc_article = document.getElementById("toc-article");
+    var show_toc_btn = document.getElementById("show-toc-btn");
+    toc_article.setAttribute("style","display:block");
+    show_toc_btn.setAttribute("style","display:none");
+    };
+  function showBtn(){
+    var toc_article = document.getElementById("toc-article");
+    var show_toc_btn = document.getElementById("show-toc-btn");
+    toc_article.setAttribute("style","display:none");
+    show_toc_btn.setAttribute("style","display:block");
+    };
+   </script>
+      
+<!-- 目录内容结束 -->
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2><span id="通道基础">通道基础</span></h2><p>Channel表示IO源与目标打开的连接。在NIO中所有的IO都是从通道开始的。从通道进行数据的读取或者从通道进行数据写入。<br>通道的顶层接口只Channel接口。其中定义了两个方法。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isOpen</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">close</span><span class="params">()</span> <span class="keyword">throws</span> IOException</span>;</span><br></pre></td></tr></table></figure></p>
+<p>由Channel引申的实现类都是面向ByteBuffer的。<br>将IO从广义上分类，可以分为File I/O和Stream I/O。相应的也有两种不同类型的通道，分别是文件通道，和套接字通道。分别是FileChannel和SocketChannel、ServerSocketChannel、DatagramChannel.</p>
+<p><img src="https://s2.ax1x.com/2019/08/30/mX9uWT.png" alt="mX9uWT.png"><br>通道可以是单向的也可以是双向的，这取决于它们对ReadableByteChannel接口和WritableByteChannel接口的实现情况。而ByteChannel做的工作仅仅是聚集接口。实现ByteChannel接口的通道可以是双向的。但它不一定就是双向的，比如从FileInputStream对象使用getChannel方法获取的FileChannel对象是只读的，这和权限有关。<br><a id="more"></a></p>
+<p>每个通道都会连接一个特定的I/O服务，通道实例的性能取决于它所连接的I/O服务的特征限制。所以一个通道是否能够读或写，和其连接的I/O服务也有关。</p>
+<h2><span id="简单的使用channel">简单的使用Channel</span></h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    ReadableByteChannel readableByteChannel= Channels.newChannel(System.in);</span><br><span class="line">    WritableByteChannel writableByteChannel=Channels.newChannel(System.out);</span><br><span class="line">    channelCopy(readableByteChannel,writableByteChannel);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">channelCopy</span><span class="params">(ReadableByteChannel src, WritableByteChannel desc)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    <span class="comment">//分配一个直接缓冲区</span></span><br><span class="line">    ByteBuffer buffer=ByteBuffer.allocateDirect(<span class="number">1024</span>*<span class="number">16</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (src.read(buffer)!=-<span class="number">1</span>)&#123;</span><br><span class="line">        <span class="comment">//将buffer切换到读模式</span></span><br><span class="line">        buffer.flip();</span><br><span class="line">        <span class="comment">//确保buffer中的内容被全部写入</span></span><br><span class="line">       <span class="keyword">while</span> (buffer.hasRemaining())&#123;</span><br><span class="line">           desc.write(buffer);</span><br><span class="line">       &#125;</span><br><span class="line">       </span><br><span class="line">       <span class="comment">//清除buffer，等待下次写入</span></span><br><span class="line">       buffer.clear();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3><span id="关闭通道">关闭通道</span></h3><p>通道被关闭时，通道于特定的I/O服务的连接就会丢失，然后通道将不会连接任何东西。<br><code>close()</code>方法用来关闭通道，可以使用<code>isOpen()</code>来查看通道的状态。如果一个通道实现了<code>InterruptibleChannel</code>接口，如果一个线程在一个该通道上被阻塞并同时被中断，那么该通道将被关闭，该被阻塞线程也会产生一个<code>ClosedByInterruptException</code>异常。</p>
+<h3><span id="scattergather">Scatter/Gather</span></h3><p>sctter读<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ByteBuffer header=ByteBuffer.allocateDirect(<span class="number">10</span>);</span><br><span class="line">ByteBuffer body=ByteBuffer.allocateDirect(<span class="number">40</span>);</span><br><span class="line">ByteBuffer[] buffers=&#123;header,body&#125;;</span><br><span class="line"><span class="keyword">long</span> bytesRead=channel.read(buffers);</span><br></pre></td></tr></table></figure></p>
+<p>使用scatter读，能够依次填充缓冲区。它还有一个重载方法<code>long read(ByteBuffer[] dsts,int offset,int length) throws IOException</code> 其中<code>offset</code>参数是传输字节的第一个缓冲区的偏移量。<code>length</code>是要访问的缓冲区的数量。</p>
+<p>Gather 写<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">header.flip();</span><br><span class="line">body.flip();</span><br><span class="line">channel.write(buffers);</span><br></pre></td></tr></table></figure></p>
+<p>gather写能够将多个缓冲区中的数据组合并发送出去。它也有一个重载方法<code>long write(ByteBuffer[] srcs, int offset, int length)</code>.</p>
+<h2><span id="文件通道">文件通道</span></h2><p>文件通道总是阻塞式的。对于文件I/O,其强大之处在于异步I/O。它允许一个进程从操作系统请求一个或多个I/O操作而不必等待这些操作的完成。异步I/O是一种高级性能，不是所有的操作系统都具备。<code>FileChannel</code>对象是线程安全的的，但影响通道位置和文件大小的操作都是单线程的。</p>
+<h3><span id="文件通道的创建">文件通道的创建</span></h3><p><code>FileChannel</code>不能直接创建，一个<code>FileChannel</code>实例只能通道一个打开的File对象（<code>RandomAccessFile</code>,<code>FileInputStream</code>，<code>FileOutputStream</code>）上调用<code>getChannel()</code>方法获取。它会返回一个连接到相同文件的<code>FileChannel</code>它与file对象有着同样的访问权限。</p>
+<h3><span id="使用文件通道">使用文件通道</span></h3><p>每个文件通道都与一个文件描述符一一对应。每个文件通道中都有一个<code>File position</code>的概念，这个值决定了文件中的哪一处的数据接下来将被读或写。可以使用<code>position()</code>方法来或取这个值，也可以使用<code>potition(long newPosition)</code>来修改这个值。值得注意的是如果将<code>positon</code>设置到超出文件尾，那么再对文件进行读取的时候会收到一个文件尾（文件大小不会变化），如果是写入的话，将会引起文件的增长以容纳写入的字节（文件空洞）。并且<code>FileChannel</code>的<code>position</code>是从底层的文件描述符获得的，也就是说<code>position</code>可能同时被其它对象修改，并且修改也是对其它对象可见的。</p>
+<h4><span id="绝对读和绝对写">绝对读和绝对写</span></h4><p>使用<code>read(ByteBuffer dst, long position)</code>或<code>write(ByteBuffer src, long position)</code>等带有<code>position</code>参数的写和读，称为绝对读和绝对写，它并不会改变文件本身的<code>position</code>属性，并且因为通道的状态无需更新而具有更高的效率。</p>
+<h4><span id="截断文件">截断文件</span></h4><p>可以使用<code>truncate(long size)</code>来截断文件，所有超出size的内容都将被丢弃。</p>
+<h4><span id="forceboolean-metadata">force(boolean metaData)</span></h4><p>该方法告诉通道强制将全部待定的修改都应用到磁盘的文件上。<code>mageData</code>参数表示是否更新元数据（所有者，访问权限，修改时间等信息）。如果一个文件位于本地文件系统，那么force方法返回，那么可以保证从通道创建到force方法调用时所有对文件的修改都被持久化到磁盘。对于事务等关键操作来说，这非常重要。因为操作系统可能会缓存数据和延迟磁盘文件的更新。</p>
+<h4><span id="文件锁定">文件锁定</span></h4><p>文件锁定的特定需要依赖本地的操作系统实现。另一个值得注意的是<code>FileChannel</code>实现的是文件锁定模型，锁的对象是文件而不是通道或线程，如果一个线程在某个文件上获得了一个独占锁，然后第二个线程利用一个单独打开的通道来请求独占锁，那么它也会成功。但如果这两个线程运行在不同的Java虚拟机上，那么第二个线程会阻塞。这个现象是因为<strong>锁最终是由操作系统或文件系统来判优的，并且几乎总是在进程级而非线程级上判优的</strong></p>
+<p><code>lock(long position, long size, boolean shared)</code>方法，锁定从position开始，size大小的空间，参数shared表示想要获取的锁是共享的还是独占的。想要获得一个共享锁，必须以只读的权限打开文件，而请求独占锁时则需要写权限。值得注意的时size可以超出文件的时间大小，我们可以利用这个性质提前锁定一部分文件区域。</p>
+<p><code>lock()</code>该方法主要用来获取文件的独占锁。如果锁定的范围是有效的，那么lock()方法会被阻塞，它必须等待前面的锁都释放后，才能获得锁。</p>
+<p>与之对应的还有<code>tryLock(long position, long size, boolean shared)</code>和<code>tryLock()</code>两个方法，它们和前面的两个方法非常的类似，只是它们是非阻塞的，如果请求的锁不能立即获取到则会返回一个null.调用锁定方法后，会产生一个<code>FileLock</code>对象。一个<code>FileLock</code>对象创建之后立即生效，直到它的<code>release()</code>被调用，或与其关联的通道被关闭时才会失效。可以通过调用<code>isValid()</code>方法来测试一个锁的有效性，使用<code>isShared()</code>判断锁是否是共享的。还可以调用<code>overlaps(long position, long size)</code>来判断锁定区域是否与指定区域重叠。</p>
+<p>尽管一个<code>FileLock</code>对象是与某个特定的<code>FileChannel</code>关联的，但它代表的锁却是与一个底层文件关联的，而不是与通道关联的。所以需要注意对锁的管理.<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">FileLock lock = channel.lock();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">/*业务逻辑*/</span></span><br><span class="line">        &#125;<span class="keyword">catch</span> (IOException e)&#123;</span><br><span class="line">            <span class="comment">/*异常处理*/</span></span><br><span class="line"></span><br><span class="line">        &#125;<span class="keyword">finally</span> &#123;</span><br><span class="line">            lock.release();;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure></p>
+<h3><span id="channel-to-channel传输">Channel-to-Channel传输</span></h3><p>FileChannel提供了一些方法(只有FileChannel有这些方法)，用于通道的交叉连接而不需要中间缓冲区来传递数据。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//将该通道文件的字节传输到给定的可写字节通道。</span></span><br><span class="line"><span class="function"><span class="keyword">long</span> <span class="title">transferTo</span><span class="params">(<span class="keyword">long</span> position, <span class="keyword">long</span> count, WritableByteChannel target)</span>  </span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="comment">//从给定的可读字节通道将字节传输到该通道的文件中。</span></span></span><br><span class="line"><span class="function"><span class="keyword">long</span> <span class="title">transferFrom</span><span class="params">(ReadableByteChannel src, <span class="keyword">long</span> position, <span class="keyword">long</span> count)</span></span></span><br></pre></td></tr></table></figure></p>
+<p>直接的通道传输，并不会更新position的值，数据的传输将从position开始，传输的字节不超过count的值。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    WritableByteChannel channel = Channels.newChannel(System.out);</span><br><span class="line">    catFile(channel,<span class="string">"test.txt"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">catFile</span><span class="params">(WritableByteChannel target,String file)</span> <span class="keyword">throws</span> IOException</span>&#123;</span><br><span class="line">    FileInputStream fis=<span class="keyword">new</span> FileInputStream(file);</span><br><span class="line">    FileChannel channel = fis.getChannel();</span><br><span class="line">    <span class="comment">//通道与通道之间进行传输，而不需要buffer的介入</span></span><br><span class="line">    channel.transferTo(<span class="number">0</span>,channel.size(),target);</span><br><span class="line">    channel.close();</span><br><span class="line">    fis.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2><span id="内存映射文件">内存映射文件</span></h2><p>FileChannel类提供了一个<code>MappedByteBuffer map(FileChannel.MapMode mode, long position, long size)</code>方法，它能够在一个打开的文件和一个特殊类型的ByteBuffer之间建立一个虚拟内存映射。由map()方法返回的MappedByteBuffer对象的行为与基于内存的缓冲区非常的类似，只不过该对象的数据存储在磁盘上，调用get()方法会从磁盘文件中获取数据。通过内存映射机制来访问一个文件会比使用常规方法高效。它不需要使用明确的系统调用，并且虚拟内存的自动缓存内存页.<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MappedByteBuffer buffer = channel.map(FileChannel.MapMode.READ_ONLY, <span class="number">0</span>, channel.size());</span><br></pre></td></tr></table></figure></p>
+<p>值得注意的是与文件锁不同，映射文件的范围不应超过文件的实际大小。</p>
+<p>虚拟内存映射有三种模式，<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> MapMode READ_ONLY</span><br><span class="line">    = <span class="keyword">new</span> MapMode(<span class="string">"READ_ONLY"</span>);</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Mode for a read/write mapping.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> MapMode READ_WRITE</span><br><span class="line">    = <span class="keyword">new</span> MapMode(<span class="string">"READ_WRITE"</span>);</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Mode for a private (copy-on-write) mapping.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> MapMode PRIVATE</span><br><span class="line">    = <span class="keyword">new</span> MapMode(<span class="string">"PRIVATE"</span>);</span><br></pre></td></tr></table></figure></p>
+<p>前两种的意思都显而易见，PRIVATE模式是指采用写时拷贝映射。这种模式的内存映射通过put()方法所作的任何修改都会导致产生一个私有类型的数据拷贝，在这个过程中并不会对底层文件进行修改。</p>
+<p>在使用内存映射文件时还有一个注意点，映射缓存区没有绑定到创建它们的通道上。关闭与之关联的通道不会破坏映射。</p>
+<h2><span id="socket通道">Socket通道</span></h2><p>Socket通道可以运行非阻塞模式并且是可选择的。</p>
+<h3><span id="通道的非阻塞模式">通道的非阻塞模式</span></h3><p>想要把一个socket通道置于非阻塞模式下，我们需要依靠SelectableChannel类。</p>
+<p>可以利用<code>SelectableChannel configureBlocking(boolean block)</code>方法来设置一个通道的阻塞模式，参数值为<code>true</code>则为阻塞模式，参数值为<code>false</code>为非阻塞模式。通过调用<code>boolean isBlocking()</code>方法来判断某个socket通道的属于哪种模式。为了防止socket通道的阻塞模式被更改。可以使用<code>Object blockingLock()</code>方法，他会返回一个非透明的对象的引用，只有拥有这个对象的线程才能修改通道的阻塞模式。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Socket socket=<span class="keyword">null</span>;</span><br><span class="line">SocketChannel channel = socket.getChannel();</span><br><span class="line">Object lock = channel.blockingLock();</span><br><span class="line"><span class="keyword">synchronized</span> (lock)&#123;</span><br><span class="line">    <span class="comment">//修改通道的阻塞模式</span></span><br><span class="line">    channel.configureBlocking(<span class="keyword">true</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3><span id="serversocketchannel">ServerSocketChannel</span></h3><p>ServerSocketChannel是一个基于通道的socket监听器。创建一个ServerSocketChannel<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//获取一个未绑定的通道</span></span><br><span class="line">ServerSocketChannel ssc=ServerSocketChannel.open();</span><br><span class="line"><span class="comment">//取出对等的ServerSocket对象用于绑定端口</span></span><br><span class="line">ServerSocket socket = ssc.socket();</span><br><span class="line"><span class="comment">//绑定端口</span></span><br><span class="line">socket.bind(<span class="keyword">new</span> InetSocketAddress(<span class="number">1234</span>));</span><br></pre></td></tr></table></figure></p>
+<p>一个向socket通道写入数据的完整示例：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//待发送的字符串</span></span><br><span class="line">String str=<span class="string">"hello world 你好世界"</span>;</span><br><span class="line"><span class="comment">//获取一个未绑定的通道</span></span><br><span class="line">ServerSocketChannel ssc = ServerSocketChannel.open();</span><br><span class="line"><span class="comment">//取出对等的ServerSocket对象用于绑定端口</span></span><br><span class="line">ServerSocket socket = ssc.socket();</span><br><span class="line"><span class="comment">//绑定端口</span></span><br><span class="line">socket.bind(<span class="keyword">new</span> InetSocketAddress(<span class="number">1234</span>));</span><br><span class="line"><span class="comment">//将通道设置为非阻塞式的</span></span><br><span class="line">ssc.configureBlocking(<span class="keyword">false</span>);</span><br><span class="line"><span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">    System.out.println(<span class="string">"等待连接"</span>);</span><br><span class="line">    <span class="comment">//接收与此套接字通道连接的连接</span></span><br><span class="line">    SocketChannel sc = ssc.accept();</span><br><span class="line">    <span class="keyword">if</span> (sc == <span class="keyword">null</span>) &#123;</span><br><span class="line">        Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">"连接到"</span> + sc.socket().getRemoteSocketAddress());</span><br><span class="line">        <span class="comment">//将待发送的字符串转换为byte数组，并包装到buffer中</span></span><br><span class="line">        ByteBuffer buffer = ByteBuffer.wrap(str.getBytes(<span class="string">"GB2312"</span>));</span><br><span class="line">        <span class="comment">//向通道写入数据</span></span><br><span class="line">        sc.write(buffer);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3><span id="socketchannel">SocketChannel</span></h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//使用open()方法可以创建一个新的SocketChannel对象（但未连接）</span></span><br><span class="line">SocketChannel sc = SocketChannel.open();</span><br><span class="line"><span class="comment">//使用socket()方法可以获取一个与SocketChannel对等的socket对象</span></span><br><span class="line">Socket socket = sc.socket();</span><br><span class="line"><span class="comment">//获取到的channel对象和之前的sc对象是同一个</span></span><br><span class="line">SocketChannel channel = socket.getChannel();</span><br></pre></td></tr></table></figure>
+<p>获取SocketChannel对象并进行连接(两种等价写法)<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//写法一</span></span><br><span class="line">SocketChannel sc=SocketChannel.open(<span class="keyword">new</span> InetSocketAddress(<span class="number">1234</span>));</span><br><span class="line"><span class="comment">//写法二</span></span><br><span class="line">SocketChannel sc2=SocketChannel.open();</span><br><span class="line">sc2.connect(<span class="keyword">new</span> InetSocketAddress(<span class="number">1234</span>));</span><br></pre></td></tr></table></figure></p>
+<p>可以调用<code>boolean finishConnect()</code>判断是否已经完成连接.Socket通道是线程安全的，不过任何时候都只有一个读操作和一个写操作在进行中。并且sockets是面向流的而非包导向的。</p>
+<h3><span id="datagramchannel">DatagramChannel</span></h3><p>DatagramChannel也是一个socket通道，每一个DatagramChannel也有一个关联的datagramSocket对象。DatagramChannel是模拟包导向的并且是无连接的。<br>创建DatagramChannel并绑定的方法:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">DatagramChannel channel = DatagramChannel.open();</span><br><span class="line"><span class="comment">//获取关联的socket对象</span></span><br><span class="line">DatagramSocket socket = channel.socket();</span><br><span class="line"><span class="comment">//绑定连接</span></span><br><span class="line">socket.bind(<span class="keyword">new</span> InetSocketAddress(<span class="number">123</span>));</span><br></pre></td></tr></table></figure></p>
+<p>可以将DatagramChannel的状态设置为已连接的，以此来忽略除了它锁连接到的地址之外的任何其它源地址的数据报被忽略。因为数据报socket是无状态的，所以DatagramChannel没有单独的inishConnet()方法，但是我们可以使用isConnect()方法来测试一个数据报通道的连接状态。</p>
+<h2><span id="管道">管道</span></h2><p>广义上讲管道就是在两个实体之间单向传输数据的导管。该管道是用于进程间使用的。<br><img src="https://s2.ax1x.com/2019/09/02/ni1Q5F.png" alt="ni1Q5F.png"><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Pipe pipe = Pipe.open();</span><br><span class="line"><span class="comment">//获取此管道的接收通道</span></span><br><span class="line">Pipe.SinkChannel sinkChannel = pipe.sink();</span><br><span class="line"><span class="comment">//获取此管道的源通道</span></span><br><span class="line">Pipe.SourceChannel sourceChannel = pipe.source();</span><br></pre></td></tr></table></figure></p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/img/alipay.png">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/img/weixin.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/06/08/HashMap和Hashtable的区别/" class="archive-article-date">
-  	<time datetime="2019-06-08T07:48:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-08</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/06/08/HashMap和Hashtable的区别/">HashMap和Hashtable有什么不同？</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -195,163 +298,149 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Java NIO</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/09/02/JavaNIO学习笔记二/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/06/03/HashMap源码分析/" class="archive-article-date">
-  	<time datetime="2019-06-03T07:48:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-03</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2019/08/30/Java NIO学习笔记一/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Java NIO 学习笔记一</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
+
+<!-- valine部分 -->
+
+<section id="comments" class="comments">
+  <style>
+    .comments{margin:30px;padding:10px;background:#fff}
+    @media screen and (max-width:800px){.comments{margin:auto;padding:10px;background:#fff}}
+  </style>
+  <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '#vcomment',
+            notify: notify,
+            verify: verify,
+            app_id: "ziNrp7174hrBh9XMtg91L1UH-9Nh9j0Va",
+            app_key: "uGDaWde4F3KHfdgjTumfbXdp",
+            placeholder: "没事唠两句？",
+            avatar:"robohash"
+        });
+    }
+</script>
+  </section>
+
+<!-- valine部分 -->
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/06/03/HashMap源码分析/">HashMap源码分析</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">源码</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/06/01/LinkedList源码分析/" class="archive-article-date">
-  	<time datetime="2019-06-01T02:48:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-01</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/06/01/LinkedList源码分析/">LinkedList源码分析</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">源码</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/06/01/Vector源码分析/" class="archive-article-date">
-  	<time datetime="2019-06-01T02:24:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-01</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/06/01/Vector源码分析/">Vector源码分析</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">源码</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
+
+
+
+
+
+
+
 
 
           </div>
@@ -377,8 +466,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
