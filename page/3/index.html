@@ -158,6 +158,111 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-MySQL技术内幕学习笔记四" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/04/28/MySQL技术内幕学习笔记四/">MySQL技术内幕学习笔记四</a>
+    </h1>
+  
+
+        
+        <a href="/2019/04/28/MySQL技术内幕学习笔记四/" class="archive-article-date">
+  	<time datetime="2019-04-28T12:38:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-28</time>
+</a>
+        
+      </header>
+    
+    <!-- 目录内容 -->
+
+<!-- 目录内容结束 -->
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="视图"><a href="#视图" class="headerlink" title="视图"></a>视图</h3><p>视图是基于基表的虚表，它由sql查询来定义，可以当作表使用，但是视图中的数据没有实际的物理存储。视图可以作为安全层使用。<br>其作用在于一些应用程序本身并不关心基表，只需要按照视图定义来存取数据。</p>
+<h4 id="oracle提供的物化视图"><a href="#oracle提供的物化视图" class="headerlink" title="oracle提供的物化视图"></a>oracle提供的物化视图</h4><p>Oracle支持物化视图，其不再是虚表，而是基于基表实际存在的表。物化视图可以用于预先计算并保存多表的链接或聚集等耗时操作的结果。在SQL server数据库中称为索引视图。在mysql 中可以使用基表加触发器的策略来实现“物化视图”。</p>
+<h3 id="分区表"><a href="#分区表" class="headerlink" title="分区表"></a>分区表</h3><p>innodb存储引擎支持水平分区，主要用于数据库的高可用管理。</p>
+<p>MySQL数据库支持以下几种分区</p>
+<ul>
+<li>range分区<br>行数据基于给定分一个连续区间的列值杯放入分区</li>
+<li>list分区<br>行数据基于一些离散的值被放入分区。</li>
+<li>hash分区<br>根据用户自定义的表达式的返回值进行分区（返回值不能是负，必须是整数）</li>
+<li>key分区<br>根据mysql提供的哈希函数进行分区</li>
+</ul>
+<p><em>如果表中存在唯一索引或主键那么分区列必须是其的一部分</em><br>
+        
+          <a class="article-more-a" href="/2019/04/28/MySQL技术内幕学习笔记四/#more">more >></a>
+        
+      
+
+      
+    </p></div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">innodb存储引擎</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/04/28/MySQL技术内幕学习笔记四/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-MySQL技术内幕学习笔记三" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1141,120 +1246,6 @@
 
 
   
-    <article id="post-git和git的简单使用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/11/git和git的简单使用/">git与git的简单使用</a>
-    </h1>
-  
-
-        
-        <a href="/2019/03/11/git和git的简单使用/" class="archive-article-date">
-  	<time datetime="2019-03-11T10:08:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-11</time>
-</a>
-        
-      </header>
-    
-    <!-- 目录内容 -->
-
-<!-- 目录内容结束 -->
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>git是一个开源的分布式版本控制系统，可以有效、高速的处理从很小到非常大的项目版本管理工作。</p>
-</blockquote>
-<h3 id="如何理解git是一个分布式版本控制系统"><a href="#如何理解git是一个分布式版本控制系统" class="headerlink" title="如何理解git是一个分布式版本控制系统"></a>如何理解git是一个分布式版本控制系统</h3><ul>
-<li><p>分布式<br>  区别于集中式的版本控制系统典型的如SVN。分布式是指没有中央服务器，每个人的本地都有一份完整的项目文件。而集中式版本控制系统，有中央服务器，每个人从中央服务器获取一份项目文件，在本地开发，开发完成后提交给中央服务器。分布式版本控制系统的优点在于网络依赖小，只有在需要合并分支时才需要网络；本地文件存储采用元数据，体积小；分支操作互不影响。</p>
-</li>
-<li><p>版本控制系统<br>  版本控制是指在软件开发过程中各种代码、配置文件和说明文档等文件变更的管理。</p>
-</li>
-</ul>
-<h3 id="Git工作区、暂存区和版本库"><a href="#Git工作区、暂存区和版本库" class="headerlink" title="Git工作区、暂存区和版本库"></a>Git工作区、暂存区和版本库</h3><pre><code>Git工作区通俗的讲就是除了隐藏文件夹.git以外的所有文件和文件夹。我们平时直接操作的文件就是存放在Git工作区的文件。
-Git暂存区是指隐藏文件夹.git中的index文件。我们也可以把暂存区叫做索引
-Git的版本库就是.git文件夹。
-*理解Git的工作区、暂存区和版本库是理解git命令的关键*
-</code></pre><h3 id="Git的基本操作"><a href="#Git的基本操作" class="headerlink" title="Git的基本操作"></a>Git的基本操作</h3><ul>
-<li><p>创建仓库<br>  创建仓库，通俗的讲就是生成一个隐藏文件夹.git。我们可以使用如下名命令：</p>
-<p>  git init </p>
-</li>
-<li><p>从Git仓库中拷贝项目（类似svn中的捡出项目，这里的Git仓库一般是指GitHub上的仓库）</p>
-<p>  git clone &lt;Git仓库的地址&gt;         &lt;本地目录，可以省略&gt;</p>
-</li>
-</ul>
-<p>例如：</p>
-<pre><code>git clone https://github.com/0Eternity0/0Eternity0.github.io.git f:/MyDir//
-</code></pre><p> 该句的意思是从该地址克隆一份项目文件到MyDir文件夹。如何不指定本地目录，就克隆到命令行工具运行的当前目录</p>
-        
-          <a class="article-more-a" href="/2019/03/11/git和git的简单使用/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">git</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/03/11/git和git的简单使用/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
@@ -1396,11 +1387,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">innodb存储引擎</a>
+                <a href="javascript:void(0)" class="js-tag color4">innoDB引擎</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">innoDB引擎</a>
+                <a href="javascript:void(0)" class="js-tag color1">innodb存储引擎</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1420,19 +1411,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">正则表达式</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">项目小技巧</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">计算机系统基础</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1440,7 +1419,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">正则表达式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Java NIO</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">计算机系统基础</a>
               </li>
              
               <li class="article-tag-list-item">
