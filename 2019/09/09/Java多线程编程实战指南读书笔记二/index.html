@@ -6,15 +6,24 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>个人博客</title>
+  <title>Java多线程编程实战指南读书笔记二 | 个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="个人博客">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="线程同步机制线程同步机制一套用于协调线程间的数据访问及活动的机制，该机制用于保障线程安全以及实现这些线程的共同目标。广义上讲，Java提供的线程同步机制包括，锁、volatile关键字、final关键字、static关键字以及一些相关的API。 锁线程安全产生的前提是多个线程并发访问共享变量、共享资源。使用锁保障线程安全的思路是将多个线程对共享数据的并发访问转换为串行访问。 使用锁保障线程安全的原">
+<meta name="keywords" content="技术,java,并发编程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java多线程编程实战指南读书笔记二">
+<meta property="og:url" content="http://yoursite.com/2019/09/09/Java多线程编程实战指南读书笔记二/index.html">
 <meta property="og:site_name" content="个人博客">
+<meta property="og:description" content="线程同步机制线程同步机制一套用于协调线程间的数据访问及活动的机制，该机制用于保障线程安全以及实现这些线程的共同目标。广义上讲，Java提供的线程同步机制包括，锁、volatile关键字、final关键字、static关键字以及一些相关的API。 锁线程安全产生的前提是多个线程并发访问共享变量、共享资源。使用锁保障线程安全的思路是将多个线程对共享数据的并发访问转换为串行访问。 使用锁保障线程安全的原">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://s2.ax1x.com/2019/09/07/n1ppGD.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/09/08/n3I5dJ.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/09/09/nJ17Z9.png">
+<meta property="og:updated_time" content="2019-09-09T02:18:04.372Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="个人博客">
+<meta name="twitter:title" content="Java多线程编程实战指南读书笔记二">
+<meta name="twitter:description" content="线程同步机制线程同步机制一套用于协调线程间的数据访问及活动的机制，该机制用于保障线程安全以及实现这些线程的共同目标。广义上讲，Java提供的线程同步机制包括，锁、volatile关键字、final关键字、static关键字以及一些相关的API。 锁线程安全产生的前提是多个线程并发访问共享变量、共享资源。使用锁保障线程安全的思路是将多个线程对共享数据的并发访问转换为串行访问。 使用锁保障线程安全的原">
+<meta name="twitter:image" content="https://s2.ax1x.com/2019/09/07/n1ppGD.png">
   
     <link rel="alternative" href="/atom.xml" title="个人博客" type="application/atom+xml">
   
@@ -156,16 +165,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-Java多线程编程实战指南读书笔记二" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-Java多线程编程实战指南读书笔记二" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/09/Java多线程编程实战指南读书笔记二/">Java多线程编程实战指南读书笔记二</a>
+    <h1 class="article-title" itemprop="name">
+      Java多线程编程实战指南读书笔记二
     </h1>
   
 
@@ -178,24 +185,187 @@
     
     <!-- 目录内容 -->
 
+    <p class="show-toc-btn" id="show-toc-btn" onclick="showToc();">
+          <span class="btn-bg"></span>
+          <span class="btn-text">文章导航</span>
+          </p>
+  <div id="toc-article" class="toc-article" style="display:none">
+      <span id="toc-close" class="toc-close" title="隐藏导航" onclick="showBtn();">×</span>
+    <strong class="toc-title">文章目录</strong>
+           <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">线程同步机制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">2.</span> <span class="toc-text">锁</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">2.1.</span> <span class="toc-text">锁的作用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">2.2.</span> <span class="toc-text">与锁相关的几个重要概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">2.3.</span> <span class="toc-text">锁的开销及其可能导致的问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">3.</span> <span class="toc-text">内部锁</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">4.</span> <span class="toc-text">显式锁</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">4.1.</span> <span class="toc-text">显式锁的调度</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">4.2.</span> <span class="toc-text">读写锁</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">5.</span> <span class="toc-text">锁的适用场景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">6.</span> <span class="toc-text">内存屏障</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">7.</span> <span class="toc-text">volatile关键字</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">7.1.</span> <span class="toc-text">volatile的作用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">7.2.</span> <span class="toc-text">volatile变量的开销</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">7.3.</span> <span class="toc-text">volatile关键字的使用场景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">7.4.</span> <span class="toc-text">实现线程安全的单例模式（延迟加载的单例模式）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">8.</span> <span class="toc-text">CAS与原子变量</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">8.1.</span> <span class="toc-text">CAS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">8.2.</span> <span class="toc-text">原子变量类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">8.3.</span> <span class="toc-text">CAS导致的ABA问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">8.4.</span> <span class="toc-text">对象的发布与逸出</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">8.5.</span> <span class="toc-text">对象的初始化安全</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">9.</span> <span class="toc-text">对比总结</span></a></li></ol>
+         </div>
+   <script type="text/javascript">
+  function showToc(){
+    var toc_article = document.getElementById("toc-article");
+    var show_toc_btn = document.getElementById("show-toc-btn");
+    toc_article.setAttribute("style","display:block");
+    show_toc_btn.setAttribute("style","display:none");
+    };
+  function showBtn(){
+    var toc_article = document.getElementById("toc-article");
+    var show_toc_btn = document.getElementById("show-toc-btn");
+    toc_article.setAttribute("style","display:none");
+    show_toc_btn.setAttribute("style","display:block");
+    };
+   </script>
+      
 <!-- 目录内容结束 -->
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="线程同步机制"><a href="#线程同步机制" class="headerlink" title="线程同步机制"></a>线程同步机制</h2><p>线程同步机制一套用于协调<strong>线程间</strong>的数据访问及活动的机制，该机制用于保障线程安全以及实现这些线程的共同目标。<br>广义上讲，Java提供的线程同步机制包括，锁、volatile关键字、final关键字、static关键字以及一些相关的API。</p>
-<h2 id="锁"><a href="#锁" class="headerlink" title="锁"></a>锁</h2><p>线程安全产生的前提是多个线程并发访问共享变量、共享资源。使用锁保障线程安全的思路是将多个线程对共享数据的并发访问转换为串行访问。</p>
+        <h2><span id="线程同步机制">线程同步机制</span></h2><p>线程同步机制一套用于协调<strong>线程间</strong>的数据访问及活动的机制，该机制用于保障线程安全以及实现这些线程的共同目标。<br>广义上讲，Java提供的线程同步机制包括，锁、volatile关键字、final关键字、static关键字以及一些相关的API。</p>
+<h2><span id="锁">锁</span></h2><p>线程安全产生的前提是多个线程并发访问共享变量、共享资源。使用锁保障线程安全的思路是将多个线程对共享数据的并发访问转换为串行访问。</p>
 <p>使用锁保障线程安全的原理：<br>一个线程在访问共享数据之前需要请求获得相应锁（锁的获得），一个锁同一时间只能被一个线程持有。只有持有锁的线程才能访问共享变量。在线程持有锁之后到释放锁这段时间所执行的代码被称为临界区。因此，共享数据只允许在临界区内进行访问，临界区一次只能被一个线程执行。</p>
 <p>锁的性质：<br>锁具有排他性，即一个锁一次只能被一个线程持有。因此这种锁被称为排他锁或者互斥锁。</p>
 <p>锁的划分：</p>
 <ol>
 <li>内部锁：通过synchronized关键字实现的</li>
 <li><p>显示锁：通过java.concurrent.locks.Lock接口实现的。</p>
-        
-          <a class="article-more-a" href="/2019/09/09/Java多线程编程实战指南读书笔记二/#more">more >></a>
-        
+<a id="more"></a>
+<h3><span id="锁的作用">锁的作用</span></h3><p>锁能够保护共享数据以实现线程安全，其作用包括保障原子性、保障可见性和保障有序性。</p>
+</li>
+<li><p>如何保障原子性：<br>锁是通过互斥保障原子性的。当获得锁的线程执行临界区域期间其它线程不能插手共享数据，这使得临界区代码所执行的操作具有不可分割的特性，即原子性。</p>
+</li>
+<li>如何保障可见性<br>3可见性的保障是通过在写线程冲刷处理器缓存和读线程刷新处理器缓存来实现的。Java中线程获得锁隐含着刷新处理器缓存的动作。锁的释放隐含责冲刷处理器缓存的操作。</li>
+</ol>
+<p>使用锁保障线程安全的条件（同时满足）：</p>
+<ol>
+<li>这些线程在访问同一组共享数据的时候必须使用同一个锁。</li>
+<li>这些线程中的任意一个线程，即使其仅仅是读取这组共享数据而没有对齐进行更新的话，也需要在读取时持有相应的锁。</li>
+</ol>
+<h3><span id="与锁相关的几个重要概念">与锁相关的几个重要概念</span></h3><ol>
+<li>可重入性：如果一个线程持有一个锁的时候还能够继续成功申请该锁，那么我们称该锁是可重入的。否则，称为非可重入的。</li>
+<li>锁的争用与调度：锁可以被看座多线程程序访问共享数据时所需要持有的一种排他性资源。</li>
+<li>锁的粒度：一个锁实例能保护得共享数据得数量大小被称为该锁得粒度。锁的粒度过粗会导致线程在申请锁的时候需要进行不必要的等待。</li>
+</ol>
+<h3><span id="锁的开销及其可能导致的问题">锁的开销及其可能导致的问题</span></h3><p>锁的开销包括申请和释放锁所产生的开销，以及锁可能导致的上下文切换的开销。</p>
+<p>可能导致的问题：</p>
+<ol>
+<li>锁泄露。锁泄露是指一个线程获得某个锁之后，由于程序的错误缺陷导致该锁一直无法被释放而导致其它线程一直无法获得该锁的现象。</li>
+<li>不正确使用可能会导致死锁、锁思等线程活性故障。</li>
+</ol>
+<h2><span id="内部锁">内部锁</span></h2><p>Java平台中任何一个对象都有唯一一个与之关联的锁。这种锁被称为监视器或者内部锁。内部锁是一种排他锁，他能够保障原子性、可见性和有序性。内部锁通过synchronized实现。内部锁不会导致锁泄漏。</p>
+<p>作为锁句柄的变量通常采用final关键字修饰。因为锁句柄变量的值一旦改变，会导致执行同一个同步快的过个线程实际上使用不同的锁。<br>例如：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//推荐方式</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> Object lock=<span class="keyword">new</span> Object();</span><br></pre></td></tr></table></figure></p>
+<p>同步静态方法相当于以当前类对象为引导锁的同步块。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">method</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">//访问共享数据</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//等价写法</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">method</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">synchronized</span>(Test.class)&#123;</span><br><span class="line">            <span class="comment">//访问共享数据</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2><span id="显式锁">显式锁</span></h2><p><img src="https://s2.ax1x.com/2019/09/07/n1ppGD.png" alt="n1ppGD.png"></p>
+<p>使用显式锁实现循环递增序列号生成器<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">sequenceUtils</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Lock lock=<span class="keyword">new</span> ReentrantLock();</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">short</span> seq=<span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">get</span><span class="params">()</span></span>&#123;</span><br><span class="line">        lock.lock();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">if</span>(seq&gt;=<span class="number">999</span>)&#123;</span><br><span class="line">                seq=<span class="number">0</span>;</span><br><span class="line">                <span class="keyword">return</span> seq;</span><br><span class="line">            &#125;</span><br><span class="line">            seq++;</span><br><span class="line">            <span class="keyword">return</span> seq;</span><br><span class="line">        &#125;<span class="keyword">finally</span> &#123;</span><br><span class="line">            lock.unlock();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3><span id="显式锁的调度">显式锁的调度</span></h3><p>ReentrantLock即支持非公平锁也支持公平锁。<br><code>ReentrantLock(boolean fair)</code>该构造器可以在创建显式锁时执行相应的锁是否时公平锁（true 为公平锁）。</p>
+<p>公平锁保障锁调度的公平性往往是以增加了线程的暂停和唤醒的可能性，即增加了上下文切换为代价。因此，公平锁适合于锁被持有的时间相对长或者线程申请锁的平均间隔时间相对长的情形。因为公平锁的开销比使用非公平锁的开销要大，因此显式锁默认使用非公平调度策略。</p>
+<h3><span id="读写锁">读写锁</span></h3><p>读锁是共享的，写锁是排他的。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ReadWriteLockUsage</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> ReadWriteLock rwLock=<span class="keyword">new</span> ReentrantReadWriteLock();</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Lock readLock=rwLock.readLock();</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Lock writeLock=rwLock.writeLock();</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">reader</span><span class="params">()</span></span>&#123;</span><br><span class="line">        readLock.lock();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">//在此区域读取共享变量</span></span><br><span class="line">        &#125;<span class="keyword">finally</span> &#123;</span><br><span class="line">            readLock.unlock();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">writer</span><span class="params">()</span></span>&#123;</span><br><span class="line">        writeLock.lock();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">//在此区域访问（读，写）共享变量</span></span><br><span class="line">        &#125;<span class="keyword">finally</span> &#123;</span><br><span class="line">            writeLock.unlock();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>与普通的排他锁相比，读写锁在排他性方面较弱。在原子性、可见性和有序性保障方面和普通的排他锁是一致的。写线程在释放写锁所起到的作用相当于一个线程释放一个普通排他锁；读线程获得读锁相当于一个线程获得一个普通排他锁。</p>
+<p>读写锁的使用场景：</p>
+<ol>
+<li>只读操作比写操作要频繁的多</li>
+<li>读线程持有锁的时间比较长。</li>
+</ol>
+<h2><span id="锁的适用场景">锁的适用场景</span></h2><p>适用场景：</p>
+<ol>
+<li>check-then-act操作：一个线程读取共享数据并在此基础上决定其下一个操作时什么</li>
+<li>read-modify-write操作：一个线程读取共享数据并在此基础上更新该数据。</li>
+<li>多个线程对多个共享数据进行更新。</li>
+</ol>
+<h2><span id="内存屏障">内存屏障</span></h2><p>Java虚拟机借助内存屏障技术实现的刷新处理器缓存和冲刷处理器缓存。内存屏障时对一类针对内存读、写操作指令的跨处理器架构的比较底层的抽象。内存屏障时被插入到两个之间进行使用的，其作用时禁止编译器、处理器重排序从而保障<strong>有序性</strong>。为了实现禁止重排序的功能，这些指令也往往具有刷新处理器缓存、冲刷处理器缓存的副作用。</p>
+<p>因为临界区内的任何读、写操作都无法被重排序到临界区之外。在锁的排他性作用之下，这使得临界区中执行的操作序列具有原子性。</p>
+<p>编译器和处理器都必须遵守的重排序规则：</p>
+<ol>
+<li>临界区内的操作不允许被重排序到临界区之外</li>
+<li>临界区内的操作之间允许被重排序</li>
+<li>临界区之外的操作之间可以被重排序</li>
+<li>锁申请和锁释放的操作不能被重排序</li>
+<li>两个锁申请操作不能被重排序</li>
+<li>两个锁释放操作不能被重排序</li>
+<li>临界区外的操作可以白重排序到临界区之内。</li>
+</ol>
+<h2><span id="volatile关键字">volatile关键字</span></h2><p>volatile关键字用于修i是共享可变变量。它可以保证可见性和有序性。所不同的时，在原子性方面它仅能保障写volatile变量操作的原子性，没有锁的排他性。</p>
+<h3><span id="volatile的作用">volatile的作用</span></h3><p>volatile作用包括：保障可见性、保障有序性和保障long/double型变量读写操作的原子性。volatile关键字在原子性方面仅保障对被修饰的变量的读操作、写操作本身的原子性。写线程对volatile变量的写操作会产生类似于释放锁的效果。读线程对volatule变量的读操作会产生类似于获得锁的效果。因此volatile具有保障有序性（也利用了内存屏障）和可见性的作用。</p>
+<p>volatile在有序性保障方面也可以从禁止重排序角度理解。</p>
+<ol>
+<li>写volatile变量操作与该操作之前的任何读、写操作不会被重排序。</li>
+<li>读volatile变量操作与该操作之后的任何读、写操作不会被重排序。</li>
+</ol>
+<p><strong>如果volatile关键字修饰数组，那么volatile关键字只能够对数组引用本身的操作起作用，而无法对数组元素的操作起作用。对于引用性volatile变量，volatile变量字只时保证读线程能够读取到一个指向对象的相对性的内存地址，而这个内存地址指向的对象的实例/静态变量值是否是相对新的则没有保障</strong></p>
+<h3><span id="volatile变量的开销">volatile变量的开销</span></h3><p>volatile变量的读写都不会导致上下文切换。volatile变量的读写开销介于普通读写和临界区读写之间。</p>
+<h3><span id="volatile关键字的使用场景">volatile关键字的使用场景</span></h3><ol>
+<li>使用volatule关键字作为状态标志。</li>
+<li>使用volatile保障可见性</li>
+<li>使用volatile变量代替锁。（volatile关键字并非锁阿替代品）volatile关键字更适合于多个线程共享一个状态变量，而后者更适合于多个线程共享一组状态变量。</li>
+<li>使用volatile实现简易版的读写锁</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//使用volatile实现的简易读写锁</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Counter</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">long</span> count;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">long</span> <span class="title">value</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">increment</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">synchronized</span> (<span class="keyword">this</span>)&#123;</span><br><span class="line">            count++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3><span id="实现线程安全的单例模式延迟加载的单例模式">实现线程安全的单例模式（延迟加载的单例模式）</span></h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Singletion</span></span>&#123;</span><br><span class="line">   </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span>  Singletion instance=<span class="keyword">null</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singletion</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">//构造器私有化    </span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> Singletion <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">//使用锁来确保线程安全</span></span><br><span class="line">        <span class="keyword">synchronized</span> (Singletion.class)&#123;</span><br><span class="line">            <span class="keyword">if</span>(instance==<span class="keyword">null</span>)&#123;</span><br><span class="line">                instance=<span class="keyword">new</span> Singletion();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> instance;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用双重检查锁定的方法<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Singletion</span></span>&#123;</span><br><span class="line"> <span class="comment">//一定要使用volatile关键字</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">volatile</span> Singletion instance=<span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singletion</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">//构造器私有化</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Singletion <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(instance==<span class="keyword">null</span>)&#123; <span class="comment">//检查一</span></span><br><span class="line">            <span class="comment">//第一次检查</span></span><br><span class="line">            <span class="keyword">synchronized</span> (Singletion.class)&#123;</span><br><span class="line">                <span class="comment">//第二次检查</span></span><br><span class="line">                <span class="keyword">if</span>(instance==<span class="keyword">null</span>)&#123; <span class="comment">//检查二</span></span><br><span class="line">                    instance=<span class="keyword">new</span> Singletion(); <span class="comment">//操作三</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>使用双重检查锁定的方法的分析：<br>操作三很明显不是原子操作。它可以拆分为以下几个独立子操作:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">objRef=allocate(Singletion.class);//子朝左一：分配对象所需的空间</span><br><span class="line">invokeConstructor(objRed);//子操作二；初始化objRef引用的对象</span><br><span class="line">instance=objRef; //子操作三</span><br></pre></td></tr></table></figure></p>
+<p>根据锁的重排序规则，临界区内的操作可以在临界区内被重排序。因此可以将上述子操作重排序为：一 –&gt; 三 –&gt;二。由于锁对有序性的保障是有添加的，二操作一再读取instance变量时并没有加锁，因此上述重排序对操作一的执行线程是有影响的：该线程可能看到一个未初始化（或未初始化完毕）的实例，即变量instance的值不是null，这样可能导致程序出错，为了解决这个问题，可以将instance变量采用volatile修饰。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//基于静态内部类的单例模式实现</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Singletion</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singletion</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">//构造器私有化</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Instanceholder</span></span>&#123;</span><br><span class="line">        <span class="comment">//保存外部类的唯一实例</span></span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">static</span> Singletion INSTANCE=<span class="keyword">new</span> Singletion();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singletion <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Instanceholder.INSTANCE;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//基于枚举类型的单例模式</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Singletion.INSTANCE.doSome();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">enum</span> Singletion&#123;</span><br><span class="line">    INSTANCE; <span class="comment">//相当于Singletion类的唯一实例</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singletion</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">//构造器私有化</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doSome</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">//业务方法</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2><span id="cas与原子变量">CAS与原子变量</span></h2><p>CAS是对一种处理器指令的称呼。许多多线程相关的Java类库的最终实现都会借助CAS.</p>
+<h3><span id="cas">CAS</span></h3><p>CAS是一个原子的if-then-act操作。起背后的假设是：当一个客户（线程）执行CAS操作的时候，如果变量V的当前值和用户请求CAS时提供的变量值A(即变量的旧值)是相等等，那么就i说明其它线程并没有修改过当前V的值。执行CAS时如果没有其它线程修改过变量V的值，那么下手最快的客户（当前线程）就会强项将变量V的值更新为B(新值)，而其它客户（线程）的更新请求则会失败。这些失败的客户（线程）通常可以选择再次尝试，指导成功。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">compareAndSwap</span><span class="params">(Variable V,Object A,Object B)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(A==V.get())&#123; <span class="comment">//检查变量值是否被其它线程修改过</span></span><br><span class="line">        V.set(B);   <span class="comment">//更新变量值</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">false</span>; <span class="comment">//更新失败</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>基于CAS的算法的代码模板：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">do</span>&#123;</span><br><span class="line">    oldvalue=V.get(); <span class="comment">//读取共享变量V的旧值</span></span><br><span class="line">    newValue=calculate(oldvalue); <span class="comment">//计算变量V的新值</span></span><br><span class="line">&#125;<span class="keyword">while</span>(!compareAndSwap( V,oldValue,newValue))</span><br></pre></td></tr></table></figure></p>
+<p>值得注意的时，<strong>CAS只保障了共享变量更新这个操作的原子性，它并不保障可见性</strong></p>
+<h3><span id="原子变量类">原子变量类</span></h3><p>原子变量类是基于CAS实现的能够保障对共享变量进行read-modigy-write更新操作的原子性和可见性的一组工具类。</p>
+<p><img src="https://s2.ax1x.com/2019/09/08/n3I5dJ.png" alt="n3I5dJ.png"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span>  ThreadStudy04 implements Runnable &#123;</span><br><span class="line">    <span class="comment">//该类唯一的一个实例</span></span><br><span class="line">    INSTANCE;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> AtomicBoolean initializating=<span class="keyword">new</span> AtomicBoolean(<span class="keyword">false</span>);</span><br><span class="line">    </span><br><span class="line">    ThreadStudy04()&#123;</span><br><span class="line">        <span class="comment">//私有空构造器</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">//使用AtomicBoolean的CAS操作确保工作线程只会被创建一次</span></span><br><span class="line">        <span class="keyword">if</span>(initializating.compareAndSet(<span class="keyword">false</span>,<span class="keyword">true</span>))&#123;</span><br><span class="line">            <span class="comment">//创建工作线程并启动</span></span><br><span class="line">            <span class="keyword">new</span> Thread(<span class="keyword">this</span>).start();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用AtomicBoolean的compareAndSet方法来保证check-then-act操作的原子性，从而避免了锁的开销，又使代码更加简单。</p>
+<h3><span id="cas导致的aba问题">CAS导致的ABA问题</span></h3><p>CAS实现原子变量操作背后的一个假设是：共享变量的当前值与当前线程所提供的旧值相同，那么我们旧认为这个变量没有被其它线程修改过。实际上，这个假设不一定总是成立的。</p>
+<p>例如，可能存在这样一种情况：<br>对于共享变量V，当前线程看到它的值为A的那一刻，其它线程已经将其值更新为B,接着当前线程执行CAS的时候，该变量的值又被其它线程更新为A.也就说在这个过程中变量V的值已经被其它线程改变过了，但在当前线程看来却没有变过。<br>规避ABA问题的一种方案：<br>在共享变量的更新时引入一个修订号。这样即使共享变量经历了A–&gt;B–&gt;A的更新，但因为修订号的改变，我们依然能够准确的判断变量的值是否被其它线程修改过。</p>
+<h3><span id="对象的发布与逸出">对象的发布与逸出</span></h3><p>对象发布：是指使对象能够被其它作用域之外的线程访问。<br>对象发布的形式：</p>
+<ol>
+<li>将对象的引入存储到public变量中，例如：<br><code>public Map&lt;String,Integer&gt; registery=new HashMap&lt;String,Integer&gt;()</code></li>
+<li><p>在非private方法中返回一个对象</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> Map&lt;String,Integer&gt; register=<span class="keyword">new</span> HashMap&lt;String,Integer&gt;();</span><br><span class="line"><span class="function"><span class="keyword">public</span> Map&lt;String,Integer&gt; <span class="title">getRegistery</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.registery;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建内部内使得当前对象能够被这个内部类使用</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">startTask</span><span class="params">(<span class="keyword">final</span> Object task)</span></span>&#123;</span><br><span class="line">    Thread t=<span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable()&#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    t.start();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>通过方法调用将对象传递给外部方法。</p>
+</li>
+</ol>
+<p>当我们需要发布一个对象的时候旧需要注意与之相关的线程安全问题。</p>
+<h3><span id="对象的初始化安全">对象的初始化安全</span></h3><p>static关键字在多线程环境下有特殊的含义，它能确保一个线程即使在未使用其它同步机制的情况下也总是可以读取到一个类的静态变量的初始值（不是默认值）。喆总可见性保障仅限于线程初次读取该变量。如果这个静态变量在相应的类初始化完毕之后被其它线程更新过，那么一个线程要读取该变量的相对新值仍然需要借助锁、volatile关键字等同步机制。</p>
+<p>对于引用型静态变量，static关键字还能够保障一个线程读取到该变量的初始值时，这个值所指向的对象已经初始化完毕。</p>
+<p><strong>static关键字仅仅保障读线程能够读取到相应字段的初始值，而不是相对新值</strong></p>
+<p>当一个对象被发布到其它线程的时候，该对象的所有final字段都是初始化完毕的，而其它线程读取这些字段的时候所读取到的值都是相应字段的<strong>初始值</strong>。而非final字段没有这样的保障。</p>
+<p><strong>安全发布</strong>是指对象以一种线程安全的方式被发布。当一个对象的发布出现我们不期望的结果或者对象发布本身不是我们所期望的时候，我们旧称该对象<strong>逸出</strong>。</p>
+<h2><span id="对比总结">对比总结</span></h2><p><img src="https://s2.ax1x.com/2019/09/09/nJ17Z9.png" alt="nJ17Z9.png"></p>
+<p><strong>volatile关键字只能保障long/double型变量写操作的原子性</strong></p>
+<p><strong>static关键字的可见性保障是指未经过其它同步操作总能读取到初始值，其提供的有序性和可见性保障仅仅在一个线程初次读取静态变量的时候起作用</strong><br>、</p>
+
       
 
       
-    </li></ol></div>
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/img/alipay.png">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/img/weixin.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
     <div class="article-info article-info-index">
       
       
@@ -221,16 +391,75 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/09/09/Java多线程编程实战指南读书笔记二/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/09/09/Java多线程编程实战指南读书笔记二/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2019/09/06/Java多线程编程实战指南读书笔记一/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Java多线程编程实战指南读书笔记一</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -251,905 +480,51 @@
 
 
 
-
-
-
-
-
-
-
-
-  
-    <article id="post-Java多线程编程实战指南读书笔记一" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/06/Java多线程编程实战指南读书笔记一/">Java多线程编程实战指南读书笔记一</a>
-    </h1>
-  
-
-        
-        <a href="/2019/09/06/Java多线程编程实战指南读书笔记一/" class="archive-article-date">
-  	<time datetime="2019-09-06T13:45:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-06</time>
-</a>
-        
-      </header>
-    
-    <!-- 目录内容 -->
-
-<!-- 目录内容结束 -->
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="进程、线程与任务"><a href="#进程、线程与任务" class="headerlink" title="进程、线程与任务"></a>进程、线程与任务</h2><h3 id="什么是进程"><a href="#什么是进程" class="headerlink" title="什么是进程"></a>什么是进程</h3><p>进程是程序运行的实例。运行一个java程序的实质是启动一个Java虚拟机进程，也就是说一个运行的Java程序就是一个Java虚拟机进程。进程是程序向操作系统申请资源的基本单位。</p>
-<h3 id="什么是线程"><a href="#什么是线程" class="headerlink" title="什么是线程"></a>什么是线程</h3><p>线程是进程中可以独立执行的最小单位。一个进程可以包含多个线程。同一个进程中的所有线程共享该进程中的资源。</p>
-<h3 id="什么是任务"><a href="#什么是任务" class="headerlink" title="什么是任务"></a>什么是任务</h3><p>线程所要完成的计算就被称为任务，特定的线程总是在执行着特定的任务。</p>
-<h2 id="Java线程API简介"><a href="#Java线程API简介" class="headerlink" title="Java线程API简介"></a>Java线程API简介</h2><p>Thread类或其子类的一个实例就是一个线程。</p>
-<h3 id="线程的创建、启动和运行"><a href="#线程的创建、启动和运行" class="headerlink" title="线程的创建、启动和运行"></a>线程的创建、启动和运行</h3><p>运行一个线程实际上就是让虚拟机运行该线程的run方法，从而使相应的线程任务处理逻辑代码得以执行。我们可以使用Thread类的start方法启动线程。当这个线程何时能够运行是由线程调度器决定的。因此调用了start方法，并不代表线程就立刻运行了。</p>
-<p>以下是创建线程的几种方法：<br>
-        
-          <a class="article-more-a" href="/2019/09/06/Java多线程编程实战指南读书笔记一/#more">more >></a>
-        
-      
-
-      
-    </p></div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">并发编程</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/09/06/Java多线程编程实战指南读书笔记一/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-JavaNIO学习笔记三" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/03/JavaNIO学习笔记三/">Java NIO 学习笔记三</a>
-    </h1>
-  
-
-        
-        <a href="/2019/09/03/JavaNIO学习笔记三/" class="archive-article-date">
-  	<time datetime="2019-09-03T13:48:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-03</time>
-</a>
-        
-      </header>
-    
-    <!-- 目录内容 -->
-
-<!-- 目录内容结束 -->
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="选择器基础"><a href="#选择器基础" class="headerlink" title="选择器基础"></a>选择器基础</h2><p>选择器提供选择执行已经就绪的任务的能力。就绪选择和多元执行使得单线程能够有效率的同时管理多个I/O通道。</p>
-<p>选择器：选择器管理着一个被注册的通道集合的信息和他们的就绪状态。通道是和选择器一起被注册的，并且使用选择器来更新通道的就绪状态。</p>
-<p>可选择通道：这个抽象类提供了实现通道的可选择性所需要的公共方法。它是所有支持就绪检查的通道类的父类。</p>
-<p>选择键：选择键封装了特定的通道与特定的选择器的注册关系。</p>
-<p>调用可选择通道的register()方法会将它注册到一个选择器上，但是这个通道必须是开启的并且处于非阻塞状态的。一个给定的通道可以注册到多于一个的选择器上。选择器是提供选择功能的对象，选择器对象对注册到它之上的通道进行就绪选择，并管理选择键。<br>
-        
-          <a class="article-more-a" href="/2019/09/03/JavaNIO学习笔记三/#more">more >></a>
-        
-      
-
-      
-    </p></div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Java NIO</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/09/03/JavaNIO学习笔记三/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-JavaNIO学习笔记二" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/02/JavaNIO学习笔记二/">Java NIO 学习笔记二</a>
-    </h1>
-  
-
-        
-        <a href="/2019/09/02/JavaNIO学习笔记二/" class="archive-article-date">
-  	<time datetime="2019-09-02T12:48:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-02</time>
-</a>
-        
-      </header>
-    
-    <!-- 目录内容 -->
-
-<!-- 目录内容结束 -->
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="通道基础"><a href="#通道基础" class="headerlink" title="通道基础"></a>通道基础</h2><p>Channel表示IO源与目标打开的连接。在NIO中所有的IO都是从通道开始的。从通道进行数据的读取或者从通道进行数据写入。<br>通道的顶层接口只Channel接口。其中定义了两个方法。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isOpen</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">close</span><span class="params">()</span> <span class="keyword">throws</span> IOException</span>;</span><br></pre></td></tr></table></figure></p>
-<p>由Channel引申的实现类都是面向ByteBuffer的。<br>将IO从广义上分类，可以分为File I/O和Stream I/O。相应的也有两种不同类型的通道，分别是文件通道，和套接字通道。分别是FileChannel和SocketChannel、ServerSocketChannel、DatagramChannel.</p>
-<p><img src="https://s2.ax1x.com/2019/08/30/mX9uWT.png" alt="mX9uWT.png"><br>通道可以是单向的也可以是双向的，这取决于它们对ReadableByteChannel接口和WritableByteChannel接口的实现情况。而ByteChannel做的工作仅仅是聚集接口。实现ByteChannel接口的通道可以是双向的。但它不一定就是双向的，比如从FileInputStream对象使用getChannel方法获取的FileChannel对象是只读的，这和权限有关。<br>
-        
-          <a class="article-more-a" href="/2019/09/02/JavaNIO学习笔记二/#more">more >></a>
-        
-      
-
-      
-    </p></div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Java NIO</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/09/02/JavaNIO学习笔记二/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Java NIO学习笔记一" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/08/30/Java NIO学习笔记一/">Java NIO 学习笔记一</a>
-    </h1>
-  
-
-        
-        <a href="/2019/08/30/Java NIO学习笔记一/" class="archive-article-date">
-  	<time datetime="2019-08-30T02:21:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-30</time>
-</a>
-        
-      </header>
-    
-    <!-- 目录内容 -->
-
-<!-- 目录内容结束 -->
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="缓冲区操作"><a href="#缓冲区操作" class="headerlink" title="缓冲区操作"></a>缓冲区操作</h2><p>进程执行I/O操作，归结起来就是向操作系统发出请求，它要么把缓存区例的数据排干（写），要么用数据把数据区填满（读）。进程使用这一机制处理所有数据进出操作。<br><img src="https://s2.ax1x.com/2019/08/28/m7IfQH.png" alt="m7IfQH.png"><br>进程使用read()系统调用，要求其缓存区被填满。内核随即向磁盘控制器发出命令，要求其从磁盘读取数据。通过DMA技术直接将磁盘中的数据写入内核内存缓存区，一旦磁盘控制器把缓存区填满，内存立即把数据从内核空间的里你是缓冲区拷贝到进程执行read()调用时指定的缓冲区。</p>
-<h3 id="发散-汇聚"><a href="#发散-汇聚" class="headerlink" title="发散/汇聚"></a>发散/汇聚</h3><p>根据发散/汇聚的概念，进程只需要一个系统调用，就能把一连串的缓冲区地址传递给操作系统。然后，内核就能顺序填充或排干多个缓冲区，读的时候将数据发散到多个用户空间缓冲区，写的时候再从多个缓冲区把数据汇聚起来。<br><img src="https://s2.ax1x.com/2019/08/28/m7oYnA.png" alt="m7oYnA.png"></p>
-<h3 id="利用虚拟内存避免一些拷贝"><a href="#利用虚拟内存避免一些拷贝" class="headerlink" title="利用虚拟内存避免一些拷贝"></a>利用虚拟内存避免一些拷贝</h3><p>前面提到设备控制器不能使用DMA直接存储到用户空间，需要从内核空间拷贝到用户空间。但在使用内存多重映射技术可以避免这种拷贝。<br>现代操作系统都使用虚拟内存，它有极大优点：</p>
-<ol>
-<li>多个虚拟地址可以映射到同一个物理地址。</li>
-<li>虚拟内存空间可能大于实际可用的硬件内存。
-        
-          <a class="article-more-a" href="/2019/08/30/Java NIO学习笔记一/#more">more >></a>
-        
-      
-
-      
-    </li></ol></div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Java NIO</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/08/30/Java NIO学习笔记一/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-大三上的学习计划" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/08/29/大三上的学习计划/">大三上的学习计划</a>
-    </h1>
-  
-
-        
-        <a href="/2019/08/29/大三上的学习计划/" class="archive-article-date">
-  	<time datetime="2019-08-29T11:21:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-29</time>
-</a>
-        
-      </header>
-    
-    <!-- 目录内容 -->
-
-<!-- 目录内容结束 -->
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2><span id="总的目标">总的目标</span></h2><ol>
-<li>这学期得把软件设计师给考过</li>
-<li>六级成绩至少得提高吧</li>
-<li>绩点要提高，课上讲得也很重要。利用周末做好总结。</li>
-<li>减肥减到115斤，要注意健康管理了。</li>
-<li>算法得每天练习，每天至少两道。</li>
-<li>技术学习要抓紧了。</li>
-<li>冬天到了不要起不来啊！！！</li>
-</ol>
-<h2><span id="每个阶段的任务">每个阶段的任务</span></h2><ul>
-<li style="list-style: none"><input type="checkbox"> <strong>九月</strong><ul>
-<li style="list-style: none"><input type="checkbox" checked> Java NIO相关的知识</li>
-<li style="list-style: none"><input type="checkbox"> 数据库的高阶知识</li>
-<li style="list-style: none"><input type="checkbox"> Java 并发编程</li>
-</ul>
-</li>
-<li style="list-style: none"><input type="checkbox"> <strong>十月</strong><ul>
-<li style="list-style: none"><input type="checkbox"> Spring Cloud 相关的技术</li>
-<li style="list-style: none"><input type="checkbox"> 消息队列，分布式缓存技术</li>
-<li style="list-style: none"><input type="checkbox"> Java 集合框架中没读过的源码</li>
-</ul>
-</li>
-<li style="list-style: none"><input type="checkbox"> <strong>十一月</strong><ul>
-<li style="list-style: none"><input type="checkbox"> Spring 源码分析 （再难也要啃下来）</li>
-<li style="list-style: none"><input type="checkbox"> 计算机网络 (得深入的学习)</li>
-</ul>
-</li>
-<li style="list-style: none"><input type="checkbox"> <strong>十二月</strong><ul>
-<li style="list-style: none"><input type="checkbox"> Spring MVC 源码</li>
-<li style="list-style: none"><input type="checkbox"> Java虚拟机</li>
-</ul>
-</li>
-<li style="list-style: none"><input type="checkbox"> <strong>一月</strong><ul>
-<li style="list-style: none"><input type="checkbox"> 该好好复习期末考试了</li>
-</ul>
-</li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/08/29/大三上的学习计划/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-计算机系统基础读书笔记四" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/08/18/计算机系统基础读书笔记四/">深入理解计算机系统读书笔记四</a>
-    </h1>
-  
-
-        
-        <a href="/2019/08/18/计算机系统基础读书笔记四/" class="archive-article-date">
-  	<time datetime="2019-08-18T12:21:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-18</time>
-</a>
-        
-      </header>
-    
-    <!-- 目录内容 -->
-
-<!-- 目录内容结束 -->
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="异常控制流（Exceptional-Control-Flow-ECF）"><a href="#异常控制流（Exceptional-Control-Flow-ECF）" class="headerlink" title="异常控制流（Exceptional Control Flow ,ECF）"></a>异常控制流（Exceptional Control Flow ,ECF）</h2><h3 id="什么是控制流"><a href="#什么是控制流" class="headerlink" title="什么是控制流"></a>什么是控制流</h3><p>从给处理器加电开始，直到断电为止，程序计数器假设一个值的序列：a0,a1,a2…a n-1,<br>其中a k是相应的指令的地址，每次从a k到a k-1的过渡称为控制转移（control transfer）。这样的控制转移序列称为处理器的控制流（flow of control）。</p>
-<h3 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h3><p>异常是异常控制流的一种形式，它一部分由硬件实现，一部分由操作系统实现。异常（Exception）就是控制流中的突变，用来响应处理器状态中的某些变化。<br><img src="https://s2.ax1x.com/2019/08/15/mVtmb6.png" alt="mVtmb6.png"><br>在任何情况下，当处理器检测到有事件发生时，它就会通过一张叫做异常表（Exception Table）的跳转表，进行一个间接过程调用，到一个专门设计的用来处理这类事件的操作系统子程序（异常处理程序（exception handler））。当异常处理程序处理完成后，根据引起异常的事件类型，会发生以下3种情况种的一种。<br>1.处理程序将控制返回当前指令<br>2.处理程序将控制返回下一条<br>3.处理程序终止被中断的程序</p>
-        
-          <a class="article-more-a" href="/2019/08/18/计算机系统基础读书笔记四/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">计算机系统基础</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/08/18/计算机系统基础读书笔记四/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-计算机系统基础读书笔记三" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/08/15/计算机系统基础读书笔记三/">深入理解计算机系统读书笔记三</a>
-    </h1>
-  
-
-        
-        <a href="/2019/08/15/计算机系统基础读书笔记三/" class="archive-article-date">
-  	<time datetime="2019-08-15T13:21:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-15</time>
-</a>
-        
-      </header>
-    
-    <!-- 目录内容 -->
-
-<!-- 目录内容结束 -->
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="高速缓存的写操作"><a href="#高速缓存的写操作" class="headerlink" title="高速缓存的写操作"></a>高速缓存的写操作</h2><p>假设缓存中已经缓存了字w（写命中）。在高速缓存更新了它的w的副本后，它有两种方式更新w在层次结构中紧接着低一层中的副本。</p>
-<ol>
-<li>直写。就是立即将w的高速缓存块写回紧接着的低一层中。这种做法每次都会引起总线流量。</li>
-<li>写回。写回会尽可能的推迟更新，只有当替换算法要驱逐这个更新过的块时，才会把他写道紧接着的第一层中。写回可以显著的减少总线流量，但是增加了复杂性。</li>
-</ol>
-<hr>
-<p>假设缓存中没有缓存字w（写不命中），也有两种处理方式。<br>1.写分配（write-allocate），加载相应的第一层中的块到高速缓存中，然后更新高速缓存块，试图利用写的空间局部性，但缺点是每次写不命中都会导致一个块从第一层传送到高速缓存。<br>2.非写分配（not-write-allocate）。避开高速缓存，直接把这个字写到低一层中。</p>
-<h2 id="实际的高速缓存层次结构"><a href="#实际的高速缓存层次结构" class="headerlink" title="实际的高速缓存层次结构"></a>实际的高速缓存层次结构</h2><p>在实际中，高速缓存既保存数据，也保存指令。只保存指令的高速缓存被称为i-cache，只保存数据的高速缓存被称为d-cache。既保存指令又保存数据的高速缓存被称为统一的高速缓存（unifiied cache）。i-cache通常是只读的。<br><img src="https://s2.ax1x.com/2019/08/12/mSAIB9.jpg" alt="mSAIB9.jpg"></p>
-        
-          <a class="article-more-a" href="/2019/08/15/计算机系统基础读书笔记三/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">计算机系统基础</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/08/15/计算机系统基础读书笔记三/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-计算机系统基础读书笔记二" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/08/11/计算机系统基础读书笔记二/">深入理解计算机系统读书笔记二</a>
-    </h1>
-  
-
-        
-        <a href="/2019/08/11/计算机系统基础读书笔记二/" class="archive-article-date">
-  	<time datetime="2019-08-11T09:49:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-11</time>
-</a>
-        
-      </header>
-    
-    <!-- 目录内容 -->
-
-<!-- 目录内容结束 -->
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="内存映射I-O技术"><a href="#内存映射I-O技术" class="headerlink" title="内存映射I/O技术"></a>内存映射I/O技术</h2><p>CPU使用内存映射I/O技术来向I/O设备发射命令。在使用内存映射I/O的系统中，地址空间中有一块地址是为了与I/O设备通信保留的。每个这样的地址称为I/O端口。当一个设备连接到总线时，它被映射到一个或多个端口。通过内存映射I/O技术将I/O设备放置到内存空间而不是I/O空间，使得访问系统设备和访问内存一样，简化了程序设计的难度和接口的复杂性。</p>
-<h2 id="直接内存访问（DMA）"><a href="#直接内存访问（DMA）" class="headerlink" title="直接内存访问（DMA）"></a>直接内存访问（DMA）</h2><p>设备可以字节执行读或写总线事务而不需要CPU干涉的过程，称为直接内存访问，这种数据传送被称为DMA传送。</p>
-<h2 id="为什么SSD随机写比随机读慢"><a href="#为什么SSD随机写比随机读慢" class="headerlink" title="为什么SSD随机写比随机读慢"></a>为什么SSD随机写比随机读慢</h2><p><img src="https://s2.ax1x.com/2019/08/06/efXZPP.png" alt="efXZPP.png"><br>数据是以页为单位进行读写的。只有在一页所属的块整个被擦出后才能写。随机写的速度慢有两方面的原因。首先擦除块需要相对较长的时间，比访问页的的时间一般会高出一个数量级。另以方面，如果试图写的页所属的块中包含其它数据，就必须将块中带有数据的页复制到一个已经擦除的块中，然后再将块进行擦除然后写入数据页。显然，这会耗费很多时间。为了解决这个问题，制造商再内存翻译层中实现了复杂的逻辑，最小化内部写的次数，但是随即写的性能也很难与随机读一样好。<br>
-        
-          <a class="article-more-a" href="/2019/08/11/计算机系统基础读书笔记二/#more">more >></a>
-        
-      
-
-      
-    </p></div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">计算机系统基础</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/08/11/计算机系统基础读书笔记二/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-HashSet源码分析" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/08/06/HashSet源码分析/">HashSet源码分析</a>
-    </h1>
-  
-
-        
-        <a href="/2019/08/06/HashSet源码分析/" class="archive-article-date">
-  	<time datetime="2019-08-06T03:37:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-06</time>
-</a>
-        
-      </header>
-    
-    <!-- 目录内容 -->
-
-<!-- 目录内容结束 -->
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HashSet</span>&lt;<span class="title">E</span>&gt;</span></span><br><span class="line"><span class="class">    <span class="keyword">extends</span> <span class="title">AbstractSet</span>&lt;<span class="title">E</span>&gt;</span></span><br><span class="line"><span class="class">    <span class="keyword">implements</span> <span class="title">Set</span>&lt;<span class="title">E</span>&gt;, <span class="title">Cloneable</span>, <span class="title">java</span>.<span class="title">io</span>.<span class="title">Serializable</span></span></span><br></pre></td></tr></table></figure>
-<p>值得注意的是HashSet底层是基于HashMap来实现的。<br>HashSet是一个集合，集合是没有重复的元素的，不能保证顺序的。而且HashSet是非同步的。<br>它的继承体系如下<br><img src="https://s2.ax1x.com/2019/08/06/eWw2hF.png" alt="eWw2hF.png"></p>
-<h2 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">transient</span> HashMap&lt;E,Object&gt; map;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Object PRESENT = <span class="keyword">new</span> Object();</span><br></pre></td></tr></table></figure>
-        
-          <a class="article-more-a" href="/2019/08/06/HashSet源码分析/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">源码</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/08/06/HashSet源码分析/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-
-
-
-
-
-
+<!-- valine部分 -->
+
+<section id="comments" class="comments">
+  <style>
+    .comments{margin:30px;padding:10px;background:#fff}
+    @media screen and (max-width:800px){.comments{margin:auto;padding:10px;background:#fff}}
+  </style>
+  <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '#vcomment',
+            notify: notify,
+            verify: verify,
+            app_id: "ziNrp7174hrBh9XMtg91L1UH-9Nh9j0Va",
+            app_key: "uGDaWde4F3KHfdgjTumfbXdp",
+            placeholder: "没事唠两句？",
+            avatar:"robohash"
+        });
+    }
+</script>
+  </section>
+
+<!-- valine部分 -->
   
   
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
-    </nav>
   
+
+  
+
+  
+
+  
+
+
+
+
+
+
+
+
 
 
           </div>
@@ -1174,8 +549,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: true,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
