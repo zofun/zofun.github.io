@@ -6,15 +6,25 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2019 | 个人博客</title>
+  <title>高性能MySQL读书笔记一 | 个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="个人博客">
-<meta property="og:url" content="http://yoursite.com/archives/2019/page/2/index.html">
+  <meta name="description" content="索引基础索引类似于书的目录。存储引擎在索引中找到对应值，然后再根据匹配的索引记录找到对应的数据行。索引可以包含一个活多个列的值。如果索引包含多个列，那么列的顺序也十分重要，因为MySQL只能高校地利用索引地最左前缀列。 索引的类型索引有很多类型，MySQL的索引是在存储引擎层实现的，所以没有统一的索引标准。 B-Tree索引大多少MySQL引擎都支持这种索引。他们的内部实现也是不同的，有些存储引擎">
+<meta name="keywords" content="技术,MySQL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="高性能MySQL读书笔记一">
+<meta property="og:url" content="http://yoursite.com/2019/09/21/高性能 MySQL读书笔记一/index.html">
 <meta property="og:site_name" content="个人博客">
+<meta property="og:description" content="索引基础索引类似于书的目录。存储引擎在索引中找到对应值，然后再根据匹配的索引记录找到对应的数据行。索引可以包含一个活多个列的值。如果索引包含多个列，那么列的顺序也十分重要，因为MySQL只能高校地利用索引地最左前缀列。 索引的类型索引有很多类型，MySQL的索引是在存储引擎层实现的，所以没有统一的索引标准。 B-Tree索引大多少MySQL引擎都支持这种索引。他们的内部实现也是不同的，有些存储引擎">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://s2.ax1x.com/2019/09/17/nIKOW4.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/09/17/nI3uvQ.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/09/20/nXZcWV.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/09/20/nvFd1S.png">
+<meta property="og:updated_time" content="2019-09-21T09:47:46.382Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="个人博客">
+<meta name="twitter:title" content="高性能MySQL读书笔记一">
+<meta name="twitter:description" content="索引基础索引类似于书的目录。存储引擎在索引中找到对应值，然后再根据匹配的索引记录找到对应的数据行。索引可以包含一个活多个列的值。如果索引包含多个列，那么列的顺序也十分重要，因为MySQL只能高校地利用索引地最左前缀列。 索引的类型索引有很多类型，MySQL的索引是在存储引擎层实现的，所以没有统一的索引标准。 B-Tree索引大多少MySQL引擎都支持这种索引。他们的内部实现也是不同的，有些存储引擎">
+<meta name="twitter:image" content="https://s2.ax1x.com/2019/09/17/nIKOW4.png">
   
     <link rel="alternative" href="/atom.xml" title="个人博客" type="application/atom+xml">
   
@@ -156,36 +166,295 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-高性能 MySQL读书笔记一" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      高性能MySQL读书笔记一
+    </h1>
+  
+
+        
+        <a href="/2019/09/21/高性能 MySQL读书笔记一/" class="archive-article-date">
+  	<time datetime="2019-09-21T09:46:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-21</time>
+</a>
+        
+      </header>
     
+    <!-- 目录内容 -->
+
+    <p class="show-toc-btn" id="show-toc-btn" onclick="showToc();">
+          <span class="btn-bg"></span>
+          <span class="btn-text">文章导航</span>
+          </p>
+  <div id="toc-article" class="toc-article" style="display:none">
+      <span id="toc-close" class="toc-close" title="隐藏导航" onclick="showBtn();">×</span>
+    <strong class="toc-title">文章目录</strong>
+           <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">索引基础</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">2.</span> <span class="toc-text">索引的类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">2.1.</span> <span class="toc-text">B-Tree索引</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">3.</span> <span class="toc-text">哈希索引</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">4.</span> <span class="toc-text">空间数据索引 R-Tree</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">5.</span> <span class="toc-text">全文索引</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">6.</span> <span class="toc-text">索引的优点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">7.</span> <span class="toc-text">高性能的索引策略</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">7.1.</span> <span class="toc-text">独立的列</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">7.2.</span> <span class="toc-text">前缀索引和索引的选择性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">7.3.</span> <span class="toc-text">多列索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">7.4.</span> <span class="toc-text">选择合适的索引列顺序</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">8.</span> <span class="toc-text">聚簇索引</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">8.1.</span> <span class="toc-text">innoDb和MyISAM的数据分布对比</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">8.2.</span> <span class="toc-text">在InnoDB表中按主键顺序插入行</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">9.</span> <span class="toc-text">覆盖索引</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">10.</span> <span class="toc-text">使用索引扫描来排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">11.</span> <span class="toc-text">压缩（前缀压缩）索引</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">12.</span> <span class="toc-text">冗余和重复索引</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">13.</span> <span class="toc-text">未使用的索引</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">14.</span> <span class="toc-text">索引和锁</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">15.</span> <span class="toc-text">维护索引和表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">16.</span> <span class="toc-text">更新索引统计信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">17.</span> <span class="toc-text">减少索引和数据的碎片</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">18.</span> <span class="toc-text">总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">19.</span> <span class="toc-text">优化数据访问</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">19.1.</span> <span class="toc-text">是否向数据库请求了不需要的数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">19.2.</span> <span class="toc-text">MySQL是否在扫描额外的记录</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">20.</span> <span class="toc-text">重构查询的方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">20.1.</span> <span class="toc-text">切分查询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">20.2.</span> <span class="toc-text">分解关联查询</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">21.</span> <span class="toc-text">查询执行的基础</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">21.1.</span> <span class="toc-text">MySQL客户端/服务器通信协议</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">21.2.</span> <span class="toc-text">一个查询的状态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">21.3.</span> <span class="toc-text">查询缓存</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">21.4.</span> <span class="toc-text">查询优化处理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">21.5.</span> <span class="toc-text">查询优化器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">21.6.</span> <span class="toc-text">数据和索引的统计信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">21.7.</span> <span class="toc-text">MySQL如何执行关联查询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">21.8.</span> <span class="toc-text">执行计划</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">21.9.</span> <span class="toc-text">关联查询优化器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">21.10.</span> <span class="toc-text">排序优化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">21.11.</span> <span class="toc-text">查询执行引擎</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">21.12.</span> <span class="toc-text">返回结果给客户端</span></a></li></ol></li></ol>
+         </div>
+   <script type="text/javascript">
+  function showToc(){
+    var toc_article = document.getElementById("toc-article");
+    var show_toc_btn = document.getElementById("show-toc-btn");
+    toc_article.setAttribute("style","display:block");
+    show_toc_btn.setAttribute("style","display:none");
+    };
+  function showBtn(){
+    var toc_article = document.getElementById("toc-article");
+    var show_toc_btn = document.getElementById("show-toc-btn");
+    toc_article.setAttribute("style","display:none");
+    show_toc_btn.setAttribute("style","display:block");
+    };
+   </script>
+      
+<!-- 目录内容结束 -->
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2><span id="索引基础">索引基础</span></h2><p>索引类似于书的目录。存储引擎在索引中找到对应值，然后再根据匹配的索引记录找到对应的数据行。<br>索引可以包含一个活多个列的值。如果索引包含多个列，那么列的顺序也十分重要，因为MySQL只能高校地利用索引地最左前缀列。</p>
+<h2><span id="索引的类型">索引的类型</span></h2><p>索引有很多类型，MySQL的索引是在存储引擎层实现的，所以没有统一的索引标准。</p>
+<h3><span id="b-tree索引">B-Tree索引</span></h3><p>大多少MySQL引擎都支持这种索引。他们的内部实现也是不同的，有些存储引擎使用T-Tree结构存储这种索引，有些使用B+Tree。当然性能也各有不同。<br>B-Tree通常意味着所有的值都是按顺序存储的，并且每一个叶子页到根的距离相同相同。<br>B-Tree索引能够加快访问数据的速度，因为存储引擎不再需要进行全表扫描来获取需要的数据，取而代之的是从索引的根节点开始进行搜索。<br><strong>B-Tree对索引是顺序组织存储的，所以很适合查找范围数据</strong><br>索引对多个值进行排序的依据是建表语句中定义的索引列的顺序进行排序的。<br>B-Tree索引适用于全键值、键值范围或键前缀查找。其中键前缀查找只适用于根据最左前缀的操作。<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> People(</span><br><span class="line">    last_name <span class="built_in">varchar</span>(<span class="number">50</span>) <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line">    first_name <span class="built_in">varchar</span>(<span class="number">50</span>) <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line">    dob <span class="built_in">date</span> <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line">    gender enum(<span class="string">'m'</span>,<span class="string">'f'</span>) <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line">    <span class="keyword">key</span>(last_name,first_name,dob)</span><br><span class="line">)</span><br></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<p>前面描述的索引对如下的类型的查询有效：</p>
+<ol>
+<li>全值匹配：指和索引中的所有列进行匹配</li>
+<li>匹配最左前缀，即只使用索引的第一列。</li>
+<li>匹配列前缀。页可以只匹配某一列的值的开头部分。比如查找以J开头的姓名的人。</li>
+<li>匹配范围值。例如可以查找姓在Allen到Barrymore之间的人，这里也<strong>只能使用索引的第一列</strong></li>
+<li>精确匹配某一列并范围匹配另外一列，比如索引可用于查找姓为Allen，并且名字以k开头的。</li>
+<li>只访问索引的查询。即查询只需要访问索引，而无须访问数据行。</li>
+</ol>
+<p>因为索引树的节点是有序的，所以除了按值查找之外，索引还可以用于查询中的orber by操作。</p>
+<p>使用B-Tree索引的限制：</p>
+<ol>
+<li>如果不是按照索引的最左类开始查找，则无法使用索引。</li>
+<li>不能跳过索引中的列。</li>
+<li>如果查询中有某个列的范围查询，则其右边说有列都无法使用索引进行优化查找。</li>
+</ol>
+<h2><span id="哈希索引">哈希索引</span></h2><p>哈希索引是基于哈希表实现的，只有精确匹配索引所有列的查询才有效。对于每一行数据，存储引擎都会对所有的索引列计算一个哈希码。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> Tabel testhash(</span><br><span class="line">    fname <span class="built_in">varchar</span>(<span class="number">50</span>) <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line">    lname <span class="built_in">varchar</span>(<span class="number">50</span>) <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line">    <span class="keyword">key</span> <span class="keyword">using</span> <span class="keyword">hash</span>(fname)</span><br><span class="line">) <span class="keyword">engine</span>=<span class="keyword">memory</span>;</span><br></pre></td></tr></table></figure>
+<p>因为索引自身只需要存储对应的哈希值，所以索引的结构十分紧凑，这也让哈希索引查找的速度非常快。</p>
+<p>哈希索引的限制：</p>
+<ol>
+<li>哈希索引只包含哈希值和行指针，而不存储字段值，所以不能使用索引中的值来避免读取行。</li>
+<li>哈希索引数据并不是按照索引值顺序存储的，所以也就无法用于排序。</li>
+<li>哈希索引不支持部分索引列匹配查找，因为哈希索引始终是使用索引列的全部内容来计算哈希值的。</li>
+<li>哈希索引只支持等值比较查询。</li>
+<li>访问哈希索引的数据非常快，除非有很多哈希冲突。</li>
+<li>如果哈希冲突很多的话，一些索引维护操作的代价也会很高。</li>
+</ol>
+<p>innodb引擎有一个特殊的功能叫做“自适应哈希索引”。当innodb注意到某些索引值被使用的特杯频繁时，它会在内存中基于B-Tree索引之上再创建一个哈希索引。</p>
+<p>如果存储引擎不支持哈希索引，则可以模拟像innodb一样哈希索引。</p>
+<p>例如：<br><code>select id from url where url=&quot;http://www.mysql.com&quot;</code><br>这样的查询语句因为url本身很长，如果使用B-Tree来存储url，存储的内容就会很大，因为Url本身都很长。<br>优化方案：<br>删除原来URL列上的索引，新增一个被索引的url_crc列，使用crc32做哈希，就可以使用以下方式进行查询：<br><code>sekect id from url where url=&quot;http://www.mysql.com and url_cre=CRC32(&quot;http://www.mysql.com&quot;)</code><br>分析：因为MySQL优化器会使用选择性高而提交很小的基于url_crc列的索引来完成查找。如果有多个相同的索引值，再一一比较返回对应的行。当这样的缺陷在于需要维护哈希值。可以手动维护，也可以使用触发器来实现。</p>
+<p><strong>为了处理哈希冲突必须在where子句中包含常量池。</strong><br>例如这样的语句在存在hash冲突时，是无法正常工作的。<br><code>sekect id from url where  url_cre=CRC32(&quot;http://www.mysql.com&quot;)</code></p>
+<h2><span id="空间数据索引-r-tree">空间数据索引 R-Tree</span></h2><p>MyISAM表支持空间索引，可用作地理数据存储。和B-Tree索引不同，这类索引无须前缀查询。空间索引会从所有维度来索引数据。</p>
+<h2><span id="全文索引">全文索引</span></h2><p>全文索引是一种特殊类型的索引，它查找的是文本中的关键词，而不是直接比较索引中的值。在相同的列上同时创建全文索引和基于值得B-Tree索引不会冲突，全文索引适用于MATCH AGAINST操作，而不是普通的where条件。</p>
+<h2><span id="索引的优点">索引的优点</span></h2><p>索引可以让服务器快速的定位到表的指定位置。它还有许多其它的优点。<br>优点：</p>
+<ol>
+<li>索引大大减少了服务器需要扫描的数据量</li>
+<li>索引可以帮助服务器避免排序和临时表</li>
+<li>索引可以将随机IO变为顺序IO</li>
+</ol>
+<h2><span id="高性能的索引策略">高性能的索引策略</span></h2><p>正确的创建和使用索引是实现高性能查询的基础。</p>
+<h3><span id="独立的列">独立的列</span></h3><p>如果查询中的列不是独立的，则MySQL就不会使用索引。“独立的列”是指索引不能是表达式的一部分，也不能是函数的参数。</p>
+<p>例如：<br><code>select actor_id from sakila.actor where actor_id+1=5</code><br>这样的查询就无法利用actor列上的索引。我们应该养成简化where条件的习惯，始终将索引列单独放在比较符号的一侧。</p>
+<h3><span id="前缀索引和索引的选择性">前缀索引和索引的选择性</span></h3><p>有时候需要索引很长的字符列，这回让索引变得大且慢。一个策略是前面提到过的们模拟哈希索引。通常可以索引开始的几个字符，这样可以大大的节约索引空间，从而提高索引效率，但这样也会降低索引的选择性。选择性高得索引可以帮助MySQL在查找是过滤掉更多的行。<br>找打合适的前缀长度非常的重要。</p>
+<p>创建前缀索引的方式：<br><code>alter table sakila.city_demo add key(city(7))</code><br>前缀索引是一种能够使索引更小】更快的有效办法，但另一方面也有缺点；MySQL无法使用前缀索引做order by 和group by，也无法使用前缀索引做覆盖扫描。</p>
+<p>有些时候后最索引也有用途（比如，找到某个域名的所有电子邮件地址），MySQL原生并不支持反向索引，但是<strong>可以把字符串反转后存储</strong>，并基于此建立前缀索引。</p>
+<h3><span id="多列索引">多列索引</span></h3><p>在多个列上建立独立的单列索引大部分情况下并不能提高MySQL的查询性能。MySQL5.0之后引入了一种叫做“索引合并”的策略，一迪尼沟程度上可以使用表上的多个单列索引来定位指定的行。<br>在MySQL5.0之后，查询能够同时使用两个单列索引进行扫描，并将结果进行合并。这种算法有三种变种：or条件联合，and条件的相交，组合前两种情况的联合及相交。</p>
+<p>索引合并策略有时候是一种优化的结果，但实际上更多时候说明表上的索引建的很糟糕。</p>
+<ol>
+<li>当出现服务器对多个索引做相交操作时，通常意味着需要一个包含所有相关列的多列索引。</li>
+<li>当服务器需要对多个索引做联合操作时，通常需要耗费大量的CPU和内存资源。</li>
+<li>优化器不会把合并索引的开销计算到查询成本中。</li>
+</ol>
+<h3><span id="选择合适的索引列顺序">选择合适的索引列顺序</span></h3><p>正确的顺序依赖于使用该索引的查询，并同时需要考虑如何更好的满足排序还分组的需要。<br>在一个多列B-Tree索引中，索引列的顺序意味着索引首先按照最左列进行排序，其次是第二列。</p>
+<p>当不考虑排序和分组时，将选择性最高的列放在前面通常时很好的。这时候索引的作用只是用于优化where条件的查找。</p>
+<h2><span id="聚簇索引">聚簇索引</span></h2><p>聚簇索引并不是一种单独的索引类型，而<strong>是一种数据存储的方式</strong>。<br>当表有聚簇索引时，它的数据行实际上存放在索引的叶子页中。因为时存储引擎负责实现索引，因此不是所有的存储引擎都支持聚簇索引。<br>在聚簇索引的存放中，叶子页包含了行的全部数据，但是节点页只包含了索引列。<br><img src="https://s2.ax1x.com/2019/09/17/nIKOW4.png" alt="nIKOW4.png"><br>InnoDB通过主键聚集数据，索引被索引的列就是主键列。<br>如果没有定义主键，InnoDB会选择一个唯一的非空索引代替。如果没有这样的索引，InnoDB会隐式的定义一个主键作为聚簇索引。</p>
+<p>聚集的数据的优点：</p>
+<ol>
+<li>可以把相关的数据保存在一起。</li>
+<li>数据访问更快。聚簇索引将索引和数据保存在同一个B-Tree中，因此从聚簇索引中获取数据通常要比非聚簇索引中查找更快。</li>
+<li>使用覆盖索引扫描的查询可以直接使用页节点中的主键值。</li>
+</ol>
+<p>缺点：</p>
+<ol>
+<li>聚簇索引最大限度地提高了I/O密集型应用地性能，当如果数据全部都放在内存中，则访问地顺序就没有那么重要了，聚簇索引地优势也就没有了。</li>
+<li>插入速度严重依赖插入顺序。</li>
+<li>更新聚簇索引列地代价很高。</li>
+<li>居于聚簇索引地表在插入新行，或者主键被更新导致需要移动行地时候，可能面临“页分裂”的问题。页分类会导致表占用更多的磁盘空间。</li>
+<li>聚簇索引可能导致全表扫描变慢。</li>
+<li>二级索引可能比想象的更要大，</li>
+</ol>
+<p>为什么二级索引需要两次索引查找？<br>二级索引保存的“行指针”的实质，二级索引叶子节点保存的不是指向行的物理位置的指针，而是行的主键值。这意味着通过二级索引查找行，存储引擎需要找到二级索引的叶子节点获得对应的主键值，然后根据这个值取聚簇索引中查找到对应的行。这样就做了两次B-Tree查找。对于InnoDB，自适应哈希索引能够减少这样的重复工作。</p>
+<h3><span id="innodb和myisam的数据分布对比">innoDb和MyISAM的数据分布对比</span></h3><p><img src="https://s2.ax1x.com/2019/09/17/nI3uvQ.png" alt="nI3uvQ.png"></p>
+<h3><span id="在innodb表中按主键顺序插入行">在InnoDB表中按主键顺序插入行</span></h3><p>如果正在使用InnoDB表并且没有什么数据需要聚簇，那么可以定义一个代理键作为主键。这样可以保证数据行是按顺序写入，对于根据主键做关联操作的性能也会更好。<br><strong>最好避免随机的聚簇索引，特别对于I/O密集型的应用。</strong></p>
+<h2><span id="覆盖索引">覆盖索引</span></h2><p>如果一个索引包含所有需要查询的字段的值，我们就称之为“覆盖索引”。</p>
+<p>覆盖索引可以极大的性能，如果查询只需要扫描索引而无需回表。<br>覆盖索引可以带来的好处：</p>
+<ol>
+<li>索引条目通常远小于数据行的大小，所以如果只需要读取索引，那么MySQL就会极大的减少数据访问量。</li>
+<li>因为索引是按照列值顺序存储的，所以对于I/O密集型的范围查询会比随机从磁盘读取每一行数据的I/O要少得多。</li>
+<li>一些存储引擎入MyISAM在内存中只缓存索引，数据则依赖于操作系统来缓存。因此范围数据得开销很大，使用覆盖索引可以避免这种开销。</li>
+<li>由于InnoDB得聚簇索引，覆盖索引对InNoDB表特别有用。</li>
+</ol>
+<p>不是所有类型得索引都可以成为覆盖索引。覆盖索引必须要存储索引列得值，而哈希索引、空间索引和全文索引等都不存储索引列的值。</p>
+<p>MySQL不能在索引中执行LIKE操作。</p>
+<h2><span id="使用索引扫描来排序">使用索引扫描来排序</span></h2><p>MySQL有两种方式可以生成有序的结果：通过排序操作；或按索引顺序扫描。<br>扫描索引本身是很快的，因为只需要从一条索引记录移动到紧接着的下一条记录。<br><strong>但是如果索引不能覆盖查询所需的全部列，那就不得不每扫描一条索引记录就都回查询一次对应的行</strong></p>
+<p>MySQL可以使用同一个索引既能满足排序，又用于查找行。</p>
+<p>只有当索引的列顺序和order by子句的顺序完全一致，并且所有列的排序方向（倒序或正序）都一样时，没有申请完了才能够使用索引来对结果做排序。如果查询需要关联多个表，则只有当order by子句引用的字段全部为第一个表时，才能使用索引做排序。只有当order by子句的前导列为常量时，可以不满足索引的最左前缀的要求。</p>
+<h2><span id="压缩前缀压缩索引">压缩（前缀压缩）索引</span></h2><p>MyISAM使用前缀压缩来减少索引的大小，从而让更多的索引可以放入内存中。<br>压缩块使用更少的空间，代价是某些操作可能更慢。因为每个值得压缩前缀都依赖于前面的值，所以MyISAM查找时无法在索引块使用二分查找而只能从头开始扫描。</p>
+<h2><span id="冗余和重复索引">冗余和重复索引</span></h2><p>MySQL允许在相同列上创建多个索引，无论时有意的还是无意的。MySQL需要单独维护重复的索引，并且优化器在优化查询的时候也需要逐个的进行考虑，这回影响性能。</p>
+<p>重复索引是指在相同的列上按照相同的顺序创建的相同类型的索引，发现后应该立即移除。</p>
+<p>冗余索引和重复索引有一些不同。如果创建了索引（A，B），再创建索引（A）就是冗余索引，因为这只是前一个索引的前缀索引。<br>大多数情况下都不需要冗余索引，应该尽量拓展已有的索引而不是创建新索引。当也有时候处于性能方面的考虑需要冗余索引，因为拓展已有的索引会导致其变得太大，从而影响其它所用该索引的查询的性能。</p>
+<h2><span id="未使用的索引">未使用的索引</span></h2><p>除了冗余索引和重复索引，可能还会有一些服务器永远用不到的索引，这样的索引完全是累赘，建议直接删除。</p>
+<h2><span id="索引和锁">索引和锁</span></h2><p>索引可以让查询锁定更少的行，如果该查询从不访问那些不需要的行，那么就会锁定更少的行，从两个方面来看这对性能都有好处。<br>InoDB只有再访问行的时候才会对其加锁，而索引能够减少InnoDB访问的行数，从而减少锁的数量。</p>
+<h2><span id="维护索引和表">维护索引和表</span></h2><p>损坏的索引会导致查询返回错误的结果或者莫须有的主键冲突等问题，严重时甚至还会导致数据库的崩溃。一些存储引擎可以使用<code>check table</code>来检查表的损坏，使用<code>repair table</code>命令来修复损坏的表。</p>
+<h2><span id="更新索引统计信息">更新索引统计信息</span></h2><p>MySQL的查询优化器会通过两个API来了解存储引擎的索引值的分布信息，已决定如何使用索引。第一个API是<code>records_in</code>,通过向存储引擎传入两个边界值获取在这个范围大概有多少条记录。第二个API是info(),该接口返回各种数据类型的数据，包括索引的基数。</p>
+<h2><span id="减少索引和数据的碎片">减少索引和数据的碎片</span></h2><p>B-Tree索引可能会碎片化，这会降低查询的效率。碎片化的索引可能会以很差或者无序的方式存储在磁盘上。B-Tree需要随机磁盘访问才能定位到叶子也，所以随机访问是不可避免的。如果叶子页在物理分布上是顺序且紧密的，那么查询的性能就会更好。</p>
+<p>行碎片：<br>指数据行被存储为多个地方的多个片段中，即使查询只从索引中访问一行记录，行碎片也会导致性能下降。<br>行间碎片：<br>指逻辑上顺序的页，在磁盘上不是顺序存储的。<br>剩余空间碎片：<br>剩余空间碎片是指数据页中有大量的空闲空间。</p>
+<h2><span id="总结">总结</span></h2><p>选择索引和利用索引的三条重要原则：</p>
+<ol>
+<li>单行访问是很慢的。</li>
+<li>按顺序访问数据是很快的。</li>
+<li>覆盖索引是很快的。如果一个索引包含了查询需要的所有列，那么存储引擎就不在需要回表查找行。</li>
+</ol>
+<p><strong>在编写查询语句时应该尽可能选择合适的索引以避免单行查找，尽可能地使用数据原生顺序从而避免额外地排序操作，并尽可能使用索引覆盖查询。</strong></p>
+<h2><span id="优化数据访问">优化数据访问</span></h2><p>查询性能低下最基本地原因是访问地数据太多。大部分性能低下地查询都可以通过减少访问地数据量地方式进行优化。</p>
+<p>分析步骤：</p>
+<ol>
+<li>确认应用程序是否在检索大量超过需要的数据。</li>
+<li>确认MySQL服务器层是否在分析大量超过需要的数据行。</li>
+</ol>
+<h3><span id="是否向数据库请求了不需要的数据">是否向数据库请求了不需要的数据</span></h3><p>有些查询会请求超过实际需要的数据，然后这些多余恶的数据会被应用程序丢弃。<br>典型案例：</p>
+<ol>
+<li>查询不需要的记录。</li>
+<li>多表关联时返回全部列</li>
+<li>总是取出全部列</li>
+<li>重复查询相同的数据</li>
+</ol>
+<h3><span id="mysql是否在扫描额外的记录">MySQL是否在扫描额外的记录</span></h3><p>衡量MySQL查询开销的三个指标：</p>
+<ol>
+<li>响应时间</li>
+<li>扫描的行数</li>
+<li>返回的行数</li>
+</ol>
+<p>一般MySQL能够使用如下三种方式应用where条件，由好到坏依次为：</p>
+<ol>
+<li>在索引中使用where条件来过滤不匹配的记录。这是在存储引擎层完成的，</li>
+<li>使用覆盖索引扫描来返回记录，直接从索引中过滤不需要的记录并返回命中的结果。这是在MySQL服务层完成的，无需回表。</li>
+<li>从数据表中返回数据，然后过滤不满足条件的记录。这是在MySQL服务层完成的。</li>
+</ol>
+<p>如果方向查询需要扫描大量的数据但只返回少数的行，通常可以使用以下方法去优化：</p>
+<ol>
+<li>使用索引覆盖扫描</li>
+<li>该表库表结构，比如引入单独的汇总表。</li>
+<li>重写复杂的查询，让MySQL优化器能够以更优的方式执行这个查询。</li>
+</ol>
+<h2><span id="重构查询的方式">重构查询的方式</span></h2><h3><span id="切分查询">切分查询</span></h3><p>有时候对于一个大查询我们需要“分而治之”，间大查询切分成小查询，每个查询完全一样，只是完成一小部分，每次只发返回一小部分查询结果。</p>
+<p>比如在删除旧数据，间一个大的语句分解为几个小数据，可以避免一次性锁住很多数据、占满整个事务日志、耗尽系统资源、阻塞很多小的但是重要的查询。</p>
+<h3><span id="分解关联查询">分解关联查询</span></h3><p>很多高性能的应用都会对关联查询进行分解。简单讲，就是可以对每个表进行一次单表查询，然后将结果在应用程序中进行关联。</p>
+<p>用分解关联查询的方式重构查询的优势：</p>
+<ol>
+<li>让缓存的效率更高</li>
+<li>将查询分解后，执行单个查询可以减少锁的竞争。</li>
+<li>在应用层做关联，可以更容易对数据库进行拆分，更容易做到高性能和可拓展。</li>
+<li>查询本身效率也可能回有所提升。</li>
+<li>可以减少冗余记录的查询。</li>
+<li>分解后相当于在应用层中实现了哈希关联，而不是使用MySQL的嵌套循环关联。</li>
+</ol>
+<h2><span id="查询执行的基础">查询执行的基础</span></h2><p>MySQL执行一个查询的过程。<br><img src="https://s2.ax1x.com/2019/09/20/nXZcWV.png" alt="nXZcWV.png"></p>
+<h3><span id="mysql客户端服务器通信协议">MySQL客户端/服务器通信协议</span></h3><p>MySQL客户端和服务器之间的通信协议是“半双工”的，这意味着在任何一个时期，要么是由服务器向客户端发送数据，要么是由客户端向服务器发送数据，这两个动作不能同时发生。</p>
+<p>这种协议让MySQL通信简单快速，但是也从很多地方限制了MySQL，一个明显的限制是，没办法继续宁流量控制。因此，在查询很长的数据时，参数<code>max_alllowed_packet</code>特别的重要。</p>
+<h3><span id="一个查询的状态">一个查询的状态</span></h3><ol>
+<li>Sleep：线程正在等待客户端发送新的请求</li>
+<li>Query：线程正在执行查询或正在将结果发送给客户端</li>
+<li>Locked：在MySQL服务器层，该线程正在等待表锁。</li>
+<li>Analyzing and statstics ：线程正在收集存储引擎的统计信息，并生成查询的执行计划。</li>
+<li>Copying to tmp table：线程正在执行查询，并将其结果集都复制到一个临时表中。</li>
+<li>Sorting result:线程正在对结果集进行排序</li>
+<li>Sending data:这种状态可能有多种可能，线程可能在多个状态之间传送数据，或者在生成结果集，或者向客户端返回数据。</li>
+</ol>
+<h3><span id="查询缓存">查询缓存</span></h3><p>在解析一个查询语句之前，如果查询缓存是打开的，那么MySQL会优先检查这个查询是否命中查询缓存中的数据。这个查询时通过一个对大小写敏感的哈希查找来实现的。</p>
+<h3><span id="查询优化处理">查询优化处理</span></h3><p>查询优化处理包含多个子阶段：解析SQL、预处理、优化SQL执行计划。任何错误都可能终止查询。</p>
+<ol>
+<li>语法解析器和预处理<br>MySQL通过关键字将SQL语句进行解析，并生成一颗对应的“解析树”。MySQL解析器将使用MySQL语法规则验证和解析查询。<br>预处理器则会根据一些MySQL规则进一步检查解析器是否合法。下一步预处理器会验证权限。</li>
+</ol>
+<h3><span id="查询优化器">查询优化器</span></h3><p>优化器要将语法树转化为执行计划。MySQL使用基于成本的优化器，它尝试预测一个查询使用某种执行计划时的成本，并选择其中成本最小的一个。</p>
+<p>有很多原因会导致MySQL优化器选择错误的执行计划：</p>
+<ol>
+<li>统计信息不准确。MySQL依赖存储引擎提供的统计信息来评估成本，但是又的存储引擎提供的信息时不准确的，又的偏差可能很大。</li>
+<li>执行计划中的成本估算不等同于实际执行的成本。</li>
+<li>MySQL的最优可能和你想想的最优不一样。</li>
+<li>MySQL从不考虑并发执行的查询。</li>
+<li>MySQL也并不是任何时候都是基于成本的优化。有时也会利用一些固定的规则。</li>
+<li>MySQL不会考虑不受器控制的操作的成本，例如执行存储过程或者用户自定义行数的成本。</li>
+</ol>
+<p>优化策略简单的分为两种，一种时静态优化，一种时动态优化。静态优化可以直接对解析树进行分析，并完成优化，<strong>第一次完成之后旧一直有效</strong>，可认为这是一种“编译时优化“。<br>动态优化则和查询的上下文有关，也可能和其它很多因素有关。需要在<strong>每次查询时都进行重新评估</strong>，可以认为这是”运行时优化“。</p>
+<p>MySQL能够处理的优化类型：</p>
+<ol>
+<li>重新定义关联表的顺序。</li>
+<li>将外连接转化成为内连接。</li>
+<li>使用等价变换规则</li>
+<li>优化COUNT()\MIN()和MAX()</li>
+<li>预估并转化为常数表达式</li>
+<li>覆盖索引扫描</li>
+<li>子查询优化</li>
+<li>提前终止查询</li>
+<li>等值传播</li>
+<li>列表IN的比较</li>
+</ol>
+<h3><span id="数据和索引的统计信息">数据和索引的统计信息</span></h3><p>统计信息有存储引擎实现，不同的存储引擎可能会存储不同的统计信息。因为服务层没有任何统计信息，所以MySQL查询优化器在生成查询的执行计划时，需要向存储引擎获取相应的统计信息。</p>
+<h3><span id="mysql如何执行关联查询">MySQL如何执行关联查询</span></h3><p>MySQL中关联一词所包含的含义比一般意义上理解的要更广泛。中的来说，MySQL认为<strong>任何一个查询都是一次”关联”</strong>，并不仅仅时一个查询需要到两个表匹配才叫关联，所以在MySQL中，每一个查询，每一个片段都可能是关联的。<br>在MySQL的概览中，每个查询都是一次关联，所以读取结果临时表也是一次关联。</p>
+<p>MySQL关联执行的策略很简单，MySQL对任何关联都执行嵌套循环关联操作，集MySQL现在表中循环取出单条数据，然后再嵌套循环到下一个表中寻找匹配的行，依次下去，直到找到的所有表中匹配的行为止。</p>
+<h3><span id="执行计划">执行计划</span></h3><p>MySQL并不会生成查询字节码来执行查询，MySQL生成的查询的一颗指令树，然后通过存储引擎执行完成这颗指令树并返回结果。</p>
+<p>任何多表查询都可以用一棵树来表示：<br>例如执行一个四表的关联操作：<br><img src="https://s2.ax1x.com/2019/09/20/nvFd1S.png" alt="nvFd1S.png"></p>
+<h3><span id="关联查询优化器">关联查询优化器</span></h3><p>关联查询优化器它决定了多个表关联时的顺序。通过多表关联时，可以有多种不同的关联顺序来获得相同的执行结果</p>
+<h3><span id="排序优化">排序优化</span></h3><p>无论如何排序都是一个成本很高的操作，所以从性能角度考虑，应该尽可能避免排序或者尽可能避免对大量数据进行排序。</p>
+<p>MySQL可以铜鼓索引进行排序，如果不能使用索引进行排序，且数据量较少的时候可以在排序缓存池中完成，如果排序缓存池一次装不下，就分块排序后放回磁盘，并进行合并。</p>
+<p>新版本的MySQL使用的是单次传输排序。先读取查询所需要的所有列，然后再根据给定列进行排序，最后直接返回排序结果。</p>
+<h3><span id="查询执行引擎">查询执行引擎</span></h3><p>再解析和优化阶段，MySQL将生成查询对应的执行计划，MySQL的查询执行引擎则根据这个计划来完成整个查询。MySQL只是简单的根据执行计划给出的指令逐步执行。在根据执行计划逐步执行的过程中，有大量的操作需要通过调用存储引擎实现的接口来完成。</p>
+<h3><span id="返回结果给客户端">返回结果给客户端</span></h3><p>查询执行的最后一个阶段是将结果返回给客户端。即使查询不需要返回结果集给客户端，MySQL仍然会返回整个查询的一些信息，如该查询影响刀的行数。MySQL将结果集返回客户端是一个增量、、逐步返回的过程。</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/img/alipay.png">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/img/weixin.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/15/计算机系统基础读书笔记三/" class="archive-article-date">
-  	<time datetime="2019-08-15T13:21:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-15</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/15/计算机系统基础读书笔记三/">深入理解计算机系统读书笔记三</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -195,431 +464,149 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">计算机系统基础</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/09/21/高性能 MySQL读书笔记一/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/11/计算机系统基础读书笔记二/" class="archive-article-date">
-  	<time datetime="2019-08-11T09:49:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-11</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2019/09/16/Java多线程编程实战指南读书笔记四/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Java多线程编程实战指南读书笔记四</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
+
+<!-- valine部分 -->
+
+<section id="comments" class="comments">
+  <style>
+    .comments{margin:30px;padding:10px;background:#fff}
+    @media screen and (max-width:800px){.comments{margin:auto;padding:10px;background:#fff}}
+  </style>
+  <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'false' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '#vcomment',
+            notify: notify,
+            verify: verify,
+            app_id: "ziNrp7174hrBh9XMtg91L1UH-9Nh9j0Va",
+            app_key: "uGDaWde4F3KHfdgjTumfbXdp",
+            placeholder: "没事唠两句？",
+            avatar:"robohash"
+        });
+    }
+</script>
+  </section>
+
+<!-- valine部分 -->
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/11/计算机系统基础读书笔记二/">深入理解计算机系统读书笔记二</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">计算机系统基础</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/06/HashSet源码分析/" class="archive-article-date">
-  	<time datetime="2019-08-06T03:37:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-06</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/06/HashSet源码分析/">HashSet源码分析</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">源码</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/05/计算机系统基础读书笔记一/" class="archive-article-date">
-  	<time datetime="2019-08-05T08:42:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-05</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/05/计算机系统基础读书笔记一/">深入理解计算机系统读书笔记一</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">计算机系统基础</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/06/08/HashMap和Hashtable的区别/" class="archive-article-date">
-  	<time datetime="2019-06-08T07:48:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-08</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/06/08/HashMap和Hashtable的区别/">HashMap和Hashtable有什么不同？</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/06/03/HashMap源码分析/" class="archive-article-date">
-  	<time datetime="2019-06-03T07:48:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-03</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/06/03/HashMap源码分析/">HashMap源码分析</a>
-    </h1>
-  
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">源码</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/06/01/LinkedList源码分析/" class="archive-article-date">
-  	<time datetime="2019-06-01T02:48:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-01</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/06/01/LinkedList源码分析/">LinkedList源码分析</a>
-    </h1>
-  
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">源码</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/06/01/Vector源码分析/" class="archive-article-date">
-  	<time datetime="2019-06-01T02:24:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-01</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/06/01/Vector源码分析/">Vector源码分析</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">源码</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/05/31/ArrayList源码分析/" class="archive-article-date">
-  	<time datetime="2019-05-31T08:24:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-31</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/05/31/ArrayList源码分析/">ArrayList源码分析</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">源码</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/05/30/java并发编程实践学习笔记二/" class="archive-article-date">
-  	<time datetime="2019-05-30T09:24:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-30</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/05/30/java并发编程实践学习笔记二/">java并发编程学习笔记二</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">并发编程</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/2019/">&laquo; Prev</a><a class="page-number" href="/archives/2019/">1</a><span class="page-number current">2</span><a class="page-number" href="/archives/2019/page/3/">3</a><a class="page-number" href="/archives/2019/page/4/">4</a><a class="extend next" rel="next" href="/archives/2019/page/3/">Next &raquo;</a>
-    </nav>
-  
 
 
           </div>
@@ -645,8 +632,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
