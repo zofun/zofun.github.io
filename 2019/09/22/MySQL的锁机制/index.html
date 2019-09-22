@@ -6,30 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Java NIO 学习笔记一 | 个人博客</title>
+  <title>MySQL的锁机制 | 个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="缓冲区操作进程执行I/O操作，归结起来就是向操作系统发出请求，它要么把缓存区例的数据排干（写），要么用数据把数据区填满（读）。进程使用这一机制处理所有数据进出操作。进程使用read()系统调用，要求其缓存区被填满。内核随即向磁盘控制器发出命令，要求其从磁盘读取数据。通过DMA技术直接将磁盘中的数据写入内核内存缓存区，一旦磁盘控制器把缓存区填满，内存立即把数据从内核空间的里你是缓冲区拷贝到进程执行r">
-<meta name="keywords" content="技术,Java NIO">
+  <meta name="description" content="MySQL锁的概述锁是计算机协调多个进程或线程并发访问某一资源的机制。MySQL中不同的存储引擎支持不同的锁机制。InnoDB存储引擎支持行级锁和表级锁，默认情况下使用的是行级锁。MyISAM支持表级锁。表级锁：开销小，加锁快，不会出现死锁，锁定粒度大，发生锁冲突的概览极高，并发度最低。行级锁： 开销大，加锁满，会出现死锁，锁定粒度最小，发生锁冲突的概览最低，并发度也最高。页面锁： 开销和加锁时间">
+<meta name="keywords" content="技术,MySQL">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java NIO 学习笔记一">
-<meta property="og:url" content="http://yoursite.com/2019/08/30/Java NIO学习笔记一/index.html">
+<meta property="og:title" content="MySQL的锁机制">
+<meta property="og:url" content="http://yoursite.com/2019/09/22/MySQL的锁机制/index.html">
 <meta property="og:site_name" content="个人博客">
-<meta property="og:description" content="缓冲区操作进程执行I/O操作，归结起来就是向操作系统发出请求，它要么把缓存区例的数据排干（写），要么用数据把数据区填满（读）。进程使用这一机制处理所有数据进出操作。进程使用read()系统调用，要求其缓存区被填满。内核随即向磁盘控制器发出命令，要求其从磁盘读取数据。通过DMA技术直接将磁盘中的数据写入内核内存缓存区，一旦磁盘控制器把缓存区填满，内存立即把数据从内核空间的里你是缓冲区拷贝到进程执行r">
+<meta property="og:description" content="MySQL锁的概述锁是计算机协调多个进程或线程并发访问某一资源的机制。MySQL中不同的存储引擎支持不同的锁机制。InnoDB存储引擎支持行级锁和表级锁，默认情况下使用的是行级锁。MyISAM支持表级锁。表级锁：开销小，加锁快，不会出现死锁，锁定粒度大，发生锁冲突的概览极高，并发度最低。行级锁： 开销大，加锁满，会出现死锁，锁定粒度最小，发生锁冲突的概览最低，并发度也最高。页面锁： 开销和加锁时间">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://s2.ax1x.com/2019/08/28/m7IfQH.png">
-<meta property="og:image" content="https://s2.ax1x.com/2019/08/28/m7oYnA.png">
-<meta property="og:image" content="https://s2.ax1x.com/2019/08/28/m7T9ud.png">
-<meta property="og:image" content="https://s2.ax1x.com/2019/08/28/m7sbJ1.png">
-<meta property="og:image" content="https://s2.ax1x.com/2019/08/28/m7bFER.png">
-<meta property="og:image" content="https://s2.ax1x.com/2019/08/28/mHPgtU.png">
-<meta property="og:image" content="https://s2.ax1x.com/2019/08/29/mbGwtO.png">
-<meta property="og:image" content="https://s2.ax1x.com/2019/08/30/mO5GXF.png">
-<meta property="og:image" content="https://s2.ax1x.com/2019/08/30/mO5N79.png">
-<meta property="og:updated_time" content="2019-08-30T02:56:24.214Z">
+<meta property="og:image" content="https://s2.ax1x.com/2019/09/21/nz5pjS.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/09/22/ups0q1.png">
+<meta property="og:updated_time" content="2019-09-22T08:02:20.163Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Java NIO 学习笔记一">
-<meta name="twitter:description" content="缓冲区操作进程执行I/O操作，归结起来就是向操作系统发出请求，它要么把缓存区例的数据排干（写），要么用数据把数据区填满（读）。进程使用这一机制处理所有数据进出操作。进程使用read()系统调用，要求其缓存区被填满。内核随即向磁盘控制器发出命令，要求其从磁盘读取数据。通过DMA技术直接将磁盘中的数据写入内核内存缓存区，一旦磁盘控制器把缓存区填满，内存立即把数据从内核空间的里你是缓冲区拷贝到进程执行r">
-<meta name="twitter:image" content="https://s2.ax1x.com/2019/08/28/m7IfQH.png">
+<meta name="twitter:title" content="MySQL的锁机制">
+<meta name="twitter:description" content="MySQL锁的概述锁是计算机协调多个进程或线程并发访问某一资源的机制。MySQL中不同的存储引擎支持不同的锁机制。InnoDB存储引擎支持行级锁和表级锁，默认情况下使用的是行级锁。MyISAM支持表级锁。表级锁：开销小，加锁快，不会出现死锁，锁定粒度大，发生锁冲突的概览极高，并发度最低。行级锁： 开销大，加锁满，会出现死锁，锁定粒度最小，发生锁冲突的概览最低，并发度也最高。页面锁： 开销和加锁时间">
+<meta name="twitter:image" content="https://s2.ax1x.com/2019/09/21/nz5pjS.png">
   
     <link rel="alternative" href="/atom.xml" title="个人博客" type="application/atom+xml">
   
@@ -171,20 +164,20 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Java NIO学习笔记一" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-MySQL的锁机制" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Java NIO 学习笔记一
+      MySQL的锁机制
     </h1>
   
 
         
-        <a href="/2019/08/30/Java NIO学习笔记一/" class="archive-article-date">
-  	<time datetime="2019-08-30T02:21:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-30</time>
+        <a href="/2019/09/22/MySQL的锁机制/" class="archive-article-date">
+  	<time datetime="2019-09-22T08:22:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-22</time>
 </a>
         
       </header>
@@ -198,7 +191,7 @@
   <div id="toc-article" class="toc-article" style="display:none">
       <span id="toc-close" class="toc-close" title="隐藏导航" onclick="showBtn();">×</span>
     <strong class="toc-title">文章目录</strong>
-           <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">缓冲区操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.1.</span> <span class="toc-text">发散/汇聚</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.</span> <span class="toc-text">利用虚拟内存避免一些拷贝</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">2.</span> <span class="toc-text">采用分页技术的操作系统执行IO操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">3.</span> <span class="toc-text">内存映射文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">4.</span> <span class="toc-text">文件锁定机制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">4.1.</span> <span class="toc-text">共享锁和独占锁</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">5.</span> <span class="toc-text">流I/O</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">6.</span> <span class="toc-text">Buffer类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">6.1.</span> <span class="toc-text">Buffer类的层次图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">6.2.</span> <span class="toc-text">属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">6.3.</span> <span class="toc-text">重要方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">6.3.1.</span> <span class="toc-text">put()</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">6.3.2.</span> <span class="toc-text">flip()</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">6.4.</span> <span class="toc-text">rewind()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">6.5.</span> <span class="toc-text">hasRemaining()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">6.6.</span> <span class="toc-text">compact()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">6.7.</span> <span class="toc-text">关于标记的一些注意点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">6.8.</span> <span class="toc-text">缓冲区相等</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">6.9.</span> <span class="toc-text">批量的移动</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">6.10.</span> <span class="toc-text">缓存区创建的两个关键方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">6.11.</span> <span class="toc-text">复制缓冲区</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">7.</span> <span class="toc-text">字节缓冲区</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">7.1.</span> <span class="toc-text">字节顺序</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">8.</span> <span class="toc-text">直接缓冲区</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">9.</span> <span class="toc-text">视图缓冲区</span></a></li></ol>
+           <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">MySQL锁的概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">2.</span> <span class="toc-text">MyISAM表锁</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">2.1.</span> <span class="toc-text">如何加表锁</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">2.2.</span> <span class="toc-text">并发插入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">2.3.</span> <span class="toc-text">MyISAM的锁调度</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">3.</span> <span class="toc-text">InnoDB锁</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">3.1.</span> <span class="toc-text">事务及其ACID属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">3.2.</span> <span class="toc-text">并发事务带来的问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">3.3.</span> <span class="toc-text">事务的隔离级别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">3.4.</span> <span class="toc-text">InnoDB的行锁模式即加锁方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">4.</span> <span class="toc-text">InnoDB行锁的实现方式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">5.</span> <span class="toc-text">间隙锁（Next-key锁）</span></a></li></ol>
          </div>
    <script type="text/javascript">
   function showToc(){
@@ -218,74 +211,61 @@
 <!-- 目录内容结束 -->
     <div class="article-entry" itemprop="articleBody">
       
-        <h2><span id="缓冲区操作">缓冲区操作</span></h2><p>进程执行I/O操作，归结起来就是向操作系统发出请求，它要么把缓存区例的数据排干（写），要么用数据把数据区填满（读）。进程使用这一机制处理所有数据进出操作。<br><img src="https://s2.ax1x.com/2019/08/28/m7IfQH.png" alt="m7IfQH.png"><br>进程使用read()系统调用，要求其缓存区被填满。内核随即向磁盘控制器发出命令，要求其从磁盘读取数据。通过DMA技术直接将磁盘中的数据写入内核内存缓存区，一旦磁盘控制器把缓存区填满，内存立即把数据从内核空间的里你是缓冲区拷贝到进程执行read()调用时指定的缓冲区。</p>
-<h3><span id="发散汇聚">发散/汇聚</span></h3><p>根据发散/汇聚的概念，进程只需要一个系统调用，就能把一连串的缓冲区地址传递给操作系统。然后，内核就能顺序填充或排干多个缓冲区，读的时候将数据发散到多个用户空间缓冲区，写的时候再从多个缓冲区把数据汇聚起来。<br><img src="https://s2.ax1x.com/2019/08/28/m7oYnA.png" alt="m7oYnA.png"></p>
-<h3><span id="利用虚拟内存避免一些拷贝">利用虚拟内存避免一些拷贝</span></h3><p>前面提到设备控制器不能使用DMA直接存储到用户空间，需要从内核空间拷贝到用户空间。但在使用内存多重映射技术可以避免这种拷贝。<br>现代操作系统都使用虚拟内存，它有极大优点：</p>
+        <h2><span id="mysql锁的概述">MySQL锁的概述</span></h2><p>锁是计算机协调多个进程或线程并发访问某一资源的机制。<br>MySQL中不同的存储引擎支持不同的锁机制。InnoDB存储引擎支持行级锁和表级锁，默认情况下使用的是行级锁。MyISAM支持表级锁。<br>表级锁：开销小，加锁快，不会出现死锁，锁定粒度大，发生锁冲突的概览极高，并发度最低。<br>行级锁： 开销大，加锁满，会出现死锁，锁定粒度最小，发生锁冲突的概览最低，并发度也最高。<br>页面锁： 开销和加锁时间介于表锁和行锁之间，会出现死锁，锁定粒度介于表锁和行锁之间，并发度一般。</p>
+<h2><span id="myisam表锁">MyISAM表锁</span></h2><p>MySQL的表级锁有两种模式：表共享读锁，表独占写锁。对MyISAM的读不会阻塞其它用户的读请求，但是会阻塞对同一表额写请求。当一个线程获得了一个表的写锁后，只有持有锁的线程可以对表进行更新操作。其它读写操作都会被阻塞。</p>
+<h3><span id="如何加表锁">如何加表锁</span></h3><p>MyISAM在执行select操作之前会自动给涉及到的表加读锁。在执行更新操作（update，insert，delete）前，会自动给涉及到的表添加写锁。因此一般是不需要显示的去加锁的。<br>一般手动加锁是模拟事务：<br>比如：<br>检查两个表的合计金额是否相同，<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">//这种写法显然可能会出现错误（第一条sql执行之后，可能会有金额变动）</span><br><span class="line"><span class="keyword">select</span> <span class="keyword">sum</span>(total) <span class="keyword">from</span> orders;</span><br><span class="line"><span class="keyword">select</span> <span class="keyword">sum</span>(subtotal) <span class="keyword">from</span> order_detail;</span><br></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<p>采用加锁来实现模拟事务<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Loco tables orders read local,order_detail read local;</span><br><span class="line"><span class="keyword">select</span> <span class="keyword">sum</span>(total) <span class="keyword">from</span> orders;</span><br><span class="line"><span class="keyword">select</span> <span class="keyword">sum</span>(subtotal) <span class="keyword">from</span> order_detail;</span><br><span class="line"><span class="keyword">Unlock</span> <span class="keyword">tables</span>;</span><br></pre></td></tr></table></figure></p>
+<p>值得注意的是在加锁时有一个<code>Local</code>关键字，其作用是在并发情况下，允许其它用户在表尾并发插入记录。</p>
+<h3><span id="并发插入">并发插入</span></h3><p>总体而言MyISAN表的读写是串行的，但在一定的条件下，MyISAM表也支持查询和插入操作的并发进行。<br>MyISAM存储引擎中有一个系统变量<code>concurrent_insert</code>，专门用来控制并发插入的行为，其值分别为：0，1，2</p>
+<p>0： 不允许并发插入<br>1： 如果MyISAM表中没有空洞（即表中间没有被删除的行），MyISAM允许在一个进程读表的同时，另一个进程从表尾插入记录，这也是默认值。<br>2： 无论MyISAM表中有无空洞，，都允许在表尾并发插入记录。</p>
+<h3><span id="myisam的锁调度">MyISAM的锁调度</span></h3><p>如果一个进程请求某个MyISAM的读锁同时里一个进程也请求同一个表的写锁，<strong>那么写进程先获得锁。*不仅如此，如果读请求先到达等待队列，写请求后到，写锁也会被插入到读锁之前</strong>。因为MySQL认为写请求比读请求更加重要。正是如此，当有大量的更新操作时，查询操作很难获得读锁。当然可以通过一些设置来条件MyISAN的调度行为。</p>
+<h2><span id="innodb锁">InnoDB锁</span></h2><p>InnoDB与MyISAN的最大不同在于：一是支持事务，二是采用行级锁。</p>
+<h3><span id="事务及其acid属性">事务及其ACID属性</span></h3><p>事务是由一组SQL语句组成的逻辑处理单元。它具有以下性质：</p>
 <ol>
-<li>多个虚拟地址可以映射到同一个物理地址。</li>
-<li>虚拟内存空间可能大于实际可用的硬件内存。<a id="more"></a>
-<img src="https://s2.ax1x.com/2019/08/28/m7T9ud.png" alt="m7T9ud.png"><br>借助虚拟内存的特点，将内核空间中的缓冲区的虚拟地址和用户空间的缓冲区虚拟地址映射到一个物理地址（即内存多重映射技术）。<br>但这也是有前提的，内核与用户缓冲区必须使用相同的页对齐，缓冲区的大小还必须是磁盘控制块大小的倍数。</li>
+<li>原子性：事务是一个原子操作，其对数据的修改，要么全部执行，要么全部都不执行。</li>
+<li>一致性： 在事务的开始和完成时，数据都必须保持一致状态，这意味着所有相关的数据规则都必须应用于事务的修改，以保持其完整性；事务结束后，所有的内部数据结构也都必须都是正确的。</li>
+<li>隔离性： 数据库系统提供一种一定的隔离机制，保证事务在不受外部并发操作影响的“独立”环境执行，这意味着事务处理过程中的中间状态对外部都是不可见的。</li>
+<li>持久性： 事务完成之后，他对数据的修改是永久性的，即使系统出现故障也能保持。</li>
 </ol>
-<h2><span id="采用分页技术的操作系统执行io操作">采用分页技术的操作系统执行IO操作</span></h2><ol>
-<li>确定请求的数据分布在文件系统的哪些页，这些页不一定都是连续的</li>
-<li>在内核空间种分配足够的页，以容纳文件系统页</li>
-<li>在内存页与磁盘上的文件系统页之间建立映射</li>
-<li>为每个页产生一个缺页异常</li>
-<li>虚拟内存系统俘获缺页异常，调用相应的缺页处理程序，将文件系统页调入主存</li>
-<li>页面调入成功后，文件系统队原始数据进行解析，获取文件内容和属性信息。</li>
+<h3><span id="并发事务带来的问题">并发事务带来的问题</span></h3><ol>
+<li>更新丢失：当两个或多个事务选择同一行，然后基于最初选定的值进行更新该行时，由于每个事务都不知道其它事务的存在，就会发生丢失更新问题，最后的更新覆盖了其它事务所做的更新。</li>
+<li>脏读：一个事务正在对一条记录做修改，在这个事务提交前，这条记录的数据处于不一致状态，这是，如果另一个事务也来读取同一个记录，如果不加以控制，第二个事务读取了这些“脏”的数据。</li>
+<li>不可重复读：一个事务在读取某些数据时，某些数据已经发生了改变，或某些数据已经被删除。</li>
+<li>幻读：一个事务按相同的查询条件重新读取以前检索过的数据，却发现其它事务插入了满足其条件的新数据。</li>
 </ol>
-<p>文件系统页也会和其它内存页一样被缓存在主存z</p>
-<h2><span id="内存映射文件">内存映射文件</span></h2><p><img src="https://s2.ax1x.com/2019/08/28/m7sbJ1.png" alt="m7sbJ1.png"><br>内存映射IO使用文件系统建立用户空间直到可用文件系统页的虚拟内存映射。<br>当用户进行触碰到映射内存空间时，会自动产生页错误，从而将文件系统从磁盘读进主存。如果用户修改了映射内存空间时，相应的页会被标记为脏页，随后就会将更改持久化到磁盘。</p>
-<p>其优点：</p>
+<h3><span id="事务的隔离级别">事务的隔离级别</span></h3><p>“更新丢失”是一种应该完全避免的，但不能仅仅依靠数据库，需要引用程序对更新的数据加必要的锁来解决。因此，防止更新丢失应该是应用的责任。</p>
+<p>脏读，不可重复读，幻读都是数据库读一致性问题，必须由数据库提供一定的事务隔离机制来解决。<br>一般可以采取以下几种方式：</p>
 <ol>
-<li>用户进程直接将文件数据当作内存。</li>
-<li>自动产生页错误，将文件数据从磁盘读入主存</li>
-<li>操作系统的虚拟内存子系统可以对这些页进行智能高速缓存</li>
-<li>数据总是按页对齐的</li>
-<li>大型文件使用映射可以节约内存。</li>
+<li>在读取数据前，对其加锁，阻止其它事务对数据进行修改。</li>
+<li>不加任何锁，通过一定机制生成一个数据请求时间点的一致性数据快照。并用这个快照来提供一定级别的一致性读。从用户角度来看，好像是提供了数据的多个版本，因此该技术也较数据多版本并发控制（MVCC，MCC）</li>
 </ol>
-<h2><span id="文件锁定机制">文件锁定机制</span></h2><p>文件锁定机制允许一个进程阻止其它仅从存取某文件，或限制其存取方式。<br>文件锁定的锁定区域可以是整个文件也可ui细致到单个字节。</p>
-<h3><span id="共享锁和独占锁">共享锁和独占锁</span></h3><p>多个共享锁可以同时对同一文件区域发生作用；独占锁要求相关区域不能有其它锁定在起作用。</p>
-<p>共享锁和独占锁的经典应用 — 控制读取共享文件的更新<br>某个进程要读取文件，就要先取得相关区域的共享锁。其它希望读取相同文件区域的进程也会请求共享锁。多个进程得以并行读取，互不影响。如果在此时有其它进行想要更新文件，那么它需要请求独占锁，然后该进行会进入阻滞状态，直到既有锁定（共享的，独占的）全部解除它才能拿到独占锁。一旦该进程拿到了独占锁，其它所有的共享锁读取线程间进入阻滞状态，直到独占锁解除。</p>
-<h2><span id="流io">流I/O</span></h2><p>并非所有的I/O都是面向块的，也有流I/O，其原理模仿了通道。I/O流字节必须顺序读取。流的传输一般比块设备慢，进程用于间歇性输入。</p>
-<h2><span id="buffer类">Buffer类</span></h2><p>一个Buffer对象是固定容量的数据的容器。在这里数据可以被存储并在之后用于检索。</p>
-<h3><span id="buffer类的层次图">Buffer类的层次图</span></h3><p><img src="https://s2.ax1x.com/2019/08/28/m7bFER.png" alt="m7bFER.png"></p>
-<h3><span id="属性">属性</span></h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">int</span> mark = -<span class="number">1</span>;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">int</span> position = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">int</span> limit;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">int</span> capacity;</span><br></pre></td></tr></table></figure>
+<p>在MVCC中，读操作可以分成两类：快照读和当前读。快照读读取的是记录的可见版本，<strong>不用加锁</strong>。当前读，读取的是记录的最新版本，并且当前读返回的记录<strong>都会加锁</strong>。</p>
+<p>哪些属于快照读，哪些属于当前读？</p>
 <ol>
-<li>容量（capacity）</li>
-<li>上界（limit）<br> 缓冲区第一个不能被读或写的元素。或者说是现存元素的计数。其指明了缓冲区中有效内容末端的位置。</li>
-<li>标记（mark）<br> 一个备忘的位置。使用mark()来设定mark=postion.调用reset()设定position=mark<br>这四个属性之间遵循的关系为：<br><code>0&lt;= mark &lt;= position &lt;= limit &lt;= capacity</code></li>
+<li><p>简单的select操作，属于快照读</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">table</span> <span class="keyword">where</span> ?</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>当前读：特殊的读操作，插入/更新/删除操作，属于当前读，需要加锁</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">table</span> <span class="keyword">where</span> ? <span class="keyword">lock</span> <span class="keyword">in</span> <span class="keyword">share</span> <span class="keyword">mode</span>;</span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">table</span> <span class="keyword">where</span> ? <span class="keyword">for</span> <span class="keyword">update</span>;</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> <span class="keyword">table</span> <span class="keyword">values</span> (…);</span><br><span class="line"><span class="keyword">update</span> <span class="keyword">table</span> <span class="keyword">set</span> ? <span class="keyword">where</span> ?;</span><br><span class="line"><span class="keyword">delete</span> <span class="keyword">from</span> <span class="keyword">table</span> <span class="keyword">where</span> ?;</span><br></pre></td></tr></table></figure>
+</li>
 </ol>
-<h3><span id="重要方法">重要方法</span></h3><h4><span id="put">put()</span></h4><p>put方法就是将元素加入缓冲区，值得注意的是，put方法只改变position，不会改变limit和capacity。<br><img src="https://s2.ax1x.com/2019/08/28/mHPgtU.png" alt="mHPgtU.png"></p>
-<h4><span id="flip">flip()</span></h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> Buffer <span class="title">flip</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    limit = position;</span><br><span class="line">    position = <span class="number">0</span>;</span><br><span class="line">    mark = -<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>filp()方法将一个能够继续添加数据的填充状态的缓冲区翻转为一个准备读出元素的释放状态。根据代码filp()所作的工作不言而喻。</p>
-<h3><span id="rewind">rewind()</span></h3><p>rewind方法和flip方法非常类似，但是它不会影响上界属性，可以利用rewind方法来重新读已经被翻转的缓冲区中的数据。</p>
-<h3><span id="hasremaining">hasRemaining()</span></h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//切换到读模式</span></span><br><span class="line">buffer.flip();</span><br><span class="line"><span class="keyword">int</span> count=buffer.remaining();</span><br><span class="line">System.out.println(<span class="string">"当前位置距离上界还有："</span>+count);</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> (buffer.hasRemaining())&#123;</span><br><span class="line">    System.out.print(buffer.get()+<span class="string">" "</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>hasRemaining()可以判断当前位置是否已经达到buffer的上界。remaining()可以获取当前位置与上界的距离。</p>
-<h3><span id="compact">compact()</span></h3><p>当需要从buffer中释放一部分已经被读取过的数据时，可以使用compact方法，他会将为读的数据元素下移动使得第一个元素的索引为0.该方法在复制数据的场景下，比使用get方法和put方法更加的高效。</p>
-<h3><span id="关于标记的一些注意点">关于标记的一些注意点</span></h3><p>在未设置标记之前，mark是等于-1的。此时如果调用reset()会抛出<code>InvalidMarkExceptioin</code>异常。值得注意的是由许多方法都是会将mark重置为-1的。如：rewind(),flip(),clear()等。</p>
-<h3><span id="缓冲区相等">缓冲区相等</span></h3><p>两个缓冲区相等的条件：</p>
-<ol>
-<li>对象类型相同</li>
-<li>两个对象剩余同样的元素（剩余是指position到limit之间的元素）</li>
+<p>事务的隔离级别越严格，并发副作用越小。但付出的代价也越大。因为事务隔离的实质就是在一定程度上让事务“串行化”</p>
+<p>四种隔离级别：<br><img src="https://s2.ax1x.com/2019/09/21/nz5pjS.png" alt="nz5pjS.png"></p>
+<h3><span id="innodb的行锁模式即加锁方法">InnoDB的行锁模式即加锁方法</span></h3><p>共享锁（S）（读锁）：允许一个事务去读一行，阻止其它事务获得相同数据集的排他锁（其它事务只能加共享锁，不能加排他锁）。<br>排他锁（X）（写锁）：允许获取排他锁的事务其更新数据，阻止其它事务取得相同的数据集共享读锁和排他写锁。</p>
+<p><strong>当一个事务对数据加上排他锁后，其它事务不能获取相同数据集的共享锁和排他锁，但是可以使用<code>select * from ..</code> 进行查询的，因为普通的查询没有任何锁机制，它根本就不需要获得锁，因此排他锁也无法阻止它</strong></p>
+<p>为了允许行锁和表锁的共存，InnoDB还引入了意向锁（<strong>表锁</strong>）。<br>意向共享锁（IS）：事务打算给数据行加共享锁，必须在这之前获得该表的意向共享锁。<br>意向排他锁（IX）：事务打算给数据行加排他锁，必须在这之前获得该表的意向排他锁。</p>
+<p>InnoDB行锁模式兼容性列表<br><img src="https://s2.ax1x.com/2019/09/22/ups0q1.png" alt="ups0q1.png"><br>如果事务请求的锁模式于当前的锁兼容，InnoDB就将请求的锁授予该事务，反之，如果两者不兼容，该事务就要等待锁释放。</p>
+<p>意向锁是InnoDB自动加的，不需要人工干预<strong>对应更新操作，InnoDB会自动加上排他锁，但对于普通的select语句，InnoDB不会加任何锁</strong></p>
+<h2><span id="innodb行锁的实现方式">InnoDB行锁的实现方式</span></h2><ol>
+<li>在不通过索引进行查询的时候，InnoDB使用的是表锁，而不是行锁。</li>
+<li>MySQL的行锁是针对索引加的锁，不是针对记录加的锁。如果使用相同的索引键仍然会出现锁冲突。</li>
+<li>当表种有多个索引时，不同的事务可以使用不同的索引锁定不同的行。</li>
+<li>即便在sql中使用了索引，但是MySQL的执行计划如果采用的是全表扫描的话，那么仍然将<strong>使用表锁</strong>。</li>
 </ol>
-<p>被认为相等的两个缓冲区<br><img src="https://s2.ax1x.com/2019/08/29/mbGwtO.png" alt="mbGwtO.png"></p>
-<h3><span id="批量的移动">批量的移动</span></h3><p>以CharBuffer为例子<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> CharBuffer <span class="title">get</span><span class="params">(<span class="keyword">char</span>[] dst)</span></span></span><br><span class="line"><span class="function"><span class="comment">//offset参数是填充dst的起点位置</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> CharBuffer <span class="title">get</span><span class="params">(<span class="keyword">char</span>[] dst,<span class="keyword">int</span> offset,<span class="keyword">int</span> lenth)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> CharBuffer <span class="title">put</span><span class="params">(<span class="keyword">char</span>[] src)</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> CharBuffer <span class="title">put</span><span class="params">(<span class="keyword">char</span>[] src,<span class="keyword">int</span> offset,<span class="keyword">int</span> length)</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> CharBUffer <span class="title">put</span><span class="params">(CharBuffer src)</span></span></span><br></pre></td></tr></table></figure></p>
-<p>可以使用以下方法高效的读取处理数据<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">buffer.flip();</span><br><span class="line"><span class="keyword">int</span>[] arr=<span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">10</span>];</span><br><span class="line"><span class="keyword">while</span> (buffer.hasRemaining())&#123;</span><br><span class="line">    <span class="keyword">int</span> len=Math.min(arr.length,buffer.remaining());</span><br><span class="line">    buffer.get(arr,<span class="number">0</span>,len);</span><br><span class="line">    <span class="comment">//处理数据</span></span><br><span class="line">    processData(arr,len);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h3><span id="缓存区创建的两个关键方法">缓存区创建的两个关键方法</span></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public static CharBuffer allocate(int capacity)</span><br><span class="line"></span><br><span class="line">public static CharBuffer Wrap(char[] array)</span><br><span class="line">//offset参数用来初始化position参数，length参数用来初始化limit参数</span><br><span class="line">public static CharBuffer wrap(char[] array,int offset,int length)</span><br></pre></td></tr></table></figure>
-<p>创建新的缓存区有两种方式，分别是分配或包装操作。<br>allocate方法采用的分配的方式，他会分类一个数组来存储数据。而wrap方法是将一个数组包装为一个缓冲区。这意味着对这个数组的任何改动都会对这个缓冲区可见。</p>
-<h3><span id="复制缓冲区">复制缓冲区</span></h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> CharBuffer <span class="title">duplicate</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> CharBuffer <span class="title">asReadOnlyBuffer</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> CharBuffer <span class="title">slice</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure>
-<p>使用duplicate方法可以创建一个和原缓冲区共享数据元素的副本缓冲区。它们共享数据元素但是拥有各自的位置，上界和标记属性。</p>
-<p>使用asReadOnlyBuffer方法可以创建一个只读的副本缓冲区。它所创建的副本是不允许使用put方法的。</p>
-<p>使用slice方法可以创建一个position到limit的元素的一个副本。</p>
-<p>值得注意的是以上三种方法都不会在堆中重新分配空间用来存储数据。所以它们都是复制缓冲区的方法。</p>
-<h2><span id="字节缓冲区">字节缓冲区</span></h2><h3><span id="字节顺序">字节顺序</span></h3><p>字节顺序分为大端存储和小端存储<br>大端：<br>高位存放在内存的低地址位<br>小端：<br>低位存放在内存的低地址位</p>
-<p>使用<code>ByteOrder order()</code>方法可以获得该缓冲区的字节顺序；使用<code>ByteBuffer order(ByteOrder bo)</code>方法可以修改缓冲区的字节顺序。</p>
-<h2><span id="直接缓冲区">直接缓冲区</span></h2><p>字节缓冲区的一大特点就是它可以是直接缓冲区。它可以成为通道所执行的I/O的源头或目标。</p>
-<p>非直接缓冲区：非直接缓冲区将缓冲区建立在JVM内存在中。<br><img src="https://s2.ax1x.com/2019/08/30/mO5GXF.png" alt="mO5GXF.png"></p>
-<p>非直接缓冲区：直接将缓冲区建立在物理内存中，可以提高效率。<br><img src="https://s2.ax1x.com/2019/08/30/mO5N79.png" alt="mO5N79.png"></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//分配直接缓冲区</span></span><br><span class="line">ByteBuffer bf=ByteBuffer.allocateDirect(<span class="number">10</span>);</span><br><span class="line"><span class="comment">//判断其是否是直接缓冲区，结果是true</span></span><br><span class="line">System.out.println(bf.isDirect());</span><br></pre></td></tr></table></figure>
-<h2><span id="视图缓冲区">视图缓冲区</span></h2><p>ByteBuffer类允许创建视图来将byte型缓冲区字节数据映射位其它的原始数据类型。视图对象维护它自己的容量、位置、上界和标记，但是和原来的缓冲区共享数据元素。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ByteBuffer bf=ByteBuffer.allocate(<span class="number">10</span>);</span><br><span class="line">IntBuffer intBuffer=bf.asIntBuffer();</span><br></pre></td></tr></table></figure></p>
+<h2><span id="间隙锁next-key锁">间隙锁（Next-key锁）</span></h2><p>当使用范围条件进行检索数据并请求共享和排他锁时，InnoDB会给符合条件的已有数据记录的索引项加锁，对于键值条件在范围内但不存在的记录（间隙）也会加锁。</p>
+<p>例如：<br>//假如emp表中有101条数据，且empid的值分别是1，2，3…100,101<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> emp <span class="keyword">where</span> empid &gt;<span class="number">100</span> <span class="keyword">for</span> <span class="keyword">update</span></span><br></pre></td></tr></table></figure></p>
+<p>那么InnoDB不仅会对empid为101的进行加锁，empid 在100之后哪怕不存在的也会加锁。<br><strong>因此，在实际应用开发中，尤其是并发插入比较多的应用，我们需要尽量优化业务逻辑，进行使用相同条件来更新数据，避免使用范围条件</strong><br><strong>并且在使用等值条件时，如果记录不存在，也会使用间隙锁</strong></p>
 
       
 
@@ -334,7 +314,7 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Java NIO</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
         		</li>
       		
 		</ul>
@@ -390,7 +370,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/08/30/Java NIO学习笔记一/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/09/22/MySQL的锁机制/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -404,18 +384,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/09/02/JavaNIO学习笔记二/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Java NIO 学习笔记二
-        
-      </div>
-    </a>
   
-  
-    <a href="/2019/08/29/大三上的学习计划/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">大三上的学习计划</div>
+    <a href="/2019/09/21/高性能 MySQL读书笔记一/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">高性能MySQL读书笔记一</div>
       <i class="icon-circle-right"></i>
     </a>
   
