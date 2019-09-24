@@ -19,7 +19,7 @@
 <meta property="og:image" content="https://s2.ax1x.com/2019/09/07/n1ppGD.png">
 <meta property="og:image" content="https://s2.ax1x.com/2019/09/08/n3I5dJ.png">
 <meta property="og:image" content="https://s2.ax1x.com/2019/09/09/nJ17Z9.png">
-<meta property="og:updated_time" content="2019-09-09T02:18:04.372Z">
+<meta property="og:updated_time" content="2019-09-24T13:22:46.834Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java多线程编程实战指南读书笔记二">
 <meta name="twitter:description" content="线程同步机制线程同步机制一套用于协调线程间的数据访问及活动的机制，该机制用于保障线程安全以及实现这些线程的共同目标。广义上讲，Java提供的线程同步机制包括，锁、volatile关键字、final关键字、static关键字以及一些相关的API。 锁线程安全产生的前提是多个线程并发访问共享变量、共享资源。使用锁保障线程安全的思路是将多个线程对共享数据的并发访问转换为串行访问。 使用锁保障线程安全的原">
@@ -43,6 +43,11 @@
 
 </head>
 </html>
+<!-- 爆炸红心效果 -->
+<canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+<script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+<script type="text/javascript" src="/js/firework.js"></script>
+<!-- 爆炸红心效果 -->
 <body>
   <div id="container" q-class="show:isCtnShow">
     <canvas id="anm-canvas" class="anm-canvas"></canvas>
@@ -219,7 +224,7 @@
 <p>锁的划分：</p>
 <ol>
 <li>内部锁：通过synchronized关键字实现的</li>
-<li><p>显示锁：通过java.concurrent.locks.Lock接口实现的。</p>
+<li><p>显式锁：通过java.concurrent.locks.Lock接口实现的。</p>
 <a id="more"></a>
 <h3><span id="锁的作用">锁的作用</span></h3><p>锁能够保护共享数据以实现线程安全，其作用包括保障原子性、保障可见性和保障有序性。</p>
 </li>
@@ -244,7 +249,7 @@
 <li>不正确使用可能会导致死锁、锁思等线程活性故障。</li>
 </ol>
 <h2><span id="内部锁">内部锁</span></h2><p>Java平台中任何一个对象都有唯一一个与之关联的锁。这种锁被称为监视器或者内部锁。内部锁是一种排他锁，他能够保障原子性、可见性和有序性。内部锁通过synchronized实现。内部锁不会导致锁泄漏。</p>
-<p>作为锁句柄的变量通常采用final关键字修饰。因为锁句柄变量的值一旦改变，会导致执行同一个同步快的过个线程实际上使用不同的锁。<br>例如：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//推荐方式</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> Object lock=<span class="keyword">new</span> Object();</span><br></pre></td></tr></table></figure></p>
+<p>作为锁句柄的变量通常采用final关键字修饰。因为锁句柄变量的值一旦改变，会导致执行同一个同步块同一个个线程实际上使用不同的锁。<br>例如：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//推荐方式</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> Object lock=<span class="keyword">new</span> Object();</span><br></pre></td></tr></table></figure></p>
 <p>同步静态方法相当于以当前类对象为引导锁的同步块。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">method</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">//访问共享数据</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//等价写法</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">method</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">synchronized</span>(Test.class)&#123;</span><br><span class="line">            <span class="comment">//访问共享数据</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <h2><span id="显式锁">显式锁</span></h2><p><img src="https://s2.ax1x.com/2019/09/07/n1ppGD.png" alt="n1ppGD.png"></p>
 <p>使用显式锁实现循环递增序列号生成器<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">sequenceUtils</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Lock lock=<span class="keyword">new</span> ReentrantLock();</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">short</span> seq=<span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">get</span><span class="params">()</span></span>&#123;</span><br><span class="line">        lock.lock();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">if</span>(seq&gt;=<span class="number">999</span>)&#123;</span><br><span class="line">                seq=<span class="number">0</span>;</span><br><span class="line">                <span class="keyword">return</span> seq;</span><br><span class="line">            &#125;</span><br><span class="line">            seq++;</span><br><span class="line">            <span class="keyword">return</span> seq;</span><br><span class="line">        &#125;<span class="keyword">finally</span> &#123;</span><br><span class="line">            lock.unlock();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
@@ -260,7 +265,7 @@
 </ol>
 <h2><span id="锁的适用场景">锁的适用场景</span></h2><p>适用场景：</p>
 <ol>
-<li>check-then-act操作：一个线程读取共享数据并在此基础上决定其下一个操作时什么</li>
+<li>check-then-act操作：一个线程读取共享数据并在此基础上决定其下一个操作是什么</li>
 <li>read-modify-write操作：一个线程读取共享数据并在此基础上更新该数据。</li>
 <li>多个线程对多个共享数据进行更新。</li>
 </ol>
@@ -500,7 +505,7 @@
 <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
 <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
 <script>
-   var notify = 'false' == true ? true : false;
+   var notify = 'true' == true ? true : false;
    var verify = 'false' == true ? true : false;
     window.onload = function() {
         new Valine({
@@ -670,6 +675,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">innoDB引擎</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">innodb引擎</a>
               </li>
              
@@ -678,15 +687,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">innoDB引擎</a>
+                <a href="javascript:void(0)" class="js-tag color2">TCP/IP</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">IP协议</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">TCP/IP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -698,11 +703,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">多线程</a>
+                <a href="javascript:void(0)" class="js-tag color1">项目小技巧</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">项目小技巧</a>
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">多线程</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -719,10 +728,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
             
             <div class="clearfix"></div>

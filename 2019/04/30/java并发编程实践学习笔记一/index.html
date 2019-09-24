@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="个人博客">
 <meta property="og:description" content="介绍在早期的分时共享系统中，每个进程都是一个虚拟的冯诺依曼机。他们拥有一个内存空间，存储着指令和数据，根据机器语言的语义来顺序的执行指令。线程允许程序控制流的多重分支同时存在于一个进程中，他们共享进程范围内的资源。线程有些时候也被称为轻量级进程。并且大多数现代操作系统把线程作为时序调度的基本单元。  线程的优点线程能通过把异步的工作流程转化为普遍存在的顺序流程，使得程序更容易读写和维护。在多处理器">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-04-30T02:38:56.590Z">
+<meta property="og:updated_time" content="2019-09-22T12:28:24.912Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java并发编程实践学习笔记一">
 <meta name="twitter:description" content="介绍在早期的分时共享系统中，每个进程都是一个虚拟的冯诺依曼机。他们拥有一个内存空间，存储着指令和数据，根据机器语言的语义来顺序的执行指令。线程允许程序控制流的多重分支同时存在于一个进程中，他们共享进程范围内的资源。线程有些时候也被称为轻量级进程。并且大多数现代操作系统把线程作为时序调度的基本单元。  线程的优点线程能通过把异步的工作流程转化为普遍存在的顺序流程，使得程序更容易读写和维护。在多处理器">
@@ -39,6 +39,11 @@
 
 </head>
 </html>
+<!-- 爆炸红心效果 -->
+<canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+<script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+<script type="text/javascript" src="/js/firework.js"></script>
+<!-- 爆炸红心效果 -->
 <body>
   <div id="container" q-class="show:isCtnShow">
     <canvas id="anm-canvas" class="anm-canvas"></canvas>
@@ -188,16 +193,16 @@
 <ul>
 <li><p>线程的优点<br>线程能通过把异步的工作流程转化为普遍存在的顺序流程，使得程序更容易读写和维护。在多处理器的硬件环境中，使用多线程可以更加有效的使用硬件的资源。</p>
 </li>
-<li><p>线程的风险<br>在没有充分同步的情况下，多线程中的各种操作的顺序是不可预测的。<br>常见的并发危险还有竞争条件。因为线程共享相同的内存地址空间，并发的运行，他们可能访问或修改其它的线程正在使用的变量。<br>在缺少同步的时候，编译器，硬件和运行时事实上对时间和活动顺序是很随意的，比如在存储器或告诉缓冲中恶的存储变量，这样会使得他们对其它线程暂时不可见的。它能提高性能，但是给开发带来了困难。<br>活跃度失败的风险，当一个活动进入某种它永远无法继续再执行的状态时，活跃度失败就会发生了。活跃度失败有多种形式，如死锁（deadlock）、饥饿（starvation）、活锁（livelock）。<br>多线程程序还存在性能危险。</p>
+<li><p>线程的风险<br>在没有充分同步的情况下，多线程中的各种操作的顺序是不可预测的。<br>常见的并发危险还有竞争条件。因为线程共享相同的内存地址空间，并发的运行，他们可能访问或修改其它的线程正在使用的变量。<br>在缺少同步的时候，编译器，硬件和运行时事实上对时间和活动顺序是很随意的，比如在寄存器或高速缓冲中的存储变量，这样会使得他们对于其它线程暂时不可见的。它能提高性能，但是给开发带来了困难。<br>活跃度失败的风险，当一个活动进入某种它永远无法继续再执行的状态时，活跃度失败就会发生了。活跃度失败有多种形式，如死锁（deadlock）、饥饿（starvation）、活锁（livelock）。<br>多线程程序还存在性能危险。</p>
 </li>
 </ul>
 <h3><span id="线程安全">线程安全</span></h3><p>无论何时，只要有多于一个的线程访问给定的状态变量，而且其中某个线程会写入该变量，此时必须使用同步来协调线程对该变量的访问。</p>
 <blockquote>
-<p>当多个线程访问一个类时，如果不用考虑这些线程再运行时环境下的调度和交替执行，并且不需要额外的同步以及在调用方代码不必作其它的协调，这个类的行为仍然时正确的，那么称这个类时线程安全的。</p>
+<p>当多个线程访问一个类时，如果不用考虑这些线程在运行时环境下的调度和交替执行，并且不需要额外的同步以及在调用方代码不必作其它的协调，这个类的行为仍然时正确的，那么称这个类时线程安全的。</p>
 </blockquote>
 <p>对线程安全类的实例进行顺序或并发的一系列操作，都不会导致实例处于无效状态。<br>无状态对象永远是线程安全的。<br><a id="more"></a></p>
 <h4><span id="无状态对象和有状态对象">无状态对象和有状态对象</span></h4><p>有状态对象，就是有实例变量的对象，可以保存数据。<br>无状态对象，就是没有实例变量的对象，不能保存数据，是不变类。</p>
-<h4><span id="原子性">原子性</span></h4><p>原子性是指一个操作时不可中断的，要么全部执行成功要么全部执行失败。即在多个线程一起执行的时候，一个操作一旦开始，就不会被其它线程所干扰。</p>
+<h4><span id="原子性">原子性</span></h4><p>原子性是指一个操作是不可中断的，要么全部执行成功要么全部执行失败。即在多个线程一起执行的时候，一个操作一旦开始，就不会被其它线程所干扰。</p>
 <p>java内存模型定义的原子操作</p>
 <ul>
 <li>lock(锁定)：作用于主内存中的变量，它把一个变量标识为一个线程独占的状态；</li>
@@ -209,10 +214,10 @@
 <li>store（存储）：作用于工作内存的变量，它把工作内存中一个变量的值传送给主内存中以便随后的write操作使用；</li>
 <li>write（操作）：作用于主内存的变量，它把store操作从工作内存中得到的变量的值放入主内存的变量中。</li>
 </ul>
-<h4><span id="竞争条件">竞争条件</span></h4><p>类中存在竞争条件，导致其结果时不可靠的。<br>常见的一种竞争条件时“检查再运行”，使用一个潜在的过期值作为决定下一步操作的依据。</p>
-<p>检查再运行的常见用法时惰性初始化，它导致其不是线程安全的，如懒汉式单例模式：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@NotThreadSafe</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LazyInitRace</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> ExpensiveObject instance=<span class="keyword">null</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> ExpensiveObject <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(instance==<span class="keyword">null</span>)&#123;</span><br><span class="line">            instance=<span class="keyword">new</span> ExpensiceObject();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>java.uiil.concurrent.atomic包种包括了原子变量类，这些类用来事项数字或对象应用状态转换。</p>
-<h3><span id="内部锁">内部锁</span></h3><p>java提供了强制原子性的内置锁机制：synchronized块，其包含锁对象的引用，以及这个锁保护的代码块。内部锁再java种扮演了互斥锁的角色，同一时间至多有一个线程拥有锁。因此，由同一个锁保护的synchronized块会各自原子地执行，不会相互干扰。<br>内部锁是可重入锁。当一个线程请求其它线程已经占有的锁时，请求线程将被阻塞，因为内部锁时可重进入的，因此线程企图获得它自己占有的锁时，请求会成功。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Widget</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">doSomething</span><span class="params">()</span></span>&#123;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*因为内部锁是可重进入的，所以不会发生死锁*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LoggingWidget</span> <span class="title">extend</span> <span class="title">Widget</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">doSomething</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.doSomething();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4><span id="竞争条件">竞争条件</span></h4><p>类中存在竞争条件，导致其结果是不可靠的。<br>常见的一种竞争条件是“检查再运行”，使用一个潜在的过期值作为决定下一步操作的依据。</p>
+<p>检查再运行的常见用法是惰性初始化，它导致其不是线程安全的，如懒汉式单例模式：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@NotThreadSafe</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LazyInitRace</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> ExpensiveObject instance=<span class="keyword">null</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> ExpensiveObject <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(instance==<span class="keyword">null</span>)&#123;</span><br><span class="line">            instance=<span class="keyword">new</span> ExpensiceObject();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>java.uiil.concurrent.atomic包种包括了原子变量类，这些类用来实现数字或对象应用状态转换。</p>
+<h3><span id="内部锁">内部锁</span></h3><p>java提供了强制原子性的内置锁机制：synchronized块，其包含锁对象的引用，以及这个锁保护的代码块。内部锁在java中扮演了互斥锁的角色，同一时间至多有一个线程拥有锁。因此，由同一个锁保护的synchronized块会各自原子地执行，不会相互干扰。<br>内部锁是可重入锁。当一个线程请求其它线程已经占有的锁时，请求线程将被阻塞，因为内部锁时可重进入的，因此线程企图获得它自己占有的锁时，请求会成功。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Widget</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">doSomething</span><span class="params">()</span></span>&#123;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*因为内部锁是可重进入的，所以不会发生死锁*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LoggingWidget</span> <span class="title">extend</span> <span class="title">Widget</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">doSomething</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.doSomething();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 
       
 
@@ -383,7 +388,7 @@
 <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
 <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
 <script>
-   var notify = 'false' == true ? true : false;
+   var notify = 'true' == true ? true : false;
    var verify = 'false' == true ? true : false;
     window.onload = function() {
         new Valine({
@@ -553,6 +558,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">innoDB引擎</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">innodb引擎</a>
               </li>
              
@@ -561,15 +570,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">innoDB引擎</a>
+                <a href="javascript:void(0)" class="js-tag color2">TCP/IP</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">IP协议</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">TCP/IP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -581,11 +586,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">多线程</a>
+                <a href="javascript:void(0)" class="js-tag color1">项目小技巧</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">项目小技巧</a>
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">多线程</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -602,10 +611,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
             
             <div class="clearfix"></div>

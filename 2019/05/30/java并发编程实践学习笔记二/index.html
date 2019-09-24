@@ -8,19 +8,19 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>java并发编程学习笔记二 | 个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="编写正确的并发程序的关键在于共享对象、可变的状态进行访问管理  锁与可见性内置锁可以用来确保一个线程以某种可预见的方式看到另一个线程的影响。[]锁不仅仅是关于同步与互斥的，也是关于内存可见的。为了保证所有线程都能够看到共享的，可变变量的最新值，读取和写入线程必须使用公共的锁进行同步。1234567891011@ThreadSafepublic class SynchronziedInteger&amp;">
+  <meta name="description" content="编写正确的并发程序的关键在于共享对象、可变的状态进行访问管理  锁与可见性内置锁可以用来确保一个线程以某种可预见的方式看到另一个线程的影响。锁不仅仅是关于同步与互斥的，也是关于内存可见的。为了保证所有线程都能够看到共享的，可变变量的最新值，读取和写入线程必须使用公共的锁进行同步。1234567891011@ThreadSafepublic class SynchronziedInteger&amp;#1">
 <meta name="keywords" content="技术,java,并发编程">
 <meta property="og:type" content="article">
 <meta property="og:title" content="java并发编程学习笔记二">
 <meta property="og:url" content="http://yoursite.com/2019/05/30/java并发编程实践学习笔记二/index.html">
 <meta property="og:site_name" content="个人博客">
-<meta property="og:description" content="编写正确的并发程序的关键在于共享对象、可变的状态进行访问管理  锁与可见性内置锁可以用来确保一个线程以某种可预见的方式看到另一个线程的影响。[]锁不仅仅是关于同步与互斥的，也是关于内存可见的。为了保证所有线程都能够看到共享的，可变变量的最新值，读取和写入线程必须使用公共的锁进行同步。1234567891011@ThreadSafepublic class SynchronziedInteger&amp;">
+<meta property="og:description" content="编写正确的并发程序的关键在于共享对象、可变的状态进行访问管理  锁与可见性内置锁可以用来确保一个线程以某种可预见的方式看到另一个线程的影响。锁不仅仅是关于同步与互斥的，也是关于内存可见的。为了保证所有线程都能够看到共享的，可变变量的最新值，读取和写入线程必须使用公共的锁进行同步。1234567891011@ThreadSafepublic class SynchronziedInteger&amp;#1">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://s2.ax1x.com/2019/05/26/VAoXzd.png">
-<meta property="og:updated_time" content="2019-05-30T09:13:34.371Z">
+<meta property="og:updated_time" content="2019-09-22T13:51:59.778Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java并发编程学习笔记二">
-<meta name="twitter:description" content="编写正确的并发程序的关键在于共享对象、可变的状态进行访问管理  锁与可见性内置锁可以用来确保一个线程以某种可预见的方式看到另一个线程的影响。[]锁不仅仅是关于同步与互斥的，也是关于内存可见的。为了保证所有线程都能够看到共享的，可变变量的最新值，读取和写入线程必须使用公共的锁进行同步。1234567891011@ThreadSafepublic class SynchronziedInteger&amp;">
+<meta name="twitter:description" content="编写正确的并发程序的关键在于共享对象、可变的状态进行访问管理  锁与可见性内置锁可以用来确保一个线程以某种可预见的方式看到另一个线程的影响。锁不仅仅是关于同步与互斥的，也是关于内存可见的。为了保证所有线程都能够看到共享的，可变变量的最新值，读取和写入线程必须使用公共的锁进行同步。1234567891011@ThreadSafepublic class SynchronziedInteger&amp;#1">
 <meta name="twitter:image" content="https://s2.ax1x.com/2019/05/26/VAoXzd.png">
   
     <link rel="alternative" href="/atom.xml" title="个人博客" type="application/atom+xml">
@@ -41,6 +41,11 @@
 
 </head>
 </html>
+<!-- 爆炸红心效果 -->
+<canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+<script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+<script type="text/javascript" src="/js/firework.js"></script>
+<!-- 爆炸红心效果 -->
 <body>
   <div id="container" q-class="show:isCtnShow">
     <canvas id="anm-canvas" class="anm-canvas"></canvas>
@@ -189,12 +194,12 @@
         <blockquote>
 <p>编写正确的并发程序的关键在于共享对象、可变的状态进行访问管理</p>
 </blockquote>
-<h3><span id="锁与可见性">锁与可见性</span></h3><p>内置锁可以用来确保一个线程以某种可预见的方式看到另一个线程的影响。<br>[<img src="https://s2.ax1x.com/2019/05/26/VAoXzd.png" alt="VAoXzd.png">]<br>锁不仅仅是关于同步与互斥的，也是关于内存可见的。为了保证所有线程都能够看到共享的，可变变量的最新值，读取和写入线程必须使用公共的锁进行同步。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ThreadSafe</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SynchronziedInteger</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> value;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">int</span> <span class="title">get</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> value;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> synchronzied <span class="keyword">void</span> <span class="title">set</span><span class="params">(<span class="keyword">int</span> value)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.value=value;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3><span id="锁与可见性">锁与可见性</span></h3><p>内置锁可以用来确保一个线程以某种可预见的方式看到另一个线程的影响。<br><img src="https://s2.ax1x.com/2019/05/26/VAoXzd.png" alt="VAoXzd.png"><br>锁不仅仅是关于同步与互斥的，也是关于内存可见的。为了保证所有线程都能够看到共享的，可变变量的最新值，读取和写入线程必须使用公共的锁进行同步。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ThreadSafe</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SynchronziedInteger</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> value;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">int</span> <span class="title">get</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> value;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">set</span><span class="params">(<span class="keyword">int</span> value)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.value=value;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <ul>
 <li>最低限安全性<br>当一个线程在没有同步的情况下读取变量，它可能会得到一个过期值。但它至少可以看到某个线程在那里设定的一个真实数值，而不是一个凭空而来的值。这样的保证称为最低限的安全性。</li>
 </ul>
-<h3><span id="volatile-变量">volatile 变量</span></h3><p>它可以确保对一个变量的更新以可预见的方式告知其它的线程。但一个域被声明伟volatile类型后，编译器运行时会监视这个变量，它是共享的，而且对它的操作不会与其它内存操作一起被重排序。volatile变量不会缓存在寄存器或者缓存在对其它处理器隐藏的敌法。所以读一个volatile变量时，总会返回某一线程所写入的最新值。</p>
-<p>当一个共享变量声明伟volatile后：<br>1.当写一个volatile变量时，JMM会把该线程对应的本地内存种的变量强制刷新到主内存中去。<br>2.这个写会操作会导致其它线程中的缓存无效。<br>3.volatile会禁止语义重排序。<br><a id="more"></a></p>
+<h3><span id="volatile-变量">volatile 变量</span></h3><p>它可以确保对一个变量的更新以可预见的方式告知其它的线程。当一个域被声明为volatile类型后，编译器运行时会监视这个变量，它是共享的，而且对它的操作不会与其它内存操作一起被重排序。volatile变量不会缓存在寄存器或者缓存在对其它处理器隐藏的地方。所以读一个volatile变量时，总会返回某一线程所写入的最新值。</p>
+<p>当一个共享变量声明为volatile后：<br>1.当写一个volatile变量时，JMM会把该线程对应的本地内存种的变量强制刷新到主内存中去。<br>2.这个写操作会导致其它线程中的缓存无效。<br>3.volatile会禁止语义重排序。<br><a id="more"></a></p>
 <p>如何理解：<br>线程A向volatile变量写入值，随后线程B读取该变量，所有A执行写操作前可见的变量的值，在B读取了volatile变量后名称为对B也是可见的。所以从内存可见性的角度看，写入volatile变量就像时退出同步块，读取volatile变量就像进入同步块。</p>
 <p>volatile变量通常被当作标识完成，中断，状态的标记。</p>
 <blockquote>
@@ -212,7 +217,7 @@
 <p>ThreadLocal中常用的方法：<br>get()   set(T value)    initialValue()  remove()</p>
 <p>get():获取与当前线程相关联的ThreadLoal值。如果之前没有被设置过值，则会调用initialValue()方法。<br>set(T value)：设置与当前线程相关联的ThreadLocal的值。<br>initialValue()：设置于当前线程相关的TheadLocal的初始值。<br>remove()：将与当前线程关联的ThreadLocal值删除。</p>
 <h3><span id="使用私有锁保护状态">使用私有锁保护状态</span></h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PrivateLock</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">byte</span>[] lock=<span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">private</span> Widget widget;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">someMethod</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">synchronized</span>(lock)&#123;</span><br><span class="line">        <span class="comment">//访问或修改Widget的状态</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>使用私有锁对象，而不是对象的内部锁（或其它任何可公共访问的锁），有很多好处。私有的锁对象可以封装锁，这样客户代码无法获取它，然而可公共访问的锁允许客户代码涉足它的同步策略。客户 不正确的获得刀了另一个对象的锁，会引起活跃度方面的问题。</p>
+<p>使用私有锁对象，而不是对象的内部锁（或其它任何可公共访问的锁），有很多好处。私有的锁对象可以封装锁，这样客户代码无法获取它，然而可公共访问的锁允许客户代码涉足它的同步策略。客户不正确的获得到了另一个对象的锁，会引起活跃度方面的问题。</p>
 
       
 
@@ -383,7 +388,7 @@
 <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
 <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
 <script>
-   var notify = 'false' == true ? true : false;
+   var notify = 'true' == true ? true : false;
    var verify = 'false' == true ? true : false;
     window.onload = function() {
         new Valine({
@@ -553,6 +558,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">innoDB引擎</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">innodb引擎</a>
               </li>
              
@@ -561,15 +570,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">innoDB引擎</a>
+                <a href="javascript:void(0)" class="js-tag color2">TCP/IP</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">IP协议</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">TCP/IP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -581,11 +586,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">多线程</a>
+                <a href="javascript:void(0)" class="js-tag color1">项目小技巧</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">项目小技巧</a>
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">多线程</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -602,10 +611,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
             
             <div class="clearfix"></div>

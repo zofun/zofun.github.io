@@ -18,7 +18,7 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://s2.ax1x.com/2019/09/05/nnL4UI.png">
 <meta property="og:image" content="https://s2.ax1x.com/2019/09/05/nnOVaR.png">
-<meta property="og:updated_time" content="2019-09-06T13:49:07.984Z">
+<meta property="og:updated_time" content="2019-09-24T12:48:34.769Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java多线程编程实战指南读书笔记一">
 <meta name="twitter:description" content="进程、线程与任务什么是进程进程是程序运行的实例。运行一个java程序的实质是启动一个Java虚拟机进程，也就是说一个运行的Java程序就是一个Java虚拟机进程。进程是程序向操作系统申请资源的基本单位。 什么是线程线程是进程中可以独立执行的最小单位。一个进程可以包含多个线程。同一个进程中的所有线程共享该进程中的资源。 什么是任务线程所要完成的计算就被称为任务，特定的线程总是在执行着特定的任务。 J">
@@ -42,6 +42,11 @@
 
 </head>
 </html>
+<!-- 爆炸红心效果 -->
+<canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+<script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+<script type="text/javascript" src="/js/firework.js"></script>
+<!-- 爆炸红心效果 -->
 <body>
   <div id="container" q-class="show:isCtnShow">
     <canvas id="anm-canvas" class="anm-canvas"></canvas>
@@ -257,7 +262,7 @@
 <li>上下文切换的开销</li>
 <li>可靠性</li>
 </ol>
-<h2><span id="原子性">原子性</span></h2><p>对于涉及到共享变量的访问操作，若该操作从其执行线程以外的任意线程来看式<strong>不可分割</strong>的。那么该操作就是原子操作，相应地我们称该操作具有原子性。<br>所谓不可分割，其中一个含义就是指访问某个共享变量的操作从其执行线程以外的任何线程来看，该操作要么已经执行结束要么尚未发生，即其它线程不会“看到”该操作执行了部分的中间效果。</p>
+<h2><span id="原子性">原子性</span></h2><p>对于涉及到共享变量的访问操作，若该操作从其执行线程以外的任意线程来看是<strong>不可分割</strong>的。那么该操作就是原子操作，相应地我们称该操作具有原子性。<br>所谓不可分割，其中一个含义就是指访问某个共享变量的操作从其执行线程以外的任何线程来看，该操作要么已经执行结束要么尚未发生，即其它线程不会“看到”该操作执行了部分的中间效果。</p>
 <p>理解原子操作概念的注意点：</p>
 <ol>
 <li>原子操作是针对访问共享变量的操作而言的。</li>
@@ -268,7 +273,7 @@
 <li>使用锁，锁具有排他性，即它能保障一个共享变量在任意时刻只能被同一个线程访问。这就排除了多个线程在同一时刻访问同一个共享变量而导致干扰与冲突。</li>
 <li>利用处理器提供的CAS（compare-and-swap）指令。cas指令实现原子性的方式与锁实现原子性的方式实质上是相同的，差别在于锁通常是在软件层次实现的，而cas是直接在硬件层次实现的。</li>
 </ol>
-<p>在Java中除了对long，double型以外的任何类型的变量的<strong>写操作</strong>都是原子操作。尽管如此Java语言可以使用volatile关键指修饰long/double型变量的写操作具有原子性。volatile关键字只能保障变量写操作的原子性，它并不能保障其它操作（如 read-modify-write和check-then-act）的原子性。<br>原子操作+原子操作！=原子操作</p>
+<p>在Java中除了对long，double型以外的任何类型的变量的<strong>写操作</strong>都是原子操作。尽管如此Java语言可以使用volatile关键字修饰long/double型变量的写操作具有原子性。volatile关键字只能保障变量写操作的原子性，它并不能保障其它操作（如 read-modify-write和check-then-act）的原子性。<br>原子操作+原子操作！=原子操作</p>
 <h2><span id="可见性">可见性</span></h2><p>在多线程环境下，一个线程对某个共享变量进行更新后，后续访问该变量的线程可能无法立即读取到这个更新的结果。这就是线程安全的可见性问题。<br>多线程在可见性上存在问题，意味着某些线程读到的是旧数据，这可能会导致程序出现我们所不期望的结果。</p>
 <p>导致可见性缺陷的原因可能来自两个方面：</p>
 <ol>
@@ -491,7 +496,7 @@
 <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
 <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
 <script>
-   var notify = 'false' == true ? true : false;
+   var notify = 'true' == true ? true : false;
    var verify = 'false' == true ? true : false;
     window.onload = function() {
         new Valine({
@@ -661,6 +666,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">innoDB引擎</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">innodb引擎</a>
               </li>
              
@@ -669,15 +678,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">innoDB引擎</a>
+                <a href="javascript:void(0)" class="js-tag color2">TCP/IP</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">IP协议</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">TCP/IP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -689,11 +694,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">多线程</a>
+                <a href="javascript:void(0)" class="js-tag color1">项目小技巧</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">项目小技巧</a>
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">多线程</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -710,10 +719,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
             
             <div class="clearfix"></div>
