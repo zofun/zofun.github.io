@@ -6,25 +6,38 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>深入理解计算机系统读书笔记三 | 个人博客</title>
+  <title>Redis实战学习笔记一 | 个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="高速缓存的写操作假设缓存中已经缓存了字w（写命中）。在高速缓存更新了它的w的副本后，它有两种方式更新w在层次结构中紧接着低一层中的副本。  直写。就是立即将w的高速缓存块写回紧接着的低一层中。这种做法每次都会引起总线流量。 写回。写回会尽可能的推迟更新，只有当替换算法要驱逐这个更新过的块时，才会把他写道紧接着的第一层中。写回可以显著的减少总线流量，但是增加了复杂性。   假设缓存中没有缓存字w（写">
-<meta name="keywords" content="技术,计算机系统基础">
+  <meta name="description" content="初识RedisRedis是一个远程内存数据库。它是一个速度非常快的非关系型内存数据库。它可以存储键到五种类型的映射。并且可以将存储到内存中的数据持久化到磁盘。并且可以使用复制特性来提高读性能，使用客户端分片来提高写性能/ Redis的独到之处Redis不同于我们常用的MySQL数据库的一个特性是它是非关系型数据库。简单的讲就是不会使用表。 它和memcached的一大不同之处在于它支持多种不同的数">
+<meta name="keywords" content="技术,Redis">
 <meta property="og:type" content="article">
-<meta property="og:title" content="深入理解计算机系统读书笔记三">
-<meta property="og:url" content="http://yoursite.com/2019/08/15/计算机系统基础读书笔记三/index.html">
+<meta property="og:title" content="Redis实战学习笔记一">
+<meta property="og:url" content="http://yoursite.com/2019/10/21/Redis实战学习笔记一/index.html">
 <meta property="og:site_name" content="个人博客">
-<meta property="og:description" content="高速缓存的写操作假设缓存中已经缓存了字w（写命中）。在高速缓存更新了它的w的副本后，它有两种方式更新w在层次结构中紧接着低一层中的副本。  直写。就是立即将w的高速缓存块写回紧接着的低一层中。这种做法每次都会引起总线流量。 写回。写回会尽可能的推迟更新，只有当替换算法要驱逐这个更新过的块时，才会把他写道紧接着的第一层中。写回可以显著的减少总线流量，但是增加了复杂性。   假设缓存中没有缓存字w（写">
+<meta property="og:description" content="初识RedisRedis是一个远程内存数据库。它是一个速度非常快的非关系型内存数据库。它可以存储键到五种类型的映射。并且可以将存储到内存中的数据持久化到磁盘。并且可以使用复制特性来提高读性能，使用客户端分片来提高写性能/ Redis的独到之处Redis不同于我们常用的MySQL数据库的一个特性是它是非关系型数据库。简单的讲就是不会使用表。 它和memcached的一大不同之处在于它支持多种不同的数">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://s2.ax1x.com/2019/08/12/mSAIB9.jpg">
-<meta property="og:image" content="https://s2.ax1x.com/2019/08/12/mS0jxK.png">
-<meta property="og:image" content="https://s2.ax1x.com/2019/08/14/mFzbLQ.png">
-<meta property="og:image" content="https://s2.ax1x.com/2019/08/15/mA2gsO.png">
-<meta property="og:updated_time" content="2019-08-15T13:23:29.806Z">
+<meta property="og:image" content="https://s2.ax1x.com/2019/10/14/KpabTA.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/10/17/KkbVAK.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/10/17/Kkb4D1.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/10/17/KkXbdI.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/10/17/KkvjKg.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/10/17/Kkx1xO.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/10/17/KkxrQS.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/10/19/Knf2wt.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/10/19/KnhepD.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/10/20/KMwNS1.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/10/20/KMBSDf.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/10/20/KMDv0f.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/10/20/KMrf3j.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/10/20/KMsozd.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/10/20/KM2BvQ.png">
+<meta property="og:image" content="https://i.bmp.ovh/imgs/2019/10/dc36857f1e83df53.png">
+<meta property="og:image" content="https://i.bmp.ovh/imgs/2019/10/18226cb39a1043d8.png">
+<meta property="og:updated_time" content="2019-10-21T08:39:25.865Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="深入理解计算机系统读书笔记三">
-<meta name="twitter:description" content="高速缓存的写操作假设缓存中已经缓存了字w（写命中）。在高速缓存更新了它的w的副本后，它有两种方式更新w在层次结构中紧接着低一层中的副本。  直写。就是立即将w的高速缓存块写回紧接着的低一层中。这种做法每次都会引起总线流量。 写回。写回会尽可能的推迟更新，只有当替换算法要驱逐这个更新过的块时，才会把他写道紧接着的第一层中。写回可以显著的减少总线流量，但是增加了复杂性。   假设缓存中没有缓存字w（写">
-<meta name="twitter:image" content="https://s2.ax1x.com/2019/08/12/mSAIB9.jpg">
+<meta name="twitter:title" content="Redis实战学习笔记一">
+<meta name="twitter:description" content="初识RedisRedis是一个远程内存数据库。它是一个速度非常快的非关系型内存数据库。它可以存储键到五种类型的映射。并且可以将存储到内存中的数据持久化到磁盘。并且可以使用复制特性来提高读性能，使用客户端分片来提高写性能/ Redis的独到之处Redis不同于我们常用的MySQL数据库的一个特性是它是非关系型数据库。简单的讲就是不会使用表。 它和memcached的一大不同之处在于它支持多种不同的数">
+<meta name="twitter:image" content="https://s2.ax1x.com/2019/10/14/KpabTA.png">
   
     <link rel="alternative" href="/atom.xml" title="个人博客" type="application/atom+xml">
   
@@ -171,54 +184,147 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-计算机系统基础读书笔记三" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-Redis实战学习笔记一" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      深入理解计算机系统读书笔记三
+      Redis实战学习笔记一
     </h1>
   
 
         
-        <a href="/2019/08/15/计算机系统基础读书笔记三/" class="archive-article-date">
-  	<time datetime="2019-08-15T13:21:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-15</time>
+        <a href="/2019/10/21/Redis实战学习笔记一/" class="archive-article-date">
+  	<time datetime="2019-10-21T08:39:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-21</time>
 </a>
         
       </header>
     
     <!-- 目录内容 -->
 
+    <p class="show-toc-btn" id="show-toc-btn" onclick="showToc();">
+          <span class="btn-bg"></span>
+          <span class="btn-text">文章导航</span>
+          </p>
+  <div id="toc-article" class="toc-article" style="display:none">
+      <span id="toc-close" class="toc-close" title="隐藏导航" onclick="showBtn();">×</span>
+    <strong class="toc-title">文章目录</strong>
+           <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">初识Redis</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.1.</span> <span class="toc-text">Redis的独到之处</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.</span> <span class="toc-text">Redis的用法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">2.</span> <span class="toc-text">使用Redis构建web应用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">2.1.</span> <span class="toc-text">登录和cookie缓存</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">2.1.1.</span> <span class="toc-text">实战：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">2.2.</span> <span class="toc-text">网页缓存</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">2.3.</span> <span class="toc-text">缓存行数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">2.4.</span> <span class="toc-text">网页分析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">3.</span> <span class="toc-text">Redis核心概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">3.1.</span> <span class="toc-text">Redis命令</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">3.1.1.</span> <span class="toc-text">字符串</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">3.1.2.</span> <span class="toc-text">列表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">3.1.3.</span> <span class="toc-text">集合</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">3.1.4.</span> <span class="toc-text">散列</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">3.1.5.</span> <span class="toc-text">有序集合</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">3.1.6.</span> <span class="toc-text">发布与订阅</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">3.1.7.</span> <span class="toc-text">Redis事务</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">3.1.8.</span> <span class="toc-text">键的过期时间</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">4.</span> <span class="toc-text">数据安全与性能保障</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">4.1.</span> <span class="toc-text">持久化选项</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">4.2.</span> <span class="toc-text">快照持久化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">4.3.</span> <span class="toc-text">AOF持久化</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">5.</span> <span class="toc-text">复制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">5.1.</span> <span class="toc-text">Redis复制的启动过程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">6.</span> <span class="toc-text">Redis事务</span></a></li></ol>
+         </div>
+   <script type="text/javascript">
+  function showToc(){
+    var toc_article = document.getElementById("toc-article");
+    var show_toc_btn = document.getElementById("show-toc-btn");
+    toc_article.setAttribute("style","display:block");
+    show_toc_btn.setAttribute("style","display:none");
+    };
+  function showBtn(){
+    var toc_article = document.getElementById("toc-article");
+    var show_toc_btn = document.getElementById("show-toc-btn");
+    toc_article.setAttribute("style","display:none");
+    show_toc_btn.setAttribute("style","display:block");
+    };
+   </script>
+      
 <!-- 目录内容结束 -->
     <div class="article-entry" itemprop="articleBody">
       
-        <h2><span id="高速缓存的写操作">高速缓存的写操作</span></h2><p>假设缓存中已经缓存了字w（写命中）。在高速缓存更新了它的w的副本后，它有两种方式更新w在层次结构中紧接着低一层中的副本。</p>
-<ol>
-<li>直写。就是立即将w的高速缓存块写回紧接着的低一层中。这种做法每次都会引起总线流量。</li>
-<li>写回。写回会尽可能的推迟更新，只有当替换算法要驱逐这个更新过的块时，才会把他写道紧接着的第一层中。写回可以显著的减少总线流量，但是增加了复杂性。</li>
-</ol>
-<hr>
-<p>假设缓存中没有缓存字w（写不命中），也有两种处理方式。<br>1.写分配（write-allocate），加载相应的第一层中的块到高速缓存中，然后更新高速缓存块，试图利用写的空间局部性，但缺点是每次写不命中都会导致一个块从第一层传送到高速缓存。<br>2.非写分配（not-write-allocate）。避开高速缓存，直接把这个字写到低一层中。</p>
-<h2><span id="实际的高速缓存层次结构">实际的高速缓存层次结构</span></h2><p>在实际中，高速缓存既保存数据，也保存指令。只保存指令的高速缓存被称为i-cache，只保存数据的高速缓存被称为d-cache。既保存指令又保存数据的高速缓存被称为统一的高速缓存（unifiied cache）。i-cache通常是只读的。<br><img src="https://s2.ax1x.com/2019/08/12/mSAIB9.jpg" alt="mSAIB9.jpg"></p>
+        <h2><span id="初识redis">初识Redis</span></h2><p>Redis是一个远程内存数据库。它是一个速度非常快的非关系型内存数据库。它可以存储键到五种类型的映射。并且可以将存储到内存中的数据持久化到磁盘。并且可以使用复制特性来提高读性能，使用客户端分片来提高写性能/</p>
+<h3><span id="redis的独到之处">Redis的独到之处</span></h3><p>Redis不同于我们常用的MySQL数据库的一个特性是它是非关系型数据库。简单的讲就是不会使用表。</p>
+<p>它和memcached的一大不同之处在于它支持多种不同的数据类型，而memcached只支持字符串键。</p>
+<p>Redis还有一个独特之处在于它是内存数据库。因为内存是易失性存储，所以不得不考虑持久化的问题。Redis的持久化提供了两种方案，一种是时间点转储，第二种方案就是将所有<strong>修改了数据库</strong>的命令写入一个只追加的文件中，根据用户的设置可以选择从不同步、每秒同步一次或者没写入一个命令就同步一次。</p>
 <a id="more"></a>
-<h2><span id="高速缓存的性能评价">高速缓存的性能评价</span></h2><h3><span id="评价指标">评价指标</span></h3><ul>
-<li>不命中率（miss rate）。在一个程序执行或程序的一部分执行期间，内存引用不命中的比率。</li>
-<li>命中率（hit rate）。命中的内存引用比率</li>
-<li>命中时间（hit time）从高速缓存传送一个字到CPU所需的时间。对于L1高速缓存来说，命中时间的数量级是几个时钟周期</li>
-<li>不命中处罚（miss penalty）。由于不命中所需要的额外的时间。</li>
-</ul>
-<h3><span id="影响性能的一些因素">影响性能的一些因素</span></h3><p>1.高速缓存的大小的影响<br>一方面较大的高速缓存可能会提高命中率，另一方面，使较大存储器运行得更快总是更难一些<br>2.块大小得影响<br>较大得块能够利用程序中可能存在得空间局部性，帮助提高命中率。但对于给定得高速缓存大小，块越大就意味着高速缓存行数越少，这会损坏时间局部性比空间局部性更好得程序中的命中率。较大的块对 对不命中的处罚也有负面影响，因为块越大，传送时间就越长。<br>3.相联度的影响<br>较高的相联度（也就是说每个组中有更多的行）的优点使降低了高速缓存由于冲突不命中而出现抖动的可能性。但较高的相联度会带来更高的硬件成本和命中时间，同时也会增加bu’min’zho<br>4.写策略的影响<br>直写高速缓存比较容易实现，而且能够使用独立于高速缓存的写缓冲区，用来更新内存。</p>
-<h2><span id="什么是链接">什么是链接</span></h2><p>链接（linking）使将各种代码和数据片段收集并组后成为一个单一文件的过程，这个文件可被加载（复制）到内存并执行。链接可以执行于编译时、加载时，she连接器在软件开发中扮演着一个关键的角色，它使得分离编译成为可能。<br><img src="https://s2.ax1x.com/2019/08/12/mS0jxK.png" alt="mS0jxK.png"></p>
-<p>##静态链接<br>为了钩爪可执行文件，链接器必须完成两个主要任务：<br>1.符号解析（symbol resolution）。目标文件定义和引用的符号，每个符号对应于一个函数，一个全局兵力或一个静态变量，符号解析的目低时间每个符号引用正好和一个符号定义关联起来。<br>2.重定位（relocation）。编译器和汇编器生成从地址0开始的代码和数据节。连接器通过把每个符号定义与一个内存位置关联起来，从而重定位这些节，然后修改所对应这些符号的引用，使得他们指向这个内存位置。</p>
-<h3><span id="链接器是如何解析多重定义的全局符号">链接器是如何解析多重定义的全局符号</span></h3><p>初始化的全局变量和函数名是强符号<br>Linux连接器使用以下的规则来处理多重定义的符号名<br>1.不允许出现多个同名的强符号<br>2.如果有一个强符号和弱符号同名，那么选择强符号<br>2.入股有多个弱符号同名，那么从这个弱符号中任选一个。</p>
-<h2><span id="与静态库链接">与静态库链接</span></h2><p>所有的编译系统都提供一种机制，间所有相关的目标模块打包为一个单独的文件，称为静态库（static librart）,它可以用做连接器的输入。但连接器构造一个输出的可执行文件时，它只是复制静态库里被应用程序引用的目标模块。</p>
-<h2><span id="动态链接共享库">动态链接共享库</span></h2><p>共享库是一个目标模块，在运行或加载时，可以加载到任意的内存地址，并和一个在内存中的程序链接起来。这个过程称为动态链接（dynamic linking）。是由一个叫做动态连接器（dynamic linker）的程序来执行的。共享库也称为共享目标。<br>共享库以两种方式来实现共享的：<br>1.在任何给定的系统文件中，对于一个库只有一个.so文件。所有引用该库的可执行目标文件共享这个so文件中的代码和数据。<br>2.在内存中，一个共享库的.text节的一个副本可以被不公的正在运行的进程共享。</p>
-<h2><span id="位置无关代码">位置无关代码</span></h2><p>共享库允许多个正在运行的进程共享内存中相同的库代码。现代系统为了提高内存的利用率，使用一种特殊的方式编译共享模块的代码段，使得可以把共享库加载到内存的任何位置而无需链接器修改。使用这种方法，使得无限多的进程可以共享一个共享模块的代码段的单一副本。<br>可以加载而无需重定位的代码称为位置无关代码（Position-Independent Code，PIC）。</p>
-<h3><span id="pic数据引用">PIC数据引用</span></h3><p>编译器让共享库的数据段和代码段的距离保持不变。因此，代码段中任何指令和数据段中的任何变量之间的距离都是运行时常量，与代码段和数据段的绝对内存位置是无关的。<br>编译器在数据段开始的地方创建了一个表，叫做全局偏移量表（Global Offset Table，GOT）。在加载时，动态连接器会重定位GOT中的每个条目，使得它包含目标的正确的绝对地址。每个引用全局目标的目标模块都有自己的GOT。<br><img src="https://s2.ax1x.com/2019/08/14/mFzbLQ.png" alt="mFzbLQ.png"></p>
-<h3><span id="pic函数调用">PIC函数调用</span></h3><p>GNU编译系统使用延迟绑定（lazy binding）的技术，将过程地址的绑定延迟到第一次调用这个过程时，使用这种方式，可以解决编译器无法预测共享库中过程的运行时地址的问题。使用延迟绑定技术还可以提供效率，让那些在未被使用的过程不进行绑定从而提高效率。<br>延迟绑定是借助GOT和过程链接表（Procedure Linkage Table,PLT）来实现的。如果一个目标模块调用定义在共享库中的任何函数，那么它就有自己的GOT和PLT。GOT是数据段的一部分，而PLT是代码段的一部分。<br><img src="https://s2.ax1x.com/2019/08/15/mA2gsO.png" alt="mA2gsO.png"></p>
-<h2><span id="库打桩机制">库打桩机制</span></h2><p>Linux连接器支持库打桩（library interpositioning）。它允许截获对共享库函数的调用，取而代之执行自己的代码。<br>它的基本思想：给定一个需要打桩的目标函数，创建一个包装函数，它的原型和目标函数完全一样。使用某种特殊的打桩机制欺骗系统调用包装函数而不是目标函数了。包装函数通常会执行它自己的逻辑，然后调用目标函数，在将目标函数的返回值传递给调用者。<br>库打桩机制可以在：编译时、链接时、运行时。</p>
+<p><img src="https://s2.ax1x.com/2019/10/14/KpabTA.png" alt="KpabTA.png"></p>
+<h3><span id="redis的用法">Redis的用法</span></h3><p>Redis的数据结构<br><img src="https://s2.ax1x.com/2019/10/17/KkbVAK.png" alt="KkbVAK.png"></p>
+<ol>
+<li><p>string<br><img src="https://s2.ax1x.com/2019/10/17/Kkb4D1.png" alt="Kkb4D1.png"></p>
+</li>
+<li><p>list<br>一个列表可以有序的存储多个字符串。<br><a href="https://imgchr.com/i/KkXbdI" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/10/17/KkXbdI.png" alt="KkXbdI.png"></a></p>
+</li>
+<li>集合 set<br>集合通过散列表来确保自己存储的每个字符串都是各不相同的。Redis的集合使用无序方式存储元素。<br><img src="https://s2.ax1x.com/2019/10/17/KkvjKg.png" alt="KkvjKg.png"></li>
+<li>hash<br>Redis的散列可以存储多个键值对之间的映射。和字符串一样散列存储的既可以是字符串又可以是数字值，并且用户同样可以对散列存储的数字执行自增或自减操作。<br><img src="https://s2.ax1x.com/2019/10/17/Kkx1xO.png" alt="Kkx1xO.png"></li>
+<li>Redis有序结合 zset<br>有序集合的键被称为成员，每个成员都是不同的。有序集合的值被称为分值。<br><img src="https://s2.ax1x.com/2019/10/17/KkxrQS.png" alt="KkxrQS.png"></li>
+</ol>
+<h2><span id="使用redis构建web应用">使用Redis构建web应用</span></h2><h3><span id="登录和cookie缓存">登录和cookie缓存</span></h3><p>在我们登录互联网服务的时候，这些服务都会使用cookie来记录我们的身份，cookie由少量数据组成，网站会要求我们在之后的每次请求中携带cookie数据。对于用来登录的cookie，有两种常用的方法可以将登录信息存储在cookie中，一种是签名（signed）cookie，另一种是（token）cookie。</p>
+<p>我们可以使用Redis来重新实现登录cookie功能。我们使用一个散列表来存储登录cookie令牌与已登录用户之间的映射。要检查一个用户是否已经登录，需要根据给定的令牌来查找与之对应的用户，并在用户已经登陆的情况下，返回该用户的ID。</p>
+<h4><span id="实战">实战：</span></h4><p><strong>案例一：</strong><br><strong>需求</strong>：<br>现在有一个大型的网上商城，每天用户会有大概一亿次点击，并从网站上购买10万多件商品。我们要管理用户的登录会话，并记录用户最近访问的商品。<br><strong>解决方案：</strong><br>首先使用一个hash来存储用户的cookie和已登录用户之间的映射，实现那对登录会话的管理。至于记录用户最近浏览的商品，我们可以先计算一下负载，平均每秒需要写入1200次，高峰时期需要写入6000次，如果使用关系型数据库来记录是非常的困难的，因为一台关系型数据库每秒大概能处理200-2000个插入请求。所以我们可以考虑使用吞吐率极大的Redis来存储这些浏览记录。</p>
+<p>用到了哪些数据结构：</p>
+<ol>
+<li>一个名为<code>login：</code>的哈希表，其中键为用户的令牌，值为用户信息</li>
+<li>一个名为<code>recent:</code>的有序集合，其中成员为用户的token，分数为用户最后一次登录的时间戳</li>
+<li>一组名为<code>viewed:</code>+token的有序集合，其中成员为该用户浏览过的商品信息，分数为时间戳<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 用于检查登录cookie的方法，尝试获取比并返回令牌对应的用户</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">check_token</span><span class="params">(conn,token)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> conn.hget(<span class="string">'login:'</span>,token) <span class="comment"># 尝试获取比并返回令牌对应的用户</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 用于记录用户的浏览记录，维持登录用户与令牌的关系</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">update_token</span><span class="params">(conn,token,user,item=None)</span>:</span></span><br><span class="line">    timestamp=time.time() <span class="comment"># 获取当前的时间戳</span></span><br><span class="line">    conn.hset(<span class="string">'login:'</span>,token,user) <span class="comment"># 维持令牌与已登录用户之间的映射（哈希）</span></span><br><span class="line">    conn.zadd(<span class="string">'recent:'</span>,token,timestamp) <span class="comment"># 记录令牌最后一次出现的时间 （有序集合）</span></span><br><span class="line">    <span class="keyword">if</span> item:</span><br><span class="line">        conn.zadd(<span class="string">'viewed:'</span>+token,item,timestamp) <span class="comment"># 记录用户浏览过的商品</span></span><br><span class="line">        conn.zremrangebyrank(<span class="string">'viewed:'</span>+token,<span class="number">0</span>,<span class="number">-26</span>) <span class="comment"># 移除旧的记录，只保留26各记录</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>因为存储的会话数据会随着时间的推移而不断地增多，所以我需要定时地清理一些会话数据。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">QUIT = <span class="literal">False</span></span><br><span class="line">LIMIT = <span class="number">10000000</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">clean_session</span><span class="params">(conn)</span>:</span></span><br><span class="line">    <span class="keyword">while</span> <span class="keyword">not</span> QUIT:</span><br><span class="line">        size=conn.zcard(<span class="string">'recent:'</span>)</span><br><span class="line">        <span class="keyword">if</span> size &lt;= LIMIT: <span class="comment"># 在令牌数量未达到限制之前一直休眠</span></span><br><span class="line">            time.sleep(<span class="number">1</span>)</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">        end_index=min(size-LIMIT,<span class="number">100</span>)</span><br><span class="line">        tokens=conn.zrange(<span class="string">'recent:,0,end_index-1) # 获取需要移除地令牌的ID</span></span><br><span class="line"><span class="string">        session_key=[]</span></span><br><span class="line"><span class="string">        for token in tokens:</span></span><br><span class="line"><span class="string">            session_keys.append('</span>view:<span class="string">'+token) # 构建待删除的列表</span></span><br><span class="line"><span class="string">        conn.delete(*session_keys)</span></span><br><span class="line"><span class="string">        conn.hdel('</span>login:<span class="string">',*tokens) # 移除那些最旧的令牌</span></span><br><span class="line"><span class="string">        conn.zrem('</span>recent:<span class="string">',*tokens)</span></span><br></pre></td></tr></table></figure></p>
+<p>其实<code>clean_session</code>这个行数存在竞争条件的，如果正在清理用户信息的同时，用户登录了，那么这个用户就得重新登录了，因为它刚刚记录的登录信息会被清除掉。</p>
+<hr>
+<p><strong>案例2</strong><br><strong>需求</strong><br>使用Redis实现购物车<br><strong>解决方案</strong><br>每个用户的购物车都是一个散列，这个散列存储了商品ID与商品订购数量之间的映射。我们还需要对商品的数量变动进行维护。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add_to_cart</span><span class="params">(conn,session,item,count)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> count &lt;= <span class="number">0</span>:</span><br><span class="line">        conn.hrem(<span class="string">'cart:'</span>+session,item) <span class="comment"># 如果数量商品小于0了就移除</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        conn.hset(<span class="string">'cart:+session,item,count) # 将指定的商品添加到购物车中</span></span><br></pre></td></tr></table></figure></p>
+<p>我们需要改造之前的会话清理函数，在清理用户会话的时候，将其购物车也一并清理。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">clean_session</span><span class="params">(conn)</span>:</span></span><br><span class="line">    <span class="keyword">while</span> <span class="keyword">not</span> QUIT:</span><br><span class="line">        size=conn.zcard(<span class="string">'recent:'</span>)</span><br><span class="line">        <span class="keyword">if</span> size &lt;= LIMIT: <span class="comment"># 在令牌数量未达到限制之前一直休眠</span></span><br><span class="line">            time.sleep(<span class="number">1</span>)</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">        end_index=min(size-LIMIT,<span class="number">100</span>)</span><br><span class="line">        sessions=conn.zrange(<span class="string">'recent:,0,end_index-1) # 获取需要移除地令牌的ID</span></span><br><span class="line"><span class="string">        session_key=[]</span></span><br><span class="line"><span class="string">        for session in sessions:</span></span><br><span class="line"><span class="string">            session_keys.append('</span>view:<span class="string">'+session) # 构建待删除的列表</span></span><br><span class="line"><span class="string">            seesion_keys.append('</span>cart:<span class="string">'+session)</span></span><br><span class="line"><span class="string">        conn.delete(*session_keys)</span></span><br><span class="line"><span class="string">        conn.hdel('</span>login:<span class="string">',*sessions) # 移除那些最旧的令牌</span></span><br><span class="line"><span class="string">        conn.zrem('</span>recent:<span class="string">',*sessions)</span></span><br></pre></td></tr></table></figure></p>
+<h3><span id="网页缓存">网页缓存</span></h3><p>在动态生成网页的时候，通常会使用模板语言来简化网页的生成，其实网页不必每次都重新生成，因为变化的网页只是极少数。我们可以将这些不变的网页缓存起来，下次需要使用的时候直接使用即可。</p>
+<p><strong>案例一</strong><br><strong>需求：</strong><br>将可悲缓存的网页缓存起来，避免没有必要的重复动态生成。从而减少载入不常改变的页面所需的时间。<br><strong>解决方案</strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">cache_request</span><span class="params">(conn.request,callback)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> can_cache(conn,request):</span><br><span class="line">        <span class="keyword">return</span> callback(request) <span class="comment"># 对于不能缓存的请求，直接调用回调函数</span></span><br><span class="line">    page_key=<span class="string">'cache:'</span>+hash_request(request)</span><br><span class="line">    content=conn.get(page_key) <span class="comment"># 尝试查找被缓存的页面</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> content:</span><br><span class="line">        content=callback(request) <span class="comment"># 没有被缓存就生成页面</span></span><br><span class="line">        conn.setex(page_key,content,<span class="number">300</span>) <span class="comment"># 缓存生成的页面</span></span><br><span class="line">    <span class="keyword">return</span> content <span class="comment"># 返回页面</span></span><br></pre></td></tr></table></figure></p>
+<h3><span id="缓存行数据">缓存行数据</span></h3><p>一些页面也被我们缓存起来了，比如商品界面每次需要从数据库中载入一两行数据。程序可以通过缓存页面载入时所需的数据库行来减少载入页面所需的时间。</p>
+<p><strong>案例一</strong><br><strong>需求</strong><br>假设一个商城为了清空库存和吸引消费者决定开始新一轮的促销活动，每天都会提供一些特价商品，所以商品的数量都是有限的，售完即止。<br><strong>解决方案</strong><br>在这种情况下，我们是不能对整个页面进行缓存的，否则用户可能看到错误的剩余数量。但是如果，每次载入数据都从数据库中取得话，又会给数据库带来巨大得压力。<br>我们可以使用一个守护进程函数，将指定得数据行缓存到Redis里面，并不定期得对这些缓存进行更新。缓存得数据以JSON格式进行编码。</p>
+<p>使用的数据结构；</p>
+<ol>
+<li>一个名为schedule的有序集合，其中成员为数据行的行ID，分值为缓存该数据行的时间戳。</li>
+<li>一个名为delay的有序集合，其中成员为数据行的行ID，分值为所缓存的数据行，需要多久更新一次。</li>
+<li>一组名为<code>inv:</code>+row_id的集合，其中存储的是以JSON格式保存的行数据</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">schedule_row_cache</span><span class="params">(conn,row_id,delay)</span>:</span></span><br><span class="line">    conn.zadd(<span class="string">'delay:'</span>,row_id,delay)</span><br><span class="line">    conn.zadd(<span class="string">'schedule:'</span>,row_id,time.time())</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">cache_rows</span><span class="params">(conn)</span>:</span></span><br><span class="line">    <span class="keyword">while</span> <span class="keyword">not</span> QUIT:</span><br><span class="line">        next =conn.zrange(<span class="string">'schedule:'</span>,<span class="number">0</span>,<span class="number">0</span>,withscores=Ture)</span><br><span class="line">        now=time.time()</span><br><span class="line">        <span class="keyword">if</span>  <span class="keyword">not</span> next <span class="keyword">or</span> next[<span class="number">0</span>][<span class="number">1</span>] &gt;now</span><br><span class="line">            time.sleep(<span class="number">0.05</span>)</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">        row_id =next[<span class="number">0</span>][<span class="number">0</span>]</span><br><span class="line">            delay=conn.zscore(<span class="string">'delay:'</span>,row_id)</span><br><span class="line">            <span class="keyword">if</span> delay&lt;=<span class="number">0</span> <span class="comment"># 如果延迟时间为小于等于0则不必再缓存了</span></span><br><span class="line">                conn.zrem(<span class="string">'delay:'</span>,row_id)</span><br><span class="line">                conn.zrem(<span class="string">'schedule'</span>,row_id)</span><br><span class="line">                conn.delete(<span class="string">'inv:'</span>+row_id)</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            row =Inventory.get(row_id) <span class="comment"># 读取数据行</span></span><br><span class="line">            conn.zadd(<span class="string">'schedule:'</span>,row_id,now+delay)</span><br><span class="line">            conn.set(<span class="string">'inv:'</span>+row_id,json.dumps(row.to_dict())) <span class="comment">#缓存行数据</span></span><br></pre></td></tr></table></figure>
+<h3><span id="网页分析">网页分析</span></h3><p>我们是不可能将所有的页面都缓存起来的，所以我们需要挑选用户经常访问的页面。为此，我们可以修改之前记录用户浏览记录的函数，来统计最经常被浏览的一批商品，然后我们再缓存它。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 用于记录用户的浏览记录，维持登录用户与令牌的关系</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">update_token</span><span class="params">(conn,token,user,item=None)</span>:</span></span><br><span class="line">    timestamp=time.time() <span class="comment"># 获取当前的时间戳</span></span><br><span class="line">    conn.hset(<span class="string">'login:'</span>,token,user) <span class="comment"># 维持令牌与已登录用户之间的映射（哈希）</span></span><br><span class="line">    conn.zadd(<span class="string">'recent:'</span>,token,timestamp) <span class="comment"># 记录令牌最后一次出现的时间 （有序集合）</span></span><br><span class="line">    <span class="keyword">if</span> item:</span><br><span class="line">        conn.zadd(<span class="string">'viewed:'</span>+token,item,timestamp) <span class="comment"># 记录用户浏览过的商品</span></span><br><span class="line">        conn.zremrangebyrank(<span class="string">'viewed:'</span>+token,<span class="number">0</span>,<span class="number">-26</span>) <span class="comment"># 移除旧的记录，只保留26各记录</span></span><br><span class="line">        conn.zincrby(<span class="string">'viewed:'</span>,item,<span class="number">-1</span>) <span class="comment"># 新添加的代码</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 定期维护浏览次数排行榜</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">rescake_viewed</span><span class="params">(conn)</span>:</span></span><br><span class="line">    <span class="keyword">while</span> <span class="keyword">not</span> QUIT:</span><br><span class="line">        conn.zremrangebyrank(<span class="string">'viewed:'</span>,<span class="number">0</span>,<span class="number">-20001</span>) <span class="comment"># 删除排名在20000名之后的商品</span></span><br><span class="line">        conn.zinterstore(<span class="string">'viewd:'</span>,&#123;<span class="string">'viewed:'</span>:<span class="number">.5</span>&#125;) <span class="comment"># 将浏览次数降低为原来的一半</span></span><br><span class="line">        time.sleep(<span class="number">300</span>) <span class="comment"># 5分钟之后再次执行这个操作</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">can_cache</span><span class="params">()</span>:</span></span><br><span class="line">    item_id=extract_item_id(request)</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> item_id <span class="keyword">or</span> is_dynamic(request):</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">    rank=conn.zrank(<span class="string">'viewed:'</span>,item_id)</span><br><span class="line">    <span class="keyword">return</span> rank <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span> <span class="keyword">and</span> rank &lt;<span class="number">10000</span> <span class="comment"># 只有排名在10000名之前的才能被缓存</span></span><br></pre></td></tr></table></figure>
+<h2><span id="redis核心概念">Redis核心概念</span></h2><h3><span id="redis命令">Redis命令</span></h3><h4><span id="字符串">字符串</span></h4><p>Redis的字符串就是一个由字节组成的序列，它可以存储一下3中类型的值：</p>
+<ol>
+<li>字符串</li>
+<li>整数</li>
+<li>浮点数<br>Redis可以对存储的整数或浮点数进行自增或自减操作。</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">incr key-name //将键存储的值加一</span><br><span class="line">decr key-name //将键存储的值减一</span><br><span class="line">incrby key-name amount //将键存储的值加上整数amount</span><br><span class="line">decrby key-name amount //将键存储的值减去整数amount</span><br><span class="line">incrbyfloat key-name amount //键键存储的值加上浮点数</span><br></pre></td></tr></table></figure>
+<p><strong>如果对一个不存在的键或者空串进行自增，自减操作的话，会按这个键值为0进行处理；如果进行操作的键的值不能被解释为整数或者浮点数的时候会报错</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">append key-name value //将值追加到给定键key-name当前存储的值的末尾</span><br><span class="line">getrange key-name start end //获取一个由偏移量start至end范围内所有字符组成的子串</span><br><span class="line">setrange key-name offset value //键从start偏移量开始的子串设置为给定值</span><br><span class="line">getbit key-name offset //将字节串看作是二进制位串，并返回位串中便宜量位offset的二进制位的值</span><br><span class="line">setbit setbit key-name offset value //将字符串看作是二进制位串，并将位串中偏移量位offset的二进制位的值设置位value</span><br><span class="line">bitcount key-name [start end] // 统计二进制位串中值位1的二进制位的数量</span><br><span class="line">bittop operation dest-key key-name [key-name ...] //对一个或多个二进制位串执行包括并，或、异或、非在内的任意一种按位运算操作，并将计算的得出的结果保存到dest-key键里面。</span><br></pre></td></tr></table></figure></p>
+<h4><span id="列表">列表</span></h4><p>Redis的列表允许用户从序列的两端推入或弹出元素，获取列表元素，以及执行各种常见额列表操作。<br><a href="https://imgchr.com/i/Knf2wt" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/10/19/Knf2wt.png" alt="Knf2wt.png"></a></p>
+<p>阻塞执行的命令：<br><img src="https://s2.ax1x.com/2019/10/19/KnhepD.png" alt="KnhepD.png"><br>列表的一个主要优点在于它可以包含多个字符串值，这使得用户可以键数据集中的同一个地方。</p>
+<h4><span id="集合">集合</span></h4><p>Redis集合以无序的方式来存储多个各部相同的元素，用户可以快速的对集合执行添加元素操作，移除元素操作以及检查一个元素是否存在于集合里。</p>
+<p><img src="https://s2.ax1x.com/2019/10/20/KMwNS1.png" alt="KMwNS1.png"></p>
+<h4><span id="散列">散列</span></h4><p>Redis的散列可以让用户将多个键值对存储到一个Redis键里面。</p>
+<p><img src="https://s2.ax1x.com/2019/10/20/KMBSDf.png" alt="KMBSDf.png"></p>
+<p><img src="https://s2.ax1x.com/2019/10/20/KMDv0f.png" alt="KMDv0f.png"></p>
+<h4><span id="有序集合">有序集合</span></h4><p>有序集合也存储着成员与分值之间的映射，并且提供了分值处理命令，以及根据分值大小有序地获取或扫描成员和分值地命令。</p>
+<p><img src="https://s2.ax1x.com/2019/10/20/KMrf3j.png" alt="KMrf3j.png"></p>
+<p><img src="https://s2.ax1x.com/2019/10/20/KMsozd.png" alt="KMsozd.png"></p>
+<h4><span id="发布与订阅">发布与订阅</span></h4><p>发布与订阅地特定是订阅者负责订阅频道，发送者负责向频道发送二进制字符串消息。每当有消息被发送至给定频道时，频道地所有订阅者都会收到消息。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">subscribe channel [channel...] //订阅给定的一个或多个频道</span><br><span class="line">unsubscribe [channle [channel...] ] //退订给定的一个或多个频道</span><br><span class="line">publish channel message //向给定频道发送消息</span><br><span class="line">psubscribe pattern [pattern ...] //订阅与给定模式相匹配的所有频道</span><br><span class="line">punsubscribh [pattern [pattern ...]] //退订给定的模式，如果执行时没有给定的任何模式，那么会退订所有模式</span><br></pre></td></tr></table></figure></p>
+<h4><span id="redis事务">Redis事务</span></h4><p>Redis的基本事务需要用到MULTI命令和EXEC事务，这种事务可以让一个客户端在不被其它客户端打断的情况执行多个命令。<strong>被MULTI和EXEC包裹的命令会一条接着一条的执行，不会被其它命令打断</strong>。</p>
+<h4><span id="键的过期时间">键的过期时间</span></h4><p>可以通过Redis的过期时间特性来让一个键在给定的时限之后自动被删除。<br><img src="https://s2.ax1x.com/2019/10/20/KM2BvQ.png" alt="KM2BvQ.png"></p>
+<h2><span id="数据安全与性能保障">数据安全与性能保障</span></h2><h3><span id="持久化选项">持久化选项</span></h3><p>Redis提供了两种方案来实现数据的持久化，一种是<strong>快照</strong>，它可以将存在某一时刻的所有数据都写入磁盘。另一种方法叫做<strong>只追加文件*</strong>，他会在执行写命令时，键被执行的写命令复制到硬盘里面。</p>
+<h3><span id="快照持久化">快照持久化</span></h3><p>Redis可以通过创造快照来获得存储在内存里面的数据子啊某个时间点上的副本。可以利用创建的快照进行数据的备份和创建具有相同数据的服务器。<br>创建快照的方法：</p>
+<ol>
+<li>通过向Redis发送BGSAVE命令，Redis会调用fork来创建一个子进程，然后子进程负责将快照写入硬盘，而父进程继续处理请求。</li>
+<li>通过向Redis发送SAVE命令，在创建完快照之前将不再响应任何其它命令。</li>
+<li>用户设置的save配置选项，如save 60 10000 ，从最近一次创建快照算起，达到60秒内插入10000次写入，这个条件被满足时，Redis会自动触发BGSAVE命令。</li>
+<li>当Redis接收到SHUTDOWN命令接收到关闭服务器的请求时，或收到标准TERM信号时，会执行一个SAVE命令，阻塞所有客户端。</li>
+<li>当一个Redis服务器连接到另一个Redis服务器的时候，并向对方发送SYNC命令来开始一次复制的时候，那么主服务器会执行BGSAVE命令。</li>
+</ol>
+<p>随着Redis所占用内存的大小的增加，其创建用于生成的快照的子进程的时间也会增加。但总的来所，Redis创建快照是非常的快的，一般以毫秒为单位。</p>
+<h3><span id="aof持久化">AOF持久化</span></h3><p>AOF持久化就是将执行过的命令追加到AOF文件末尾，以此来实现数据变化的记录。因此Redis只需要从头到尾的执行以便AOF文件中的所有写命令，就能恢复，AOF所记录的数据集。</p>
+<p><strong>文件同步：写文件的时候会调用操作系统的write()方法，写入的内容首先会被存放在缓冲区内，然后在之后的某个时刻，操作系统会把缓冲区内的数据写入到磁盘文件中，只有当数据写入到磁盘文件才，完成了数据的真正持久化，我们可以使用flush()方法来强制将缓冲区中的内容写入磁盘。</strong></p>
+<p>同步选项<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">always //每个Redis命令写入都要同步磁盘</span><br><span class="line">ererysec //每秒执行一次同步，显示的将多个命令同步到硬盘</span><br><span class="line">no //让操作系统来决定什么时候同步</span><br></pre></td></tr></table></figure></p>
+<p>同步的越频繁，写入性能越低，数据安全性越高，系统发生崩溃时丢失的数据越少。凡之亦然。</p>
+<p>AOF持久化有一个非常致命的缺陷，那就是AOF文件的体积。</p>
+<p>因为Redis会不断的向AOF文件中写入命令，这会导致文件的体积不断地增大。为了解决这个问题可以这样：</p>
+<ol>
+<li>使用BGREWRIEAOF命令可以通过移除APF中地冗余命令来重写AOF文件。它地工作原理和BGSAVE命令类似，也是使用子进程来完成。AOF持久化也可以通过哦设置auto-aof-rewrite-percentage选项和auto-aof-rewrite-min-size选项来自动执行BGREWRITEAOF.</li>
+</ol>
+<h2><span id="复制">复制</span></h2><p>复制可以让其它服务器拥有一个不断更新地数据副本，可以使得拥有数据副本地服务器可以处理客户端发送地读请求。Redis可以采用主从复制的策略。</p>
+<p>当设置好主从复制之后，当客户端向主服务器进行写入时，从服务器都会实时的得到更新，这样客户端就可以向任意一各服务器发送读请求了。</p>
+<h3><span id="redis复制的启动过程">Redis复制的启动过程</span></h3><p>因为redis服务器在连接之前需要执行BGSAVE命令，所以要提前设置好dir选项和dbfilename选项。对于从服务器必要要使用<code>SLAVEOF host port</code> 命令来让服务器开始复制一个新的主服务器。</p>
+<p><img src="https://i.bmp.ovh/imgs/2019/10/dc36857f1e83df53.png" alt><br>Redis在复制期间也会尽可能地处理接收到地命令请求，但是如果主从服务器之间地带宽不足，或主服务器没有足够地内容来创建子进程和记录写命令地缓冲区，那么Reids处理命令地请求效率就会受到影响。</p>
+<p><strong>从服务器在进行同步时，会丢弃自己之前地数据</strong><br><strong>Redis不支持主主复制</strong></p>
+<p>当一个新地从服务器连接到已有地主服务器时，有时可以重用已有地快照文件。<br><img src="https://i.bmp.ovh/imgs/2019/10/18226cb39a1043d8.png" alt></p>
+<p>因为从服务器和主服务器并没有什么特别地差距，所以从服务器也可以拥有自己地从服务器，并由此形成主从链。</p>
+<p>从服务器从从服务器进行复制和从服务器从主服务器进行复制地区别在于：<br>假如从服务器X有从服务器Y<br>从服务器X在执行对快照文件的解释的时候，会断开它与从服务器Y之间的连接。</p>
+<h2><span id="redis事务">Redis事务</span></h2><p>Redis中可以简单的使用MULTI和EXEC命令来处理一段互相一致的读操作和写操作。<br>在执行EXEC命令之前系统是不会执行任何操作的，这使得用户无法根据读取到的数据来做决定。而且在多个事务同时处理一个对象的时候通常需要二阶提交，所以如果事务不能以一致的形式读取数据，那么二阶提交将无法实现。</p>
+<p><strong>因为对数据进行加锁，会造成长时间的等待，所以Redis会尽可能地减少客户端地等待时间，并不会在执行WATCH命令时进行加锁，相反地，Redis会在数据被其它客户端抢先修改了的情况下，通知执行WATCH操作的客户端，这种被称为乐观锁，而关系数据库实际执行的加锁操作被称为被guan</strong></p>
 
       
 
@@ -267,7 +373,7 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">计算机系统基础</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Redis</a>
         		</li>
       		
 		</ul>
@@ -323,7 +429,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/08/15/计算机系统基础读书笔记三/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/10/21/Redis实战学习笔记一/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -337,18 +443,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/08/18/计算机系统基础读书笔记四/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          深入理解计算机系统读书笔记四
-        
-      </div>
-    </a>
   
-  
-    <a href="/2019/08/11/计算机系统基础读书笔记二/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">深入理解计算机系统读书笔记二</div>
+    <a href="/2019/10/19/SpringCloud学习笔记三/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">SpringCloud学习笔记三</div>
       <i class="icon-circle-right"></i>
     </a>
   
