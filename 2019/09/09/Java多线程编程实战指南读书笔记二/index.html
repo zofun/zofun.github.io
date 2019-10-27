@@ -19,7 +19,7 @@
 <meta property="og:image" content="https://s2.ax1x.com/2019/09/07/n1ppGD.png">
 <meta property="og:image" content="https://s2.ax1x.com/2019/09/08/n3I5dJ.png">
 <meta property="og:image" content="https://s2.ax1x.com/2019/09/09/nJ17Z9.png">
-<meta property="og:updated_time" content="2019-09-24T13:22:46.834Z">
+<meta property="og:updated_time" content="2019-10-22T11:23:43.652Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java多线程编程实战指南读书笔记二">
 <meta name="twitter:description" content="线程同步机制线程同步机制一套用于协调线程间的数据访问及活动的机制，该机制用于保障线程安全以及实现这些线程的共同目标。广义上讲，Java提供的线程同步机制包括，锁、volatile关键字、final关键字、static关键字以及一些相关的API。 锁线程安全产生的前提是多个线程并发访问共享变量、共享资源。使用锁保障线程安全的思路是将多个线程对共享数据的并发访问转换为串行访问。 使用锁保障线程安全的原">
@@ -269,7 +269,7 @@
 <li>read-modify-write操作：一个线程读取共享数据并在此基础上更新该数据。</li>
 <li>多个线程对多个共享数据进行更新。</li>
 </ol>
-<h2><span id="内存屏障">内存屏障</span></h2><p>Java虚拟机借助内存屏障技术实现的刷新处理器缓存和冲刷处理器缓存。内存屏障时对一类针对内存读、写操作指令的跨处理器架构的比较底层的抽象。内存屏障时被插入到两个之间进行使用的，其作用时禁止编译器、处理器重排序从而保障<strong>有序性</strong>。为了实现禁止重排序的功能，这些指令也往往具有刷新处理器缓存、冲刷处理器缓存的副作用。</p>
+<h2><span id="内存屏障">内存屏障</span></h2><p>Java虚拟机借助内存屏障技术实现的刷新处理器缓存和冲刷处理器缓存。内存屏障是对一类针对内存读、写操作指令的跨处理器架构的比较底层的抽象。内存屏障时被插入到两个之间进行使用的，其作用是禁止编译器、处理器重排序从而保障<strong>有序性</strong>。为了实现禁止重排序的功能，这些指令也往往具有刷新处理器缓存、冲刷处理器缓存的副作用。</p>
 <p>因为临界区内的任何读、写操作都无法被重排序到临界区之外。在锁的排他性作用之下，这使得临界区中执行的操作序列具有原子性。</p>
 <p>编译器和处理器都必须遵守的重排序规则：</p>
 <ol>
@@ -279,7 +279,7 @@
 <li>锁申请和锁释放的操作不能被重排序</li>
 <li>两个锁申请操作不能被重排序</li>
 <li>两个锁释放操作不能被重排序</li>
-<li>临界区外的操作可以白重排序到临界区之内。</li>
+<li>临界区外的操作可以重排序到临界区之内。</li>
 </ol>
 <h2><span id="volatile关键字">volatile关键字</span></h2><p>volatile关键字用于修i是共享可变变量。它可以保证可见性和有序性。所不同的时，在原子性方面它仅能保障写volatile变量操作的原子性，没有锁的排他性。</p>
 <h3><span id="volatile的作用">volatile的作用</span></h3><p>volatile作用包括：保障可见性、保障有序性和保障long/double型变量读写操作的原子性。volatile关键字在原子性方面仅保障对被修饰的变量的读操作、写操作本身的原子性。写线程对volatile变量的写操作会产生类似于释放锁的效果。读线程对volatule变量的读操作会产生类似于获得锁的效果。因此volatile具有保障有序性（也利用了内存屏障）和可见性的作用。</p>
@@ -288,12 +288,12 @@
 <li>写volatile变量操作与该操作之前的任何读、写操作不会被重排序。</li>
 <li>读volatile变量操作与该操作之后的任何读、写操作不会被重排序。</li>
 </ol>
-<p><strong>如果volatile关键字修饰数组，那么volatile关键字只能够对数组引用本身的操作起作用，而无法对数组元素的操作起作用。对于引用性volatile变量，volatile变量字只时保证读线程能够读取到一个指向对象的相对性的内存地址，而这个内存地址指向的对象的实例/静态变量值是否是相对新的则没有保障</strong></p>
+<p><strong>如果volatile关键字修饰数组，那么volatile关键字只能够对数组引用本身的操作起作用，而无法对数组元素的操作起作用。对于引用性volatile变量，volatile变量字只时保证读线程能够读取到一个指向对象的相对性的内存地址，而这个内存地址指向的对象的实例，静态变量值是否是相对新的则没有保障</strong></p>
 <h3><span id="volatile变量的开销">volatile变量的开销</span></h3><p>volatile变量的读写都不会导致上下文切换。volatile变量的读写开销介于普通读写和临界区读写之间。</p>
 <h3><span id="volatile关键字的使用场景">volatile关键字的使用场景</span></h3><ol>
 <li>使用volatule关键字作为状态标志。</li>
 <li>使用volatile保障可见性</li>
-<li>使用volatile变量代替锁。（volatile关键字并非锁阿替代品）volatile关键字更适合于多个线程共享一个状态变量，而后者更适合于多个线程共享一组状态变量。</li>
+<li>使用volatile变量代替锁。（volatile关键字并非锁的代品）volatile关键字更适合于多个线程共享一个状态变量，而后者更适合于多个线程共享一组状态变量。</li>
 <li>使用volatile实现简易版的读写锁</li>
 </ol>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//使用volatile实现的简易读写锁</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Counter</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">long</span> count;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">long</span> <span class="title">value</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">increment</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">synchronized</span> (<span class="keyword">this</span>)&#123;</span><br><span class="line">            count++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -304,7 +304,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//基于静态内部类的单例模式实现</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Singletion</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singletion</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">//构造器私有化</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Instanceholder</span></span>&#123;</span><br><span class="line">        <span class="comment">//保存外部类的唯一实例</span></span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">static</span> Singletion INSTANCE=<span class="keyword">new</span> Singletion();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singletion <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Instanceholder.INSTANCE;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//基于枚举类型的单例模式</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Singletion.INSTANCE.doSome();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">enum</span> Singletion&#123;</span><br><span class="line">    INSTANCE; <span class="comment">//相当于Singletion类的唯一实例</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singletion</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">//构造器私有化</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doSome</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">//业务方法</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2><span id="cas与原子变量">CAS与原子变量</span></h2><p>CAS是对一种处理器指令的称呼。许多多线程相关的Java类库的最终实现都会借助CAS.</p>
-<h3><span id="cas">CAS</span></h3><p>CAS是一个原子的if-then-act操作。起背后的假设是：当一个客户（线程）执行CAS操作的时候，如果变量V的当前值和用户请求CAS时提供的变量值A(即变量的旧值)是相等等，那么就i说明其它线程并没有修改过当前V的值。执行CAS时如果没有其它线程修改过变量V的值，那么下手最快的客户（当前线程）就会强项将变量V的值更新为B(新值)，而其它客户（线程）的更新请求则会失败。这些失败的客户（线程）通常可以选择再次尝试，指导成功。</p>
+<h3><span id="cas">CAS</span></h3><p>CAS是一个原子的if-then-act操作。起背后的假设是：当一个客户（线程）执行CAS操作的时候，如果变量V的当前值和用户请求CAS时提供的变量值A(即变量的旧值)是相等等，那么就说明其它线程并没有修改过当前V的值。执行CAS时如果没有其它线程修改过变量V的值，那么下手最快的客户（当前线程）就会强行将变量V的值更新为B(新值)，而其它客户（线程）的更新请求则会失败。这些失败的客户（线程）通常可以选择再次尝试，指导成功。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">compareAndSwap</span><span class="params">(Variable V,Object A,Object B)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(A==V.get())&#123; <span class="comment">//检查变量值是否被其它线程修改过</span></span><br><span class="line">        V.set(B);   <span class="comment">//更新变量值</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">false</span>; <span class="comment">//更新失败</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>基于CAS的算法的代码模板：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">do</span>&#123;</span><br><span class="line">    oldvalue=V.get(); <span class="comment">//读取共享变量V的旧值</span></span><br><span class="line">    newValue=calculate(oldvalue); <span class="comment">//计算变量V的新值</span></span><br><span class="line">&#125;<span class="keyword">while</span>(!compareAndSwap( V,oldValue,newValue))</span><br></pre></td></tr></table></figure></p>
 <p>值得注意的时，<strong>CAS只保障了共享变量更新这个操作的原子性，它并不保障可见性</strong></p>
@@ -312,7 +312,7 @@
 <p><img src="https://s2.ax1x.com/2019/09/08/n3I5dJ.png" alt="n3I5dJ.png"></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span>  ThreadStudy04 implements Runnable &#123;</span><br><span class="line">    <span class="comment">//该类唯一的一个实例</span></span><br><span class="line">    INSTANCE;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> AtomicBoolean initializating=<span class="keyword">new</span> AtomicBoolean(<span class="keyword">false</span>);</span><br><span class="line">    </span><br><span class="line">    ThreadStudy04()&#123;</span><br><span class="line">        <span class="comment">//私有空构造器</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">//使用AtomicBoolean的CAS操作确保工作线程只会被创建一次</span></span><br><span class="line">        <span class="keyword">if</span>(initializating.compareAndSet(<span class="keyword">false</span>,<span class="keyword">true</span>))&#123;</span><br><span class="line">            <span class="comment">//创建工作线程并启动</span></span><br><span class="line">            <span class="keyword">new</span> Thread(<span class="keyword">this</span>).start();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>使用AtomicBoolean的compareAndSet方法来保证check-then-act操作的原子性，从而避免了锁的开销，又使代码更加简单。</p>
-<h3><span id="cas导致的aba问题">CAS导致的ABA问题</span></h3><p>CAS实现原子变量操作背后的一个假设是：共享变量的当前值与当前线程所提供的旧值相同，那么我们旧认为这个变量没有被其它线程修改过。实际上，这个假设不一定总是成立的。</p>
+<h3><span id="cas导致的aba问题">CAS导致的ABA问题</span></h3><p>CAS实现原子变量操作背后的一个假设是：共享变量的当前值与当前线程所提供的旧值相同，那么我们就认为这个变量没有被其它线程修改过。实际上，这个假设不一定总是成立的。</p>
 <p>例如，可能存在这样一种情况：<br>对于共享变量V，当前线程看到它的值为A的那一刻，其它线程已经将其值更新为B,接着当前线程执行CAS的时候，该变量的值又被其它线程更新为A.也就说在这个过程中变量V的值已经被其它线程改变过了，但在当前线程看来却没有变过。<br>规避ABA问题的一种方案：<br>在共享变量的更新时引入一个修订号。这样即使共享变量经历了A–&gt;B–&gt;A的更新，但因为修订号的改变，我们依然能够准确的判断变量的值是否被其它线程修改过。</p>
 <h3><span id="对象的发布与逸出">对象的发布与逸出</span></h3><p>对象发布：是指使对象能够被其它作用域之外的线程访问。<br>对象发布的形式：</p>
 <ol>
@@ -659,6 +659,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Java NIO</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">java</a>
               </li>
              
@@ -667,19 +671,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Java NIO</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">innodb引擎</a>
+                <a href="javascript:void(0)" class="js-tag color4">innoDB引擎</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">innoDB引擎</a>
+                <a href="javascript:void(0)" class="js-tag color4">innodb引擎</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -695,11 +695,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">IP协议</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">并发编程</a>
+                <a href="javascript:void(0)" class="js-tag color1">项目小技巧</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -707,7 +703,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">项目小技巧</a>
+                <a href="javascript:void(0)" class="js-tag color5">并发编程</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -715,11 +711,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">计算机系统基础</a>
+                <a href="javascript:void(0)" class="js-tag color4">多线程</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">多线程</a>
+                <a href="javascript:void(0)" class="js-tag color5">IP协议</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">计算机系统基础</a>
               </li>
              
               <li class="article-tag-list-item">

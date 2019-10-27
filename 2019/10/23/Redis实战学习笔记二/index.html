@@ -6,15 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2019 | 个人博客</title>
+  <title>Redis实战学习笔记二 | 个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="个人博客">
-<meta property="og:url" content="http://yoursite.com/archives/2019/page/5/index.html">
+  <meta name="description" content="使用Redis构建支持程序案例一： 使用Redis实现日志的记录需求： 在构建应用程序和服务的过程中，对正在运行的系统的相关信息进行挖掘变得越来越重要。这都依赖于日志。 分析： 许多日志的记录的方式都是将日志记录到文件中去，然后随着时间的流逝新建日志文件（因为日志文件大大小不可能无限的增长），因为每个服务都有相应的日志记录，并且每种服务的日志轮换机制也是不同的，这就会缺少了一种将这些日志聚合的方案">
+<meta name="keywords" content="技术,Redis">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redis实战学习笔记二">
+<meta property="og:url" content="http://yoursite.com/2019/10/23/Redis实战学习笔记二/index.html">
 <meta property="og:site_name" content="个人博客">
+<meta property="og:description" content="使用Redis构建支持程序案例一： 使用Redis实现日志的记录需求： 在构建应用程序和服务的过程中，对正在运行的系统的相关信息进行挖掘变得越来越重要。这都依赖于日志。 分析： 许多日志的记录的方式都是将日志记录到文件中去，然后随着时间的流逝新建日志文件（因为日志文件大大小不可能无限的增长），因为每个服务都有相应的日志记录，并且每种服务的日志轮换机制也是不同的，这就会缺少了一种将这些日志聚合的方案">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://i.bmp.ovh/imgs/2019/10/35ccded437ce3269.png">
+<meta property="og:updated_time" content="2019-10-27T09:49:13.954Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="个人博客">
+<meta name="twitter:title" content="Redis实战学习笔记二">
+<meta name="twitter:description" content="使用Redis构建支持程序案例一： 使用Redis实现日志的记录需求： 在构建应用程序和服务的过程中，对正在运行的系统的相关信息进行挖掘变得越来越重要。这都依赖于日志。 分析： 许多日志的记录的方式都是将日志记录到文件中去，然后随着时间的流逝新建日志文件（因为日志文件大大小不可能无限的增长），因为每个服务都有相应的日志记录，并且每种服务的日志轮换机制也是不同的，这就会缺少了一种将这些日志聚合的方案">
+<meta name="twitter:image" content="https://i.bmp.ovh/imgs/2019/10/35ccded437ce3269.png">
   
     <link rel="alternative" href="/atom.xml" title="个人博客" type="application/atom+xml">
   
@@ -161,36 +168,118 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-Redis实战学习笔记二" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Redis实战学习笔记二
+    </h1>
+  
+
+        
+        <a href="/2019/10/23/Redis实战学习笔记二/" class="archive-article-date">
+  	<time datetime="2019-10-23T08:39:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-23</time>
+</a>
+        
+      </header>
     
+    <!-- 目录内容 -->
+
+    <p class="show-toc-btn" id="show-toc-btn" onclick="showToc();">
+          <span class="btn-bg"></span>
+          <span class="btn-text">文章导航</span>
+          </p>
+  <div id="toc-article" class="toc-article" style="display:none">
+      <span id="toc-close" class="toc-close" title="隐藏导航" onclick="showBtn();">×</span>
+    <strong class="toc-title">文章目录</strong>
+           <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">使用Redis构建支持程序</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.1.</span> <span class="toc-text">案例一： 使用Redis实现日志的记录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.</span> <span class="toc-text">案例二：计数器和统计数据</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">2.</span> <span class="toc-text">使用Redis构建应用程序组件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">2.1.</span> <span class="toc-text">案例一：自动补全最近联系人</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">2.2.</span> <span class="toc-text">案例二：分布式锁</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">2.3.</span> <span class="toc-text">案例三：计数信号量</span></a></li></ol></li></ol>
+         </div>
+   <script type="text/javascript">
+  function showToc(){
+    var toc_article = document.getElementById("toc-article");
+    var show_toc_btn = document.getElementById("show-toc-btn");
+    toc_article.setAttribute("style","display:block");
+    show_toc_btn.setAttribute("style","display:none");
+    };
+  function showBtn(){
+    var toc_article = document.getElementById("toc-article");
+    var show_toc_btn = document.getElementById("show-toc-btn");
+    toc_article.setAttribute("style","display:none");
+    show_toc_btn.setAttribute("style","display:block");
+    };
+   </script>
+      
+<!-- 目录内容结束 -->
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2><span id="使用redis构建支持程序">使用Redis构建支持程序</span></h2><h3><span id="案例一-使用redis实现日志的记录">案例一： 使用Redis实现日志的记录</span></h3><p><strong>需求：</strong> 在构建应用程序和服务的过程中，对正在运行的系统的相关信息进行挖掘变得越来越重要。这都依赖于日志。</p>
+<p><strong>分析：</strong> 许多日志的记录的方式都是将日志记录到文件中去，然后随着时间的流逝新建日志文件（因为日志文件大大小不可能无限的增长），因为每个服务都有相应的日志记录，并且每种服务的日志轮换机制也是不同的，这就会缺少了一种将这些日志聚合的方案。<br>还有一种日志记录方式是利用syslog服务来进行日志的记录。syslog服务接收各个服务的日志信息，并路由到不同的磁盘上，它还负责日志的轮换和删除工作。它要比直接写文件方便的多。</p>
+<p>我们也可以利用Redis来实现日志的记录。</p>
+<p><strong>实现方式：</strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">SEVERITY=&#123;   <span class="comment"># 设置一个字典，将日志的安全级别映射为字符串</span></span><br><span class="line">    loggin.DEBUG:<span class="string">'debug'</span>,</span><br><span class="line">    loggin.INFO：<span class="string">'info'</span>,</span><br><span class="line">    loggin.WARNING:<span class="string">'warning'</span>,</span><br><span class="line">    loggin.ERROR:<span class="string">'error'</span>,</span><br><span class="line">    loggin.CRITICAL:<span class="string">'critical'</span></span><br><span class="line">&#125;</span><br><span class="line">SERVERITY.update((name,name) <span class="keyword">for</span> name <span class="keyword">in</span> SERVERITY.values())</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">log_recent</span><span class="params">(conn,name,message,severity=loggin.INFO,pipe=None)</span>:</span></span><br><span class="line">    <span class="comment"># 将日志的安全级别映射为简单的字符串</span></span><br><span class="line">    severity=str(SEVERITY.get(severity,severity)).lower() </span><br><span class="line">    <span class="comment"># 创建负责存储消息的键</span></span><br><span class="line">    destination=<span class="string">'recent:%s:%s'</span>%(name,severity)</span><br><span class="line">    <span class="comment"># 在消息中添加当前时间</span></span><br><span class="line">    message=time.asctime()+<span class="string">' '</span>+message</span><br><span class="line">    <span class="comment"># 使用流水线通信方式</span></span><br><span class="line">    pipe=pipe <span class="keyword">or</span> conn.pipeline()</span><br><span class="line">    pipe=lpush(destination,message)</span><br><span class="line">    <span class="comment"># 对日志列表进行修剪，只保留100条消息</span></span><br><span class="line">    pipe.ltrim(destination,<span class="number">0</span>,<span class="number">99</span>)</span><br><span class="line">    <span class="comment"># 执行两个命令</span></span><br><span class="line">    pipe.execute()</span><br></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<p>我们还可以统计每种消息出现的频率，并根据消息频率来进行消息的排序，从而找出最重要的信息。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">log_common</span><span class="params">(conn,name,message,severity=logging.INFO,timeout=<span class="number">5</span>)</span>:</span></span><br><span class="line">    severity=ser(SEVERITY.get(severity,severity)).lower()</span><br><span class="line">    destination=<span class="string">'common:%s:%s'</span>%(name,severity)</span><br><span class="line">    start_key=destination+<span class="string">':start'</span></span><br><span class="line">    pipe=conn.pipeline()</span><br><span class="line">    end = time.time()+timeout</span><br><span class="line">    <span class="keyword">while</span> time.time() &lt;end</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            pipe.watch(start_key)</span><br><span class="line">            now=datetime.utcnow().timetuple()</span><br><span class="line">            hour_start=datetime(*now[:<span class="number">4</span>]).isoformat()</span><br><span class="line">            existing=pipe.get(start_key)</span><br><span class="line">            pipe.multi() <span class="comment"># 创建一个事务</span></span><br><span class="line">            <span class="keyword">if</span> existing <span class="keyword">and</span> existing &lt; hour_start:</span><br><span class="line">                pipe.rename(destination,destination+<span class="string">':last'</span>)</span><br><span class="line">                pipe.rename(start_key,destination+<span class="string">':pstart'</span>)</span><br><span class="line">                pipe.set(start_key,hour_start)</span><br><span class="line">                <span class="comment"># 对日志出现的次数的计算器自增</span></span><br><span class="line">            pipe.zincrby(destination,message) </span><br><span class="line">            log_recent(pipe,name,message,severity,pipe)</span><br><span class="line">            <span class="keyword">return</span> </span><br><span class="line">        <span class="keyword">except</span> redis.exceptions.WatchError:</span><br><span class="line">            <span class="comment"># 如果因为其它客户端正在执行归档而出现监视错误，就重试</span></span><br><span class="line">            <span class="keyword">continue</span></span><br></pre></td></tr></table></figure></p>
+<h3><span id="案例二计数器和统计数据">案例二：计数器和统计数据</span></h3><p><strong>需求：</strong>为了收集指标数据并进行监视和分析，我们构建一个能够持续创建并维护计数器的工具，这个工具创建的每个计数器都有自己的名字。这些技术器以指定的精度存储指定的数据样本。<br><strong>分析：</strong> 为了记录点击量，我们使用了一个hash，它的名字为count:5:hit表示记录每5秒为一个时间断内的点击量，其中键为时间段，值为点击量。<br><img src="https://i.bmp.ovh/imgs/2019/10/35ccded437ce3269.png" alt></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line">PRECISION=[<span class="number">1</span>,<span class="number">5</span>,<span class="number">60</span>,<span class="number">300</span>,<span class="number">3600</span>,<span class="number">16000</span>,<span class="number">86400</span>] <span class="comment"># 计数器精度</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">更新计数器</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line">def update_counter();</span><br><span class="line">    now=now <span class="keyword">or</span> time.time()</span><br><span class="line">    <span class="comment"># 创建一个事务型流水线</span></span><br><span class="line">    pipe=conn.pipeline()</span><br><span class="line">    <span class="keyword">for</span> prec <span class="keyword">in</span> PRECISION</span><br><span class="line">        <span class="comment"># 获取当前时间片开始的时间 </span></span><br><span class="line">        pnow =int(npw/prec)*prec</span><br><span class="line">        hash=<span class="string">'%s:%s'</span>%(prec,name)</span><br><span class="line">        pipe.zadd(<span class="string">'known:'</span>,hash,<span class="number">0</span>)</span><br><span class="line">        pipe.hincrby(<span class="string">'count:'</span>+hash,pnow,count)</span><br><span class="line">    pipe.execute()</span><br><span class="line"></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">获得指定计数器中的内容</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_counter</span><span class="params">(conn,name,precision)</span>:</span></span><br><span class="line">    <span class="comment"># 获得取得存储计数器的键的名字 </span></span><br><span class="line">    hash=<span class="string">'%s:%s'</span>%(precision,name)</span><br><span class="line">    data=conn.hgetall(<span class="string">'count:'</span>+hash)</span><br><span class="line">    to_return=[]</span><br><span class="line">    <span class="keyword">for</span> key,value <span class="keyword">in</span> data.iteritems():</span><br><span class="line">        to_return.append(int(key),int(value)))</span><br><span class="line">    to_return.sort() <span class="comment"># 排序，对旧的样本排在前面</span></span><br><span class="line">    <span class="keyword">return</span> to_return</span><br><span class="line">    </span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">清理旧的计数器</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">clean_counters</span><span class="params">()</span>:</span></span><br><span class="line">    pipe=conn.pipeline(<span class="literal">True</span>)</span><br><span class="line">    passes=<span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> <span class="keyword">not</span> QUIT:</span><br><span class="line">        start=time.time()</span><br><span class="line">        index=<span class="number">0</span></span><br><span class="line">        <span class="keyword">while</span> index&lt;conn.zcard(<span class="string">'konw:'</span>):</span><br><span class="line">            hash=conn.zrange(<span class="string">'know:'</span>,index,index)</span><br><span class="line">            index+=<span class="number">1</span></span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> hash:</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            hash=hash[<span class="number">0</span>]</span><br><span class="line">            prec=int(hash.partition(<span class="string">':'</span>)[<span class="number">0</span>]) <span class="comment">#获取计数器的精度</span></span><br><span class="line">            bprec=int(prec//<span class="number">60</span>) <span class="keyword">or</span> <span class="number">1</span></span><br><span class="line">            <span class="keyword">if</span> passes % bprec:</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            hkey=<span class="string">'count:'</span>+hash</span><br><span class="line">            cotoff=time.time() -SAMPLE_COUNT*prec</span><br><span class="line">            samples=map(int.conn.hkeys(hkey))</span><br><span class="line">            samples.sort()</span><br><span class="line">            remove=bisect.bisect_right(samples,cutoff)</span><br><span class="line">            <span class="keyword">if</span> remove:</span><br><span class="line">                conn.hdel(hkey,*samples[:remove])</span><br><span class="line">                <span class="keyword">if</span> remove ==len(samples):</span><br><span class="line">                    <span class="keyword">try</span>:</span><br><span class="line">                        pipe.watch(hkey):</span><br><span class="line">                            pipe.multi()</span><br><span class="line">                            pipe.zrem(<span class="string">'know:'</span>,hash)</span><br><span class="line">                            pipe.execute()</span><br><span class="line">                            index=<span class="number">-1</span></span><br><span class="line">                        <span class="keyword">else</span>:</span><br><span class="line">                            pipe.unwatch()</span><br><span class="line">                    <span class="keyword">except</span> redis.exceptions.WatchError:</span><br><span class="line">                        <span class="keyword">pass</span></span><br><span class="line">                passes+=<span class="number">1</span></span><br><span class="line">                duration=min(int(time.time()-start)+<span class="number">1</span>,<span class="number">60</span>)</span><br><span class="line">                time.sleep(max(<span class="number">60</span>-duration,<span class="number">1</span>))</span><br></pre></td></tr></table></figure>
+<h2><span id="使用redis构建应用程序组件">使用Redis构建应用程序组件</span></h2><h3><span id="案例一自动补全最近联系人">案例一：自动补全最近联系人</span></h3><p>在web领域里，自动补全是一种能够让用户不进行搜索的情况下，就能快速找到所需东西的计数。自动补全一般会根据用户已输入的字母来查找所有已经输入字母为开头的单词。<br><strong>需求：</strong>实现一个用于记录最近练习人的自动补全程序。<br><strong>分析：</strong>构建最近练习人自动补全列表通常需要对Redis执行三个步骤：</p>
+<ol>
+<li>如果指定的联系人已经存在于最近联系人列表里面，那么从列表里面移除它。</li>
+<li>将指定的联系人添加到最近联系人列表的最前面</li>
+<li>将添加操作完成后，如果最近联系人列表包含的联系人数量超过了100个，那么对列表进行修剪，只保留位于列表前面的100个联系人。</li>
+</ol>
+<p><strong>实现方案：</strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add_update_contact</span><span class="params">(conn,user,contact)</span>:</span></span><br><span class="line">    ac_list=<span class="string">'recent:'</span>+user</span><br><span class="line">    pipeline=conn.pipeline(<span class="literal">True</span>)</span><br><span class="line">    pipeline=lrem(ac_list,contact) <span class="comment"># 如果该联系人存在，则移除它</span></span><br><span class="line">    pipeline.lpush(ac_list,contact) <span class="comment"># 将联系人推入列表最前端</span></span><br><span class="line">    pipeline.ltrim(ac_list,<span class="number">0</span>,<span class="number">99</span>) <span class="comment"># 只保留前面的100个联系人</span></span><br><span class="line">    pipeline.execute()</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fetch_autocomplete_list</span><span class="params">(conn,user,prefix)</span>:</span></span><br><span class="line">    candidates=conn.lrange(<span class="string">'recent:'</span>+user,<span class="number">0</span>,<span class="number">-1</span>) <span class="comment"># 自动获取补全列表</span></span><br><span class="line">    matches=[]</span><br><span class="line">    <span class="keyword">for</span> candidate <span class="keyword">in</span> candidates:</span><br><span class="line">        <span class="keyword">if</span> candidate.lower().startswith(prefix):</span><br><span class="line">            matches.append(candidate)</span><br><span class="line">        <span class="keyword">return</span> matches <span class="number">3</span> 返回所有匹配到的联系人</span><br></pre></td></tr></table></figure></p>
+<h3><span id="案例二分布式锁">案例二：分布式锁</span></h3><p>分布式锁会执行“先获取锁，然后执行操作，最后释放锁”动作。但是这种锁石油不同的机器上的不同的Redis客户端进行获取和释放的，</p>
+<p><strong>需求：</strong>为了对Redis存储的数据进行排它性访问，客户端需要访问一个锁，这个锁必须定义在一个可以让所有客户端都看得到的范围之内，而这个范围就是Redis本身，因此我们需要将锁构建在Redis里面。</p>
+<p><strong>简单的锁：</strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">获取锁</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">acquire_lock</span><span class="params">(conn,lockname,acquire_timeout=<span class="number">10</span>)</span>:</span></span><br><span class="line">    identifier=srt(uuid.uuid4()) <span class="comment">#128位随机标识符</span></span><br><span class="line">    end=time.time()+acquire_timeout</span><br><span class="line">    <span class="keyword">while</span> time.time() &lt;end:</span><br><span class="line">        <span class="keyword">if</span> conn.setnx(<span class="string">'lock:'</span>+lockname,identifier): <span class="comment"># 尝试获得锁</span></span><br><span class="line">            <span class="keyword">return</span> identifier</span><br><span class="line">        time.sleep(<span class="number">.001</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure></p>
+<p>它使用了SETNX命令，尝试在代表锁的键不存在的情况下，为键设置一个值，以此来获取锁。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">release_lock</span><span class="params">(conn,lockname,identifier)</span>:</span></span><br><span class="line">    pipe=conn.pipeline(<span class="literal">True</span>)</span><br><span class="line">    lockname=<span class="string">'lock:'</span>+lockname</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            pipe.watch(lockname)</span><br><span class="line">            <span class="comment"># 检查进程是否仍然持有锁</span></span><br><span class="line">            <span class="keyword">if</span> pipe.get(lockname) == identifier:</span><br><span class="line">                pipe.multi()</span><br><span class="line">                pipe.delete(lockname)</span><br><span class="line">                pipe.execute()</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">            pipe.unwatch()</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        <span class="comment"># 有其它客户端修改了锁，重试</span></span><br><span class="line">        <span class="keyword">except</span> redis.exceptions.WatchError: </span><br><span class="line">            <span class="keyword">pass</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">False</span> <span class="comment"># 进程已经失去了锁</span></span><br></pre></td></tr></table></figure>
+<p>目前这种锁的实现方式，当锁的持有者崩溃后锁不会被自动释放，这回导致锁一直处于被获取的状态。</p>
+<p><strong>带有超时限制的锁</strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">acquire_lock</span><span class="params">(conn,lockname,acquire_timeout=<span class="number">10</span>,lock_timeout=<span class="number">10</span>)</span>:</span></span><br><span class="line">    identifier=srt(uuid.uuid4()) <span class="comment">#128位随机标识符</span></span><br><span class="line">    <span class="comment"># 确保传给EXPIRE的都是整数</span></span><br><span class="line">    lock_timeout=int(math.ceil(lock_timeout))</span><br><span class="line">    end=time.time()+acquire_timeout</span><br><span class="line">    <span class="keyword">while</span> time.time() &lt;end:</span><br><span class="line">        <span class="keyword">if</span> conn.setnx(<span class="string">'lock:'</span>+lockname,identifier): <span class="comment"># 尝试获得锁</span></span><br><span class="line">            conn.expire(lockname.lock_timeout)</span><br><span class="line">            <span class="keyword">return</span> identifier</span><br><span class="line">        elseif:</span><br><span class="line">            <span class="comment"># 检查过期时间，并在有需要的时候进行更新</span></span><br><span class="line">            conn.expire(lockname,lock_timeout)</span><br><span class="line">        time.sleep(<span class="number">.001</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure></p>
+<h3><span id="案例三计数信号量">案例三：计数信号量</span></h3><p>计数信号量也是一种锁，它可以限制一项资源同时被多个进程访问，通常用于限定能够同时使用的资源数量。</p>
+<p><strong>构建简单的计数信号量：</strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">acquire_semaphore</span><span class="params">(conn,semname,limit,timeout=<span class="number">10</span>)</span>:</span></span><br><span class="line">    identifier=str(uuid.uuid4()) <span class="comment"># 128位随机标识符</span></span><br><span class="line">    now =time.time()</span><br><span class="line">    pipeline=conn.pipeline(<span class="literal">True</span>)</span><br><span class="line">    <span class="comment"># 清理过期的信号量持有者</span></span><br><span class="line">    pipeline=zremrangebyscore(semname,<span class="string">'-inf'</span>,now-timeout)</span><br><span class="line">    pipeline=zadd(semname,identifier,now)</span><br><span class="line">    pipeline.zrank(semname,identifier)</span><br><span class="line">    <span class="keyword">if</span> pipeline.execute()[<span class="number">-1</span>]&lt;limit:</span><br><span class="line">        <span class="keyword">return</span> identifier</span><br><span class="line">    <span class="comment"># 获取信号量失败，删除之前添加的标识符</span></span><br><span class="line">    conn.zrem(semname,identifier) </span><br><span class="line">    <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">    </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">release_semphore</span><span class="params">(conn,semname,identifier)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> conn.zrem(semname,identifier)</span><br></pre></td></tr></table></figure></p>
+<p>这种信号量的实现存在一些问题，它假设假设每个进程访问到系统的时间都是相同的，而这一假设在多主机环境下可能并不成立。<br>每当锁或信号量因为系统时钟的细微不同而导致锁的获取结果出现剧烈变化时，这个锁或者信号量就是不公平的。不公平的锁或信号量可能会导致客户端永远无法获取到它原本应该得到的锁或信号量。</p>
+<p><strong>公平信号量：</strong><br>为了尽可能地减少系统时间不一致带来的问题，我们需要给信号量实现添加一个计数器以及一个有序集合。其中，计数器通过持续地执行自增操作，创建一种类似于计时器的机制，确保最先对计数器执行自增操作的客户段能够获得信号量。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">acquire_fair_semaphore</span><span class="params">(conn, semname, limit, timeout=<span class="number">10</span>)</span>:</span></span><br><span class="line">    identifier = str(uuid.uuid4())                             </span><br><span class="line">    czset = semname + <span class="string">':owner'</span></span><br><span class="line">    ctr = semname + <span class="string">':counter'</span></span><br><span class="line">    now = time.time()</span><br><span class="line">    pipeline = conn.pipeline(<span class="literal">True</span>)</span><br><span class="line">    <span class="comment"># 删除超时信号量</span></span><br><span class="line">    pipeline.zremrangebyscore(semname, <span class="string">'-inf'</span>, now - timeout)  </span><br><span class="line">    pipeline.zinterstore(czset, &#123;czset: <span class="number">1</span>, semname: <span class="number">0</span>&#125;) </span><br><span class="line">    <span class="comment"># 对计数器实现自增</span></span><br><span class="line">    pipeline.incr(ctr)                                         </span><br><span class="line">    counter = pipeline.execute()[<span class="number">-1</span>]   </span><br><span class="line">    <span class="comment"># 尝试获取信号量</span></span><br><span class="line">    pipeline.zadd(semname, &#123;identifier: now&#125;)                  </span><br><span class="line">    pipeline.zadd(czset, &#123;identifier: counter&#125;)                </span><br><span class="line">    pipeline.zrank(czset, identifier)                          </span><br><span class="line">    <span class="keyword">if</span> pipeline.execute()[<span class="number">-1</span>] &lt; limit:                         </span><br><span class="line">        <span class="keyword">return</span> identifier                                      </span><br><span class="line">    pipeline.zrem(semname, identifier)                         </span><br><span class="line">    pipeline.zrem(czset, identifier)                           </span><br><span class="line">    pipeline.execute()</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">    </span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">释放公平锁</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">release_fair_semaphore</span><span class="params">(conn, semname, identifier)</span>:</span></span><br><span class="line">    pipeline = conn.pipeline(<span class="literal">True</span>)</span><br><span class="line">    pipeline.zrem(semname, identifier)</span><br><span class="line">    pipeline.zrem(semname + <span class="string">':owner'</span>, identifier)</span><br><span class="line">    <span class="keyword">return</span> pipeline.execute()[<span class="number">0</span>]</span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">刷新信号量</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">refresh_fair_semaphore</span><span class="params">(conn,semname,identifier)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> conn.zadd(semname,identifier,time.time()):</span><br><span class="line">        release_fair_semaphore(conn,semname,identifier)</span><br><span class="line">        <span class="keyword">return</span> Flase</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line">acquire_semaphore_with_lock():</span><br><span class="line">    identifier=acquire_lock(conn,semname,acquire_timeout=<span class="number">.01</span>)</span><br><span class="line">    <span class="keyword">if</span> identifier:</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            <span class="keyword">return</span> acquire_fair_semaphore(conn,semname,limit,timeout)</span><br><span class="line">        <span class="keyword">finally</span>:</span><br><span class="line">            release_lock(conn,semname,identifier)</span><br></pre></td></tr></table></figure></p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/img/alipay.png">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/img/weixin.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/04/06/汇编学习笔记一/" class="archive-article-date">
-  	<time datetime="2019-04-06T08:38:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-06</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/04/06/汇编学习笔记一/">汇编学习笔记一</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -200,346 +289,158 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">汇编</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Redis</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/10/23/Redis实战学习笔记二/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/04/03/TCPIP学习笔记三/" class="archive-article-date">
-  	<time datetime="2019-04-03T07:58:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-03</time>
-</a>
+<nav id="article-nav">
+  
+    <a href="/2019/10/27/Redis设计与实现读书笔记一/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Redis设计与实现读书笔记一
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/10/21/Redis实战学习笔记一/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Redis实战学习笔记一</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
+
+<!-- valine部分 -->
+
+<section id="comments" class="comments">
+  <style>
+    .comments{margin:30px;padding:10px;background:#fff}
+    @media screen and (max-width:800px){.comments{margin:auto;padding:10px;background:#fff}}
+  </style>
+  <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'true' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '#vcomment',
+            notify: notify,
+            verify: verify,
+            app_id: "ziNrp7174hrBh9XMtg91L1UH-9Nh9j0Va",
+            app_key: "uGDaWde4F3KHfdgjTumfbXdp",
+            placeholder: "没事唠两句？",
+            avatar:"robohash"
+        });
+    }
+</script>
+  </section>
+
+<!-- valine部分 -->
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/04/03/TCPIP学习笔记三/">TCP/IP学习笔记(三)</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">TCP/IP</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/03/29/TCPIP学习笔记二/" class="archive-article-date">
-  	<time datetime="2019-03-29T08:32:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-29</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/03/29/TCPIP学习笔记二/">TCP/IP学习笔记(二)</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">IP协议</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/03/27/TCPIP学习笔记一/" class="archive-article-date">
-  	<time datetime="2019-03-27T08:38:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-27</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/03/27/TCPIP学习笔记一/">TCP/IP协议学习笔记(一)</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">TCP/IP</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/03/23/wav音频的剪切/" class="archive-article-date">
-  	<time datetime="2019-03-23T06:29:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-23</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/03/23/wav音频的剪切/">wav音频的剪切</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">项目小技巧</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/03/11/git和git的简单使用/" class="archive-article-date">
-  	<time datetime="2019-03-11T10:08:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/03/11/git和git的简单使用/">git与git的简单使用</a>
-    </h1>
-  
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">git</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/03/11/java多线程之线程的创建/" class="archive-article-date">
-  	<time datetime="2019-03-11T10:08:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/03/11/java多线程之线程的创建/">java创建线程的三种方式</a>
-    </h1>
-  
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/03/11/tags- 技术/" class="archive-article-date">
-  	<time datetime="2019-03-11T02:05:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/03/11/tags- 技术/">第一次编写博客的测试</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/03/10/hello-world/" class="archive-article-date">
-  	<time datetime="2019-03-10T08:34:40.632Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-10</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/03/10/hello-world/">Hello World</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/2019/page/4/">&laquo; Prev</a><a class="page-number" href="/archives/2019/">1</a><span class="space">&hellip;</span><a class="page-number" href="/archives/2019/page/3/">3</a><a class="page-number" href="/archives/2019/page/4/">4</a><span class="page-number current">5</span>
-    </nav>
-  
 
 
           </div>
@@ -565,8 +466,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
