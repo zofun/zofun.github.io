@@ -175,6 +175,98 @@
 
 
   
+    <article id="post-计算机系统基础读书笔记四" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/18/计算机系统基础读书笔记四/">深入理解计算机系统读书笔记四</a>
+    </h1>
+  
+
+        
+        <a href="/2019/08/18/计算机系统基础读书笔记四/" class="archive-article-date">
+  	<time datetime="2019-08-18T12:21:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-18</time>
+</a>
+        
+      </header>
+    
+    <!-- 目录内容 -->
+
+<!-- 目录内容结束 -->
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="异常控制流（Exceptional-Control-Flow-ECF）"><a href="#异常控制流（Exceptional-Control-Flow-ECF）" class="headerlink" title="异常控制流（Exceptional Control Flow ,ECF）"></a>异常控制流（Exceptional Control Flow ,ECF）</h2><h3 id="什么是控制流"><a href="#什么是控制流" class="headerlink" title="什么是控制流"></a>什么是控制流</h3><p>从给处理器加电开始，直到断电为止，程序计数器假设一个值的序列：a0,a1,a2…a n-1,<br>其中a k是相应的指令的地址，每次从a k到a k-1的过渡称为控制转移（control transfer）。这样的控制转移序列称为处理器的控制流（flow of control）。</p>
+<h3 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h3><p>异常是异常控制流的一种形式，它一部分由硬件实现，一部分由操作系统实现。异常（Exception）就是控制流中的突变，用来响应处理器状态中的某些变化。<br><img src="https://s2.ax1x.com/2019/08/15/mVtmb6.png" alt="mVtmb6.png"><br>在任何情况下，当处理器检测到有事件发生时，它就会通过一张叫做异常表（Exception Table）的跳转表，进行一个间接过程调用，到一个专门设计的用来处理这类事件的操作系统子程序（异常处理程序（exception handler））。当异常处理程序处理完成后，根据引起异常的事件类型，会发生以下3种情况种的一种。<br>1.处理程序将控制返回当前指令<br>2.处理程序将控制返回下一条<br>3.处理程序终止被中断的程序</p>
+        
+          <a class="article-more-a" href="/2019/08/18/计算机系统基础读书笔记四/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">计算机系统基础</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/08/18/计算机系统基础读书笔记四/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-计算机系统基础读书笔记三" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1060,109 +1152,6 @@
 
 
   
-    <article id="post-java并发编程实践学习笔记二" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/30/java并发编程实践学习笔记二/">java并发编程学习笔记二</a>
-    </h1>
-  
-
-        
-        <a href="/2019/05/30/java并发编程实践学习笔记二/" class="archive-article-date">
-  	<time datetime="2019-05-30T09:24:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-30</time>
-</a>
-        
-      </header>
-    
-    <!-- 目录内容 -->
-
-<!-- 目录内容结束 -->
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>编写正确的并发程序的关键在于共享对象、可变的状态进行访问管理</p>
-</blockquote>
-<h3 id="锁与可见性"><a href="#锁与可见性" class="headerlink" title="锁与可见性"></a>锁与可见性</h3><p>内置锁可以用来确保一个线程以某种可预见的方式看到另一个线程的影响。<br><img src="https://s2.ax1x.com/2019/05/26/VAoXzd.png" alt="VAoXzd.png"><br>锁不仅仅是关于同步与互斥的，也是关于内存可见的。为了保证所有线程都能够看到共享的，可变变量的最新值，读取和写入线程必须使用公共的锁进行同步。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ThreadSafe</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SynchronziedInteger</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> value;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">int</span> <span class="title">get</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> value;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">set</span><span class="params">(<span class="keyword">int</span> value)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.value=value;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<ul>
-<li>最低限安全性<br>当一个线程在没有同步的情况下读取变量，它可能会得到一个过期值。但它至少可以看到某个线程在那里设定的一个真实数值，而不是一个凭空而来的值。这样的保证称为最低限的安全性。</li>
-</ul>
-<h3 id="volatile-变量"><a href="#volatile-变量" class="headerlink" title="volatile 变量"></a>volatile 变量</h3><p>它可以确保对一个变量的更新以可预见的方式告知其它的线程。当一个域被声明为volatile类型后，编译器运行时会监视这个变量，它是共享的，而且对它的操作不会与其它内存操作一起被重排序。volatile变量不会缓存在寄存器或者缓存在对其它处理器隐藏的地方。所以读一个volatile变量时，总会返回某一线程所写入的最新值。</p>
-<p>当一个共享变量声明为volatile后：<br>1.当写一个volatile变量时，JMM会把该线程对应的本地内存种的变量强制刷新到主内存中去。<br>2.这个写操作会导致其它线程中的缓存无效。<br>3.volatile会禁止语义重排序。<br>
-        
-          <a class="article-more-a" href="/2019/05/30/java并发编程实践学习笔记二/#more">more >></a>
-        
-      
-
-      
-    </p></div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">并发编程</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/05/30/java并发编程实践学习笔记二/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
@@ -1300,11 +1289,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">innoDB引擎</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">innoDB引擎</a>
+                <a href="javascript:void(0)" class="js-tag color4">innodb引擎</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1324,14 +1317,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">多线程</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">并发编程</a>
               </li>
              
@@ -1340,7 +1325,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">汇编</a>
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">多线程</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1352,7 +1341,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">innodb引擎</a>
+                <a href="javascript:void(0)" class="js-tag color3">汇编</a>
               </li>
              
               <li class="article-tag-list-item">
