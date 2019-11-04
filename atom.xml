@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-10-31T12:55:18.714Z</updated>
+  <updated>2019-11-04T12:55:56.318Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>变强日记0</title>
+    <link href="http://yoursite.com/2019/11/04/%E5%8F%98%E5%BC%BA%E6%97%A5%E8%AE%B00/"/>
+    <id>http://yoursite.com/2019/11/04/变强日记0/</id>
+    <published>2019-11-04T12:55:56.000Z</published>
+    <updated>2019-11-04T12:55:56.318Z</updated>
+    
+    <content type="html"><![CDATA[<p>这是变强日记的第一篇内容。必须得开个好头啊。之所以开这个分类，是因为感觉自己的博客都是些读书笔记，大多都是知识点的摘抄，缺乏总结，也没有把知识点串起来。每天分析一个面试题问题，一个算法题，也算是对自己成长的记录吧。也希望自己能像这个分类的名字一样“变强”。</p><h2><span id="主要内容">主要内容</span></h2><ol><li>Redis为什么这么快</li><li>动态规划求字符串的最长回文子串</li></ol><a id="more"></a><h2><span id="redis为什么这么快">Redis为什么这么快</span></h2><p>看牛客网上的分享，许多老哥都遇到过这个问题。想要回答好这个问题，需要系统的了解Redis的原理才行，刚好前段时间拜读了《Redis设计与实现》，虽然看完了书，但是想要系统的回答还是挺难的。</p><p>Redis之所以快，主要有以下几个方面的原因：</p><ol><li>完全基于内存</li><li>简洁高效的数据结构设计</li><li>采用单线程，避免了不必要的上下文切换和竞争条件</li><li>使用了多路复用IO，非阻塞IO。</li><li>Redis自己构建了VM机制来提高效率</li></ol><h3><span id="基于内存">基于内存</span></h3><p>这一点很好理解，Redis处理的许多请求都是直接内存操作的，内存的读写速率显然是要比磁盘高很多倍的，</p><h3><span id="简洁高效的数据结构设计">简洁高效的数据结构设计</span></h3><p>Redis在底层实现上使用了许多设计精妙的数据结构，来提高效率。<br>比如Redis的字符串类型的底层实现使用的SDS，它可以常数复杂度获取字符串长度，空间预分配、惰性空间释放来提高效率。又比如使用跳跃表来实现快速访问节点和进行范围操作。<br>而且每个Redis中每个数据库对象（RedisDB）中都维护了一个字典（dict）来保存数据库中的所有键值对。类似于HashMap，其查找和操作的时间复杂度都为O(1)<br><img src="https://s2.ax1x.com/2019/11/04/KxTlpd.png" alt="KxTlpd.png"></p><h3><span id="采用单线程">采用单线程</span></h3><p>Redis为什么使用单线程，官方的解释是Redis的性能瓶颈不在CPU，最有可能的性能瓶颈在于机器的内存和网络带宽。而且单线程也符合Redis简洁的设计风格。<br><em>强调单线程是指在处理网络请求的时候只有一个线程，在其它时候也是不只一个线程的</em><br>详细原因：</p><ol><li>不需要要各种锁的性能消耗<br>Redis中有一些复杂的数据结构如list，hash等结构复制的数据结构，当需对这些复制的数据结构进行细粒度的操作的时候，如果不是单线程的话，就需要加很多的锁，导致同步的开销大大增加，但是使用单线程就不会存在这个我呢提。</li><li>降低了CPU的消耗<br>多线程会到来上下文切换和竞争条件带来的开销，使用单线程就不会出现这样的问题。</li><li>可以使用单线程多进程的集群方案<br>当CPU的性能成为瓶颈的时候，可以使用单线程多进程的集群方案来解决这个问题。</li><li>代码简洁<br>使用单线程，代码将会变得简洁清晰，处理逻辑也更简单。</li></ol><h3><span id="io多路复用技术">IO多路复用技术</span></h3><p>Redis是单线程的，为了避免等待输入和输出带来的阻塞，redis使用了IO多路复用技术来解决这个问题。<br>Redis服务采用Reactor方式来实现文件事件处理器，每个网络连接都对应一个文件描述符。文件事件处理器使用IO多路复用模块同时监听多个套接字，每次套接字变为可应答，可写或者可读时，相应的文件事件就会产生。<br><img src="https://s2.ax1x.com/2019/11/04/KxODc4.png" alt="KxODc4.png"><br>当有多个文件事件并发出现的使用，IO多路复用程序会将所有产生事件的套接字放到一个队列里面。<br><img src="https://s2.ax1x.com/2019/11/04/KxO7DA.png" alt="KxO7DA.png"></p><p>IO多路复用技术，中“多路”是指多个网络连接，“复用”是指复用一个线程。<br>复用技术可以让单个线程处理多个连接请求，提高了吞吐率。</p><h3><span id="vm机制">VM机制</span></h3><p>VM机制主要是为了避免内存不足而造成的访问速度下降的问题。Redis并没有使用操作系统实现的SWAP，而是自己实现的。<br>当数据多到内存放不下了，那就不可避免地会把冷数据放到磁盘中去，把热数据继续留到内存中。Redis通过自己实现地VM来提高了这一过程地效率。</p><p>Redis的作者对为什么不使用操作系统的VM而是使用自己实现的VM做出了以下的解释：</p><ol><li>OS是基于page（4k）的，而Redis对象大多都小于4k，因此OS提供的page方案对于Redis来说粒度太大了。如果使用OS的VM，那么一个页面上可能有多个Redis对象，另外比如list这种数据结构可能在多个页面上，这就导致哪怕只有很少的键被经常访问，当许多的页面都会被OS认为是活跃的，这样只有内存真正耗尽的时候OS才会交换页面。</li><li>相比于OS的交换方式，redis可以对交换到磁盘的对象进行压缩。</li><li>OS交换的时候是会阻塞线程的，而redis可以让工作线程来完成交换，主线程继续处理请求。</li></ol><h2><span id="动态规划求字符串的最长回文子串">动态规划求字符串的最长回文子串</span></h2><p><strong>思路：</strong><br>若长度为L的字符串是回文，那么去掉首尾也是回文字符串。及全局最优解包含局部最优解。<br><strong>最小子问题：</strong></p><ol><li>每个单独的字符组成的字符串是回文的</li><li>两个相邻的相同的字符串是回文。</li></ol><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">longestPalindrome</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">char</span>[] chars=s.toCharArray();</span><br><span class="line">        <span class="keyword">int</span> len=s.length();</span><br><span class="line">        <span class="keyword">if</span>(len==<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">""</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(len==<span class="number">1</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> s;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span>[][] dp=<span class="keyword">new</span> <span class="keyword">int</span>[len][len];</span><br><span class="line">        <span class="keyword">int</span> maxLen=<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> resIndex=<span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//初始化矩阵，键最小子问题1的情况都设置为true</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;len;i++)&#123;</span><br><span class="line">            dp[i][i]=<span class="number">1</span>; <span class="comment">//子问题一</span></span><br><span class="line">            <span class="keyword">if</span>((i&lt;len-<span class="number">1</span>)&amp;&amp;chars[i]==chars[i+<span class="number">1</span>])&#123;</span><br><span class="line">                dp[i][i+<span class="number">1</span>]=<span class="number">1</span>; <span class="comment">//子问题2</span></span><br><span class="line">                resIndex=i;</span><br><span class="line">                maxLen=<span class="number">2</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; </span><br><span class="line"></span><br><span class="line">       </span><br><span class="line">        <span class="comment">//从长度为3开始逐渐增长来检查回文字符串</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> L=<span class="number">3</span>;L&lt;=len;L++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;=len-L;i++)&#123;</span><br><span class="line">                <span class="comment">//如果字符串是回文的，那么首尾加上相同的字符也是回文的</span></span><br><span class="line">                <span class="keyword">if</span>(dp[i+<span class="number">1</span>][i+L-<span class="number">2</span>]==<span class="number">1</span>&amp;&amp;chars[i]==chars[i+L-<span class="number">1</span>])&#123;</span><br><span class="line">                    dp[i][i+L-<span class="number">1</span>]=<span class="number">1</span>;  <span class="comment">//首尾加上相同的字符也是回文的</span></span><br><span class="line">                    maxLen=L;</span><br><span class="line">                    resIndex=i;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">           </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> String(chars,resIndex,maxLen);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;这是变强日记的第一篇内容。必须得开个好头啊。之所以开这个分类，是因为感觉自己的博客都是些读书笔记，大多都是知识点的摘抄，缺乏总结，也没有把知识点串起来。每天分析一个面试题问题，一个算法题，也算是对自己成长的记录吧。也希望自己能像这个分类的名字一样“变强”。&lt;/p&gt;
+&lt;h2 id=&quot;主要内容&quot;&gt;&lt;a href=&quot;#主要内容&quot; class=&quot;headerlink&quot; title=&quot;主要内容&quot;&gt;&lt;/a&gt;主要内容&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;Redis为什么这么快&lt;/li&gt;
+&lt;li&gt;动态规划求字符串的最长回文子串&lt;/li&gt;
+&lt;/ol&gt;
+    
+    </summary>
+    
+    
+    
+      <category term="变强日记" scheme="http://yoursite.com/tags/%E5%8F%98%E5%BC%BA%E6%97%A5%E8%AE%B0/"/>
+    
+  </entry>
   
   <entry>
     <title>Redis设计与实现读书笔记二</title>
@@ -543,34 +568,6 @@
       <category term="技术" scheme="http://yoursite.com/tags/%E6%8A%80%E6%9C%AF/"/>
     
       <category term="Java NIO" scheme="http://yoursite.com/tags/Java-NIO/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>大三上的学习计划</title>
-    <link href="http://yoursite.com/2019/08/29/%E5%A4%A7%E4%B8%89%E4%B8%8A%E7%9A%84%E5%AD%A6%E4%B9%A0%E8%AE%A1%E5%88%92/"/>
-    <id>http://yoursite.com/2019/08/29/大三上的学习计划/</id>
-    <published>2019-08-29T11:21:56.000Z</published>
-    <updated>2019-10-04T09:09:47.866Z</updated>
-    
-    <content type="html"><![CDATA[<h2><span id="总的目标">总的目标</span></h2><ol><li>这学期得把软件设计师给考过</li><li>六级成绩至少得提高吧</li><li>绩点要提高，课上讲得也很重要。利用周末做好总结。</li><li>减肥减到115斤，要注意健康管理了。</li><li>算法得每天练习，每天至少两道。</li><li>技术学习要抓紧了。</li><li>冬天到了不要起不来啊！！！</li></ol><h2><span id="每个阶段的任务">每个阶段的任务</span></h2><ul><li style="list-style: none"><input type="checkbox" checked> <strong>九月</strong><ul><li style="list-style: none"><input type="checkbox" checked> Java NIO相关的知识</li><li style="list-style: none"><input type="checkbox" checked> 数据库的高阶知识</li><li style="list-style: none"><input type="checkbox" checked> Java 并发编程</li></ul></li><li style="list-style: none"><input type="checkbox"> <strong>十月</strong><ul><li style="list-style: none"><input type="checkbox"> SpringBoot 技术和一般原理</li><li style="list-style: none"><input type="checkbox"> Spring Cloud 相关的技术</li><li style="list-style: none"><input type="checkbox"> 消息队列，分布式缓存技术</li><li style="list-style: none"><input type="checkbox"> Java 集合框架中没读过的源码</li><li style="list-style: none"><input type="checkbox"> 数据结构与算法</li></ul></li><li style="list-style: none"><input type="checkbox"> <strong>十一月</strong><ul><li style="list-style: none"><input type="checkbox"> Spring 源码分析 （再难也要啃下来）</li><li style="list-style: none"><input type="checkbox"> 计算机网络 (得深入的学习)</li></ul></li><li style="list-style: none"><input type="checkbox"> <strong>十二月</strong><ul><li style="list-style: none"><input type="checkbox"> Spring MVC 源码</li><li style="list-style: none"><input type="checkbox"> Java虚拟机</li></ul></li><li style="list-style: none"><input type="checkbox"> <strong>一月</strong><ul><li style="list-style: none"><input type="checkbox"> 该好好复习期末考试了</li></ul></li></ul>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2&gt;&lt;span id=&quot;总的目标&quot;&gt;总的目标&lt;/span&gt;&lt;/h2&gt;&lt;ol&gt;
-&lt;li&gt;这学期得把软件设计师给考过&lt;/li&gt;
-&lt;li&gt;六级成绩至少得提高吧&lt;/li&gt;
-&lt;li&gt;绩点要提高，课上讲得也很重要。利用周末做好总结。&lt;/li&gt;
-&lt;li&gt;减肥减到115斤，要注意健康管理了。
-      
-    
-    </summary>
-    
-    
-    
-      <category term="随笔" scheme="http://yoursite.com/tags/%E9%9A%8F%E7%AC%94/"/>
     
   </entry>
   
