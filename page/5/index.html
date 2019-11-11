@@ -181,6 +181,111 @@
 
 
   
+    <article id="post-MySQL技术内幕学习笔记四" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/04/28/MySQL技术内幕学习笔记四/">MySQL技术内幕学习笔记四</a>
+    </h1>
+  
+
+        
+        <a href="/2019/04/28/MySQL技术内幕学习笔记四/" class="archive-article-date">
+  	<time datetime="2019-04-28T12:38:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-28</time>
+</a>
+        
+      </header>
+    
+    <!-- 目录内容 -->
+
+<!-- 目录内容结束 -->
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="视图"><a href="#视图" class="headerlink" title="视图"></a>视图</h3><p>视图是基于基表的虚表，它由sql查询来定义，可以当作表使用，但是视图中的数据没有实际的物理存储。视图可以作为安全层使用。<br>其作用在于一些应用程序本身并不关心基表，只需要按照视图定义来存取数据。</p>
+<h4 id="oracle提供的物化视图"><a href="#oracle提供的物化视图" class="headerlink" title="oracle提供的物化视图"></a>oracle提供的物化视图</h4><p>Oracle支持物化视图，其不再是虚表，而是基于基表实际存在的表。物化视图可以用于预先计算并保存多表的链接或聚集等耗时操作的结果。在SQL server数据库中称为索引视图。在mysql 中可以使用基表加触发器的策略来实现“物化视图”。</p>
+<h3 id="分区表"><a href="#分区表" class="headerlink" title="分区表"></a>分区表</h3><p>innodb存储引擎支持水平分区，主要用于数据库的高可用管理。</p>
+<p>MySQL数据库支持以下几种分区</p>
+<ul>
+<li>range分区<br>行数据基于给定分一个连续区间的列值杯放入分区</li>
+<li>list分区<br>行数据基于一些离散的值被放入分区。</li>
+<li>hash分区<br>根据用户自定义的表达式的返回值进行分区（返回值不能是负，必须是整数）</li>
+<li>key分区<br>根据mysql提供的哈希函数进行分区</li>
+</ul>
+<p><em>如果表中存在唯一索引或主键那么分区列必须是其的一部分</em><br>
+        
+          <a class="article-more-a" href="/2019/04/28/MySQL技术内幕学习笔记四/#more">more >></a>
+        
+      
+
+      
+    </p></div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">innodb存储引擎</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/04/28/MySQL技术内幕学习笔记四/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-MySQL技术内幕学习笔记三" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -775,7 +880,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <ul>
-<li><p>DNS（域名解析服务）<br>DNS可以将字符串自动转化位具体的IP地址。</p>
+<li><p>DNS（域名解析服务）<br>DNS可以将字符串自动转化为具体的IP地址。</p>
 </li>
 <li><p>ARP（地址解析协议）</p>
 <ul>
@@ -788,15 +893,15 @@
 <li><p>RARP</p>
 <ul>
 <li>从MAC地址获取IP地址的一种协议。</li>
-<li>为了解决一些潜入式设别无法通过DHCP获得自己的IP地址的问题。所以需要建立一个RARP服务器。</li>
+<li>为了解决一些嵌入式设备无法通过DHCP获得自己的IP地址的问题。所以需要建立一个RARP服务器。</li>
 <li><img src="https://s2.ax1x.com/2019/04/02/AygKb9.png" alt="AygKb9.png"></li>
 </ul>
 </li>
 <li><p>NAT技术</p>
 <ul>
-<li>实在本地网络中使用私有地址，在连接互联网式转而使用全局IP地址的技术。</li>
+<li>是在本地网络中使用私有地址，在连接互联网式转而使用全局IP地址的技术。</li>
 <li>内部有一张进行转换的地址的表。</li>
-<li>NAPT为了解决私有网络内部多台机器同时于玩不通信时，可能会造成全局IP地址不够用。NAPT采用将端口号一起转换的方式来解决这个问题。</li>
+<li>NAPT为了解决私有网络内部多台机器同时通信时，可能会造成全局IP地址不够用。NAPT采用将端口号一起转换的方式来解决这个问题。</li>
 <li><img src="https://s2.ax1x.com/2019/04/02/A6ZEFS.png" alt="A6ZEFS.png"></li>
 <li>无法从NAT外部向内部服务器建立连接。</li>
 <li>转换表的生成和转换操作都会产生一定的开销。</li>
@@ -899,17 +1004,17 @@
 </li>
 <li><p>IP协议的三大模块<br>1.IP寻址 2.路由 3.IP分包和组包</p>
 </li>
-<li><p>IP地址<br>用于连接到网络中所有主机中识别出进行通信的目标地址。所以在TCP/IP中所有的主机或路由器都必须设定自己的IP，而网桥或j交换集线器不需要自己的IP，因为他们只负责简单的将比特流转发。</p>
+<li><p>IP地址<br>用于连接到网络中所有主机中识别出进行通信的目标地址。所以在TCP/IP中所有的主机或路由器都必须设定自己的IP，而网桥或交换集线器不需要自己的IP，因为他们只负责简单的将比特流转发。</p>
 </li>
-<li><p>路由控制<br>是指将分组数据发送到最终目标地址的功能，及时网络非常复杂，也可以通过路由控制确定到达目标地址的通路。</p>
+<li><p>路由控制<br>是指将分组数据发送到最终目标地址的功能，即使网络非常复杂，也可以通过路由控制确定到达目标地址的通路。</p>
 </li>
-<li><p>路由控制表（路由择域信息库）<br>为了将数据包发送到目标主机，所有主机都维护着一张路由控制表，该表记录了IP数据下一步应该发给那个路由器。存储在路由器或联网计算机上。</p>
+<li><p>路由控制表（路由择域信息库）<br>为了将数据包发送到目标主机，所有主机都维护着一张路由控制表，该表记录了IP数据下一步应该发给那个路由器。路由控制表存储在路由器或联网计算机上。</p>
 </li>
-<li><p>IP链路的抽象化<br>IP实现了多个数据链路之间的的通信协议。不同的数据链路有各自的特点。需要对不同的数据链路进行抽象化。不同的数据链路的最大传输单位往往不同。为了解决这个问题I</p>
+<li><p>IP链路的抽象化<br>IP实现了多个数据链路之间的的通信协议。不同的数据链路有各自的特点。需要对不同的数据链路进行抽象化。不同的数据链路的最大传输单位往往不同。为了解决这个问题IP协议对链路进行了抽象化，屏蔽了链路的差异。</p>
 </li>
 <li><p>IP是面向无连接型<br>在发送IP数据包之前，不需要建立对端目标之间的连接。其优点在于简化了协议，提高了速度。</p>
 </li>
-<li><p>IP地址<br>1.IP地址由32位整数来表示。<br>2.IP地址由网络标识（地址）和主机标识（主机地址）两部分组成。<br>3.网络标识再数据链路中的每个端配置不同的值。网络标识必须保证互相连接的每个端的地址不相重复。<br>4.同一个网段中的地址也必须保证主机标识不相重复。<br><a href="https://imgchr.com/i/AwIAFx" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/03/28/AwIAFx.png" alt="AwIAFx.png"></a></p>
+<li><p>IP地址<br>1.IP地址由32位整数来表示。<br>2.IP地址由网络标识（地址）和主机标识（主机地址）两部分组成。<br>3.网络标识再数据链路中的每个端配置不同的值。网络标识必须保证互相连接的每个端的地址不相重复。<br>4.同一个网段中的地址也必须保证主机标识不相重复。<br><img src="https://s2.ax1x.com/2019/03/28/AwIAFx.png" alt="AwIAFx.png"></p>
         
           <a class="article-more-a" href="/2019/03/29/TCPIP学习笔记二/#more">more >></a>
         
@@ -1164,120 +1269,6 @@
 
 
   
-    <article id="post-git和git的简单使用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/11/git和git的简单使用/">git与git的简单使用</a>
-    </h1>
-  
-
-        
-        <a href="/2019/03/11/git和git的简单使用/" class="archive-article-date">
-  	<time datetime="2019-03-11T10:08:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-11</time>
-</a>
-        
-      </header>
-    
-    <!-- 目录内容 -->
-
-<!-- 目录内容结束 -->
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>git是一个开源的分布式版本控制系统，可以有效、高速的处理从很小到非常大的项目版本管理工作。</p>
-</blockquote>
-<h3 id="如何理解git是一个分布式版本控制系统"><a href="#如何理解git是一个分布式版本控制系统" class="headerlink" title="如何理解git是一个分布式版本控制系统"></a>如何理解git是一个分布式版本控制系统</h3><ul>
-<li><p>分布式<br>  区别于集中式的版本控制系统典型的如SVN。分布式是指没有中央服务器，每个人的本地都有一份完整的项目文件。而集中式版本控制系统，有中央服务器，每个人从中央服务器获取一份项目文件，在本地开发，开发完成后提交给中央服务器。分布式版本控制系统的优点在于网络依赖小，只有在需要合并分支时才需要网络；本地文件存储采用元数据，体积小；分支操作互不影响。</p>
-</li>
-<li><p>版本控制系统<br>  版本控制是指在软件开发过程中各种代码、配置文件和说明文档等文件变更的管理。</p>
-</li>
-</ul>
-<h3 id="Git工作区、暂存区和版本库"><a href="#Git工作区、暂存区和版本库" class="headerlink" title="Git工作区、暂存区和版本库"></a>Git工作区、暂存区和版本库</h3><pre><code>Git工作区通俗的讲就是除了隐藏文件夹.git以外的所有文件和文件夹。我们平时直接操作的文件就是存放在Git工作区的文件。
-Git暂存区是指隐藏文件夹.git中的index文件。我们也可以把暂存区叫做索引
-Git的版本库就是.git文件夹。
-*理解Git的工作区、暂存区和版本库是理解git命令的关键*
-</code></pre><h3 id="Git的基本操作"><a href="#Git的基本操作" class="headerlink" title="Git的基本操作"></a>Git的基本操作</h3><ul>
-<li><p>创建仓库<br>  创建仓库，通俗的讲就是生成一个隐藏文件夹.git。我们可以使用如下名命令：</p>
-<p>  git init </p>
-</li>
-<li><p>从Git仓库中拷贝项目（类似svn中的捡出项目，这里的Git仓库一般是指GitHub上的仓库）</p>
-<p>  git clone &lt;Git仓库的地址&gt;         &lt;本地目录，可以省略&gt;</p>
-</li>
-</ul>
-<p>例如：</p>
-<pre><code>git clone https://github.com/0Eternity0/0Eternity0.github.io.git f:/MyDir//
-</code></pre><p> 该句的意思是从该地址克隆一份项目文件到MyDir文件夹。如何不指定本地目录，就克隆到命令行工具运行的当前目录</p>
-        
-          <a class="article-more-a" href="/2019/03/11/git和git的简单使用/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">git</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/03/11/git和git的简单使用/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/4/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/6/">Next &raquo;</a>
@@ -1419,11 +1410,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">innodb引擎</a>
+                <a href="javascript:void(0)" class="js-tag color4">innoDB引擎</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">innoDB引擎</a>
+                <a href="javascript:void(0)" class="js-tag color4">innodb引擎</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1435,19 +1426,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">IP协议</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">并发编程</a>
+                <a href="javascript:void(0)" class="js-tag color5">IP协议</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">变强日记</a>
+                <a href="javascript:void(0)" class="js-tag color5">并发编程</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1459,15 +1446,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">变强日记</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">多线程</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">汇编</a>
+                <a href="javascript:void(0)" class="js-tag color1">正则表达式</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">正则表达式</a>
+                <a href="javascript:void(0)" class="js-tag color3">汇编</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1479,11 +1470,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">SpingBoot</a>
+                <a href="javascript:void(0)" class="js-tag color2">SpringCloud</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">SpringCloud</a>
+                <a href="javascript:void(0)" class="js-tag color5">SpingBoot</a>
               </li>
             
             <div class="clearfix"></div>

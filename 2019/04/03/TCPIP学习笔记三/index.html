@@ -8,13 +8,13 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>TCP/IP学习笔记(三) | 个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="DNS（域名解析服务）DNS可以将字符串自动转化位具体的IP地址。  ARP（地址解析协议）  以目标IP地址位线索，来定位下一个应该接收数据分包的网络设别对应的MAC地址。ARP只适用于IPv4. 通过广播发送一个ARP请求包，其中含有想要了解MAC地址的IP。同一个链路中的主机接收并解析。如何发现需要解析自己的IP地址对应的MAC地址的话。就将自己的MAC地址加入ARP响应包中。然后把获取到">
+  <meta name="description" content="DNS（域名解析服务）DNS可以将字符串自动转化为具体的IP地址。  ARP（地址解析协议）  以目标IP地址位线索，来定位下一个应该接收数据分包的网络设别对应的MAC地址。ARP只适用于IPv4. 通过广播发送一个ARP请求包，其中含有想要了解MAC地址的IP。同一个链路中的主机接收并解析。如何发现需要解析自己的IP地址对应的MAC地址的话。就将自己的MAC地址加入ARP响应包中。然后把获取到">
 <meta name="keywords" content="技术,TCP&#x2F;IP">
 <meta property="og:type" content="article">
 <meta property="og:title" content="TCP&#x2F;IP学习笔记(三)">
 <meta property="og:url" content="http://yoursite.com/2019/04/03/TCPIP学习笔记三/index.html">
 <meta property="og:site_name" content="个人博客">
-<meta property="og:description" content="DNS（域名解析服务）DNS可以将字符串自动转化位具体的IP地址。  ARP（地址解析协议）  以目标IP地址位线索，来定位下一个应该接收数据分包的网络设别对应的MAC地址。ARP只适用于IPv4. 通过广播发送一个ARP请求包，其中含有想要了解MAC地址的IP。同一个链路中的主机接收并解析。如何发现需要解析自己的IP地址对应的MAC地址的话。就将自己的MAC地址加入ARP响应包中。然后把获取到">
+<meta property="og:description" content="DNS（域名解析服务）DNS可以将字符串自动转化为具体的IP地址。  ARP（地址解析协议）  以目标IP地址位线索，来定位下一个应该接收数据分包的网络设别对应的MAC地址。ARP只适用于IPv4. 通过广播发送一个ARP请求包，其中含有想要了解MAC地址的IP。同一个链路中的主机接收并解析。如何发现需要解析自己的IP地址对应的MAC地址的话。就将自己的MAC地址加入ARP响应包中。然后把获取到">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://s2.ax1x.com/2019/04/02/AygKb9.png">
 <meta property="og:image" content="https://s2.ax1x.com/2019/04/02/A6ZEFS.png">
@@ -26,10 +26,10 @@
 <meta property="og:image" content="https://s2.ax1x.com/2019/04/03/Acqruj.md.png">
 <meta property="og:image" content="https://s2.ax1x.com/2019/04/03/AcOFm9.md.png">
 <meta property="og:image" content="https://s2.ax1x.com/2019/04/03/AcONp8.md.png">
-<meta property="og:updated_time" content="2019-04-03T08:00:26.486Z">
+<meta property="og:updated_time" content="2019-11-06T13:47:56.845Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="TCP&#x2F;IP学习笔记(三)">
-<meta name="twitter:description" content="DNS（域名解析服务）DNS可以将字符串自动转化位具体的IP地址。  ARP（地址解析协议）  以目标IP地址位线索，来定位下一个应该接收数据分包的网络设别对应的MAC地址。ARP只适用于IPv4. 通过广播发送一个ARP请求包，其中含有想要了解MAC地址的IP。同一个链路中的主机接收并解析。如何发现需要解析自己的IP地址对应的MAC地址的话。就将自己的MAC地址加入ARP响应包中。然后把获取到">
+<meta name="twitter:description" content="DNS（域名解析服务）DNS可以将字符串自动转化为具体的IP地址。  ARP（地址解析协议）  以目标IP地址位线索，来定位下一个应该接收数据分包的网络设别对应的MAC地址。ARP只适用于IPv4. 通过广播发送一个ARP请求包，其中含有想要了解MAC地址的IP。同一个链路中的主机接收并解析。如何发现需要解析自己的IP地址对应的MAC地址的话。就将自己的MAC地址加入ARP响应包中。然后把获取到">
 <meta name="twitter:image" content="https://s2.ax1x.com/2019/04/02/AygKb9.png">
   
     <link rel="alternative" href="/atom.xml" title="个人博客" type="application/atom+xml">
@@ -215,7 +215,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <ul>
-<li><p>DNS（域名解析服务）<br>DNS可以将字符串自动转化位具体的IP地址。</p>
+<li><p>DNS（域名解析服务）<br>DNS可以将字符串自动转化为具体的IP地址。</p>
 </li>
 <li><p>ARP（地址解析协议）</p>
 <ul>
@@ -228,15 +228,15 @@
 <li><p>RARP</p>
 <ul>
 <li>从MAC地址获取IP地址的一种协议。</li>
-<li>为了解决一些潜入式设别无法通过DHCP获得自己的IP地址的问题。所以需要建立一个RARP服务器。</li>
+<li>为了解决一些嵌入式设备无法通过DHCP获得自己的IP地址的问题。所以需要建立一个RARP服务器。</li>
 <li><img src="https://s2.ax1x.com/2019/04/02/AygKb9.png" alt="AygKb9.png"></li>
 </ul>
 </li>
 <li><p>NAT技术</p>
 <ul>
-<li>实在本地网络中使用私有地址，在连接互联网式转而使用全局IP地址的技术。</li>
+<li>是在本地网络中使用私有地址，在连接互联网式转而使用全局IP地址的技术。</li>
 <li>内部有一张进行转换的地址的表。</li>
-<li>NAPT为了解决私有网络内部多台机器同时于玩不通信时，可能会造成全局IP地址不够用。NAPT采用将端口号一起转换的方式来解决这个问题。</li>
+<li>NAPT为了解决私有网络内部多台机器同时通信时，可能会造成全局IP地址不够用。NAPT采用将端口号一起转换的方式来解决这个问题。</li>
 <li><img src="https://s2.ax1x.com/2019/04/02/A6ZEFS.png" alt="A6ZEFS.png"></li>
 <li>无法从NAT外部向内部服务器建立连接。</li>
 <li>转换表的生成和转换操作都会产生一定的开销。</li>
@@ -256,7 +256,7 @@
 </li>
 <li><p>UDP协议</p>
 <ul>
-<li>UDP是具有不可靠型的数据包协议。不能保证消息一定会到达。</li>
+<li>UDP是具有不可靠性的数据包协议。不能保证消息一定会到达。</li>
 </ul>
 </li>
 <li><p>端口号<br>端口号用来识别同一台计算机中进行通信的不同应用程序。因此也被称为程序地址。</p>
@@ -274,14 +274,14 @@
 <ul>
 <li>它是一种面向连接的可靠的传输层协议。它可以流量控制，重发控制，顺序控制等。</li>
 <li>它通过检验和，序列号，确认应答，重发控制，连接管理以及窗口控制等来实现可靠性传输。</li>
-<li>通过序列号于确认应答提高可靠性<img src="https://s2.ax1x.com/2019/04/03/Ac7X8g.png" alt="Ac7X8g.png"> <em>确认是ACK，否认是NACK</em><img src="https://s2.ax1x.com/2019/04/03/AcHkPU.png" alt="AcHkPU.png"><a href="https://imgchr.com/i/AcHmrR" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/04/03/AcHmrR.png" alt="AcHmrR.png"></a></li>
-<li>通过序列号与确认应答号。应答号就是自己下一步需要接收的数据的序列号<a href="https://imgchr.com/i/AcHddP" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/04/03/AcHddP.png" alt="AcHddP.png"></a></li>
+<li>通过序列号于确认应答提高可靠性<img src="https://s2.ax1x.com/2019/04/03/Ac7X8g.png" alt="Ac7X8g.png"> <em>确认是ACK，否认是NACK</em><img src="https://s2.ax1x.com/2019/04/03/AcHkPU.png" alt="AcHkPU.png"> <img src="https://s2.ax1x.com/2019/04/03/AcHmrR.png" alt="AcHmrR.png"></li>
+<li>通过序列号与确认应答号。应答号就是自己下一步需要接收的数据的序列号<img src="https://s2.ax1x.com/2019/04/03/AcHddP.png" alt="AcHddP.png"></li>
 <li>重发超时的时间计算。每次发包时都会计算往返时间及其偏差。将往返时间和偏差相加结果略大的值就是重发超时的值。</li>
-<li>TCP连接管理。在通信进行前要先建立连接，在通信结束时会进行断开连接。<a href="https://imgchr.com/i/AcbLcQ" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/04/03/AcbLcQ.md.png" alt="AcbLcQ.md.png"></a></li>
+<li>TCP连接管理。在通信进行前要先建立连接，在通信结束时会进行断开连接。<img src="https://s2.ax1x.com/2019/04/03/AcbLcQ.md.png" alt="AcbLcQ.md.png"></li>
 <li>TCP以段为单位发送数据，在TCP三次握手的同时会在确定“最大消息长度”（MSS），理想状态下为不会被IP协议分片的最大数据长度。</li>
-<li>利用窗口控制提高速度。<a href="https://imgchr.com/i/Acqruj" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/04/03/Acqruj.md.png" alt="Acqruj.md.png"></a>。窗口大小就是指无需等待确认应答而可以继续发送数据的最大值。窗口大小是由接收端决定的。在使用窗口控制后，有少部分ACK消息丢失也不会重发，因为下一个ACK成功发送，就确认了上一个数据是收到了的。</li>
-<li>流控制。在数据接收中，接收端会根据网络状况，和自身处理能力的情况，发送端会不时的向接收端发送窗口探测，请求接收端更新窗口大小。<a href="https://imgchr.com/i/AcOFm9" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/04/03/AcOFm9.md.png" alt="AcOFm9.md.png"></a></li>
-<li>拥塞控制。TCP采用慢启动的方式。<a href="https://imgchr.com/i/AcONp8" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/04/03/AcONp8.md.png" alt="AcONp8.md.png"></a></li>
+<li>利用窗口控制提高速度。<img src="https://s2.ax1x.com/2019/04/03/Acqruj.md.png" alt="Acqruj.md.png">]。窗口大小就是指无需等待确认应答而可以继续发送数据的最大值。窗口大小是由接收端决定的。在使用窗口控制后，有少部分ACK消息丢失也不会重发，因为下一个ACK成功发送，就确认了上一个数据是收到了的。</li>
+<li>流控制。在数据接收中，接收端会根据网络状况，和自身处理能力的情况，发送端会不时的向接收端发送窗口探测，请求接收端更新窗口大小。<img src="https://s2.ax1x.com/2019/04/03/AcOFm9.md.png" alt="AcOFm9.md.png"></li>
+<li>拥塞控制。TCP采用慢启动的方式。<img src="https://s2.ax1x.com/2019/04/03/AcONp8.md.png" alt="AcONp8.md.png"></li>
 </ul>
 </li>
 </ul>
@@ -621,11 +621,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">innodb引擎</a>
+                <a href="javascript:void(0)" class="js-tag color4">innoDB引擎</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">innoDB引擎</a>
+                <a href="javascript:void(0)" class="js-tag color4">innodb引擎</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -637,19 +637,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">IP协议</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">并发编程</a>
+                <a href="javascript:void(0)" class="js-tag color5">IP协议</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">变强日记</a>
+                <a href="javascript:void(0)" class="js-tag color5">并发编程</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -661,15 +657,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">变强日记</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">多线程</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">汇编</a>
+                <a href="javascript:void(0)" class="js-tag color1">正则表达式</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">正则表达式</a>
+                <a href="javascript:void(0)" class="js-tag color3">汇编</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -681,11 +681,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">SpingBoot</a>
+                <a href="javascript:void(0)" class="js-tag color2">SpringCloud</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">SpringCloud</a>
+                <a href="javascript:void(0)" class="js-tag color5">SpingBoot</a>
               </li>
             
             <div class="clearfix"></div>
