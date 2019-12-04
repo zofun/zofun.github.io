@@ -6,20 +6,15 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Java多线程编程实战指南读书笔记三 | 个人博客</title>
+  <title>Archives: 2019/12 | 个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="线程数设置的原则 对于CPU密集型线程，考虑到这些线程执行任务值消耗的主要是处理器资源，我们可以将线程数设置为$N_{cpu}$,有事也可以设置为$N_{cpu}+1$ 对于I/O密集型线程，考虑到I/O操作可能导致上下文切换，为这样的线程设置过多的线程数会导致过多的额外系统开销，如果一个工作线程能够满足旧不需要设置更多的线程，如果一个工作者线程不够用，我们可以考虑将这类线程的数量设置为$2*N_">
-<meta name="keywords" content="技术,java,并发编程">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Java多线程编程实战指南读书笔记三">
-<meta property="og:url" content="http://yoursite.com/2019/09/13/Java多线程编程实战指南读书笔记三/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="个人博客">
+<meta property="og:url" content="http://yoursite.com/archives/2019/12/index.html">
 <meta property="og:site_name" content="个人博客">
-<meta property="og:description" content="线程数设置的原则 对于CPU密集型线程，考虑到这些线程执行任务值消耗的主要是处理器资源，我们可以将线程数设置为$N_{cpu}$,有事也可以设置为$N_{cpu}+1$ 对于I/O密集型线程，考虑到I/O操作可能导致上下文切换，为这样的线程设置过多的线程数会导致过多的额外系统开销，如果一个工作线程能够满足旧不需要设置更多的线程，如果一个工作者线程不够用，我们可以考虑将这类线程的数量设置为$2*N_">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-11-05T13:32:57.625Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Java多线程编程实战指南读书笔记三">
-<meta name="twitter:description" content="线程数设置的原则 对于CPU密集型线程，考虑到这些线程执行任务值消耗的主要是处理器资源，我们可以将线程数设置为$N_{cpu}$,有事也可以设置为$N_{cpu}+1$ 对于I/O密集型线程，考虑到I/O操作可能导致上下文切换，为这样的线程设置过多的线程数会导致过多的额外系统开销，如果一个工作线程能够满足旧不需要设置更多的线程，如果一个工作者线程不够用，我们可以考虑将这类线程的数量设置为$2*N_">
+<meta name="twitter:title" content="个人博客">
   
     <link rel="alternative" href="/atom.xml" title="个人博客" type="application/atom+xml">
   
@@ -180,323 +175,64 @@
 
 
           <div id="js-content" class="content-ll">
-            <article id="post-Java多线程编程实战指南读书笔记三" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
+ 
+
+
+
   
-    <h1 class="article-title" itemprop="name">
-      Java多线程编程实战指南读书笔记三
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2019" class="archive-year">2019</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2019/12/04/变强日记5/" class="archive-article-date">
+  	<time datetime="2019-12-04T09:22:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-04</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2019/12/04/变强日记5/">变强日记5</a>
     </h1>
   
 
-        
-        <a href="/2019/09/13/Java多线程编程实战指南读书笔记三/" class="archive-article-date">
-  	<time datetime="2019-09-13T06:54:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-13</time>
-</a>
-        
-      </header>
-    
-    <!-- 目录内容 -->
-
-    <p class="show-toc-btn" id="show-toc-btn" onclick="showToc();">
-          <span class="btn-bg"></span>
-          <span class="btn-text">文章导航</span>
-          </p>
-  <div id="toc-article" class="toc-article" style="display:none">
-      <span id="toc-close" class="toc-close" title="隐藏导航" onclick="showBtn();">×</span>
-    <strong class="toc-title">文章目录</strong>
-           <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">线程数设置的原则</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">2.</span> <span class="toc-text">等待与通知：wait/notify</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">2.1.</span> <span class="toc-text">wait/notify的作用与用法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">2.1.1.</span> <span class="toc-text">使用Object.wait()实现等待</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">2.1.2.</span> <span class="toc-text">使用notify实现通知</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">2.2.</span> <span class="toc-text">wait/notify的开销及问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">3.</span> <span class="toc-text">Java条件变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">4.</span> <span class="toc-text">倒计时协调器 CountDownLatch</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">5.</span> <span class="toc-text">栅栏</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">5.1.</span> <span class="toc-text">典型的应用场景</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">6.</span> <span class="toc-text">生成者-消费者模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">7.</span> <span class="toc-text">阻塞队列</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">7.1.</span> <span class="toc-text">几种阻塞队列的对比</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">7.2.</span> <span class="toc-text">对虚拟资源的管理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">8.</span> <span class="toc-text">管道</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">9.</span> <span class="toc-text">双缓冲区Exchanger</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">10.</span> <span class="toc-text">线程中断机制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">10.1.</span> <span class="toc-text">InterruptedException异常处理及中断响应</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">11.</span> <span class="toc-text">线程停止</span></a></li></ol>
-         </div>
-   <script type="text/javascript">
-  function showToc(){
-    var toc_article = document.getElementById("toc-article");
-    var show_toc_btn = document.getElementById("show-toc-btn");
-    toc_article.setAttribute("style","display:block");
-    show_toc_btn.setAttribute("style","display:none");
-    };
-  function showBtn(){
-    var toc_article = document.getElementById("toc-article");
-    var show_toc_btn = document.getElementById("show-toc-btn");
-    toc_article.setAttribute("style","display:none");
-    show_toc_btn.setAttribute("style","display:block");
-    };
-   </script>
-      
-<!-- 目录内容结束 -->
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2><span id="线程数设置的原则">线程数设置的原则</span></h2><ol>
-<li>对于CPU密集型线程，考虑到这些线程执行任务值消耗的主要是处理器资源，我们可以将线程数设置为$N_{cpu}$,有事也可以设置为$N_{cpu}+1$</li>
-<li>对于I/O密集型线程，考虑到I/O操作可能导致上下文切换，为这样的线程设置过多的线程数会导致过多的额外系统开销，如果一个工作线程能够满足旧不需要设置更多的线程，如果一个工作者线程不够用，我们可以考虑将这类线程的数量设置为$2*N_{cpu}$</li>
-</ol>
-<h2><span id="等待与通知waitnotify">等待与通知：wait/notify</span></h2><p>一个线程因为执行目标动作所需的保护条件未满足而被暂停的过程就被称为<strong>等待</strong>，<br>一个线程更新了系统的状态，使得其它线程所需要的保护条件得以满足的时候唤醒那些被暂停的线程的过程被称为<strong>通知</strong>。</p>
-<h3><span id="waitnotify的作用与用法">wait/notify的作用与用法</span></h3><p>Java平台中Object.wait()/Object.wait(long)和Object.notify()/Object.notifyAll()可用于实现等待和通知。<br><a id="more"></a></p>
-<h4><span id="使用objectwait实现等待">使用Object.wait()实现等待</span></h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">synchronized</span> (someObject)&#123;</span><br><span class="line">            <span class="keyword">while</span> (保护条件不成立)&#123;</span><br><span class="line">                <span class="comment">//调用wait方法暂停当前线程</span></span><br><span class="line">                someObject.wait();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//执行目标动作</span></span><br><span class="line">            doAction();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>其中保护条件是一个包含共享变量的布尔表达式.当这些共享变量被其它线程更新之后使相应的保护条件得以成立时，这些线程会通知等待线程。由于一个线程只有在持有一个对象的内部锁的情况下才能够调用该对象的wait方法，所以Object.wait()调用总是放在相应对象所引导的临界区之中。包含上述模板代码的方法被称为<strong>受保护方法</strong>。受保护方法包含三个要素：保护条件，暂停当前线程和目标动作。</p>
-<p>因执行wait方法而被暂停的线程被称为对象上的等待线程。由于同一个对象的同一个方法（wait方法）可以被多个线程执行，因此一个对象可能存在多个等待线程。wait方法会以原子操作的方式使其执行线程（当前线程）<strong>暂停</strong>，并使该线程<strong>释放其持有的对应的内部锁</strong>。其它线程在该线程保护条件成立的时候执行相应的notify方法，可以<strong>唤醒someOBject上的任意的一个等待线程</strong>。被唤醒的等待线程在其占用处理器继续运行的时候，需要<strong>再次申请该对象的内部锁</strong>。</p>
-<h4><span id="使用notify实现通知">使用notify实现通知</span></h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//通知方法</span></span><br><span class="line"><span class="keyword">synchronized</span> (someObject)&#123;</span><br><span class="line">            <span class="comment">//更新保护条件涉及的共享变量</span></span><br><span class="line">            updateSharedState();</span><br><span class="line">            <span class="comment">//通知等待的线程</span></span><br><span class="line">            someObject.notify();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>通知方法包含两个要素：更新共享变量，唤醒其它线程。</p>
-<p><strong>notify的执行线程持有的相应的对象的内部锁只有在notify调用所在的临界区代码执行结束后才会被释放，而notify本身并不会将这个内部。为了减少锁的争用，建议尽量把notify放在临界区代码结尾的地方</strong><br>notify唤醒的线程是相应对象上的任意等待线程。而且等待线程和通知线程是同步在<strong>同一个对象</strong>之上的两种线程。</p>
-<h3><span id="waitnotify的开销及问题">wait/notify的开销及问题</span></h3><ol>
-<li>过早唤醒。假设一组等待/通知线程同步在对象someObject上，初始状态下均不成立，当线程N1更新了共享变量state1使得N1执行notifyAll方法唤醒所有线程，当其它线程的保护条件可能并不成立，这使得线程唤醒后还得睡眠。</li>
-<li>信号丢失。如果等待线程在执行wait前没有先判断保护条件是否已经成立，那么存在这种情形，通知线程在该等待线程进入临界区之前就已经更新了相关的共享变量，使得相应的保护条件成立并进行了通知，但是此时等待线程还没有被暂停，自然就不会唤醒了。也就是说唤醒的信号丢失了。</li>
-<li>欺骗性唤醒。等待线程也可能存在没有其它任何线程执行notify和notifyAll线程的情况下被唤醒。</li>
-<li>上下文切换问题。wait/notify的时候可能导致较多的上下文切换</li>
-</ol>
-<h2><span id="java条件变量">Java条件变量</span></h2><p>JDK1.5 之后引入的新的标准库类java.util.concurent.locks.Condition接口可以作为wait/notify的替代品。<br><code>Lock.newCondition()</code>的返回值就是一个Condition实例。因此调用任何一个显示锁的实例的newCondition方法都可以创建一个相应的Condition接口。Condition.await()/signal()也要求其执行线程持有创建该Condition实例的<strong>显示锁</strong>。每个Condition实例内部都维护乐一个用于存储等待线程的队列。</p>
-<p>假设cond1和cond2是两个不同的Condition实例，一个线程执行Cond1.await()会导致其被暂停，并被存入cond1的等待队列。cond1.signal会使cond1的等待队列中的任意线程被唤醒。调用cond1.signalAll()会使cond1的等待队列中的所有线程被唤醒。而cond2等待队列中的任何一个等待线程都不会受此影响。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> Lock lock=<span class="keyword">new</span> ReentrantLock();</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Condition condition=lock.newCondition();</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">aGuaredMethod</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException</span>&#123;</span><br><span class="line">        lock.lock();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">while</span> (保护条件不成立)&#123;</span><br><span class="line">                condition.await();</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            <span class="comment">//执行目标动作</span></span><br><span class="line">            doAction();</span><br><span class="line">            </span><br><span class="line">        &#125;<span class="keyword">finally</span> &#123;</span><br><span class="line">            lock.unlock();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">anNotificationMethod</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException</span>&#123;</span><br><span class="line">        lock.lock();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">//更新共享变量</span></span><br><span class="line">            changeState();</span><br><span class="line">            </span><br><span class="line">            condition.signal();</span><br><span class="line">        &#125;<span class="keyword">finally</span> &#123;</span><br><span class="line">            lock.unlock();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p>使用Condition接口可以很好的解决过早唤醒的问题。它还解决了Objetc.wait(long)方法无法区分其返回是因为等待超时还是被通知的。Conditon.awaitUntil(Date deadline)可以用于实现待超时时间限制的等待，并且该方法的返回值能够区分该方法调用是由于等待超时而返回还是由于其它线程执行了相应的条件变量的signal/signalAll方法。</p>
-<p><strong>Condition.await()/signal()执行线程需要持有创建相应条件变量的显示锁。</strong></p>
-<p>值得注意的是等待线程被唤醒后再次申请显示锁的这段时间内，其它线程可能已经抢先获得了锁并更新了条件变量使得等待线程所需要的保护条件重新不成立，所以我们在Condition.awaitUntil(Data)返回true（等待未超时）的情况下我们可以选择继续等待。</p>
-<h2><span id="倒计时协调器-countdownlatch">倒计时协调器 CountDownLatch</span></h2><p>Thread.join()可以实现一个线程等待另一个线程结束。有时候一个线程可能只需要等待其它线程执行的特定操作结束即可，而不需要等待该线程终止。我们可以使用<strong>条件变量</strong>来实现这个，也可以使用<strong>倒计时协调器</strong>。</p>
-<p>ConutDownLatch内部维护了一个用于表示<strong>未完成的先决操作数量的计数器</strong>。每调用一次countDown（）相应实例的计数器值会减少1（先决条件完成了一个），await()方法相当于一个受保护的方法，其保护条件为计数器的值为0(先决条件全部完成)。<br>因此，当<strong>计数器的值不为0</strong>的时候，CountDownLatch.await()的执行线程会被<strong>暂停</strong>。这些线程就被称为CountDownLatch上的等待线程。CountDownlatch.countDown()相对于一个<strong>通知方法</strong>，它会在<strong>计数器达到0的时候唤醒</strong>相应实例上的等待线程。<br>因为CountDownLatch内部封装了对“全部先决条件的等待与通知的逻辑”，所以客户端代码在调用await,countDown方法都<strong>无需加锁</strong>。</p>
-<p><strong>CountDownLatch内部计数器值达到0后器值就恒定不变，后续执行该CountDownLatch实例await方法的任何一个线程都不会被暂停。为了避免线程永远等待，需要将CountDown调用放在代码无论怎样都能执行到的地方，或者设置等待时间</strong></p>
-<p>对于同一个CountDownLatch实例latch，latch.countDown()的执行线程在执行该方法之前所执行的任何内存操作对等待线程在latch.await()调用返回之后的代码是可见的且有序的。</p>
-<h2><span id="栅栏">栅栏</span></h2><p>有些时候多个线程可能需要相互等待对方执行到代码中的某个地方。这是整些线程才能够继续执行。JDK 1.5开始引入了一个java.util.concurrent.CyclicBarrier，该类可以实现这种等待。使用CyclicBarrier实现等待的线程被称为参与方。参与方只需要执行await()方法就可以实现等待。CyclicBarrier内部维护了一个显示锁，这使其总是可以在参与方中区分出一个最后执行CyclicBarrier.await()的线程。<strong>除了最后一个线程外的任何参与方</strong>执行await都会导致该线程<strong>被暂停</strong>。</p>
-<h3><span id="典型的应用场景">典型的应用场景</span></h3><ol>
-<li>使迭代算法并发化。在并发化的迭代算法中，迭代操作是由多个工作者线程并行执行的。CyclicBarrier可以来实现执行迭代操作的任何一个工作者线程必须等大其它工作者线程完成当前迭代操作的情况下才能继续其下一轮的迭代操作，以便形成迭代操作的中间结果作为下一轮迭代的基础（输入）。</li>
-<li>在测试代码中模拟高并发。在编写多线程程序的测试代码时，我们常常需要使用邮箱的工作者线程来模拟高并发操作。这些工作者线程中的任意一个线程在执行其操作前必须等待其它线程也准备就绪，使得这些工作者线程能同一时刻开始其操作。</li>
-</ol>
-<h2><span id="生成者-消费者模型">生成者-消费者模型</span></h2><p>在生产者消费者模型中，生产者的主要职责时生产产品，产品可以是<strong>数据，也可以是任务</strong>。消费者的主要职责是消费生产者所生产的产品。这里的消费包括对产品所代表的数据进行加工处理或者执行产品所代表的任务。<br>生产者和消费者是并发的<strong>运行在各自的线程之中</strong>的，这意味着运用生产者-消费者模式可以使程序中原本串行的处理得以并发化。因为线程之间无法直接传递数据，因此生产者消费者之间需要一个用于传递产品的<strong>传输通道</strong>。该传输通道相当于生产者消费者之间的缓冲区。传输通道通常可以使用一个线程安全的队列来实现。</p>
-<p>由于生产者和消费者运行在不同的线程中，因此生产者将产品放入传输通道，消费者在从相应的传输通道中取出产品的过程其实就是生产者线程间对象发布到消费者线程的过程，<strong>这种对象发布必须是线程安全的</strong></p>
-<h2><span id="阻塞队列">阻塞队列</span></h2><p>jdk1.5引入的结口java.util.concurrent.BlockingQueeu定义了一种线程安全的队列：阻塞队列。阻塞队列按照其存储空间的容量是否受限制来划分，可分为有界队列和无界队列。<br><strong>一般而言，一个方法或操作如果能够导致其执行线程被暂停（生命周期状态为waiting或者blocked），那么我们就称相应的方法/操作为阻塞方法</strong></p>
-<h3><span id="几种阻塞队列的对比">几种阻塞队列的对比</span></h3><ol>
-<li>ArrayBlockingQueue是有界队列，内部使用一个数组作为存储空间，因为数组的存储空间是预先分配好的所以put,take操作本身并<strong>不会增加垃圾回收的负担</strong>，缺点是在内部实现put，take时使用的是同一个显示锁，<strong>可能会导致锁的高争用</strong>，进而导致较多的上下文切换。</li>
-<li>LinkedBlockingQUeue既能实现无界队列也能实现有界队列。在创建其实例时可以指定容量。它的优点是其内部在实现put,take操作的时候分别使用了两个显示锁，这<strong>降低了锁争用</strong>的可能性。其缺点是内部使用一个链表来存储数据可能会<strong>导致垃圾回收的负担</strong>，</li>
-<li>SynchronousQueue可以被看座一种特殊的有界队列。它的内部并<strong>不维护用于存储队列元素的存储空间</strong>。适用于生产者生产一个产品必须等待消费后才能继续生产的场景。</li>
-</ol>
-<p>阻塞队列也支持非阻塞式操作，比如BlockingQueue提供的offer(E) poll()。</p>
-<h3><span id="对虚拟资源的管理">对虚拟资源的管理</span></h3><p>在jdk1.5中引入了标准类库java.util.concurrent.Sernaphore可以用来实现流量控制。我们把代码中所访问的特定资源或执行特定操作的机会同一看作一种资源，这种资源被称为<strong>虚拟资源</strong>。Semaphore相当于虚拟资源配额管理器，它可以用来控制同一语句内对虚拟资源的访问次数。</p>
-<p>为了对虚拟资源进行流量控制，我们必须使用相应代码只有在获得相应配额的情况下才能够访问这些资源。因此，代码在访问虚拟资源前必须先申请相应的配额，并在资源访问结束后返还相应的配额。Semaphore.acquire()/release()分别用于申请配额和返回配额。Semaphore.acquire()申请成功后会立即返回，如果<strong>配额不足则会使执行线程等待</strong>。release()会使当前配额值加一，并<strong>唤醒</strong>Semaphore实例的等待队列种的一个任意等待线程。</p>
-<ol>
-<li>acquire和release总是配对使用的。</li>
-<li>release的调用总是应该放在一个finally块种。</li>
-<li>创建Semaphore实例时如果构造器种的参数permits值为一，那么所创建的Semaphore实例相当于一个互斥锁。</li>
-<li>配额本身可被看作程序执行特定操作前所需持有的资源，因此对配额的调度也涉及公平性问题。默认情况下，Semaphore采用的是<strong>非公平性调度策略</strong>。</li>
-</ol>
-<h2><span id="管道">管道</span></h2><p>java类库种提供了PipedOutPutStrean和PipedInputStream，它们可以用来实现<strong>线程间直接输入和输出</strong>。从代码的角度来看，一个线程的输出可以作为另外一个线程的输入，而不需要借用文件、数据库、网络连接的其它数据交换中介。</p>
-<p>PipedOutPutStrean和PipedInputStream适合在<strong>单生产者和单消费者吗模式中使用</strong>。</p>
-<h2><span id="双缓冲区exchanger">双缓冲区Exchanger</span></h2><p>但消费者线程消费一个已填充的缓冲区时，另外一个缓冲区可以由生产者线程进行填充，从而实现了数据生成和与消费的并发。这种缓冲技术被称为双缓冲。<br>jdk 1.5中引入了java.util.concurrent.Exchanger可以用来实现双缓冲。 </p>
-<p>简单说就是一个线程在完成一定的事务后想与另一个线程<strong>交换数据</strong>，则第一个先拿出数据的线程会一直<strong>等待</strong>第二个线程，直到第二个线程<strong>拿着数据到来时才能彼此交换</strong>对应数据。其定义为 Exchanger<v> 泛型类型，其中 V 表示可交换的数据类型</v></p>
-<p><code>Exchanger()</code>：无参构造方法</p>
-<p><code>V exchange(V v)</code>：等待另一个线程到达此交换点（除非当前线程被中断），然后将给定的对象传送给该线程，并接收该线程的对象。</p>
-<p><code>V exchange(V v, long timeout, TimeUnit unit)</code>：等待另一个线程到达此交换点（除非当前线程被中断或超出了指定的等待时间），然后将给定的对象传送给该线程，并接收该线程的对象</p>
-<p><strong>当一个线程到达 exchange 调用点时，如果其他线程此前已经调用了此方法，则其他线程会被调度唤醒并与之进行对象交换，然后各自返回；如果其他线程还没到达交换点，则当前线程会被挂起，直至其他线程到达才会完成交换并正常返回，或者当前线程被中断或超时返回</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.concurrent.Exchanger;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ThreadStudy08</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">        Exchanger&lt;Integer&gt; exchanger = <span class="keyword">new</span> Exchanger&lt;Integer&gt;();</span><br><span class="line">        <span class="keyword">new</span> Producer(<span class="string">""</span>, exchanger).start();</span><br><span class="line">        <span class="keyword">new</span> Consumer(<span class="string">""</span>, exchanger).start();</span><br><span class="line">        Utils.randomPauser(<span class="number">1000</span>);</span><br><span class="line">        System.exit(-<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Producer</span> <span class="keyword">extends</span> <span class="title">Thread</span> </span>&#123;</span><br><span class="line">        <span class="keyword">private</span> Exchanger&lt;Integer&gt; exchanger;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> data = <span class="number">0</span>;</span><br><span class="line">        Producer(String name, Exchanger&lt;Integer&gt; exchanger) &#123;</span><br><span class="line">            <span class="keyword">super</span>(<span class="string">"Producer-"</span> + name);</span><br><span class="line">            <span class="keyword">this</span>.exchanger = exchanger;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">1</span>; i&lt;<span class="number">5</span>; i++) &#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    Utils.randomPauser(<span class="number">1000</span>);</span><br><span class="line">                    data = i;</span><br><span class="line">                    System.out.println(getName()+<span class="string">" 交换前:"</span> + data);</span><br><span class="line">                    data = exchanger.exchange(data); <span class="comment">//等待对方到达交换点</span></span><br><span class="line">                    System.out.println(getName()+<span class="string">" 交换后:"</span> + data);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Consumer</span> <span class="keyword">extends</span> <span class="title">Thread</span> </span>&#123;</span><br><span class="line">        <span class="keyword">private</span> Exchanger&lt;Integer&gt; exchanger;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> data = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        Consumer(String name, Exchanger&lt;Integer&gt; exchanger) &#123;</span><br><span class="line">            <span class="keyword">super</span>(<span class="string">"Consumer-"</span> + name);</span><br><span class="line">            <span class="keyword">this</span>.exchanger = exchanger;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">                data = <span class="number">0</span>;</span><br><span class="line">                System.out.println(getName() + <span class="string">" 交换前:"</span> + data);</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    Utils.randomPauser(<span class="number">1000</span>);</span><br><span class="line">                    data = exchanger.exchange(data);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">                System.out.println(getName() + <span class="string">" 交换后:"</span> + data);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<h2><span id="线程中断机制">线程中断机制</span></h2><p>Java线程中断机制相当于Java线程与线程间协作的一套协议框架。中断可被看作由一个线程发送给另外一个线程的一种指示，该指示用于表示发起线程希望目标线程停止其正在执行的操作。<strong>目标线程可能会满足发起线程的述求，也可能不会</strong> java中每个线程维护一个被称为中断标记的布尔类型变量用于表示相应线程是否收到中断（true为收到）。通过Thread.currentThread().isinterrupted()调用来获取该线程的中断标记值，也可以通过Thread.interrupted()来<strong>获取并重置</strong>中断标记值，调用一个线程的interrupt()相当于将该线程的中断标记置为true</p>
-<h3><span id="interruptedexception异常处理及中断响应">InterruptedException异常处理及中断响应</span></h3><p>能够响应中断的方法通常时在执行阻塞操作前判断中断标志，若中断标志置为true则抛出InterruptedException。</p>
-<p><strong>按照惯例，抛出InterruptedException异常的方法，通常会在其抛出该异常时将当前线程中断标记置为false</strong></p>
-<p>如果在发起线程给目标线程发送中断的那一刻，目标线程已经由于执行了一些阻塞操作而被暂停，那么<strong>Java虚拟机会设置目标线程的中断标记并唤醒线程</strong>。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//正确的捕获中断异常的方法</span></span><br><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">    Thread.sleep(<span class="number">1000</span>)</span><br><span class="line">&#125;<span class="keyword">catch</span>(InterruptedExceptioin e)&#123;</span><br><span class="line">    <span class="comment">//保留线程中断标记</span></span><br><span class="line">    Thread.currentThread().interrupt();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>应当避免InterruptedExceptioin异常被吞没。</p>
-<h2><span id="线程停止">线程停止</span></h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.concurrent.ArrayBlockingQueue;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.BlockingQueue;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.atomic.AtomicInteger;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TerminatableTaskRunner</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">        TerminatableTaskRunner runner=<span class="keyword">new</span> TerminatableTaskRunner(<span class="keyword">new</span> ArrayBlockingQueue&lt;Runnable&gt;(<span class="number">5</span>));</span><br><span class="line"></span><br><span class="line">        runner.submit(()-&gt;&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">2</span>;i++)&#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                    Thread.currentThread().interrupt();</span><br><span class="line">                &#125;</span><br><span class="line">                System.out.println(<span class="string">"任务A执行一次"</span>);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;);</span><br><span class="line">        runner.submit(()-&gt;&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">2</span>;i++)&#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                  Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                    Thread.currentThread().interrupt();</span><br><span class="line">                &#125;</span><br><span class="line">                System.out.println(<span class="string">"任务B执行一次"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        runner.init();</span><br><span class="line">        Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">        runner.shutdown();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">final</span> BlockingQueue&lt;Runnable&gt; channel;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> Thread workerThread;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//线程停止标记</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">volatile</span> <span class="keyword">boolean</span> inUse =<span class="keyword">true</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//待处理的任务计数器</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> AtomicInteger reservations=<span class="keyword">new</span> AtomicInteger(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">TerminatableTaskRunner</span><span class="params">(BlockingQueue&lt;Runnable&gt; channel)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.channel = channel;</span><br><span class="line">        <span class="keyword">this</span>.workerThread=<span class="keyword">new</span> workerThread();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">final</span> Thread t=workerThread;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">null</span> != t) &#123;</span><br><span class="line">            t.start();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">submit</span><span class="params">(Runnable task)</span> <span class="keyword">throws</span> InterruptedException</span>&#123;</span><br><span class="line">        channel.put(task);</span><br><span class="line">        <span class="comment">//待执行的任务加一</span></span><br><span class="line">        reservations.incrementAndGet();</span><br><span class="line">        System.out.println(<span class="string">"收到任务"</span>);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">shutdown</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"开始停止线程"</span>);</span><br><span class="line">        inUse =<span class="keyword">false</span>;</span><br><span class="line">        <span class="keyword">final</span> Thread t=workerThread;</span><br><span class="line">        <span class="keyword">if</span>(t!=<span class="keyword">null</span>)&#123;</span><br><span class="line">            t.interrupt();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">workerThread</span> <span class="keyword">extends</span> <span class="title">Thread</span></span>&#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</span><br><span class="line">            Runnable task=<span class="keyword">null</span>;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="keyword">while</span> (<span class="keyword">true</span>)&#123;</span><br><span class="line">                    <span class="comment">//线程不再需要，且无待处理的任务</span></span><br><span class="line">                    <span class="keyword">if</span> (!inUse &amp;&amp;reservations.get()&lt;=<span class="number">0</span>)&#123;</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="comment">//从阻塞队列中拿出一个任务</span></span><br><span class="line">                    task=channel.take();</span><br><span class="line">                    <span class="keyword">try</span> &#123;</span><br><span class="line">                        task.run();</span><br><span class="line">                    &#125;<span class="keyword">catch</span> (Throwable e)&#123;</span><br><span class="line">                        e.printStackTrace();</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="comment">//使得待处理任务数减一</span></span><br><span class="line">                    reservations.decrementAndGet();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;<span class="keyword">catch</span> (InterruptedException e)&#123;</span><br><span class="line">                workerThread=<span class="keyword">null</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(<span class="string">"工作线程结束"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="/img/alipay.png">
-                      <span class="reward-type">支付宝</span>
-                    </div>
-                    
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="/img/weixin.png">
-                      <span class="reward-type">微信</span>
-                    </div>
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">并发编程</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">变强日记</a>
         		</li>
       		
 		</ul>
 	</div>
 
-      
+          
 
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/09/13/Java多线程编程实战指南读书笔记三/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2019/09/16/Java多线程编程实战指南读书笔记四/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Java多线程编程实战指南读书笔记四
-        
-      </div>
-    </a>
   
   
-    <a href="/2019/09/09/Java多线程编程实战指南读书笔记二/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Java多线程编程实战指南读书笔记二</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-<!-- valine部分 -->
-
-<section id="comments" class="comments">
-  <style>
-    .comments{margin:30px;padding:10px;background:#fff}
-    @media screen and (max-width:800px){.comments{margin:auto;padding:10px;background:#fff}}
-  </style>
-  <div id="vcomment" class="comment"></div> 
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-<script>
-   var notify = 'true' == true ? true : false;
-   var verify = 'false' == true ? true : false;
-    window.onload = function() {
-        new Valine({
-            el: '#vcomment',
-            notify: notify,
-            verify: verify,
-            app_id: "ziNrp7174hrBh9XMtg91L1UH-9Nh9j0Va",
-            app_key: "uGDaWde4F3KHfdgjTumfbXdp",
-            placeholder: "没事唠两句？",
-            avatar:"robohash"
-        });
-    }
-</script>
-  </section>
-
-<!-- valine部分 -->
-  
-  
+    </div></section>
   
 
-  
-
-  
-
-  
-
-
-
-
-
-
-
-
+    
 
 
           </div>
@@ -522,8 +258,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: true,
-		isArchive: false,
+		isPost: false,
+		isArchive: true,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
