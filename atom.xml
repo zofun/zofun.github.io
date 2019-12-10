@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-12-09T14:13:51.105Z</updated>
+  <updated>2019-12-10T13:41:56.783Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>变强日记11</title>
+    <link href="http://yoursite.com/2019/12/09/%E5%8F%98%E5%BC%BA%E6%97%A5%E8%AE%B011/"/>
+    <id>http://yoursite.com/2019/12/09/变强日记11/</id>
+    <published>2019-12-09T15:37:56.000Z</published>
+    <updated>2019-12-10T13:41:56.783Z</updated>
+    
+    <content type="html"><![CDATA[<h2><span id="主要内容">主要内容</span></h2><ol><li>volatile关键字</li><li>算法题：找出出现次数超过一半的数</li></ol><a id="more"></a><h2><span id="volatile关键字">volatile关键字</span></h2><h3><span id="几个相关的基础概念">几个相关的基础概念</span></h3><p>共享变量：共享变量是指能够同时被多个线程访问到的变量，共享变量是存放在堆中的，而所有方法内的临时变量都不是共享变量。<br>重排序：重排序是为了提高指令的运行效率，在编译时或运行时堆指令的执行顺序进行调整的机制。指令重排序都遵循”as-if-serial”语意，即不管怎么重排序，单线程的执行结果不能被改变。<br>可见性：内存的可见性是指线程之间的可见性，一个线程的修改状态对另外一个线程时可见的。比如当线程A去修改了共享变量flag后，线程B去读共享变量flag一定读取到的是最新修改的flag。共享变量的可见性不是理所当然的，<strong>很多时候因为计算机内部的的cache和指令重排序的影响是不能保证可见性的</strong>。</p><h3><span id="volatile的原理">volatile的原理</span></h3><p>volatile修饰的变量不允许线程内部cache缓存和重排序，线程读取数据的时候直接读取内存，同时volatile不会对变量加锁，因此性能会比synchronized好。<br>还有一种说法是：读取一个volatile关键字会使相应的处理器执行刷新处理器缓存的动作，写一个volatile关键字会使得相应的处理器执行冲刷处理器缓存的动作。</p><h2><span id="算法题找出出现次数超过一半的数">算法题：找出出现次数超过一半的数</span></h2><p>题目：<br>数组中有一个数字出现的次数超过数组长度的一半，请找出这个数字。例如输入一个长度为9的数组{1,2,3,2,2,2,5,4,2}。由于数字2在数组中出现了5次，超过数组长度的一半，因此输出2。如果不存在则输出0</p><p>解法：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">MoreThanHalfNum_Solution</span><span class="params">(<span class="keyword">int</span> [] array)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(array.length==<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> result=array[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">int</span> count=<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span>(array.length==<span class="number">1</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> result;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;array.length;i++)&#123;</span><br><span class="line">           <span class="keyword">if</span>(result==array[i])&#123;</span><br><span class="line">               count++;</span><br><span class="line">           &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">               count--;</span><br><span class="line">               <span class="keyword">if</span>(count==<span class="number">0</span>)&#123;</span><br><span class="line">                   result=array[i];</span><br><span class="line">                   count=<span class="number">1</span>;</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> num=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> item : array) &#123;</span><br><span class="line">            <span class="keyword">if</span>(item==result)&#123;</span><br><span class="line">                num++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> num&gt;array.length/<span class="number">2</span>?result:<span class="number">0</span>;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;主要内容&quot;&gt;&lt;a href=&quot;#主要内容&quot; class=&quot;headerlink&quot; title=&quot;主要内容&quot;&gt;&lt;/a&gt;主要内容&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;volatile关键字&lt;/li&gt;
+&lt;li&gt;算法题：找出出现次数超过一半的数&lt;/li&gt;
+&lt;/ol&gt;
+    
+    </summary>
+    
+    
+    
+      <category term="变强日记" scheme="http://yoursite.com/tags/%E5%8F%98%E5%BC%BA%E6%97%A5%E8%AE%B0/"/>
+    
+  </entry>
   
   <entry>
     <title>变强日记10</title>
@@ -517,32 +541,6 @@
       <category term="java" scheme="http://yoursite.com/tags/java/"/>
     
       <category term="SpringCloud" scheme="http://yoursite.com/tags/SpringCloud/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>九月学习总结</title>
-    <link href="http://yoursite.com/2019/10/04/%E4%B9%9D%E6%9C%88%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/"/>
-    <id>http://yoursite.com/2019/10/04/九月学习总结/</id>
-    <published>2019-10-04T09:06:56.000Z</published>
-    <updated>2019-10-04T09:10:53.630Z</updated>
-    
-    <content type="html"><![CDATA[<p>九月是实施学习计划的第一月。学习的任务已经圆满的完成了。有许多的收获，也发现了许多的问题。</p><h2><span id="存在的问题">存在的问题</span></h2><ol><li>在练习算法的时候缺乏深度的思考。在做完题后，也没有及时的阅读题解，寻求更加优秀的解答方案。</li><li>在本月任务完成后的那段时间，缺乏安排，学习效率很低。</li><li>在进行有针对性的学习的时候，对之前学习的东西缺乏巩固。</li><li>九月的学习有点少。</li><li>在确定任务的时候，有些缺乏考虑。比如NIO的学习的收益就很低，该直接学习Netty。</li><li>在后期学习的注意力不够集中。</li></ol><h2><span id="值得肯定的地方">值得肯定的地方</span></h2><ol><li>学习任务是严格按照计划完成了的，并且整理了读书笔记和脑图。</li><li>算法练习一直都在练习，并且对之前练习的算法进行了回顾。</li><li>在书籍不太合适的时候，能够及时的换符合实际情况的书籍来阅读。</li><li>并且完成技术学习的同时，能够很好的利用晚上的时间进行软考的复习。</li></ol><h2><span id="下一月的改进措施">下一月的改进措施</span></h2><ol><li>下一月要针对数据结构与算法进行练习，暂停leetcode的算法练习。将数据结构与算法的练习作为机动的学习任务。确保十月一整月都是忙碌的。</li><li>要加大软考的复习力度，确保软考一次通过。</li><li>注意课堂学习，特别是那些老师上课扯皮的课程，这学期的绩点必须起来。要利用好每天的零散时间进行复习。</li><li>忙起来，不给自己走神的时间。</li><li>适当的关注一些招聘的信息，确保大的方向是正确的。</li></ol>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;九月是实施学习计划的第一月。学习的任务已经圆满的完成了。有许多的收获，也发现了许多的问题。&lt;/p&gt;
-&lt;h2&gt;&lt;span id=&quot;存在的问题&quot;&gt;存在的问题&lt;/span&gt;&lt;/h2&gt;&lt;ol&gt;
-&lt;li&gt;在练习算法的时候缺乏深度的思考。在做完题后，也没有及时的阅读题解，寻求更加优秀的
-      
-    
-    </summary>
-    
-    
-    
-      <category term="随笔" scheme="http://yoursite.com/tags/%E9%9A%8F%E7%AC%94/"/>
     
   </entry>
   
