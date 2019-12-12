@@ -6,15 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives | 个人博客</title>
+  <title>变强日记12 | 个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="个人博客">
-<meta property="og:url" content="http://yoursite.com/archives/page/5/index.html">
+  <meta name="description" content="主要内容 深拷贝与浅拷贝 算法：把数组排成最小的数">
+<meta name="keywords" content="变强日记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="变强日记12">
+<meta property="og:url" content="http://yoursite.com/2019/12/12/变强日记12/index.html">
 <meta property="og:site_name" content="个人博客">
+<meta property="og:description" content="主要内容 深拷贝与浅拷贝 算法：把数组排成最小的数">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-12-12T14:15:15.382Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="个人博客">
+<meta name="twitter:title" content="变强日记12">
+<meta name="twitter:description" content="主要内容 深拷贝与浅拷贝 算法：把数组排成最小的数">
   
     <link rel="alternative" href="/atom.xml" title="个人博客" type="application/atom+xml">
   
@@ -175,474 +180,264 @@
 
 
           <div id="js-content" class="content-ll">
-            
- 
-
-
-
-  
-  
+            <article id="post-变强日记12" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      变强日记12
+    </h1>
+  
+
+        
+        <a href="/2019/12/12/变强日记12/" class="archive-article-date">
+  	<time datetime="2019-12-12T15:37:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-12</time>
+</a>
+        
+      </header>
     
+    <!-- 目录内容 -->
+
+    <p class="show-toc-btn" id="show-toc-btn" onclick="showToc();">
+          <span class="btn-bg"></span>
+          <span class="btn-text">文章导航</span>
+          </p>
+  <div id="toc-article" class="toc-article" style="display:none">
+      <span id="toc-close" class="toc-close" title="隐藏导航" onclick="showBtn();">×</span>
+    <strong class="toc-title">文章目录</strong>
+           <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">主要内容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">2.</span> <span class="toc-text">深拷贝与浅拷贝</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">2.1.</span> <span class="toc-text">浅拷贝</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">2.2.</span> <span class="toc-text">深拷贝</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">3.</span> <span class="toc-text">算法：把数组排成最小的数</span></a></li></ol>
+         </div>
+   <script type="text/javascript">
+  function showToc(){
+    var toc_article = document.getElementById("toc-article");
+    var show_toc_btn = document.getElementById("show-toc-btn");
+    toc_article.setAttribute("style","display:block");
+    show_toc_btn.setAttribute("style","display:none");
+    };
+  function showBtn(){
+    var toc_article = document.getElementById("toc-article");
+    var show_toc_btn = document.getElementById("show-toc-btn");
+    toc_article.setAttribute("style","display:none");
+    show_toc_btn.setAttribute("style","display:block");
+    };
+   </script>
+      
+<!-- 目录内容结束 -->
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2><span id="主要内容">主要内容</span></h2><ol>
+<li>深拷贝与浅拷贝</li>
+<li>算法：把数组排成最小的数</li>
+</ol>
+<a id="more"></a>
+<h2><span id="深拷贝与浅拷贝">深拷贝与浅拷贝</span></h2><h3><span id="浅拷贝">浅拷贝</span></h3><p>浅拷贝对于基本类型的属性会直接进行值传递，也就是对于基本类型的属性会复制一份给新的对象。而对于引用类型的属性，浅拷贝会进行<strong>引用</strong>的传递。因为传递的是引用，因此复制后的对象的此属性和原对象的属性<strong>指向同一个对象</strong>。<br>一段代码来证明：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//引用对象</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RefObj</span> </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyObj</span>  <span class="keyword">implements</span> <span class="title">Cloneable</span></span>&#123;</span><br><span class="line">    <span class="comment">//一定要实现标记接口Colneable否则会报CloneNotSupportedException异常</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> val; <span class="comment">//基本类型的属性</span></span><br><span class="line">    <span class="keyword">private</span> RefObj ref; <span class="comment">//引用类型的属性</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MyObj</span><span class="params">(<span class="keyword">int</span> val,RefObj ref)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.val=val;</span><br><span class="line">        <span class="keyword">this</span>.ref=ref;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> CloneNotSupportedException </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> MyObj A = <span class="keyword">new</span> MyObj(<span class="number">1</span>, <span class="keyword">new</span> RefObj());</span><br><span class="line">        <span class="keyword">final</span> MyObj clone = (MyObj)A.clone();</span><br><span class="line">        System.out.println(A == clone); <span class="comment">//输出false</span></span><br><span class="line">        System.out.println(A.ref == clone.ref); <span class="comment">//输出true</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3><span id="深拷贝">深拷贝</span></h3><p>深拷贝对于基本类型的变量的处理方法和浅拷贝一致，都是复制一份给新的对象。而对于引用类型，深拷贝会复制引用的对象，然后让克隆产生的新对象中的对应属性指向这个复制的引用对象。</p>
+<p>那么如何实现深拷贝呢？<br>常见的有两种方法，一种是重新<code>Cloneable</code>接口中的<code>clone()</code>方法</p>
+<ol>
+<li>方案一：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RefObj</span>  <span class="keyword">implements</span>  <span class="title">Cloneable</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">clone</span><span class="params">()</span> <span class="keyword">throws</span> CloneNotSupportedException </span>&#123;</span><br><span class="line">        <span class="comment">//这个地方进行重写主要为了是改变clone()的访问级别</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">super</span>.clone();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyObj</span>  <span class="keyword">implements</span>  <span class="title">Cloneable</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> val;</span><br><span class="line">    <span class="keyword">public</span> RefObj ref;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MyObj</span><span class="params">(<span class="keyword">int</span> val,RefObj ref)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.val=val;</span><br><span class="line">        <span class="keyword">this</span>.ref=ref;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> Object <span class="title">clone</span><span class="params">()</span> <span class="keyword">throws</span> CloneNotSupportedException </span>&#123;</span><br><span class="line">        MyObj clone = (MyObj)<span class="keyword">super</span>.clone();</span><br><span class="line">        <span class="comment">//让新对象的ref指向一个复制的新的对象</span></span><br><span class="line">        clone.ref= (RefObj) clone.ref.clone();</span><br><span class="line">        <span class="keyword">return</span> clone;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> CloneNotSupportedException </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> MyObj A = <span class="keyword">new</span> MyObj(<span class="number">1</span>, <span class="keyword">new</span> RefObj());</span><br><span class="line">        <span class="keyword">final</span> MyObj clone = (MyObj)A.clone();</span><br><span class="line">        System.out.println(A == clone); <span class="comment">//输出false</span></span><br><span class="line">        System.out.println(A.ref == clone.ref); <span class="comment">//输出false</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>方案二，通过序列化来实现深拷贝<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RefObj</span>  <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyObj</span>  <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> val;</span><br><span class="line">    <span class="keyword">public</span> RefObj ref;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MyObj</span><span class="params">(<span class="keyword">int</span> val,RefObj ref)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.val=val;</span><br><span class="line">        <span class="keyword">this</span>.ref=ref;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException, ClassNotFoundException </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">final</span> MyObj obj = <span class="keyword">new</span> MyObj(<span class="number">1</span>, <span class="keyword">new</span> RefObj());</span><br><span class="line">        ByteArrayOutputStream baos=<span class="keyword">new</span> ByteArrayOutputStream();</span><br><span class="line">        ObjectOutputStream oos=<span class="keyword">new</span> ObjectOutputStream(baos);</span><br><span class="line">        oos.writeObject(obj);</span><br><span class="line"></span><br><span class="line">        oos.flush();</span><br><span class="line"></span><br><span class="line">        ObjectInputStream ois=<span class="keyword">new</span> ObjectInputStream(<span class="keyword">new</span> ByteArrayInputStream(baos.toByteArray()));</span><br><span class="line">        <span class="keyword">final</span> MyObj cloneObj = (MyObj) ois.readObject();</span><br><span class="line"></span><br><span class="line">        System.out.println(obj == cloneObj); <span class="comment">//输出flase</span></span><br><span class="line">        System.out.println(obj.ref == cloneObj.ref);<span class="comment">//输出flase</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p><em>必须实现标记接口Serializable</em></p>
+<h2><span id="算法把数组排成最小的数">算法：把数组排成最小的数</span></h2><p>题目：<br>输入一个正整数数组，把数组里所有数字拼接起来排成一个数，打印能拼接出的所有数字中最小的一个。例如输入数组{3，32，321}，则打印出这三个数字能排成的最小数字为321323。</p>
+<p>思路：<br>任意两个拼接后进行比较，比如:s1+s2,和s2+s1，如果s1+s2大，那说明s2应该放前面，所以按这个规则，s2就应该排在s1前面.按照这个比较的方法，按照冒泡排序的思路，对数组进行排序即可，最后拼接。</p>
+<p>解法：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">PrintMinNumber</span><span class="params">(<span class="keyword">int</span> [] numbers)</span> </span>&#123;</span><br><span class="line">       <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;numbers.length;i++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;numbers.length-i-<span class="number">1</span>;j++)&#123;</span><br><span class="line">                <span class="keyword">long</span> a=Long.valueOf(numbers[j]+<span class="string">""</span>+numbers[j+<span class="number">1</span>]);</span><br><span class="line">                <span class="keyword">long</span> b=Long.valueOf(numbers[j+<span class="number">1</span>]+<span class="string">""</span>+numbers[j]);</span><br><span class="line">                <span class="keyword">if</span>(b&lt;a)&#123;</span><br><span class="line">                    <span class="keyword">int</span> tmp=numbers[j];</span><br><span class="line">                    numbers[j]=numbers[j+<span class="number">1</span>];</span><br><span class="line">                    numbers[j+<span class="number">1</span>]=tmp;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        StringBuilder sb=<span class="keyword">new</span> StringBuilder();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;numbers.length;i++)&#123;</span><br><span class="line">            sb.append(numbers[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> sb.toString();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/img/alipay.png">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/img/weixin.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/06/03/HashMap源码分析/" class="archive-article-date">
-  	<time datetime="2019-06-03T07:48:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-03</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/06/03/HashMap源码分析/">HashMap源码分析</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">源码</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">变强日记</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/12/12/变强日记12/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/06/01/LinkedList源码分析/" class="archive-article-date">
-  	<time datetime="2019-06-01T02:48:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-01</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2019/12/09/变强日记10/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">变强日记10</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
+
+<!-- valine部分 -->
+
+<section id="comments" class="comments">
+  <style>
+    .comments{margin:30px;padding:10px;background:#fff}
+    @media screen and (max-width:800px){.comments{margin:auto;padding:10px;background:#fff}}
+  </style>
+  <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'true' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '#vcomment',
+            notify: notify,
+            verify: verify,
+            app_id: "ziNrp7174hrBh9XMtg91L1UH-9Nh9j0Va",
+            app_key: "uGDaWde4F3KHfdgjTumfbXdp",
+            placeholder: "没事唠两句？",
+            avatar:"robohash"
+        });
+    }
+</script>
+  </section>
+
+<!-- valine部分 -->
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/06/01/LinkedList源码分析/">LinkedList源码分析</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">源码</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/06/01/Vector源码分析/" class="archive-article-date">
-  	<time datetime="2019-06-01T02:24:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-01</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/06/01/Vector源码分析/">Vector源码分析</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">源码</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/05/31/ArrayList源码分析/" class="archive-article-date">
-  	<time datetime="2019-05-31T08:24:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-31</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/05/31/ArrayList源码分析/">ArrayList源码分析</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">源码</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/05/30/java并发编程实践学习笔记二/" class="archive-article-date">
-  	<time datetime="2019-05-30T09:24:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-30</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/05/30/java并发编程实践学习笔记二/">java并发编程学习笔记二</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">并发编程</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/05/24/java_synchronized关键字/" class="archive-article-date">
-  	<time datetime="2019-05-24T13:24:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-24</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/05/24/java_synchronized关键字/">java synchronized关键字</a>
-    </h1>
-  
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/05/14/javastatic关键字的几种用法/" class="archive-article-date">
-  	<time datetime="2019-05-14T02:38:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-14</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/05/14/javastatic关键字的几种用法/">Java static关键字的几种用法</a>
-    </h1>
-  
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/05/10/正则表达式/" class="archive-article-date">
-  	<time datetime="2019-05-10T07:53:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-10</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/05/10/正则表达式/">正则表达式</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">正则表达式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/05/03/TCP三次握手和四次挥手/" class="archive-article-date">
-  	<time datetime="2019-05-03T02:53:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-03</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/05/03/TCP三次握手和四次挥手/">TCP三次握手和四次挥手</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">TCP/IP</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/04/30/java并发编程实践学习笔记一/" class="archive-article-date">
-  	<time datetime="2019-04-30T02:38:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-30</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/04/30/java并发编程实践学习笔记一/">java并发编程实践学习笔记一</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">并发编程</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/page/4/">&laquo; Prev</a><a class="page-number" href="/archives/">1</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/3/">3</a><a class="page-number" href="/archives/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/archives/page/6/">6</a><a class="page-number" href="/archives/page/7/">7</a><a class="extend next" rel="next" href="/archives/page/6/">Next &raquo;</a>
-    </nav>
-  
 
 
           </div>
@@ -668,8 +463,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
