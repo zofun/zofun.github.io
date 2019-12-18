@@ -6,20 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>java并发编程实践学习笔记一 | 个人博客</title>
+  <title>变强日记15 | 个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="介绍在早期的分时共享系统中，每个进程都是一个虚拟的冯诺依曼机。他们拥有一个内存空间，存储着指令和数据，根据机器语言的语义来顺序的执行指令。线程允许程序控制流的多重分支同时存在于一个进程中，他们共享进程范围内的资源。线程有些时候也被称为轻量级进程。并且大多数现代操作系统把线程作为时序调度的基本单元。  线程的优点线程能通过把异步的工作流程转化为普遍存在的顺序流程，使得程序更容易读写和维护。在多处理器">
-<meta name="keywords" content="技术,java,并发编程">
+  <meta name="description" content="主要内容 MySQL中TRUNCATE和DELETE的区别 算法题：使用位运算来代替加减运算符">
+<meta name="keywords" content="变强日记">
 <meta property="og:type" content="article">
-<meta property="og:title" content="java并发编程实践学习笔记一">
-<meta property="og:url" content="http://yoursite.com/2019/04/30/java并发编程实践学习笔记一/index.html">
+<meta property="og:title" content="变强日记15">
+<meta property="og:url" content="http://yoursite.com/2019/12/18/变强日记15/index.html">
 <meta property="og:site_name" content="个人博客">
-<meta property="og:description" content="介绍在早期的分时共享系统中，每个进程都是一个虚拟的冯诺依曼机。他们拥有一个内存空间，存储着指令和数据，根据机器语言的语义来顺序的执行指令。线程允许程序控制流的多重分支同时存在于一个进程中，他们共享进程范围内的资源。线程有些时候也被称为轻量级进程。并且大多数现代操作系统把线程作为时序调度的基本单元。  线程的优点线程能通过把异步的工作流程转化为普遍存在的顺序流程，使得程序更容易读写和维护。在多处理器">
+<meta property="og:description" content="主要内容 MySQL中TRUNCATE和DELETE的区别 算法题：使用位运算来代替加减运算符">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-09-22T12:28:24.912Z">
+<meta property="og:updated_time" content="2019-12-18T14:22:07.739Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="java并发编程实践学习笔记一">
-<meta name="twitter:description" content="介绍在早期的分时共享系统中，每个进程都是一个虚拟的冯诺依曼机。他们拥有一个内存空间，存储着指令和数据，根据机器语言的语义来顺序的执行指令。线程允许程序控制流的多重分支同时存在于一个进程中，他们共享进程范围内的资源。线程有些时候也被称为轻量级进程。并且大多数现代操作系统把线程作为时序调度的基本单元。  线程的优点线程能通过把异步的工作流程转化为普遍存在的顺序流程，使得程序更容易读写和维护。在多处理器">
+<meta name="twitter:title" content="变强日记15">
+<meta name="twitter:description" content="主要内容 MySQL中TRUNCATE和DELETE的区别 算法题：使用位运算来代替加减运算符">
   
     <link rel="alternative" href="/atom.xml" title="个人博客" type="application/atom+xml">
   
@@ -180,58 +180,79 @@
 
 
           <div id="js-content" class="content-ll">
-            <article id="post-java并发编程实践学习笔记一" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-变强日记15" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      java并发编程实践学习笔记一
+      变强日记15
     </h1>
   
 
         
-        <a href="/2019/04/30/java并发编程实践学习笔记一/" class="archive-article-date">
-  	<time datetime="2019-04-30T02:38:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-30</time>
+        <a href="/2019/12/18/变强日记15/" class="archive-article-date">
+  	<time datetime="2019-12-18T13:22:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-18</time>
 </a>
         
       </header>
     
     <!-- 目录内容 -->
 
+    <p class="show-toc-btn" id="show-toc-btn" onclick="showToc();">
+          <span class="btn-bg"></span>
+          <span class="btn-text">文章导航</span>
+          </p>
+  <div id="toc-article" class="toc-article" style="display:none">
+      <span id="toc-close" class="toc-close" title="隐藏导航" onclick="showBtn();">×</span>
+    <strong class="toc-title">文章目录</strong>
+           <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">主要内容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">2.</span> <span class="toc-text">MySQL中TRUNCATE和DELETE的区别?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">3.</span> <span class="toc-text">算法题：使用位运算来代替加减运算符</span></a></li></ol>
+         </div>
+   <script type="text/javascript">
+  function showToc(){
+    var toc_article = document.getElementById("toc-article");
+    var show_toc_btn = document.getElementById("show-toc-btn");
+    toc_article.setAttribute("style","display:block");
+    show_toc_btn.setAttribute("style","display:none");
+    };
+  function showBtn(){
+    var toc_article = document.getElementById("toc-article");
+    var show_toc_btn = document.getElementById("show-toc-btn");
+    toc_article.setAttribute("style","display:none");
+    show_toc_btn.setAttribute("style","display:block");
+    };
+   </script>
+      
 <!-- 目录内容结束 -->
     <div class="article-entry" itemprop="articleBody">
       
-        <h3><span id="介绍">介绍</span></h3><p>在早期的分时共享系统中，每个进程都是一个虚拟的冯诺依曼机。他们拥有一个内存空间，存储着指令和数据，根据机器语言的语义来顺序的执行指令。<br>线程允许程序控制流的多重分支同时存在于一个进程中，他们共享进程范围内的资源。线程有些时候也被称为轻量级进程。并且大多数现代操作系统把线程作为时序调度的基本单元。</p>
-<ul>
-<li><p>线程的优点<br>线程能通过把异步的工作流程转化为普遍存在的顺序流程，使得程序更容易读写和维护。在多处理器的硬件环境中，使用多线程可以更加有效的使用硬件的资源。</p>
+        <h2><span id="主要内容">主要内容</span></h2><ol>
+<li>MySQL中TRUNCATE和DELETE的区别</li>
+<li>算法题：使用位运算来代替加减运算符</li>
+</ol>
+<a id="more"></a>
+<h2><span id="mysql中truncate和delete的区别">MySQL中TRUNCATE和DELETE的区别?</span></h2><p>初次看到这个题目，说实在的非常的茫然，因为我好像从来没有用到过<code>TRUNCATE</code>这个关键字(PS:看来我就是一个连SQL都不会写的lz)，下面是学习后的辨析，总结：</p>
+<ol>
+<li>是否可以使用条件<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">delete</span> <span class="keyword">from</span> student <span class="keyword">where</span> <span class="keyword">id</span>=<span class="number">1</span>; <span class="comment"># 可以携带条件，删除满足条件的记录</span></span><br><span class="line"><span class="keyword">delete</span> <span class="keyword">from</span> student; <span class="comment"># 删除表中所有的数据</span></span><br></pre></td></tr></table></figure>
 </li>
-<li><p>线程的风险<br>在没有充分同步的情况下，多线程中的各种操作的顺序是不可预测的。<br>常见的并发危险还有竞争条件。因为线程共享相同的内存地址空间，并发的运行，他们可能访问或修改其它的线程正在使用的变量。<br>在缺少同步的时候，编译器，硬件和运行时事实上对时间和活动顺序是很随意的，比如在寄存器或高速缓冲中的存储变量，这样会使得他们对于其它线程暂时不可见的。它能提高性能，但是给开发带来了困难。<br>活跃度失败的风险，当一个活动进入某种它永远无法继续再执行的状态时，活跃度失败就会发生了。活跃度失败有多种形式，如死锁（deadlock）、饥饿（starvation）、活锁（livelock）。<br>多线程程序还存在性能危险。</p>
+</ol>
+<p>delete是可以是使用条件的,而truncate是不能使用条件的<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">truncate</span> <span class="keyword">table</span> student</span><br></pre></td></tr></table></figure></p>
+<p>而且delete和truncate都是只删除数据，会保留数据表的。</p>
+<ol start="2">
+<li><p>是否可以回滚<br>因为delete是数据操作语言(DML),因此是可以回滚的。而truncate是数据定义语言(DDL),是无法被回滚的。</p>
 </li>
-</ul>
-<h3><span id="线程安全">线程安全</span></h3><p>无论何时，只要有多于一个的线程访问给定的状态变量，而且其中某个线程会写入该变量，此时必须使用同步来协调线程对该变量的访问。</p>
-<blockquote>
-<p>当多个线程访问一个类时，如果不用考虑这些线程在运行时环境下的调度和交替执行，并且不需要额外的同步以及在调用方代码不必作其它的协调，这个类的行为仍然时正确的，那么称这个类时线程安全的。</p>
-</blockquote>
-<p>对线程安全类的实例进行顺序或并发的一系列操作，都不会导致实例处于无效状态。<br>无状态对象永远是线程安全的。<br><a id="more"></a></p>
-<h4><span id="无状态对象和有状态对象">无状态对象和有状态对象</span></h4><p>有状态对象，就是有实例变量的对象，可以保存数据。<br>无状态对象，就是没有实例变量的对象，不能保存数据，是不变类。</p>
-<h4><span id="原子性">原子性</span></h4><p>原子性是指一个操作是不可中断的，要么全部执行成功要么全部执行失败。即在多个线程一起执行的时候，一个操作一旦开始，就不会被其它线程所干扰。</p>
-<p>java内存模型定义的原子操作</p>
-<ul>
-<li>lock(锁定)：作用于主内存中的变量，它把一个变量标识为一个线程独占的状态；</li>
-<li>unlock(解锁):作用于主内存中的变量，它把一个处于锁定状态的变量释放出来，释放后的变量才可以被其他线程锁定</li>
-<li>read（读取）：作用于主内存的变量，它把一个变量的值从主内存传输到线程的工作内存中，以便后面的load动作使用；</li>
-<li>load（载入）：作用于工作内存中的变量，它把read操作从主内存中得到的变量值放入工作内存中的变量副本</li>
-<li>use（使用）：作用于工作内存中的变量，它把工作内存中一个变量的值传递给执行引擎，每当虚拟机遇到一个需要使用到变量的值的字节码指令时将会执行这个操作；</li>
-<li>assign（赋值）：作用于工作内存中的变量，它把一个从执行引擎接收到的值赋给工作内存的变量，每当虚拟机遇到一个给变量赋值的字节码指令时执行这个操作；</li>
-<li>store（存储）：作用于工作内存的变量，它把工作内存中一个变量的值传送给主内存中以便随后的write操作使用；</li>
-<li>write（操作）：作用于主内存的变量，它把store操作从工作内存中得到的变量的值放入主内存的变量中。</li>
-</ul>
-<h4><span id="竞争条件">竞争条件</span></h4><p>类中存在竞争条件，导致其结果是不可靠的。<br>常见的一种竞争条件是“检查再运行”，使用一个潜在的过期值作为决定下一步操作的依据。</p>
-<p>检查再运行的常见用法是惰性初始化，它导致其不是线程安全的，如懒汉式单例模式：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@NotThreadSafe</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LazyInitRace</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> ExpensiveObject instance=<span class="keyword">null</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> ExpensiveObject <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(instance==<span class="keyword">null</span>)&#123;</span><br><span class="line">            instance=<span class="keyword">new</span> ExpensiceObject();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>java.uiil.concurrent.atomic包种包括了原子变量类，这些类用来实现数字或对象应用状态转换。</p>
-<h3><span id="内部锁">内部锁</span></h3><p>java提供了强制原子性的内置锁机制：synchronized块，其包含锁对象的引用，以及这个锁保护的代码块。内部锁在java中扮演了互斥锁的角色，同一时间至多有一个线程拥有锁。因此，由同一个锁保护的synchronized块会各自原子地执行，不会相互干扰。<br>内部锁是可重入锁。当一个线程请求其它线程已经占有的锁时，请求线程将被阻塞，因为内部锁时可重进入的，因此线程企图获得它自己占有的锁时，请求会成功。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Widget</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">doSomething</span><span class="params">()</span></span>&#123;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*因为内部锁是可重进入的，所以不会发生死锁*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LoggingWidget</span> <span class="title">extend</span> <span class="title">Widget</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">doSomething</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.doSomething();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<li><p>效率<br>也正是因为truncate是不支持回滚的，因此需要处理事务日志，因此trucate删除数据更加快，且耗费的资源更少。</p>
+</li>
+</ol>
+<h2><span id="算法题使用位运算来代替加减运算符">算法题：使用位运算来代替加减运算符</span></h2><p>例题：<br>[leetcode371]:两整数之和 不使用运算符 + 和 - ，计算两整数 a 、b之和。</p>
+<p>分析：<br>要使用位运算来代替加减运算，就需要分析一波。位运算是如何实现加法的。 0 + 0 =0 0 + 1 =1 1 + 0 =1 1 + 1 =0（进位1） 很明显的规律就是相同位为0，不同位为1.也就是异或。<br>那么它的进位有什么特点呢？ 比如：5+4<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">        0101</span><br><span class="line">    +   0100</span><br><span class="line">        ——————</span><br><span class="line">进位为：0100</span><br></pre></td></tr></table></figure></p>
+<p>很明显，进位就是按位与。 但是进位是应该放在高一位的，所以我们需要将进位结果左移一位。<br>所以我们的解放方案是：</p>
+<ol>
+<li>a+b的计算方案拆分为(a+b的无进位结果)+(a+b的进位结果)</li>
+<li>循环这个操作，直到进位为0为止（可以递归）</li>
+</ol>
+<p>解法：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getSum</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(b==<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="comment">//直到进位为0，就直接返回无进位结果</span></span><br><span class="line">            <span class="keyword">return</span> a; <span class="comment">//语句一</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//计算进位</span></span><br><span class="line">        <span class="keyword">int</span> out=(a&amp;b)&lt;&lt;<span class="number">1</span>;</span><br><span class="line">        <span class="comment">//计算无进位结果</span></span><br><span class="line">        <span class="keyword">int</span> n=a^b;</span><br><span class="line">        <span class="comment">//递归调用，直到达到递归基线，也就是语句一</span></span><br><span class="line">        <span class="keyword">return</span> getSum(n, out);</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 
       
 
@@ -276,15 +297,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">并发编程</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">变强日记</a>
         		</li>
       		
 		</ul>
@@ -340,7 +353,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/04/30/java并发编程实践学习笔记一/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/12/18/变强日记15/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -354,18 +367,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/05/03/TCP三次握手和四次挥手/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          TCP三次握手和四次挥手
-        
-      </div>
-    </a>
   
-  
-    <a href="/2019/04/28/MySQL技术内幕学习笔记四/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">MySQL技术内幕学习笔记四</div>
+    <a href="/2019/12/17/变强日记14/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">变强日记14</div>
       <i class="icon-circle-right"></i>
     </a>
   
