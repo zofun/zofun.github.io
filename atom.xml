@@ -257,30 +257,6 @@
   </entry>
   
   <entry>
-    <title>变强日记10</title>
-    <link href="http://yoursite.com/2019/12/09/%E5%8F%98%E5%BC%BA%E6%97%A5%E8%AE%B010/"/>
-    <id>http://yoursite.com/2019/12/09/变强日记10/</id>
-    <published>2019-12-09T15:37:56.000Z</published>
-    <updated>2019-12-09T14:13:51.105Z</updated>
-    
-    <content type="html"><![CDATA[<h2><span id="主要内容">主要内容</span></h2><ol><li>快速失败(fail-fast)和安全失败(fail-safe)的区别是什么？</li><li>算法：二叉树中和为某一值的路径</li></ol><a id="more"></a><h2><span id="快速失败fail-fast和安全失败fail-safe的区别是什么">快速失败(fail-fast)和安全失败(fail-safe)的区别是什么？</span></h2><h3><span id="什么是快速失败">什么是快速失败？</span></h3><p>在使用迭代器遍历一个集合对象时，迭代器是直接访问的集合中的内容，并且如果遍历过程中对集合对象的结构进行了修改，就会抛出<code>ConcurrentModeficationException</code><br>在集合类中维护了一个<code>protected transient int modCount = 0;</code>每当读集合的结构发送修改的时候，该值就会进行自增。而在迭代器中也维护了一个<code>expectedModCount</code>.在hashNext()/next()方法中会进行一个判断，但检测到<code>modCount != expectedModCount</code>就会抛出异常<code>ConcurrentModificationException</code>。<br>如果集合发送了变化但modCount的值又刚好等于expectedModCount的话，就不会抛出异常。因此不能依赖这个异常是否抛出而进行并发操作的编程，这个异常只建议用来检测并发修改的bug。</p><h3><span id="什么是安全失败">什么是安全失败?</span></h3><p>在使用安全失败机制的集合容器中，在遍历时不是直接在集合内容上访问的，而是复制原有的集合的内容，在拷贝的集合上进行遍历。因此在原集合上的修改对于迭代器来说是不知道的。<br><code>java.util.concurrent</code>包下的容器都是安全失败，可以在多线程下并发使用，并发修改。</p><h2><span id="算法二叉树中和为某一值的路径">算法：二叉树中和为某一值的路径</span></h2><p>题目描述：<br>输入一颗二叉树的跟节点和一个整数，打印出二叉树中结点值的和为输入整数的所有路径。路径定义为从树的根结点开始往下一直到叶结点所经过的结点形成一条路径。(注意: 在返回值的list中，数组长度大的数组靠前)</p><p>解法：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> ArrayList&lt;ArrayList&lt;Integer&gt;&gt; result=<span class="keyword">new</span> ArrayList&lt;ArrayList&lt;Integer&gt;&gt;();</span><br><span class="line">    <span class="keyword">private</span> ArrayList&lt;Integer&gt; list=<span class="keyword">new</span> ArrayList&lt;Integer&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> ArrayList&lt;ArrayList&lt;Integer&gt;&gt; FindPath(TreeNode root,<span class="keyword">int</span> target) &#123;</span><br><span class="line">        <span class="keyword">if</span>(root==<span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> result;</span><br><span class="line">        &#125;</span><br><span class="line">        list.add(root.val);</span><br><span class="line">        target-=root.val;</span><br><span class="line">        <span class="keyword">if</span>(target==<span class="number">0</span>&amp;&amp;root.left==<span class="keyword">null</span>&amp;&amp;root.right==<span class="keyword">null</span>)&#123;</span><br><span class="line">            result.add(<span class="keyword">new</span> ArrayList&lt;Integer&gt;(list));</span><br><span class="line">        &#125;</span><br><span class="line">        FindPath(root.left,target);</span><br><span class="line">        FindPath(root.right,target);</span><br><span class="line">        list.remove(list.size()-<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;主要内容&quot;&gt;&lt;a href=&quot;#主要内容&quot; class=&quot;headerlink&quot; title=&quot;主要内容&quot;&gt;&lt;/a&gt;主要内容&lt;/h2&gt;&lt;ol&gt;
-&lt;li&gt;快速失败(fail-fast)和安全失败(fail-safe)的区别是什么？&lt;/li&gt;
-&lt;li&gt;算法：二叉树中和为某一值的路径&lt;/li&gt;
-&lt;/ol&gt;
-    
-    </summary>
-    
-    
-    
-      <category term="变强日记" scheme="http://yoursite.com/tags/%E5%8F%98%E5%BC%BA%E6%97%A5%E8%AE%B0/"/>
-    
-  </entry>
-  
-  <entry>
     <title>变强日记11</title>
     <link href="http://yoursite.com/2019/12/09/%E5%8F%98%E5%BC%BA%E6%97%A5%E8%AE%B011/"/>
     <id>http://yoursite.com/2019/12/09/变强日记11/</id>
@@ -294,6 +270,30 @@
       &lt;h2 id=&quot;主要内容&quot;&gt;&lt;a href=&quot;#主要内容&quot; class=&quot;headerlink&quot; title=&quot;主要内容&quot;&gt;&lt;/a&gt;主要内容&lt;/h2&gt;&lt;ol&gt;
 &lt;li&gt;volatile关键字&lt;/li&gt;
 &lt;li&gt;算法题：找出出现次数超过一半的数&lt;/li&gt;
+&lt;/ol&gt;
+    
+    </summary>
+    
+    
+    
+      <category term="变强日记" scheme="http://yoursite.com/tags/%E5%8F%98%E5%BC%BA%E6%97%A5%E8%AE%B0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>变强日记10</title>
+    <link href="http://yoursite.com/2019/12/09/%E5%8F%98%E5%BC%BA%E6%97%A5%E8%AE%B010/"/>
+    <id>http://yoursite.com/2019/12/09/变强日记10/</id>
+    <published>2019-12-09T15:37:56.000Z</published>
+    <updated>2019-12-09T14:13:51.105Z</updated>
+    
+    <content type="html"><![CDATA[<h2><span id="主要内容">主要内容</span></h2><ol><li>快速失败(fail-fast)和安全失败(fail-safe)的区别是什么？</li><li>算法：二叉树中和为某一值的路径</li></ol><a id="more"></a><h2><span id="快速失败fail-fast和安全失败fail-safe的区别是什么">快速失败(fail-fast)和安全失败(fail-safe)的区别是什么？</span></h2><h3><span id="什么是快速失败">什么是快速失败？</span></h3><p>在使用迭代器遍历一个集合对象时，迭代器是直接访问的集合中的内容，并且如果遍历过程中对集合对象的结构进行了修改，就会抛出<code>ConcurrentModeficationException</code><br>在集合类中维护了一个<code>protected transient int modCount = 0;</code>每当读集合的结构发送修改的时候，该值就会进行自增。而在迭代器中也维护了一个<code>expectedModCount</code>.在hashNext()/next()方法中会进行一个判断，但检测到<code>modCount != expectedModCount</code>就会抛出异常<code>ConcurrentModificationException</code>。<br>如果集合发送了变化但modCount的值又刚好等于expectedModCount的话，就不会抛出异常。因此不能依赖这个异常是否抛出而进行并发操作的编程，这个异常只建议用来检测并发修改的bug。</p><h3><span id="什么是安全失败">什么是安全失败?</span></h3><p>在使用安全失败机制的集合容器中，在遍历时不是直接在集合内容上访问的，而是复制原有的集合的内容，在拷贝的集合上进行遍历。因此在原集合上的修改对于迭代器来说是不知道的。<br><code>java.util.concurrent</code>包下的容器都是安全失败，可以在多线程下并发使用，并发修改。</p><h2><span id="算法二叉树中和为某一值的路径">算法：二叉树中和为某一值的路径</span></h2><p>题目描述：<br>输入一颗二叉树的跟节点和一个整数，打印出二叉树中结点值的和为输入整数的所有路径。路径定义为从树的根结点开始往下一直到叶结点所经过的结点形成一条路径。(注意: 在返回值的list中，数组长度大的数组靠前)</p><p>解法：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> ArrayList&lt;ArrayList&lt;Integer&gt;&gt; result=<span class="keyword">new</span> ArrayList&lt;ArrayList&lt;Integer&gt;&gt;();</span><br><span class="line">    <span class="keyword">private</span> ArrayList&lt;Integer&gt; list=<span class="keyword">new</span> ArrayList&lt;Integer&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> ArrayList&lt;ArrayList&lt;Integer&gt;&gt; FindPath(TreeNode root,<span class="keyword">int</span> target) &#123;</span><br><span class="line">        <span class="keyword">if</span>(root==<span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> result;</span><br><span class="line">        &#125;</span><br><span class="line">        list.add(root.val);</span><br><span class="line">        target-=root.val;</span><br><span class="line">        <span class="keyword">if</span>(target==<span class="number">0</span>&amp;&amp;root.left==<span class="keyword">null</span>&amp;&amp;root.right==<span class="keyword">null</span>)&#123;</span><br><span class="line">            result.add(<span class="keyword">new</span> ArrayList&lt;Integer&gt;(list));</span><br><span class="line">        &#125;</span><br><span class="line">        FindPath(root.left,target);</span><br><span class="line">        FindPath(root.right,target);</span><br><span class="line">        list.remove(list.size()-<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;主要内容&quot;&gt;&lt;a href=&quot;#主要内容&quot; class=&quot;headerlink&quot; title=&quot;主要内容&quot;&gt;&lt;/a&gt;主要内容&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;快速失败(fail-fast)和安全失败(fail-safe)的区别是什么？&lt;/li&gt;
+&lt;li&gt;算法：二叉树中和为某一值的路径&lt;/li&gt;
 &lt;/ol&gt;
     
     </summary>
