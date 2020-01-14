@@ -181,6 +181,192 @@
 
 
   
+    <article id="post-Redis设计与实现读书笔记一" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/27/Redis设计与实现读书笔记一/">Redis设计与实现读书笔记一</a>
+    </h1>
+  
+
+        
+        <a href="/2019/10/27/Redis设计与实现读书笔记一/" class="archive-article-date">
+  	<time datetime="2019-10-27T09:39:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-27</time>
+</a>
+        
+      </header>
+    
+    <!-- 目录内容 -->
+
+<!-- 目录内容结束 -->
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="简单动态字符串"><a href="#简单动态字符串" class="headerlink" title="简单动态字符串"></a>简单动态字符串</h2><p>Redis没有直接使用C语言中的以空字符结尾的字符串。而是自己构建了中名为简单动态字符串（SDS）的抽象类型。<br>Redis中直接使用C字符串的地方仅仅是那些不需要对字符串进行修改的地方，作为字面量使用。<br>Redis底层使用了大量的SDS。<br>比如<code>set msg &quot;hello world&quot;</code>，这个命令会建立一个键值对，Redis会位msg创建一个SDS，位’hello world’创建一个键值对。</p>
+<h3 id="SDS的定义"><a href="#SDS的定义" class="headerlink" title="SDS的定义"></a>SDS的定义</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">sdshdr</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> len; <span class="comment">//记录buf中已经使用的字节数，等于SDS所保存的字符串的长度</span></span><br><span class="line">    <span class="keyword">int</span> <span class="built_in">free</span>; <span class="comment">//记录buf中空闲的字节的数量</span></span><br><span class="line">    <span class="keyword">char</span> buf[]; <span class="comment">//字节数组，用于保存字符串</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        
+          <a class="article-more-a" href="/2019/10/27/Redis设计与实现读书笔记一/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Redis</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/10/27/Redis设计与实现读书笔记一/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-Redis实战学习笔记二" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/23/Redis实战学习笔记二/">Redis实战学习笔记二</a>
+    </h1>
+  
+
+        
+        <a href="/2019/10/23/Redis实战学习笔记二/" class="archive-article-date">
+  	<time datetime="2019-10-23T08:39:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-23</time>
+</a>
+        
+      </header>
+    
+    <!-- 目录内容 -->
+
+<!-- 目录内容结束 -->
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="使用Redis构建支持程序"><a href="#使用Redis构建支持程序" class="headerlink" title="使用Redis构建支持程序"></a>使用Redis构建支持程序</h2><h3 id="案例一：-使用Redis实现日志的记录"><a href="#案例一：-使用Redis实现日志的记录" class="headerlink" title="案例一： 使用Redis实现日志的记录"></a>案例一： 使用Redis实现日志的记录</h3><p><strong>需求：</strong> 在构建应用程序和服务的过程中，对正在运行的系统的相关信息进行挖掘变得越来越重要。这都依赖于日志。</p>
+<p><strong>分析：</strong> 许多日志的记录的方式都是将日志记录到文件中去，然后随着时间的流逝新建日志文件（因为日志文件大大小不可能无限的增长），因为每个服务都有相应的日志记录，并且每种服务的日志轮换机制也是不同的，这就会缺少了一种将这些日志聚合的方案。<br>还有一种日志记录方式是利用syslog服务来进行日志的记录。syslog服务接收各个服务的日志信息，并路由到不同的磁盘上，它还负责日志的轮换和删除工作。它要比直接写文件方便的多。</p>
+<p>我们也可以利用Redis来实现日志的记录。</p>
+<p><strong>实现方式：</strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">SEVERITY=&#123;   <span class="comment"># 设置一个字典，将日志的安全级别映射为字符串</span></span><br><span class="line">    loggin.DEBUG:<span class="string">'debug'</span>,</span><br><span class="line">    loggin.INFO：<span class="string">'info'</span>,</span><br><span class="line">    loggin.WARNING:<span class="string">'warning'</span>,</span><br><span class="line">    loggin.ERROR:<span class="string">'error'</span>,</span><br><span class="line">    loggin.CRITICAL:<span class="string">'critical'</span></span><br><span class="line">&#125;</span><br><span class="line">SERVERITY.update((name,name) <span class="keyword">for</span> name <span class="keyword">in</span> SERVERITY.values())</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">log_recent</span><span class="params">(conn,name,message,severity=loggin.INFO,pipe=None)</span>:</span></span><br><span class="line">    <span class="comment"># 将日志的安全级别映射为简单的字符串</span></span><br><span class="line">    severity=str(SEVERITY.get(severity,severity)).lower() </span><br><span class="line">    <span class="comment"># 创建负责存储消息的键</span></span><br><span class="line">    destination=<span class="string">'recent:%s:%s'</span>%(name,severity)</span><br><span class="line">    <span class="comment"># 在消息中添加当前时间</span></span><br><span class="line">    message=time.asctime()+<span class="string">' '</span>+message</span><br><span class="line">    <span class="comment"># 使用流水线通信方式</span></span><br><span class="line">    pipe=pipe <span class="keyword">or</span> conn.pipeline()</span><br><span class="line">    pipe=lpush(destination,message)</span><br><span class="line">    <span class="comment"># 对日志列表进行修剪，只保留100条消息</span></span><br><span class="line">    pipe.ltrim(destination,<span class="number">0</span>,<span class="number">99</span>)</span><br><span class="line">    <span class="comment"># 执行两个命令</span></span><br><span class="line">    pipe.execute()</span><br></pre></td></tr></table></figure></p>
+        
+          <a class="article-more-a" href="/2019/10/23/Redis实战学习笔记二/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Redis</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/10/23/Redis实战学习笔记二/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-Redis实战学习笔记一" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -973,194 +1159,6 @@
 
 
   
-    <article id="post-高性能 MySQL读书笔记一" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/21/高性能 MySQL读书笔记一/">高性能MySQL读书笔记一</a>
-    </h1>
-  
-
-        
-        <a href="/2019/09/21/高性能 MySQL读书笔记一/" class="archive-article-date">
-  	<time datetime="2019-09-21T09:46:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-21</time>
-</a>
-        
-      </header>
-    
-    <!-- 目录内容 -->
-
-<!-- 目录内容结束 -->
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="索引基础"><a href="#索引基础" class="headerlink" title="索引基础"></a>索引基础</h2><p>索引类似于书的目录。存储引擎在索引中找到对应值，然后再根据匹配的索引记录找到对应的数据行。<br>索引可以包含一个活多个列的值。如果索引包含多个列，那么列的顺序也十分重要，因为MySQL只能高校地利用索引地最左前缀列。</p>
-<h2 id="索引的类型"><a href="#索引的类型" class="headerlink" title="索引的类型"></a>索引的类型</h2><p>索引有很多类型，MySQL的索引是在存储引擎层实现的，所以没有统一的索引标准。</p>
-<h3 id="B-Tree索引"><a href="#B-Tree索引" class="headerlink" title="B-Tree索引"></a>B-Tree索引</h3><p>大多少MySQL引擎都支持这种索引。他们的内部实现也是不同的，有些存储引擎使用T-Tree结构存储这种索引，有些使用B+Tree。当然性能也各有不同。<br>B-Tree通常意味着所有的值都是按顺序存储的，并且每一个叶子页到根的距离相同相同。<br>B-Tree索引能够加快访问数据的速度，因为存储引擎不再需要进行全表扫描来获取需要的数据，取而代之的是从索引的根节点开始进行搜索。<br><strong>B-Tree对索引是顺序组织存储的，所以很适合查找范围数据</strong><br>索引对多个值进行排序的依据是建表语句中定义的索引列的顺序进行排序的。<br>B-Tree索引适用于全键值、键值范围或键前缀查找。其中键前缀查找只适用于根据最左前缀的操作。<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> People(</span><br><span class="line">    last_name <span class="built_in">varchar</span>(<span class="number">50</span>) <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line">    first_name <span class="built_in">varchar</span>(<span class="number">50</span>) <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line">    dob <span class="built_in">date</span> <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line">    gender enum(<span class="string">'m'</span>,<span class="string">'f'</span>) <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line">    <span class="keyword">key</span>(last_name,first_name,dob)</span><br><span class="line">)</span><br></pre></td></tr></table></figure></p>
-        
-          <a class="article-more-a" href="/2019/09/21/高性能 MySQL读书笔记一/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/09/21/高性能 MySQL读书笔记一/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Java多线程编程实战指南读书笔记四" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/16/Java多线程编程实战指南读书笔记四/">Java多线程编程实战指南读书笔记四</a>
-    </h1>
-  
-
-        
-        <a href="/2019/09/16/Java多线程编程实战指南读书笔记四/" class="archive-article-date">
-  	<time datetime="2019-09-16T02:15:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-16</time>
-</a>
-        
-      </header>
-    
-    <!-- 目录内容 -->
-
-<!-- 目录内容结束 -->
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="java运行时存储空间"><a href="#java运行时存储空间" class="headerlink" title="java运行时存储空间"></a>java运行时存储空间</h2><p>Java运行时空间可以非位堆空间，栈空间和非堆空间<strong>。其中堆空间和非堆空间时被多个线程共享的</strong>，而栈空间则是线程的私有空间。每个线程都有自己<strong>私有的</strong>栈空间。<br>栈空间时为线程的执行而准备的一段固定大小的内存空间，栈空间时线程创建的时候非配的。线程的方法调用是利用栈帧。局部变量的变量之存储在栈空间中，基础类型变量和引用的类型的变量的变量值都是直接存储在栈帧中的。<br><strong>由于一个线程无法访问另一个线程的栈空间，所以线程堆局部变量以及对只能通过当前线程的局部变量才能访问的对象进行操作具有固有的线程安全性</strong><br>堆空间用于存储对象，它也时垃圾回收器工作的场所，即堆空间中没有可达引用的对象会被回收。<br>非堆空间用于存储常量以及类的元数据等，它是Java虚拟机系统的时候分配的一段可以动态扩容的内存空间。类的元数据包括类的静态变量、类有哪些方法以及这些方法的元数据（包括名称，参数和返回值等）<br>
-        
-          <a class="article-more-a" href="/2019/09/16/Java多线程编程实战指南读书笔记四/#more">more >></a>
-        
-      
-
-      
-    </p></div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">并发编程</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/09/16/Java多线程编程实战指南读书笔记四/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/5/">Next &raquo;</a>
@@ -1298,15 +1296,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">innoDB引擎</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">innodb引擎</a>
+                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1314,11 +1308,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">IP协议</a>
+                <a href="javascript:void(0)" class="js-tag color4">innodb引擎</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">TCP/IP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">IP协议</a>
               </li>
              
               <li class="article-tag-list-item">
