@@ -433,30 +433,6 @@
   </entry>
   
   <entry>
-    <title>变强日记11</title>
-    <link href="http://yoursite.com/2019/12/09/%E5%8F%98%E5%BC%BA%E6%97%A5%E8%AE%B011/"/>
-    <id>http://yoursite.com/2019/12/09/变强日记11/</id>
-    <published>2019-12-09T15:37:56.000Z</published>
-    <updated>2019-12-10T13:41:56.783Z</updated>
-    
-    <content type="html"><![CDATA[<h2><span id="主要内容">主要内容</span></h2><ol><li>volatile关键字</li><li>算法题：找出出现次数超过一半的数</li></ol><a id="more"></a><h2><span id="volatile关键字">volatile关键字</span></h2><h3><span id="几个相关的基础概念">几个相关的基础概念</span></h3><p>共享变量：共享变量是指能够同时被多个线程访问到的变量，共享变量是存放在堆中的，而所有方法内的临时变量都不是共享变量。<br>重排序：重排序是为了提高指令的运行效率，在编译时或运行时堆指令的执行顺序进行调整的机制。指令重排序都遵循”as-if-serial”语意，即不管怎么重排序，单线程的执行结果不能被改变。<br>可见性：内存的可见性是指线程之间的可见性，一个线程的修改状态对另外一个线程时可见的。比如当线程A去修改了共享变量flag后，线程B去读共享变量flag一定读取到的是最新修改的flag。共享变量的可见性不是理所当然的，<strong>很多时候因为计算机内部的的cache和指令重排序的影响是不能保证可见性的</strong>。</p><h3><span id="volatile的原理">volatile的原理</span></h3><p>volatile修饰的变量不允许线程内部cache缓存和重排序，线程读取数据的时候直接读取内存，同时volatile不会对变量加锁，因此性能会比synchronized好。<br>还有一种说法是：读取一个volatile关键字会使相应的处理器执行刷新处理器缓存的动作，写一个volatile关键字会使得相应的处理器执行冲刷处理器缓存的动作。</p><h2><span id="算法题找出出现次数超过一半的数">算法题：找出出现次数超过一半的数</span></h2><p>题目：<br>数组中有一个数字出现的次数超过数组长度的一半，请找出这个数字。例如输入一个长度为9的数组{1,2,3,2,2,2,5,4,2}。由于数字2在数组中出现了5次，超过数组长度的一半，因此输出2。如果不存在则输出0</p><p>解法：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">MoreThanHalfNum_Solution</span><span class="params">(<span class="keyword">int</span> [] array)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(array.length==<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> result=array[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">int</span> count=<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span>(array.length==<span class="number">1</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> result;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;array.length;i++)&#123;</span><br><span class="line">           <span class="keyword">if</span>(result==array[i])&#123;</span><br><span class="line">               count++;</span><br><span class="line">           &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">               count--;</span><br><span class="line">               <span class="keyword">if</span>(count==<span class="number">0</span>)&#123;</span><br><span class="line">                   result=array[i];</span><br><span class="line">                   count=<span class="number">1</span>;</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> num=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> item : array) &#123;</span><br><span class="line">            <span class="keyword">if</span>(item==result)&#123;</span><br><span class="line">                num++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> num&gt;array.length/<span class="number">2</span>?result:<span class="number">0</span>;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;主要内容&quot;&gt;&lt;a href=&quot;#主要内容&quot; class=&quot;headerlink&quot; title=&quot;主要内容&quot;&gt;&lt;/a&gt;主要内容&lt;/h2&gt;&lt;ol&gt;
-&lt;li&gt;volatile关键字&lt;/li&gt;
-&lt;li&gt;算法题：找出出现次数超过一半的数&lt;/li&gt;
-&lt;/ol&gt;
-    
-    </summary>
-    
-    
-    
-      <category term="变强日记" scheme="http://yoursite.com/tags/%E5%8F%98%E5%BC%BA%E6%97%A5%E8%AE%B0/"/>
-    
-  </entry>
-  
-  <entry>
     <title>变强日记10</title>
     <link href="http://yoursite.com/2019/12/09/%E5%8F%98%E5%BC%BA%E6%97%A5%E8%AE%B010/"/>
     <id>http://yoursite.com/2019/12/09/变强日记10/</id>
@@ -470,6 +446,30 @@
       &lt;h2 id=&quot;主要内容&quot;&gt;&lt;a href=&quot;#主要内容&quot; class=&quot;headerlink&quot; title=&quot;主要内容&quot;&gt;&lt;/a&gt;主要内容&lt;/h2&gt;&lt;ol&gt;
 &lt;li&gt;快速失败(fail-fast)和安全失败(fail-safe)的区别是什么？&lt;/li&gt;
 &lt;li&gt;算法：二叉树中和为某一值的路径&lt;/li&gt;
+&lt;/ol&gt;
+    
+    </summary>
+    
+    
+    
+      <category term="变强日记" scheme="http://yoursite.com/tags/%E5%8F%98%E5%BC%BA%E6%97%A5%E8%AE%B0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>变强日记11</title>
+    <link href="http://yoursite.com/2019/12/09/%E5%8F%98%E5%BC%BA%E6%97%A5%E8%AE%B011/"/>
+    <id>http://yoursite.com/2019/12/09/变强日记11/</id>
+    <published>2019-12-09T15:37:56.000Z</published>
+    <updated>2019-12-10T13:41:56.783Z</updated>
+    
+    <content type="html"><![CDATA[<h2><span id="主要内容">主要内容</span></h2><ol><li>volatile关键字</li><li>算法题：找出出现次数超过一半的数</li></ol><a id="more"></a><h2><span id="volatile关键字">volatile关键字</span></h2><h3><span id="几个相关的基础概念">几个相关的基础概念</span></h3><p>共享变量：共享变量是指能够同时被多个线程访问到的变量，共享变量是存放在堆中的，而所有方法内的临时变量都不是共享变量。<br>重排序：重排序是为了提高指令的运行效率，在编译时或运行时堆指令的执行顺序进行调整的机制。指令重排序都遵循”as-if-serial”语意，即不管怎么重排序，单线程的执行结果不能被改变。<br>可见性：内存的可见性是指线程之间的可见性，一个线程的修改状态对另外一个线程时可见的。比如当线程A去修改了共享变量flag后，线程B去读共享变量flag一定读取到的是最新修改的flag。共享变量的可见性不是理所当然的，<strong>很多时候因为计算机内部的的cache和指令重排序的影响是不能保证可见性的</strong>。</p><h3><span id="volatile的原理">volatile的原理</span></h3><p>volatile修饰的变量不允许线程内部cache缓存和重排序，线程读取数据的时候直接读取内存，同时volatile不会对变量加锁，因此性能会比synchronized好。<br>还有一种说法是：读取一个volatile关键字会使相应的处理器执行刷新处理器缓存的动作，写一个volatile关键字会使得相应的处理器执行冲刷处理器缓存的动作。</p><h2><span id="算法题找出出现次数超过一半的数">算法题：找出出现次数超过一半的数</span></h2><p>题目：<br>数组中有一个数字出现的次数超过数组长度的一半，请找出这个数字。例如输入一个长度为9的数组{1,2,3,2,2,2,5,4,2}。由于数字2在数组中出现了5次，超过数组长度的一半，因此输出2。如果不存在则输出0</p><p>解法：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">MoreThanHalfNum_Solution</span><span class="params">(<span class="keyword">int</span> [] array)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(array.length==<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> result=array[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">int</span> count=<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span>(array.length==<span class="number">1</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> result;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;array.length;i++)&#123;</span><br><span class="line">           <span class="keyword">if</span>(result==array[i])&#123;</span><br><span class="line">               count++;</span><br><span class="line">           &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">               count--;</span><br><span class="line">               <span class="keyword">if</span>(count==<span class="number">0</span>)&#123;</span><br><span class="line">                   result=array[i];</span><br><span class="line">                   count=<span class="number">1</span>;</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> num=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> item : array) &#123;</span><br><span class="line">            <span class="keyword">if</span>(item==result)&#123;</span><br><span class="line">                num++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> num&gt;array.length/<span class="number">2</span>?result:<span class="number">0</span>;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;主要内容&quot;&gt;&lt;a href=&quot;#主要内容&quot; class=&quot;headerlink&quot; title=&quot;主要内容&quot;&gt;&lt;/a&gt;主要内容&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;volatile关键字&lt;/li&gt;
+&lt;li&gt;算法题：找出出现次数超过一半的数&lt;/li&gt;
 &lt;/ol&gt;
     
     </summary>
