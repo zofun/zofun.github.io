@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-01-15T03:32:50.347Z</updated>
+  <updated>2020-01-16T02:57:44.004Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Spring事务基础</title>
+    <link href="http://yoursite.com/2020/01/15/Spring%E4%BA%8B%E5%8A%A1%E5%9F%BA%E7%A1%80/"/>
+    <id>http://yoursite.com/2020/01/15/Spring事务基础/</id>
+    <published>2020-01-15T13:35:56.000Z</published>
+    <updated>2020-01-16T02:57:44.004Z</updated>
+    
+    <content type="html"><![CDATA[<h2><span id="事务的acid">事务的ACID</span></h2><ul><li>Atomicity原子性：事务是一个原子操作，由一些列动作组成，事务的原子性确保动作要么全部完成，要么都不完成。</li><li>Consistency一致性：一旦事务完成，系统必须确保它锁建模的业务处于一致的状态，而不是部分完成或部分失败。</li><li>Isolation隔离性：可能有许多事务会同时处理相同的数据，因此每个事务都应该与其它事务隔离开来，防止数据破坏。</li><li>Durability持久性：一旦事务完成，无论系统发生什么故障，它的结果都不应该受到影响，这样就能从任何系统崩溃中恢复过来，通常情况下，事务的结果会被持久化到存储器中。</li></ul><a id="more"></a><h2><span id="spring事务的核心接口">Spring事务的核心接口</span></h2><p><img src="https://s2.ax1x.com/2020/01/15/lOHA2t.png" alt="lOHA2t.png"><br>Spring并不直接管理事务，而是提供多种事务管理器，它将事务管理委托给持久化框架。</p><h2><span id="事务的属性">事务的属性</span></h2><p>事务的属性是：传播行为，隔离规则，回滚规则，是否只读，事务超时。</p><h3><span id="事务的传播行为">事务的传播行为</span></h3><p>当一个事务方法嗲调用另一个事务方法的时候，必须指定事务应该如何传播。<br>Spring定义了七种传播行为：</p><ul><li>PROPAGATION_REQUIRED:表示当前方法必须运行在事务中，如果当前事务存在，方法将会在该事务中运行。否则，会启动一个新的事务。</li><li>PROPAGATION_SUPPORTS:表示当前方法不需要事务上下文，但是如果存在当前事务的话，那么该方法会在这个事务中运行。</li><li>PROPAGATION_MANDATORY:表示该方法必须在事务中运行，如果当前事务不存在的话，则会抛出一个异常。</li><li>PROPAGATION_REQUIRED_NEW:表示当前方法必须运行在它自己的事务中。一个新事务将被启动。如果存在当前事务，那么该方法执行期间，当前事务会被挂起。</li><li>PROPAGATION_NOT_SUPPORTED:表示该方法不应该运行在事务中，如果存在当前事务，在该方法运行期间，当前事务将被挂起。</li><li>PROPAGATION_NEVER:当前方法不应该运行在事务上下文环节中。如果当前正有一个事务在运行，则会抛出异常。</li><li>PROPAGATION_NESTED:表示当前已经存在一个事务，那么该方法将会在嵌套事务中运行。嵌套的事务可以独立于当前事务进行单独地提交或回滚。</li></ul><h2><span id="spring的隔离级别">Spring的隔离级别</span></h2><ul><li>DEFAULT:默认的隔离级别，使用数据库默认的事务隔离级别。</li><li>未提交读：允许读取未提交的读，可能导致脏读，不可重复读，幻读。</li><li>已提交读：允许读取已提交读，可能导致不可重复读，幻读。</li><li>可重复读：不能更新另一个事务修改但未提交的数据，可能引起幻读。</li><li>串行化：序列执行效率低。</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;事务的ACID&quot;&gt;&lt;a href=&quot;#事务的ACID&quot; class=&quot;headerlink&quot; title=&quot;事务的ACID&quot;&gt;&lt;/a&gt;事务的ACID&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;Atomicity原子性：事务是一个原子操作，由一些列动作组成，事务的原子性确保动作要么全部完成，要么都不完成。&lt;/li&gt;
+&lt;li&gt;Consistency一致性：一旦事务完成，系统必须确保它锁建模的业务处于一致的状态，而不是部分完成或部分失败。&lt;/li&gt;
+&lt;li&gt;Isolation隔离性：可能有许多事务会同时处理相同的数据，因此每个事务都应该与其它事务隔离开来，防止数据破坏。&lt;/li&gt;
+&lt;li&gt;Durability持久性：一旦事务完成，无论系统发生什么故障，它的结果都不应该受到影响，这样就能从任何系统崩溃中恢复过来，通常情况下，事务的结果会被持久化到存储器中。&lt;/li&gt;
+&lt;/ul&gt;
+    
+    </summary>
+    
+    
+    
+      <category term="技术" scheme="http://yoursite.com/tags/%E6%8A%80%E6%9C%AF/"/>
+    
+      <category term="Spring" scheme="http://yoursite.com/tags/Spring/"/>
+    
+  </entry>
   
   <entry>
     <title>CopyOnWriteArrayList,CopyOnWriteArraySet源码分析</title>
@@ -470,30 +498,6 @@
       &lt;h2 id=&quot;主要内容&quot;&gt;&lt;a href=&quot;#主要内容&quot; class=&quot;headerlink&quot; title=&quot;主要内容&quot;&gt;&lt;/a&gt;主要内容&lt;/h2&gt;&lt;ol&gt;
 &lt;li&gt;快速失败(fail-fast)和安全失败(fail-safe)的区别是什么？&lt;/li&gt;
 &lt;li&gt;算法：二叉树中和为某一值的路径&lt;/li&gt;
-&lt;/ol&gt;
-    
-    </summary>
-    
-    
-    
-      <category term="变强日记" scheme="http://yoursite.com/tags/%E5%8F%98%E5%BC%BA%E6%97%A5%E8%AE%B0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>变强日记9</title>
-    <link href="http://yoursite.com/2019/12/08/%E5%8F%98%E5%BC%BA%E6%97%A5%E8%AE%B09/"/>
-    <id>http://yoursite.com/2019/12/08/变强日记9/</id>
-    <published>2019-12-08T15:37:56.000Z</published>
-    <updated>2019-12-08T03:22:05.361Z</updated>
-    
-    <content type="html"><![CDATA[<h2><span id="主要内容">主要内容</span></h2><ol><li>概括的解释下线程的几种可用状态</li><li>算法：判断一个序列是不是二叉查找树的后序遍历</li></ol><a id="more"></a><h2><span id="概括的解释下线程的几种可用状态">概括的解释下线程的几种可用状态</span></h2><p>线程有五个状态，它们分别是：</p><ol><li>新建：新创建了一个线程对象</li><li>可运行的：线程对象创建完成后，其它线程调用了该线程的start()方法.</li><li>运行：可运行状态下的线程获得了CPU时间片，执行程序代码</li><li>阻塞：线程因为某些原因放弃了CPU的使用权。暂时停止运行，直到到达可运行的状态。阻塞又可分为<br>等待阻塞，即调用了线程的wait方法；<br>同步阻塞：运行的线程在获取对象的同步锁时，如果该同步锁被其它线程占用，该线程就会被JVM放入锁池中。<br>其它阻塞：如调用了线程的sleep方法，或者发出IO请求时</li><li>死亡，因为代码执行结束或发生异常退出后，线程就死亡了，这是不可逆的。<br><img src="https://s2.ax1x.com/2019/12/08/QUqnoT.png" alt="QUqnoT.png"></li></ol><h2><span id="算法判断一个序列是不是二叉查找树的后序遍历">算法：判断一个序列是不是二叉查找树的后序遍历</span></h2><p>题目：<br>输入一个整数数组，判断该数组是不是某二叉搜索树的后序遍历的结果。如果是则输出Yes,否则输出No。假设输入的数组的任意两个数字都互不相同。</p><p>解析：<br>二叉查找树有一个特定，左子树中的值都小于根节点，右子树的值都大于根节点。我们可以根据这个来递归判断。后序遍历序列的结构是左子树+右子树+根节点。找到根节点后递归按二叉树的特点判断即可。</p><p>解法：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">VerifySquenceOfBST</span><span class="params">(<span class="keyword">int</span> [] sequence)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(sequence==<span class="keyword">null</span>||sequence.length==<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> help(sequence,<span class="number">0</span>,sequence.length-<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">help</span><span class="params">(<span class="keyword">int</span>[] seq,<span class="keyword">int</span>  begin,<span class="keyword">int</span> end)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(begin&gt;=end)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> root=seq[end];</span><br><span class="line">        <span class="keyword">int</span> i=<span class="number">0</span>;</span><br><span class="line">        <span class="comment">//寻找左右子树的分界点</span></span><br><span class="line">        <span class="keyword">for</span>(i=begin;i&lt;end;i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(seq[i]&gt;root)&#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//判断右子树有无小于root的值</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=i;j&lt;end;j++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(seq[j]&lt;root)&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> help(seq,begin,i-<span class="number">1</span>)&amp;&amp;help(seq,i,end-<span class="number">1</span>);</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h2 id=&quot;主要内容&quot;&gt;&lt;a href=&quot;#主要内容&quot; class=&quot;headerlink&quot; title=&quot;主要内容&quot;&gt;&lt;/a&gt;主要内容&lt;/h2&gt;&lt;ol&gt;
-&lt;li&gt;概括的解释下线程的几种可用状态&lt;/li&gt;
-&lt;li&gt;算法：判断一个序列是不是二叉查找树的后序遍历&lt;/li&gt;
 &lt;/ol&gt;
     
     </summary>
