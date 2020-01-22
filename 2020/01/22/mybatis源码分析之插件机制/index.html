@@ -6,24 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>SpringCloud学习笔记三 | 个人博客</title>
+  <title>mybatis源码分析之插件机制 | 个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="分布式配置中心 Spring cloud configspring cloud config 是用来为分布式系统中的基础设施和微服务应用提供集中化的外部配置支持，它分为服务端和客户端，其中服务端被称为分布式配置中心，它是一个独立的微服务应用，用来链接仓库，并为客户端提供配置信息。 快速入门搭建配置中心 创建工程，导入相关依赖 1234&amp;lt;dependency&amp;gt;    &amp;lt;groupI">
-<meta name="keywords" content="技术,java,SpringCloud">
+  <meta name="description" content="概述mybatis插件又被称为，mybaits采用责任链模式，通过动态代理组织多个插件，通过这些插件可以改变mybatis的默认行为。mybatis允许在映射语句执行的某一点进行拦截调用。默认情况下，mybatis使用允许使用插件来拦截方法的调用包括：">
+<meta name="keywords" content="技术,java,mybatis">
 <meta property="og:type" content="article">
-<meta property="og:title" content="SpringCloud学习笔记三">
-<meta property="og:url" content="http://yoursite.com/2019/10/19/SpringCloud学习笔记三/index.html">
+<meta property="og:title" content="mybatis源码分析之插件机制">
+<meta property="og:url" content="http://yoursite.com/2020/01/22/mybatis源码分析之插件机制/index.html">
 <meta property="og:site_name" content="个人博客">
-<meta property="og:description" content="分布式配置中心 Spring cloud configspring cloud config 是用来为分布式系统中的基础设施和微服务应用提供集中化的外部配置支持，它分为服务端和客户端，其中服务端被称为分布式配置中心，它是一个独立的微服务应用，用来链接仓库，并为客户端提供配置信息。 快速入门搭建配置中心 创建工程，导入相关依赖 1234&amp;lt;dependency&amp;gt;    &amp;lt;groupI">
+<meta property="og:description" content="概述mybatis插件又被称为，mybaits采用责任链模式，通过动态代理组织多个插件，通过这些插件可以改变mybatis的默认行为。mybatis允许在映射语句执行的某一点进行拦截调用。默认情况下，mybatis使用允许使用插件来拦截方法的调用包括：">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://s2.ax1x.com/2019/10/16/KFII6x.png">
-<meta property="og:image" content="https://s2.ax1x.com/2019/10/19/KmRpvR.png">
-<meta property="og:image" content="https://s2.ax1x.com/2019/10/19/Km2z8J.png">
-<meta property="og:updated_time" content="2019-10-19T07:00:04.908Z">
+<meta property="og:updated_time" content="2020-01-22T13:25:22.320Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="SpringCloud学习笔记三">
-<meta name="twitter:description" content="分布式配置中心 Spring cloud configspring cloud config 是用来为分布式系统中的基础设施和微服务应用提供集中化的外部配置支持，它分为服务端和客户端，其中服务端被称为分布式配置中心，它是一个独立的微服务应用，用来链接仓库，并为客户端提供配置信息。 快速入门搭建配置中心 创建工程，导入相关依赖 1234&amp;lt;dependency&amp;gt;    &amp;lt;groupI">
-<meta name="twitter:image" content="https://s2.ax1x.com/2019/10/16/KFII6x.png">
+<meta name="twitter:title" content="mybatis源码分析之插件机制">
+<meta name="twitter:description" content="概述mybatis插件又被称为，mybaits采用责任链模式，通过动态代理组织多个插件，通过这些插件可以改变mybatis的默认行为。mybatis允许在映射语句执行的某一点进行拦截调用。默认情况下，mybatis使用允许使用插件来拦截方法的调用包括：">
   
     <link rel="alternative" href="/atom.xml" title="个人博客" type="application/atom+xml">
   
@@ -184,20 +180,20 @@
 
 
           <div id="js-content" class="content-ll">
-            <article id="post-SpringCloud学习笔记三" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-mybatis源码分析之插件机制" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      SpringCloud学习笔记三
+      mybatis源码分析之插件机制
     </h1>
   
 
         
-        <a href="/2019/10/19/SpringCloud学习笔记三/" class="archive-article-date">
-  	<time datetime="2019-10-19T06:59:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-19</time>
+        <a href="/2020/01/22/mybatis源码分析之插件机制/" class="archive-article-date">
+  	<time datetime="2020-01-22T13:24:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-22</time>
 </a>
         
       </header>
@@ -211,7 +207,7 @@
   <div id="toc-article" class="toc-article" style="display:none">
       <span id="toc-close" class="toc-close" title="隐藏导航" onclick="showBtn();">×</span>
     <strong class="toc-title">文章目录</strong>
-           <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">分布式配置中心 Spring cloud config</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.1.</span> <span class="toc-text">快速入门</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">1.1.1.</span> <span class="toc-text">搭建配置中心</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">1.1.2.</span> <span class="toc-text">搭建spring cooud config客户端</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.</span> <span class="toc-text">服务化配置中心</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.1.</span> <span class="toc-text">服务端配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.2.</span> <span class="toc-text">客户端配置</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.3.</span> <span class="toc-text">动态刷新配置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">2.</span> <span class="toc-text">消息总线 spring cloud bus</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">2.1.</span> <span class="toc-text">消息代理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">2.2.</span> <span class="toc-text">RabbitMq实现消息总线</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">2.2.1.</span> <span class="toc-text">基本概念</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">2.3.</span> <span class="toc-text">简单使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">2.4.</span> <span class="toc-text">整合spring cloud bus</span></a></li></ol></li></ol>
+           <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">2.</span> <span class="toc-text">拦截器的原理是什么</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">3.</span> <span class="toc-text">如何开发一个插件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">3.1.</span> <span class="toc-text">编写一个简单的拦截器</span></a></li></ol></li></ol>
          </div>
    <script type="text/javascript">
   function showToc(){
@@ -231,122 +227,23 @@
 <!-- 目录内容结束 -->
     <div class="article-entry" itemprop="articleBody">
       
-        <h2><span id="分布式配置中心-spring-cloud-config">分布式配置中心 Spring cloud config</span></h2><p>spring cloud config 是用来为分布式系统中的基础设施和微服务应用提供集中化的外部配置支持，它分为服务端和客户端，其中服务端被称为分布式配置中心，它是一个独立的微服务应用，用来链接仓库，并为客户端提供配置信息。</p>
-<h3><span id="快速入门">快速入门</span></h3><h4><span id="搭建配置中心">搭建配置中心</span></h4><ol>
-<li><p>创建工程，导入相关依赖</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-cloud-config-server&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>在主程序类中开启sprong cloud config的服务端功能</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="meta">@EnableConfigServer</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConfigServerApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(ConfigServerApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
+        <h2><span id="概述">概述</span></h2><p>mybatis插件又被称为，mybaits采用责任链模式，通过动态代理组织多个插件，通过这些插件可以改变mybatis的默认行为。mybatis允许在映射语句执行的某一点进行拦截调用。默认情况下，mybatis使用允许使用插件来拦截方法的调用包括：</p>
 <a id="more"></a>
-<ol start="3">
-<li><p>添加配置文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">spring:</span><br><span class="line">  application:</span><br><span class="line">    name: config-service</span><br><span class="line">  cloud:</span><br><span class="line">    config:</span><br><span class="line">      server:</span><br><span class="line">        git:</span><br><span class="line">          uri: https://github.com/zofun/spring-cloud-config.git # 仓库的位置</span><br><span class="line">          username: </span><br><span class="line">          password: </span><br><span class="line">          search-paths: test/config-repo</span><br><span class="line">server:</span><br><span class="line">  port: 8090</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>上传配置文件到GitHub仓库的test/config-repo目录下</p>
-</li>
-<li>通过url范围获取配置文件/{application}-{profile}.yml</li>
-</ol>
-<h4><span id="搭建spring-cooud-config客户端">搭建spring cooud config客户端</span></h4><ol>
-<li><p>创建spring boot应用并添加相关依赖</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-cloud-starter-config&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>创建配置文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">spring:</span><br><span class="line">  application:</span><br><span class="line">    name: didispace</span><br><span class="line">  cloud:</span><br><span class="line">    config:</span><br><span class="line">      profile: dev</span><br><span class="line">      label: master</span><br><span class="line">      uri: http://localhost:8090/</span><br><span class="line">server:</span><br><span class="line">  port: 7002</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>写一个用来测试的RESTful接口</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RefreshScope</span></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;from&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span> String from;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping</span>(<span class="string">"/from"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">from</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> from;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h3><span id="服务化配置中心">服务化配置中心</span></h3><h4><span id="服务端配置">服务端配置</span></h4><ol>
-<li><p>在config-server中添加eureka相关的依赖</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-cloud-starter-netflix-eureka-client&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>配置相关参数</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">eureka:</span><br><span class="line">  client:</span><br><span class="line">    serviceUrl:</span><br><span class="line">      defaultZone: http://peer1:8083/eureka/</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>编辑主类<br>添加<code>@EnableDiscoveryClient</code>注解</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="meta">@EnableConfigServer</span></span><br><span class="line"><span class="meta">@EnableDiscoveryClient</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConfigServerApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(ConfigServerApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h4><span id="客户端配置">客户端配置</span></h4><ol>
-<li><p>添加相关的依赖</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-cloud-starter-netflix-eureka-client&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-cloud-starter-eureka&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>添加相关的配置</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">spring:</span><br><span class="line">  application:</span><br><span class="line">    name: didispace</span><br><span class="line">  cloud:</span><br><span class="line">    config:</span><br><span class="line">      discovery:</span><br><span class="line">        enabled: true</span><br><span class="line">        service-id: config-service</span><br><span class="line">      profile: dev</span><br><span class="line">server:</span><br><span class="line">  port: 7002</span><br><span class="line"></span><br><span class="line">eureka:</span><br><span class="line">  client:</span><br><span class="line">    serviceUrl:</span><br><span class="line">      defaultZone: http://peer1:8083/eureka/</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>修改主类，添加<code>@EnableDiscoveryClient</code>注解</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="meta">@EnableDiscoveryClient</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConfigClientApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(ConfigClientApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h3><span id="动态刷新配置">动态刷新配置</span></h3><p>改造config-client。</p>
-<ol>
-<li>在pom中增加<code>spring-boot-starter-actuator</code>监控模块，利用其中的/refresh端点实现来实现配置信息的重新获取与刷新<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-boot-starter-actuator&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>注意：springboot2.0之后默认是不开启/refresh端点的，需要手动开启<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">management:</span><br><span class="line">  endpoints:</span><br><span class="line">    web:</span><br><span class="line">      exposure:</span><br><span class="line">        include: &quot;*&quot;</span><br></pre></td></tr></table></figure></p>
-<p>测试：</p>
-<ol>
-<li>访问<code>http://localhost:7002/from</code>查看配置信息</li>
-<li>更新仓库中的配置文件</li>
-<li>访问<code>http://localhost:7002/from</code>查看配置信息，没有改变</li>
-<li>请求<code>http://localhost:7002//actuator/refresh</code></li>
-<li>再次访问<code>http://localhost:7002/from</code>配置信息已经被改变了</li>
-</ol>
-<p>我们可以利用/refresh和github的webhooks来实现自动更新<br><img src="https://s2.ax1x.com/2019/10/16/KFII6x.png" alt="KFII6x.png"></p>
-<h2><span id="消息总线-spring-cloud-bus">消息总线 spring cloud bus</span></h2><p>在微服务架构中，我们使用轻量级的消息代理来构建一个共用的消息主题让系统所有微服务都连接上来，由于该主题中产生的消息会被所有实例监听和消费，所以我们称他为消息总线。</p>
-<h3><span id="消息代理">消息代理</span></h3><p>消息代理是一种消息验证、传输、路由的架构模式。他在应用程序之间起到通信调度并最小化应用之间的依赖的作用，使得应用程序之间能够高效的解耦通信过程。<br>使用消息代理的场景：</p>
-<ol>
-<li>将消息路由到一个或多个目的地。</li>
-<li>将消息转化为其它的表现形式</li>
-<li>执行消息的聚集、消息的分解。并将结果发送到它们的目的地。</li>
-<li>调用web服务来检索数据。</li>
-<li>响应事件或错误。</li>
-<li>使用发布-订阅模式来提供内容或基于主题的消息路由。</li>
-</ol>
-<h3><span id="rabbitmq实现消息总线">RabbitMq实现消息总线</span></h3><h4><span id="基本概念">基本概念</span></h4><ol>
-<li>Broker:消息队列服务器实体，负责接收消息生成者的消息，然后将消息发送至消息接收者或者其它的Broker</li>
-<li>Exchange:消息交换机，是消息到达的第一个地方，消息通过它指定的路由规则分发到不同的消息队列中去。</li>
-<li>Queue：消息队列。进入消息队列中消息进入逻辑上的等待消费的状态。</li>
-<li>Binding:绑定：它的作用就是将Exchange和queue按照一定的路由规则绑定起来。也就是Exchange和Queue之间的虚拟连接。</li>
-<li>Rounting Key：路由关键字，Exchange根据这个关键字进行消息投递</li>
-<li>Virtual host: 虚拟主机。他是对Broker的虚拟划分。</li>
-<li>Connection：连接，代表生成者、消费者、Broker之间进行通信的物理网络</li>
-<li>Channel：消息通道，用于连接生成者和消费者的逻辑结构。</li>
-<li>Producer：消息生产者，制造消息并发送消息的程序。</li>
-<li>Consumer：消息消费者，接收消息并处理消息的地方</li>
-</ol>
-<h3><span id="简单使用">简单使用</span></h3><ol>
-<li><p>添加相关依赖</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-boot-starter-amqp&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>编写相关的配置</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">spring:</span><br><span class="line">  application:</span><br><span class="line">    name: rabbitmq-hello</span><br><span class="line">  rabbitmq:</span><br><span class="line">    host: localhost</span><br><span class="line">    port: 5672</span><br><span class="line">    username: springcloud</span><br><span class="line">    password: 123456</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>编辑消息生产者类</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Sender</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> AmqpTemplate amqpTemplate;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">send</span><span class="params">()</span></span>&#123;</span><br><span class="line">        String context=<span class="string">"hello"</span>+<span class="keyword">new</span> Date();</span><br><span class="line">        System.out.println(<span class="string">"sender:"</span>+context);</span><br><span class="line">        <span class="keyword">this</span>.amqpTemplate.convertAndSend(<span class="string">"hello"</span>,context);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>编辑消息消费类<br>实现对hello队列的消费</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@RabbitListener</span>(queues = <span class="string">"hello"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Receiver</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@RabbitHandler</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">process</span><span class="params">(String hello)</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Receiver:"</span>+hello);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>创建配置类文件</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">rabbitConfig</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Queue <span class="title">helloQueue</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Queue(<span class="string">"hello"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p><a href="https://imgchr.com/i/KmRpvR" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/10/19/KmRpvR.png" alt="KmRpvR.png"></a></p>
-<h3><span id="整合spring-cloud-bus">整合spring cloud bus</span></h3><p>以之前的config-clent-eureka拓展</p>
-<ol>
-<li><p>添加<code>spring-cloud-starter-bus-amqp</code>依赖</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;spring-cloud-starter-bus-amqp&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>在配置文件中添加RabbitMQ相关的配置信息</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">rabbitmq:</span><br><span class="line">  host: localhost</span><br><span class="line">  port: 5672</span><br><span class="line">  username: springcloud</span><br><span class="line">  password: 123456</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>测试：<br>首先访问两个config-client-eureka的/from请求，会返回当前仓库中的配置文件的信息，，接着修改配置文件，访问其中一个项目的/bus/refresh，所有的项目的属性都会被刷新<br><img src="https://s2.ax1x.com/2019/10/19/Km2z8J.png" alt="Km2z8J.png"></p>
+<ul>
+<li>Executor是mybatis的内部缓存，它负责调用statementHandler操作数据库，并把结果集通过ResultSetHandler进行自动映射，另外，它还处理了二级缓存的操作。</li>
+<li>StatementHandler是mybatis直接和数据库执行sql脚本的对象，另外它也实现lemybatis的一级缓存。</li>
+<li>ParameterHandler是mybatis实现sql入参设置的对象。</li>
+<li>ResultSetHandler是mybatis把ResultSet结果集映射成POJO的接口对象。</li>
+</ul>
+<h2><span id="拦截器的原理是什么">拦截器的原理是什么</span></h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Executor <span class="title">newExecutor</span><span class="params">(Transaction transaction, ExecutorType executorType)</span> </span>&#123;</span><br><span class="line">   executorType = executorType == <span class="keyword">null</span> ? defaultExecutorType : executorType;</span><br><span class="line">   executorType = executorType == <span class="keyword">null</span> ? ExecutorType.SIMPLE : executorType;</span><br><span class="line">   Executor executor;</span><br><span class="line">   <span class="keyword">if</span> (ExecutorType.BATCH == executorType) &#123;</span><br><span class="line">     executor = <span class="keyword">new</span> BatchExecutor(<span class="keyword">this</span>, transaction);</span><br><span class="line">   &#125; <span class="keyword">else</span> <span class="keyword">if</span> (ExecutorType.REUSE == executorType) &#123;</span><br><span class="line">     executor = <span class="keyword">new</span> ReuseExecutor(<span class="keyword">this</span>, transaction);</span><br><span class="line">   &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">     executor = <span class="keyword">new</span> SimpleExecutor(<span class="keyword">this</span>, transaction);</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">if</span> (cacheEnabled) &#123;</span><br><span class="line">     executor = <span class="keyword">new</span> CachingExecutor(executor);</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   executor = (Executor) interceptorChain.pluginAll(executor);</span><br><span class="line">   <span class="keyword">return</span> executor;</span><br><span class="line"> &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> ParameterHandler <span class="title">newParameterHandler</span><span class="params">(MappedStatement mappedStatement, Object parameterObject, BoundSql boundSql)</span> </span>&#123;</span><br><span class="line">   ParameterHandler parameterHandler = mappedStatement.getLang().createParameterHandler(mappedStatement, parameterObject, boundSql);</span><br><span class="line">   parameterHandler = (ParameterHandler) interceptorChain.pluginAll(parameterHandler);</span><br><span class="line">   <span class="keyword">return</span> parameterHandler;</span><br><span class="line"> &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> StatementHandler <span class="title">newStatementHandler</span><span class="params">(Executor executor, MappedStatement mappedStatement, Object parameterObject, RowBounds rowBounds, ResultHandler resultHandler, BoundSql boundSql)</span> </span>&#123;</span><br><span class="line">   StatementHandler statementHandler = <span class="keyword">new</span> RoutingStatementHandler(executor, mappedStatement, parameterObject, rowBounds, resultHandler, boundSql);</span><br><span class="line">   statementHandler = (StatementHandler) interceptorChain.pluginAll(statementHandler);</span><br><span class="line">   <span class="keyword">return</span> statementHandler;</span><br><span class="line"> &#125;</span><br><span class="line"> </span><br><span class="line">   <span class="function"><span class="keyword">public</span> ResultSetHandler <span class="title">newResultSetHandler</span><span class="params">(Executor executor, MappedStatement mappedStatement, RowBounds rowBounds, ParameterHandler parameterHandler,</span></span></span><br><span class="line"><span class="function"><span class="params">     ResultHandler resultHandler, BoundSql boundSql)</span> </span>&#123;</span><br><span class="line">   ResultSetHandler resultSetHandler = <span class="keyword">new</span> DefaultResultSetHandler(executor, mappedStatement, parameterHandler, resultHandler, boundSql, rowBounds);</span><br><span class="line">   resultSetHandler = (ResultSetHandler) interceptorChain.pluginAll(resultSetHandler);</span><br><span class="line">   <span class="keyword">return</span> resultSetHandler;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p>通过这几段代码我们不难看出，四大接口皆通过调用<code>interceptorChain</code>的<code>pluginAll</code>方法来对对象进行进一步的处理。</p>
+<p>我们查看<code>interceptorChain</code>类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">InterceptorChain</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="comment">//一个拦截器集合</span></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">final</span> List&lt;Interceptor&gt; interceptors = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> Object <span class="title">pluginAll</span><span class="params">(Object target)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (Interceptor interceptor : interceptors) &#123;</span><br><span class="line">    <span class="comment">//调用所有的插件对target进行进一步的处理</span></span><br><span class="line">      target = interceptor.plugin(target);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> target;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addInterceptor</span><span class="params">(Interceptor interceptor)</span> </span>&#123;</span><br><span class="line">    interceptors.add(interceptor);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> List&lt;Interceptor&gt; <span class="title">getInterceptors</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> Collections.unmodifiableList(interceptors);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>那么对对象进行进一步加工的拦截器的结构又是怎样的呢。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Interceptor</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="comment">//进行拦截是要执行的方法</span></span><br><span class="line">  <span class="function">Object <span class="title">intercept</span><span class="params">(Invocation invocation)</span> <span class="keyword">throws</span> Throwable</span>;</span><br><span class="line">    <span class="comment">//用于封装目标对象，可以返回代理对象或者对象本身</span></span><br><span class="line">    <span class="function"><span class="keyword">default</span> Object <span class="title">plugin</span><span class="params">(Object target)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> Plugin.wrap(target, <span class="keyword">this</span>);</span><br><span class="line">  &#125;</span><br><span class="line">    <span class="comment">//用于获取自定义相关属性</span></span><br><span class="line">  <span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">setProperties</span><span class="params">(Properties properties)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// NOP</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2><span id="如何开发一个插件">如何开发一个插件</span></h2><p>一个官方推荐的插件开发方式：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Intercepts</span>(&#123;<span class="meta">@Signature</span>(type = Executor.class, method = <span class="string">"query"</span>,</span><br><span class="line">        args = &#123;MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class&#125;)&#125;)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestInterceptor</span> <span class="keyword">implements</span> <span class="title">Interceptor</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">intercept</span><span class="params">(Invocation invocation)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">        Object target = invocation.getTarget(); <span class="comment">//被代理对象</span></span><br><span class="line">        Method method = invocation.getMethod(); <span class="comment">//代理方法</span></span><br><span class="line">        Object[] args = invocation.getArgs(); <span class="comment">//方法参数</span></span><br><span class="line">        <span class="comment">// do something ...... 方法拦截前执行代码块</span></span><br><span class="line">        Object result = invocation.proceed();</span><br><span class="line">        <span class="comment">// do something .......方法拦截后执行代码块</span></span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">plugin</span><span class="params">(Object target)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Plugin.wrap(target, <span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3><span id="编写一个简单的拦截器">编写一个简单的拦截器</span></h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Intercepts</span>(&#123;<span class="meta">@Signature</span>(type = Executor.class,method = <span class="string">"update"</span>,args = &#123;MappedStatement.class, Object.class&#125;)&#125;)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyPlugin</span> <span class="keyword">implements</span> <span class="title">Interceptor</span> </span>&#123;</span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> Object <span class="title">intercept</span><span class="params">(Invocation invocation)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">    System.out.println(<span class="string">"拦截到了"</span>);</span><br><span class="line">    <span class="keyword">return</span> invocation.proceed();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> Object <span class="title">plugin</span><span class="params">(Object target)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> Plugin.wrap(target,<span class="keyword">this</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setProperties</span><span class="params">(Properties properties)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>同时我们在全局配置文件中对我们编写的拦截器进行注册。<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;plugins&gt;</span><br><span class="line">  &lt;plugin interceptor=<span class="string">"example.MyPlugin"</span>/&gt;</span><br><span class="line">&lt;/plugins&gt;</span><br></pre></td></tr></table></figure></p>
+<p>这段代码就会拦截<code>Executor</code>的<code>int update(MappedStatement ms, Object parameter)</code>方法。</p>
 
       
 
@@ -399,7 +296,7 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">SpringCloud</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">mybatis</a>
         		</li>
       		
 		</ul>
@@ -455,7 +352,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/10/19/SpringCloud学习笔记三/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/01/22/mybatis源码分析之插件机制/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -469,18 +366,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/10/21/Redis实战学习笔记一/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Redis实战学习笔记一
-        
-      </div>
-    </a>
   
-  
-    <a href="/2019/10/15/SpringCloud学习笔记二/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">SpringCloud学习笔记二</div>
+    <a href="/2020/01/21/FutureTask源码分析/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">FutureTask源码分析</div>
       <i class="icon-circle-right"></i>
     </a>
   

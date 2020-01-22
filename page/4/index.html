@@ -181,6 +181,96 @@
 
 
   
+    <article id="post-变强日记6" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/12/05/变强日记6/">变强日记6</a>
+    </h1>
+  
+
+        
+        <a href="/2019/12/05/变强日记6/" class="archive-article-date">
+  	<time datetime="2019-12-05T15:37:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-05</time>
+</a>
+        
+      </header>
+    
+    <!-- 目录内容 -->
+
+<!-- 目录内容结束 -->
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="主要内容"><a href="#主要内容" class="headerlink" title="主要内容"></a>主要内容</h2><ol>
+<li>进程和线程的区别是什么？</li>
+<li>单链表的反转</li>
+</ol>
+        
+          <a class="article-more-a" href="/2019/12/05/变强日记6/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">变强日记</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/12/05/变强日记6/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-变强日记5" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1037,100 +1127,6 @@
 
 
   
-    <article id="post-Redis实战学习笔记二" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/10/23/Redis实战学习笔记二/">Redis实战学习笔记二</a>
-    </h1>
-  
-
-        
-        <a href="/2019/10/23/Redis实战学习笔记二/" class="archive-article-date">
-  	<time datetime="2019-10-23T08:39:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-23</time>
-</a>
-        
-      </header>
-    
-    <!-- 目录内容 -->
-
-<!-- 目录内容结束 -->
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="使用Redis构建支持程序"><a href="#使用Redis构建支持程序" class="headerlink" title="使用Redis构建支持程序"></a>使用Redis构建支持程序</h2><h3 id="案例一：-使用Redis实现日志的记录"><a href="#案例一：-使用Redis实现日志的记录" class="headerlink" title="案例一： 使用Redis实现日志的记录"></a>案例一： 使用Redis实现日志的记录</h3><p><strong>需求：</strong> 在构建应用程序和服务的过程中，对正在运行的系统的相关信息进行挖掘变得越来越重要。这都依赖于日志。</p>
-<p><strong>分析：</strong> 许多日志的记录的方式都是将日志记录到文件中去，然后随着时间的流逝新建日志文件（因为日志文件大大小不可能无限的增长），因为每个服务都有相应的日志记录，并且每种服务的日志轮换机制也是不同的，这就会缺少了一种将这些日志聚合的方案。<br>还有一种日志记录方式是利用syslog服务来进行日志的记录。syslog服务接收各个服务的日志信息，并路由到不同的磁盘上，它还负责日志的轮换和删除工作。它要比直接写文件方便的多。</p>
-<p>我们也可以利用Redis来实现日志的记录。</p>
-<p><strong>实现方式：</strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">SEVERITY=&#123;   <span class="comment"># 设置一个字典，将日志的安全级别映射为字符串</span></span><br><span class="line">    loggin.DEBUG:<span class="string">'debug'</span>,</span><br><span class="line">    loggin.INFO：<span class="string">'info'</span>,</span><br><span class="line">    loggin.WARNING:<span class="string">'warning'</span>,</span><br><span class="line">    loggin.ERROR:<span class="string">'error'</span>,</span><br><span class="line">    loggin.CRITICAL:<span class="string">'critical'</span></span><br><span class="line">&#125;</span><br><span class="line">SERVERITY.update((name,name) <span class="keyword">for</span> name <span class="keyword">in</span> SERVERITY.values())</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">log_recent</span><span class="params">(conn,name,message,severity=loggin.INFO,pipe=None)</span>:</span></span><br><span class="line">    <span class="comment"># 将日志的安全级别映射为简单的字符串</span></span><br><span class="line">    severity=str(SEVERITY.get(severity,severity)).lower() </span><br><span class="line">    <span class="comment"># 创建负责存储消息的键</span></span><br><span class="line">    destination=<span class="string">'recent:%s:%s'</span>%(name,severity)</span><br><span class="line">    <span class="comment"># 在消息中添加当前时间</span></span><br><span class="line">    message=time.asctime()+<span class="string">' '</span>+message</span><br><span class="line">    <span class="comment"># 使用流水线通信方式</span></span><br><span class="line">    pipe=pipe <span class="keyword">or</span> conn.pipeline()</span><br><span class="line">    pipe=lpush(destination,message)</span><br><span class="line">    <span class="comment"># 对日志列表进行修剪，只保留100条消息</span></span><br><span class="line">    pipe.ltrim(destination,<span class="number">0</span>,<span class="number">99</span>)</span><br><span class="line">    <span class="comment"># 执行两个命令</span></span><br><span class="line">    pipe.execute()</span><br></pre></td></tr></table></figure></p>
-        
-          <a class="article-more-a" href="/2019/10/23/Redis实战学习笔记二/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Redis</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/10/23/Redis实战学习笔记二/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/5/">Next &raquo;</a>
@@ -1304,11 +1300,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">并发编程</a>
+                <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">项目小技巧</a>
+                <a href="javascript:void(0)" class="js-tag color5">并发编程</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1316,15 +1312,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">项目小技巧</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">变强日记</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">多线程</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">正则表达式</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1332,7 +1324,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">多线程</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">计算机系统基础</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">正则表达式</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1345,10 +1345,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">SpringCloud</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
               </li>
             
             <div class="clearfix"></div>
