@@ -8,13 +8,13 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>TCP/IP学习笔记(三) | 个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="DNS（域名解析服务）DNS可以将字符串自动转化为具体的IP地址。  ARP（地址解析协议）  以目标IP地址位线索，来定位下一个应该接收数据分包的网络设别对应的MAC地址。ARP只适用于IPv4. 通过广播发送一个ARP请求包，其中含有想要了解MAC地址的IP。同一个链路中的主机接收并解析。如何发现需要解析自己的IP地址对应的MAC地址的话。就将自己的MAC地址加入ARP响应包中。然后把获取到">
+  <meta name="description" content="DNS（域名解析服务）DNS可以将字符串自动转化为具体的IP地址。  ARP（地址解析协议）  以目标IP地址为线索，来定位下一个应该接收数据分包的网络设备对应的MAC地址。ARP只适用于IPv4. 通过广播发送一个ARP请求包，其中含有想要了解MAC地址的IP。同一个链路中的主机接收并解析。如何发现需要解析的是自己的IP地址对应的MAC地址的话。就将自己的MAC地址加入ARP响应包中。然后把获">
 <meta name="keywords" content="技术,TCP&#x2F;IP">
 <meta property="og:type" content="article">
 <meta property="og:title" content="TCP&#x2F;IP学习笔记(三)">
 <meta property="og:url" content="http://yoursite.com/2019/04/03/TCPIP学习笔记三/index.html">
 <meta property="og:site_name" content="个人博客">
-<meta property="og:description" content="DNS（域名解析服务）DNS可以将字符串自动转化为具体的IP地址。  ARP（地址解析协议）  以目标IP地址位线索，来定位下一个应该接收数据分包的网络设别对应的MAC地址。ARP只适用于IPv4. 通过广播发送一个ARP请求包，其中含有想要了解MAC地址的IP。同一个链路中的主机接收并解析。如何发现需要解析自己的IP地址对应的MAC地址的话。就将自己的MAC地址加入ARP响应包中。然后把获取到">
+<meta property="og:description" content="DNS（域名解析服务）DNS可以将字符串自动转化为具体的IP地址。  ARP（地址解析协议）  以目标IP地址为线索，来定位下一个应该接收数据分包的网络设备对应的MAC地址。ARP只适用于IPv4. 通过广播发送一个ARP请求包，其中含有想要了解MAC地址的IP。同一个链路中的主机接收并解析。如何发现需要解析的是自己的IP地址对应的MAC地址的话。就将自己的MAC地址加入ARP响应包中。然后把获">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://s2.ax1x.com/2019/04/02/AygKb9.png">
 <meta property="og:image" content="https://s2.ax1x.com/2019/04/02/A6ZEFS.png">
@@ -26,10 +26,10 @@
 <meta property="og:image" content="https://s2.ax1x.com/2019/04/03/Acqruj.md.png">
 <meta property="og:image" content="https://s2.ax1x.com/2019/04/03/AcOFm9.md.png">
 <meta property="og:image" content="https://s2.ax1x.com/2019/04/03/AcONp8.md.png">
-<meta property="og:updated_time" content="2019-11-06T13:47:56.845Z">
+<meta property="og:updated_time" content="2020-01-23T08:31:43.607Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="TCP&#x2F;IP学习笔记(三)">
-<meta name="twitter:description" content="DNS（域名解析服务）DNS可以将字符串自动转化为具体的IP地址。  ARP（地址解析协议）  以目标IP地址位线索，来定位下一个应该接收数据分包的网络设别对应的MAC地址。ARP只适用于IPv4. 通过广播发送一个ARP请求包，其中含有想要了解MAC地址的IP。同一个链路中的主机接收并解析。如何发现需要解析自己的IP地址对应的MAC地址的话。就将自己的MAC地址加入ARP响应包中。然后把获取到">
+<meta name="twitter:description" content="DNS（域名解析服务）DNS可以将字符串自动转化为具体的IP地址。  ARP（地址解析协议）  以目标IP地址为线索，来定位下一个应该接收数据分包的网络设备对应的MAC地址。ARP只适用于IPv4. 通过广播发送一个ARP请求包，其中含有想要了解MAC地址的IP。同一个链路中的主机接收并解析。如何发现需要解析的是自己的IP地址对应的MAC地址的话。就将自己的MAC地址加入ARP响应包中。然后把获">
 <meta name="twitter:image" content="https://s2.ax1x.com/2019/04/02/AygKb9.png">
   
     <link rel="alternative" href="/atom.xml" title="个人博客" type="application/atom+xml">
@@ -219,8 +219,8 @@
 </li>
 <li><p>ARP（地址解析协议）</p>
 <ul>
-<li>以目标IP地址位线索，来定位下一个应该接收数据分包的网络设别对应的MAC地址。ARP只适用于IPv4.</li>
-<li>通过广播发送一个ARP请求包，其中含有想要了解MAC地址的IP。同一个链路中的主机接收并解析。如何发现需要解析自己的IP地址对应的MAC地址的话。就将自己的MAC地址加入ARP响应包中。然后把获取到的MAC地址与IP建立映射。然后缓存一段时间。</li>
+<li>以目标IP地址为线索，来定位下一个应该接收数据分包的网络设备对应的MAC地址。ARP只适用于IPv4.</li>
+<li>通过广播发送一个ARP请求包，其中含有想要了解MAC地址的IP。同一个链路中的主机接收并解析。如何发现需要解析的是自己的IP地址对应的MAC地址的话。就将自己的MAC地址加入ARP响应包中。然后把获取到的MAC地址与IP建立映射。然后缓存一段时间。</li>
 </ul>
 </li>
 </ul>
@@ -250,8 +250,8 @@
 </li>
 <li><p>TCP协议</p>
 <ul>
-<li>时面向连接的，可靠的流协议。是传输层协议。</li>
-<li>为了提供可靠的传输，实行“顺序控制”或“重发控制”，‘流量控制’、‘拥塞控制’、‘拥塞控制’、提高网络的利用率。</li>
+<li>是面向连接的，可靠的流协议。是传输层协议。</li>
+<li>为了提供可靠的传输，实行“顺序控制”或“重发控制”，‘流量控制’、‘拥塞控制’、提高网络的利用率。</li>
 </ul>
 </li>
 <li><p>UDP协议</p>
@@ -274,7 +274,7 @@
 <ul>
 <li>它是一种面向连接的可靠的传输层协议。它可以流量控制，重发控制，顺序控制等。</li>
 <li>它通过检验和，序列号，确认应答，重发控制，连接管理以及窗口控制等来实现可靠性传输。</li>
-<li>通过序列号于确认应答提高可靠性<img src="https://s2.ax1x.com/2019/04/03/Ac7X8g.png" alt="Ac7X8g.png"> <em>确认是ACK，否认是NACK</em><img src="https://s2.ax1x.com/2019/04/03/AcHkPU.png" alt="AcHkPU.png"> <img src="https://s2.ax1x.com/2019/04/03/AcHmrR.png" alt="AcHmrR.png"></li>
+<li>通过序列号与确认应答提高可靠性<img src="https://s2.ax1x.com/2019/04/03/Ac7X8g.png" alt="Ac7X8g.png"> <em>确认是ACK，否认是NACK</em><img src="https://s2.ax1x.com/2019/04/03/AcHkPU.png" alt="AcHkPU.png"> <img src="https://s2.ax1x.com/2019/04/03/AcHmrR.png" alt="AcHmrR.png"></li>
 <li>通过序列号与确认应答号。应答号就是自己下一步需要接收的数据的序列号<img src="https://s2.ax1x.com/2019/04/03/AcHddP.png" alt="AcHddP.png"></li>
 <li>重发超时的时间计算。每次发包时都会计算往返时间及其偏差。将往返时间和偏差相加结果略大的值就是重发超时的值。</li>
 <li>TCP连接管理。在通信进行前要先建立连接，在通信结束时会进行断开连接。<img src="https://s2.ax1x.com/2019/04/03/AcbLcQ.md.png" alt="AcbLcQ.md.png"></li>
@@ -629,15 +629,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">innodb存储引擎</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">RabbitMQ</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">TCP/IP</a>
+                <a href="javascript:void(0)" class="js-tag color1">innodb存储引擎</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -645,7 +641,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
+                <a href="javascript:void(0)" class="js-tag color2">TCP/IP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -653,7 +649,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -661,11 +657,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">项目小技巧</a>
+                <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">变强日记</a>
+                <a href="javascript:void(0)" class="js-tag color1">项目小技巧</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -673,7 +669,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">多线程</a>
+                <a href="javascript:void(0)" class="js-tag color5">变强日记</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -681,7 +677,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">计算机系统基础</a>
+                <a href="javascript:void(0)" class="js-tag color4">多线程</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -689,15 +685,23 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">计算机系统基础</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Redis</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">SpringCloud</a>
+                <a href="javascript:void(0)" class="js-tag color5">SpingBoot</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">SpingBoot</a>
+                <a href="javascript:void(0)" class="js-tag color2">SpringCloud</a>
               </li>
             
             <div class="clearfix"></div>
