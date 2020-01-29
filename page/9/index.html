@@ -1164,19 +1164,19 @@
 
 
   
-    <article id="post-git和git的简单使用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-java多线程之线程的创建" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/11/git和git的简单使用/">git与git的简单使用</a>
+      <a class="article-title" href="/2019/03/11/java多线程之线程的创建/">java创建线程的三种方式</a>
     </h1>
   
 
         
-        <a href="/2019/03/11/git和git的简单使用/" class="archive-article-date">
+        <a href="/2019/03/11/java多线程之线程的创建/" class="archive-article-date">
   	<time datetime="2019-03-11T10:08:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-11</time>
 </a>
         
@@ -1187,32 +1187,16 @@
 <!-- 目录内容结束 -->
     <div class="article-entry" itemprop="articleBody">
       
-        <blockquote>
-<p>git是一个开源的分布式版本控制系统，可以有效、高速的处理从很小到非常大的项目版本管理工作。</p>
-</blockquote>
-<h3 id="如何理解git是一个分布式版本控制系统"><a href="#如何理解git是一个分布式版本控制系统" class="headerlink" title="如何理解git是一个分布式版本控制系统"></a>如何理解git是一个分布式版本控制系统</h3><ul>
-<li><p>分布式<br>  区别于集中式的版本控制系统典型的如SVN。分布式是指没有中央服务器，每个人的本地都有一份完整的项目文件。而集中式版本控制系统，有中央服务器，每个人从中央服务器获取一份项目文件，在本地开发，开发完成后提交给中央服务器。分布式版本控制系统的优点在于网络依赖小，只有在需要合并分支时才需要网络；本地文件存储采用元数据，体积小；分支操作互不影响。</p>
-</li>
-<li><p>版本控制系统<br>  版本控制是指在软件开发过程中各种代码、配置文件和说明文档等文件变更的管理。</p>
-</li>
+        <h1 id="Java创建线程的三种方式"><a href="#Java创建线程的三种方式" class="headerlink" title="Java创建线程的三种方式"></a>Java创建线程的三种方式</h1><ul>
+<li>继承Thread类，并重写run方法</li>
+<li>通过Runnable接口创建线程类</li>
+<li>通过Callable和Future创建线程</li>
 </ul>
-<h3 id="Git工作区、暂存区和版本库"><a href="#Git工作区、暂存区和版本库" class="headerlink" title="Git工作区、暂存区和版本库"></a>Git工作区、暂存区和版本库</h3><pre><code>Git工作区通俗的讲就是除了隐藏文件夹.git以外的所有文件和文件夹。我们平时直接操作的文件就是存放在Git工作区的文件。
-Git暂存区是指隐藏文件夹.git中的index文件。我们也可以把暂存区叫做索引
-Git的版本库就是.git文件夹。
-*理解Git的工作区、暂存区和版本库是理解git命令的关键*
-</code></pre><h3 id="Git的基本操作"><a href="#Git的基本操作" class="headerlink" title="Git的基本操作"></a>Git的基本操作</h3><ul>
-<li><p>创建仓库<br>  创建仓库，通俗的讲就是生成一个隐藏文件夹.git。我们可以使用如下名命令：</p>
-<p>  git init </p>
-</li>
-<li><p>从Git仓库中拷贝项目（类似svn中的捡出项目，这里的Git仓库一般是指GitHub上的仓库）</p>
-<p>  git clone &lt;Git仓库的地址&gt;         &lt;本地目录，可以省略&gt;</p>
-</li>
-</ul>
-<p>例如：</p>
-<pre><code>git clone https://github.com/0Eternity0/0Eternity0.github.io.git f:/MyDir//
-</code></pre><p> 该句的意思是从该地址克隆一份项目文件到MyDir文件夹。如何不指定本地目录，就克隆到命令行工具运行的当前目录</p>
+<hr>
+<h3 id="1-继承Thread类来实现"><a href="#1-继承Thread类来实现" class="headerlink" title="1. 继承Thread类来实现"></a>1. 继承Thread类来实现</h3><pre><code>继承Thread并重写run方法，创建该子类的示例，即创建了一个线程对象，调用线程对象的start()方法来启动该线程
+</code></pre><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ThreadDemo</span> <span class="keyword">extends</span> <span class="title">Thread</span></span>&#123;</span><br><span class="line">    <span class="comment">//重写run方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"线程执行"</span>);    </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        <span class="comment">//创建该子类的实例，并启动该线程</span></span><br><span class="line">        <span class="keyword">new</span> ThreadDemo().start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
         
-          <a class="article-more-a" href="/2019/03/11/git和git的简单使用/#more">more >></a>
+          <a class="article-more-a" href="/2019/03/11/java多线程之线程的创建/#more">more >></a>
         
       
 
@@ -1230,7 +1214,7 @@ Git的版本库就是.git文件夹。
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">git</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
         		</li>
       		
 		</ul>
@@ -1240,7 +1224,7 @@ Git的版本库就是.git文件夹。
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/03/11/git和git的简单使用/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/03/11/java多线程之线程的创建/">展开全文 >></a>
         </p>
       
 
@@ -1411,6 +1395,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Java NIO</a>
               </li>
              
@@ -1435,7 +1423,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">IP协议</a>
+                <a href="javascript:void(0)" class="js-tag color2">TCP/IP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1443,7 +1431,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">TCP/IP</a>
+                <a href="javascript:void(0)" class="js-tag color5">IP协议</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1455,11 +1443,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">项目小技巧</a>
+                <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+                <a href="javascript:void(0)" class="js-tag color1">项目小技巧</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1467,11 +1455,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1480,6 +1464,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">正则表达式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">汇编</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1500,10 +1488,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">项目</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">汇编</a>
               </li>
             
             <div class="clearfix"></div>
