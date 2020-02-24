@@ -6,15 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2019/8 | 个人博客</title>
+  <title>Netty学习笔记二 | 个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="个人博客">
-<meta property="og:url" content="http://yoursite.com/archives/2019/08/index.html">
+  <meta name="description" content="什么是TCP粘包和拆包？TCP是一个“流”协议，所谓流就是没有界限的一串数据。TCP协议会根据TCP缓冲区的实际情况对包进行划分，所以业务上的一个包，可能被TCP拆分为多个包发送（拆包），多个小的包也可能被TCP合并为一个包进行发送（粘包）。 TCP粘包和拆包发生的原因原因有三个：  应用程序write写入的字节大小大于套接字缓冲区的大小 进行MSS（maximum segment size，最大">
+<meta name="keywords" content="java,技术,Netty">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Netty学习笔记二">
+<meta property="og:url" content="http://yoursite.com/2020/02/24/Netty学习笔记二/index.html">
 <meta property="og:site_name" content="个人博客">
+<meta property="og:description" content="什么是TCP粘包和拆包？TCP是一个“流”协议，所谓流就是没有界限的一串数据。TCP协议会根据TCP缓冲区的实际情况对包进行划分，所以业务上的一个包，可能被TCP拆分为多个包发送（拆包），多个小的包也可能被TCP合并为一个包进行发送（粘包）。 TCP粘包和拆包发生的原因原因有三个：  应用程序write写入的字节大小大于套接字缓冲区的大小 进行MSS（maximum segment size，最大">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://s2.ax1x.com/2020/02/24/38zJnP.png">
+<meta property="og:image" content="https://s2.ax1x.com/2020/02/24/3GgEB6.png">
+<meta property="og:updated_time" content="2020-02-24T13:53:07.420Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="个人博客">
+<meta name="twitter:title" content="Netty学习笔记二">
+<meta name="twitter:description" content="什么是TCP粘包和拆包？TCP是一个“流”协议，所谓流就是没有界限的一串数据。TCP协议会根据TCP缓冲区的实际情况对包进行划分，所以业务上的一个包，可能被TCP拆分为多个包发送（拆包），多个小的包也可能被TCP合并为一个包进行发送（粘包）。 TCP粘包和拆包发生的原因原因有三个：  应用程序write写入的字节大小大于套接字缓冲区的大小 进行MSS（maximum segment size，最大">
+<meta name="twitter:image" content="https://s2.ax1x.com/2020/02/24/38zJnP.png">
   
     <link rel="alternative" href="/atom.xml" title="个人博客" type="application/atom+xml">
   
@@ -175,246 +183,129 @@
 
 
           <div id="js-content" class="content-ll">
-            
- 
-
-
-
-  
-  
+            <article id="post-Netty学习笔记二" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Netty学习笔记二
+    </h1>
+  
+
+        
+        <a href="/2020/02/24/Netty学习笔记二/" class="archive-article-date">
+  	<time datetime="2020-02-24T13:52:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-24</time>
+</a>
+        
+      </header>
     
+    <!-- 目录内容 -->
+
+    <p class="show-toc-btn" id="show-toc-btn" onclick="showToc();">
+          <span class="btn-bg"></span>
+          <span class="btn-text">文章导航</span>
+          </p>
+  <div id="toc-article" class="toc-article" style="display:none">
+      <span id="toc-close" class="toc-close" title="隐藏导航" onclick="showBtn();">×</span>
+    <strong class="toc-title">文章目录</strong>
+           <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">什么是TCP粘包和拆包？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">2.</span> <span class="toc-text">TCP粘包和拆包发生的原因</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">3.</span> <span class="toc-text">粘包问题的解决策略</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">4.</span> <span class="toc-text">如何使用Netty解决粘包问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">5.</span> <span class="toc-text">ChannelPipeline和ChannelHandler</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">5.1.</span> <span class="toc-text">ChannelPipeline是什么，它有什么作用？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">5.2.</span> <span class="toc-text">ChannlePipeline的事件处理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">5.3.</span> <span class="toc-text">如何自定义拦截器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">5.4.</span> <span class="toc-text">pipeline是如何构建的</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">5.5.</span> <span class="toc-text">ChannelPipeline的主要特性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">5.6.</span> <span class="toc-text">ChannelPipeline源码分析</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">5.6.1.</span> <span class="toc-text">类继承关系图</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">5.6.2.</span> <span class="toc-text">实现原理</span></a></li></ol></li></ol></li></ol>
+         </div>
+   <script type="text/javascript">
+  function showToc(){
+    var toc_article = document.getElementById("toc-article");
+    var show_toc_btn = document.getElementById("show-toc-btn");
+    toc_article.setAttribute("style","display:block");
+    show_toc_btn.setAttribute("style","display:none");
+    };
+  function showBtn(){
+    var toc_article = document.getElementById("toc-article");
+    var show_toc_btn = document.getElementById("show-toc-btn");
+    toc_article.setAttribute("style","display:none");
+    show_toc_btn.setAttribute("style","display:block");
+    };
+   </script>
+      
+<!-- 目录内容结束 -->
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2><span id="什么是tcp粘包和拆包">什么是TCP粘包和拆包？</span></h2><p>TCP是一个“流”协议，所谓流就是没有界限的一串数据。TCP协议会根据TCP缓冲区的实际情况对包进行划分，所以业务上的一个包，可能被TCP拆分为多个包发送（拆包），多个小的包也可能被TCP合并为一个包进行发送（粘包）。</p>
+<h2><span id="tcp粘包和拆包发生的原因">TCP粘包和拆包发生的原因</span></h2><p>原因有三个：</p>
+<ol>
+<li>应用程序write写入的字节大小大于套接字缓冲区的大小</li>
+<li>进行MSS（maximum segment size，最大分节大小，为TCP数据包每次传输的最大数据分段大小）大小的TCP分段</li>
+<li>以太帧的payload大于MTU（maximum transmission unit，最大传输单元，由硬件规定）进行IP分片<a id="more"></a>
+</li>
+</ol>
+<h2><span id="粘包问题的解决策略">粘包问题的解决策略</span></h2><p>由于底层的TCP无法理解上层的业务数据，所以在底层是无法保证数据包不被拆分和重组，这个问题只能通过上层的应用协议栈设计来解决。<br>一些解决方案如下：</p>
+<ol>
+<li>消息定长，每个报文的长度固定，如果不够，空位补空格。</li>
+<li>在包尾增加回车换行符进行分割，如FTP协议。</li>
+<li>将消息分为消息头和消息体，消息头中包含一个表示消息总长度的字段。</li>
+<li>更复杂的应用层协议。</li>
+</ol>
+<h2><span id="如何使用netty解决粘包问题">如何使用Netty解决粘包问题</span></h2><p>解决粘包问题的关键就在于要解决服务器端每次读取数据长度的问题。可以使用自定义协议+编解码器来解决。</p>
+<p>比如使用<code>LineBasedFrameDecoder</code>和<code>StringDecoder</code>来解决TCP粘包导致的读半包问题。<br>其原理就是依次遍历ByteBuf中的可读字节，判断是否有”\n”或者“\r\n”,如果有，就以此为结束位置，从可读索引到结束位置区间的字节就组成了一行。</p>
+<p>上面是采用分隔符的方式，我们还可以通过实现自己的编解码器利用定长包来处理粘包。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">XDecoder</span> <span class="keyword">extends</span> <span class="title">ByteToMessageDecoder</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//包的长度</span></span><br><span class="line">  <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> PACKET_SIZE = <span class="number">220</span>;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 用来临时保留没有处理过的请求报文</span></span><br><span class="line">  ByteBuf tempMsg = Unpooled.buffer();</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@param</span> ctx</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@param</span> in 请求的数据</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@param</span> out 将粘在一起的报文拆分后的结果保留起来</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@throws</span> Exception</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">decode</span><span class="params">(ChannelHandlerContext ctx, ByteBuf in, List&lt;Object&gt; out)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">    System.out.println(Thread.currentThread() + <span class="string">"收到了一次数据包，长度是："</span> + in.readableBytes());</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 合并报文</span></span><br><span class="line">    ByteBuf message = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">int</span> tmpMsgSize = tempMsg.readableBytes();</span><br><span class="line">    <span class="comment">// 如果暂存有上一次余下的请求报文，则合并</span></span><br><span class="line">    <span class="keyword">if</span> (tmpMsgSize &gt; <span class="number">0</span>) &#123;</span><br><span class="line">      message = Unpooled.buffer();</span><br><span class="line">      message.writeBytes(tempMsg);</span><br><span class="line">      message.writeBytes(in);</span><br><span class="line">      System.out.println(<span class="string">"合并：上一数据包余下的长度为："</span> + tmpMsgSize + <span class="string">",合并后长度为:"</span> + message.readableBytes());</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      message = in;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> size = message.readableBytes();</span><br><span class="line">    <span class="comment">//判断当前包含几个数据包</span></span><br><span class="line">    <span class="keyword">int</span> counter = size / PACKET_SIZE;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; counter; i++) &#123;</span><br><span class="line">      <span class="keyword">byte</span>[] request = <span class="keyword">new</span> <span class="keyword">byte</span>[PACKET_SIZE];</span><br><span class="line">      <span class="comment">// 每次从总的消息中读取220个字节的数据</span></span><br><span class="line">      message.readBytes(request);</span><br><span class="line"></span><br><span class="line">      <span class="comment">// 将拆分后的结果放入out列表中，交由后面的业务逻辑去处理</span></span><br><span class="line">      out.add(Unpooled.copiedBuffer(request));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//如果有多余的报文则存起来</span></span><br><span class="line">    size = message.readableBytes();</span><br><span class="line">    <span class="keyword">if</span> (size != <span class="number">0</span>) &#123;</span><br><span class="line">      System.out.println(<span class="string">"多余的数据长度："</span> + size);</span><br><span class="line">      <span class="comment">// 剩下来的数据放到tempMsg暂存</span></span><br><span class="line">      tempMsg.clear();</span><br><span class="line">      tempMsg.writeBytes(message.readBytes(size));</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2><span id="channelpipeline和channelhandler">ChannelPipeline和ChannelHandler</span></h2><h3><span id="channelpipeline是什么它有什么作用">ChannelPipeline是什么，它有什么作用？</span></h3><p>ChannelPipeline是ChannleHandler的容器，它负责ChannelHandler的管理和事件拦截与调度。</p>
+<h3><span id="channlepipeline的事件处理">ChannlePipeline的事件处理</span></h3><p>下面梳理一下，一个消息被ChannelPipeline的ChannelHandler链拦截和处理的全过程。</p>
+<ol>
+<li>底层的SocketChannel read方法读取到ByteBuf，触发了ChannelRead事件，由IO线程NioEventLoop调用ChannelPipeline的fireChannelRead方法，将消息传输到ChannelPipeline中。</li>
+<li>消息依次被Headhandler、ChannelHandler1，ChannelHandler2…TailHandler拦截和处理，在整个过程中，任何的ChannelHandler都可以中断当前的流程，结束消息的传递。</li>
+<li>调用ChannelHandlerContext的write方法发送消息，消息从TailHandler开始，逆着拦截链传递，最终被添加到消息发送缓冲区中，等待刷新和发送。</li>
+</ol>
+<p><img src="https://s2.ax1x.com/2020/02/24/38zJnP.png" alt="38zJnP.png"></p>
+<p>netty中的事件分为inbound事件和outbound事件。inbound事件通常由IO线程触发，例如TCP链路建立事件，链路关闭事件、读事件、异常通知事件等。而OUtbound事件通常是由用户主动发起的网络IO操作，例如用户发起的连接操作，绑定操作、消息发送等操作。</p>
+<h3><span id="如何自定义拦截器">如何自定义拦截器</span></h3><p>ChannelPipeline通过ChannelHandler接口来实现事件的拦截和处理。因为我们往往只需要关系ChannelHandler接口中的一些事件，因此一般继承ChannelHandlerAdapter类覆盖自己关心的方法即可。</p>
+<h3><span id="pipeline是如何构建的">pipeline是如何构建的</span></h3><p>在使用ServerBootstrap或者Bootstrap启动服务端或者客户端时，Netty会为每个Channel连接创建一个独立的pipeline。</p>
+<h3><span id="channelpipeline的主要特性">ChannelPipeline的主要特性</span></h3><ul>
+<li>ChannelPipeline支持运行态动态的添加或者删除ChannelHandler。</li>
+<li>ChannelPipeline是线程安全的，这意味着N个业务线程可以并发的操作ChannelPipeline而不存在多线程并发问题。但是ChannelHandler却不是线程安全的。</li>
+</ul>
+<h3><span id="channelpipeline源码分析">ChannelPipeline源码分析</span></h3><h4><span id="类继承关系图">类继承关系图</span></h4><p><img src="https://s2.ax1x.com/2020/02/24/3GgEB6.png" alt="3GgEB6.png"></p>
+<h4><span id="实现原理">实现原理</span></h4><p>我们以这行代码为例，来看一下，一个ChannelHandler是如何添加到ChannelPipeline中的。<br><code>pipeline.addLast(new MyByteToLongDecoder());</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> ChannelPipeline <span class="title">addLast</span><span class="params">(EventExecutorGroup executor, ChannelHandler... handlers)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (handlers == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> NullPointerException(<span class="string">"handlers"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (ChannelHandler h: handlers) &#123;</span><br><span class="line">        <span class="keyword">if</span> (h == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        addLast(executor, <span class="keyword">null</span>, h);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个方法主要做了参数校验，实际上最终是调用了<code>addLast(executor, null, h);</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"> <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> ChannelPipeline <span class="title">addLast</span><span class="params">(EventExecutorGroup group, String name, ChannelHandler handler)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> AbstractChannelHandlerContext newCtx;</span><br><span class="line">        <span class="keyword">synchronized</span> (<span class="keyword">this</span>) &#123; <span class="comment">//进行了方法同步，是线程安全的体现</span></span><br><span class="line">        <span class="comment">//判断该handler是否以及添加过了</span></span><br><span class="line">            checkMultiplicity(handler);</span><br><span class="line"></span><br><span class="line"><span class="comment">//创建一个新的AbstractChannelHandlerContext</span></span><br><span class="line">            newCtx = newContext(group, filterName(name, handler), handler);</span><br><span class="line"></span><br><span class="line"><span class="comment">//将当前的Context添加到AbstractChannelHandlerContext链表尾部</span></span><br><span class="line">            addLast0(newCtx);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// If the registered is false it means that the channel was not registered on an eventLoop yet.</span></span><br><span class="line">            <span class="comment">// In this case we add the context to the pipeline and add a task that will call</span></span><br><span class="line">            <span class="comment">// ChannelHandler.handlerAdded(...) once the channel is registered.</span></span><br><span class="line">            <span class="keyword">if</span> (!registered) &#123;</span><br><span class="line">                newCtx.setAddPending();</span><br><span class="line">                callHandlerCallbackLater(newCtx, <span class="keyword">true</span>);</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            EventExecutor executor = newCtx.executor();</span><br><span class="line">            <span class="keyword">if</span> (!executor.inEventLoop()) &#123;</span><br><span class="line">                callHandlerAddedInEventLoop(newCtx, executor);</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        callHandlerAdded0(newCtx);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/img/alipay.png">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/img/weixin.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/30/Java NIO学习笔记一/" class="archive-article-date">
-  	<time datetime="2019-08-30T02:21:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-30</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/30/Java NIO学习笔记一/">Java NIO 学习笔记一</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Java NIO</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/29/大三上的学习计划/" class="archive-article-date">
-  	<time datetime="2019-08-29T11:21:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-29</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/29/大三上的学习计划/">大三上的学习计划</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/18/计算机系统基础读书笔记四/" class="archive-article-date">
-  	<time datetime="2019-08-18T12:21:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-18</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/18/计算机系统基础读书笔记四/">深入理解计算机系统读书笔记四</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">计算机系统基础</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/15/计算机系统基础读书笔记三/" class="archive-article-date">
-  	<time datetime="2019-08-15T13:21:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-15</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/15/计算机系统基础读书笔记三/">深入理解计算机系统读书笔记三</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">计算机系统基础</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/11/计算机系统基础读书笔记二/" class="archive-article-date">
-  	<time datetime="2019-08-11T09:49:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/11/计算机系统基础读书笔记二/">深入理解计算机系统读书笔记二</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">计算机系统基础</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/06/HashSet源码分析/" class="archive-article-date">
-  	<time datetime="2019-08-06T03:37:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-06</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/06/HashSet源码分析/">HashSet源码分析</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -428,67 +319,149 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">源码</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Netty</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/02/24/Netty学习笔记二/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/08/05/计算机系统基础读书笔记一/" class="archive-article-date">
-  	<time datetime="2019-08-05T08:42:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-05</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2020/02/21/Netty学习笔记一/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Netty学习笔记一</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
+
+<!-- valine部分 -->
+
+<section id="comments" class="comments">
+  <style>
+    .comments{margin:30px;padding:10px;background:#fff}
+    @media screen and (max-width:800px){.comments{margin:auto;padding:10px;background:#fff}}
+  </style>
+  <div id="vcomment" class="comment"></div> 
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+<script>
+   var notify = 'true' == true ? true : false;
+   var verify = 'false' == true ? true : false;
+    window.onload = function() {
+        new Valine({
+            el: '#vcomment',
+            notify: notify,
+            verify: verify,
+            app_id: "ziNrp7174hrBh9XMtg91L1UH-9Nh9j0Va",
+            app_key: "uGDaWde4F3KHfdgjTumfbXdp",
+            placeholder: "没事唠两句？",
+            avatar:"robohash"
+        });
+    }
+</script>
+  </section>
+
+<!-- valine部分 -->
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/08/05/计算机系统基础读书笔记一/">深入理解计算机系统读书笔记一</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">计算机系统基础</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
+  
+
+  
+
+
+
+
+
+
+
+
 
 
           </div>
@@ -514,8 +487,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
