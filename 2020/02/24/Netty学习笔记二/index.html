@@ -18,7 +18,7 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://s2.ax1x.com/2020/02/24/38zJnP.png">
 <meta property="og:image" content="https://s2.ax1x.com/2020/02/24/3GgEB6.png">
-<meta property="og:updated_time" content="2020-02-24T13:53:07.420Z">
+<meta property="og:updated_time" content="2020-02-25T06:28:35.864Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Netty学习笔记二">
 <meta name="twitter:description" content="什么是TCP粘包和拆包？TCP是一个“流”协议，所谓流就是没有界限的一串数据。TCP协议会根据TCP缓冲区的实际情况对包进行划分，所以业务上的一个包，可能被TCP拆分为多个包发送（拆包），多个小的包也可能被TCP合并为一个包进行发送（粘包）。 TCP粘包和拆包发生的原因原因有三个：  应用程序write写入的字节大小大于套接字缓冲区的大小 进行MSS（maximum segment size，最大">
@@ -210,7 +210,7 @@
   <div id="toc-article" class="toc-article" style="display:none">
       <span id="toc-close" class="toc-close" title="隐藏导航" onclick="showBtn();">×</span>
     <strong class="toc-title">文章目录</strong>
-           <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">什么是TCP粘包和拆包？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">2.</span> <span class="toc-text">TCP粘包和拆包发生的原因</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">3.</span> <span class="toc-text">粘包问题的解决策略</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">4.</span> <span class="toc-text">如何使用Netty解决粘包问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">5.</span> <span class="toc-text">ChannelPipeline和ChannelHandler</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">5.1.</span> <span class="toc-text">ChannelPipeline是什么，它有什么作用？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">5.2.</span> <span class="toc-text">ChannlePipeline的事件处理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">5.3.</span> <span class="toc-text">如何自定义拦截器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">5.4.</span> <span class="toc-text">pipeline是如何构建的</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">5.5.</span> <span class="toc-text">ChannelPipeline的主要特性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">5.6.</span> <span class="toc-text">ChannelPipeline源码分析</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">5.6.1.</span> <span class="toc-text">类继承关系图</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">5.6.2.</span> <span class="toc-text">实现原理</span></a></li></ol></li></ol></li></ol>
+           <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">什么是TCP粘包和拆包？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">2.</span> <span class="toc-text">TCP粘包和拆包发生的原因</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">3.</span> <span class="toc-text">粘包问题的解决策略</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">4.</span> <span class="toc-text">如何使用Netty解决粘包问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">5.</span> <span class="toc-text">ChannelPipeline和ChannelHandler</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">5.1.</span> <span class="toc-text">ChannelPipeline是什么，它有什么作用？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">5.2.</span> <span class="toc-text">ChannlePipeline的事件处理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">5.3.</span> <span class="toc-text">如何自定义拦截器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">5.4.</span> <span class="toc-text">pipeline是如何构建的</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">5.5.</span> <span class="toc-text">ChannelPipeline的主要特性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">5.6.</span> <span class="toc-text">ChannelPipeline源码分析</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">5.6.1.</span> <span class="toc-text">类继承关系图</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">5.6.2.</span> <span class="toc-text">实现原理</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">5.7.</span> <span class="toc-text">ChannelHandler有什么作用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">5.8.</span> <span class="toc-text">ChannelHandlerAdapter有什么用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">6.</span> <span class="toc-text">什么是Netty零拷贝</span></a></li></ol>
          </div>
    <script type="text/javascript">
   function showToc(){
@@ -268,6 +268,19 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> ChannelPipeline <span class="title">addLast</span><span class="params">(EventExecutorGroup executor, ChannelHandler... handlers)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (handlers == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> NullPointerException(<span class="string">"handlers"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (ChannelHandler h: handlers) &#123;</span><br><span class="line">        <span class="keyword">if</span> (h == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        addLast(executor, <span class="keyword">null</span>, h);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>这个方法主要做了参数校验，实际上最终是调用了<code>addLast(executor, null, h);</code></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"> <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> ChannelPipeline <span class="title">addLast</span><span class="params">(EventExecutorGroup group, String name, ChannelHandler handler)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> AbstractChannelHandlerContext newCtx;</span><br><span class="line">        <span class="keyword">synchronized</span> (<span class="keyword">this</span>) &#123; <span class="comment">//进行了方法同步，是线程安全的体现</span></span><br><span class="line">        <span class="comment">//判断该handler是否以及添加过了</span></span><br><span class="line">            checkMultiplicity(handler);</span><br><span class="line"></span><br><span class="line"><span class="comment">//创建一个新的AbstractChannelHandlerContext</span></span><br><span class="line">            newCtx = newContext(group, filterName(name, handler), handler);</span><br><span class="line"></span><br><span class="line"><span class="comment">//将当前的Context添加到AbstractChannelHandlerContext链表尾部</span></span><br><span class="line">            addLast0(newCtx);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// If the registered is false it means that the channel was not registered on an eventLoop yet.</span></span><br><span class="line">            <span class="comment">// In this case we add the context to the pipeline and add a task that will call</span></span><br><span class="line">            <span class="comment">// ChannelHandler.handlerAdded(...) once the channel is registered.</span></span><br><span class="line">            <span class="keyword">if</span> (!registered) &#123;</span><br><span class="line">                newCtx.setAddPending();</span><br><span class="line">                callHandlerCallbackLater(newCtx, <span class="keyword">true</span>);</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            EventExecutor executor = newCtx.executor();</span><br><span class="line">            <span class="keyword">if</span> (!executor.inEventLoop()) &#123;</span><br><span class="line">                callHandlerAddedInEventLoop(newCtx, executor);</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        callHandlerAdded0(newCtx);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h3><span id="channelhandler有什么作用">ChannelHandler有什么作用</span></h3><p>ChannelHandler类似于Servlet的Filter过滤器，负责对IO事件或者IO操作进行拦截和处理，它可以选择性的拦截和处理自己感兴趣的事件，也可以透传和终止事件的传递。<br>ChannelHandler支持注解。</p>
+<ul>
+<li>Sharable：多个ChannelPipeline公用一个ChannelHandler</li>
+<li>Skip：被Skip注解的方法不会被调用，直接被忽略。</li>
+</ul>
+<h3><span id="channelhandleradapter有什么用">ChannelHandlerAdapter有什么用</span></h3><p>在实际开发中，ChannelHandler会选择性的拦截和处理。如果用户直接实现ChannelHandler接口就必须实现所有的方法，引入ChannelHandlerAdapter后用户只需要覆盖自己关心的方法即可。</p>
+<h2><span id="什么是netty零拷贝">什么是Netty零拷贝</span></h2><p>Netty零拷贝主要包含三个方面：</p>
+<ul>
+<li>Netty的接收和发送ByteBUffer采用DIRECT BUFFERS，使用堆外的直接内存进行Socket读写，不需要进行字节缓冲区的二次拷贝。如果使用传统的堆内存进行Socket读写，JVM会将堆内存Buffer拷贝一份到直接内存中，然后才写入Socket中。</li>
+<li>Netty提供了组合Buffer对象，可以聚合多个ByteBuffer对象，用户可以像操作一个Buffer那样方便的对组合Buffer进行操作，避免了传统的通过内存拷贝的方式将几个小Buffer合并成一个大的Buffer。</li>
+<li>Netty的文件传输采用transferTo方法，它可以直接将文件缓冲区的数据发送到目标Channel，避免了传统通过循环write方式导致的内存拷贝问题。</li>
+</ul>
+
       
 
       
@@ -606,19 +619,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">innodb引擎</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">innoDB引擎</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">innodb存储引擎</a>
+                <a href="javascript:void(0)" class="js-tag color4">innodb引擎</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Netty</a>
+                <a href="javascript:void(0)" class="js-tag color1">innodb存储引擎</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -634,11 +643,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">IP协议</a>
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
+                <a href="javascript:void(0)" class="js-tag color5">IP协议</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -650,6 +659,14 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Netty</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">项目小技巧</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
@@ -658,15 +675,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">项目小技巧</a>
+                <a href="javascript:void(0)" class="js-tag color4">多线程</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">汇编</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">多线程</a>
               </li>
              
               <li class="article-tag-list-item">
