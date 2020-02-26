@@ -8,13 +8,13 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>Redis设计与实现读书笔记一 | 个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="简单动态字符串Redis没有直接使用C语言中的以空字符结尾的字符串。而是自己构建了中名为简单动态字符串（SDS）的抽象类型。Redis中直接使用C字符串的地方仅仅是那些不需要对字符串进行修改的地方，作为字面量使用。Redis底层使用了大量的SDS。比如set msg &amp;quot;hello world&amp;quot;，这个命令会建立一个键值对，Redis会位msg创建一个SDS，位’hello wor">
+  <meta name="description" content="简单动态字符串Redis没有直接使用C语言中的以空字符结尾的字符串。而是自己构建了一种名为简单动态字符串（SDS）的抽象类型。Redis中直接使用C字符串的地方仅仅是那些不需要对字符串进行修改的地方，作为字面量使用。Redis底层使用了大量的SDS。比如set msg &amp;quot;hello world&amp;quot;，这个命令会建立一个键值对，Redis会为msg创建一个SDS，为’hello wo">
 <meta name="keywords" content="技术,Redis">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Redis设计与实现读书笔记一">
 <meta property="og:url" content="http://yoursite.com/2019/10/27/Redis设计与实现读书笔记一/index.html">
 <meta property="og:site_name" content="个人博客">
-<meta property="og:description" content="简单动态字符串Redis没有直接使用C语言中的以空字符结尾的字符串。而是自己构建了中名为简单动态字符串（SDS）的抽象类型。Redis中直接使用C字符串的地方仅仅是那些不需要对字符串进行修改的地方，作为字面量使用。Redis底层使用了大量的SDS。比如set msg &amp;quot;hello world&amp;quot;，这个命令会建立一个键值对，Redis会位msg创建一个SDS，位’hello wor">
+<meta property="og:description" content="简单动态字符串Redis没有直接使用C语言中的以空字符结尾的字符串。而是自己构建了一种名为简单动态字符串（SDS）的抽象类型。Redis中直接使用C字符串的地方仅仅是那些不需要对字符串进行修改的地方，作为字面量使用。Redis底层使用了大量的SDS。比如set msg &amp;quot;hello world&amp;quot;，这个命令会建立一个键值对，Redis会为msg创建一个SDS，为’hello wo">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://s2.ax1x.com/2019/10/21/K1syu9.png">
 <meta property="og:image" content="https://s2.ax1x.com/2019/10/23/KtM0ij.png">
@@ -47,10 +47,10 @@
 <meta property="og:image" content="https://s2.ax1x.com/2019/10/27/Ks7Ess.png">
 <meta property="og:image" content="https://s2.ax1x.com/2019/10/27/KsHe6H.png">
 <meta property="og:image" content="https://s2.ax1x.com/2019/10/27/KsHM7t.png">
-<meta property="og:updated_time" content="2019-11-05T02:37:55.334Z">
+<meta property="og:updated_time" content="2020-02-26T06:33:56.610Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Redis设计与实现读书笔记一">
-<meta name="twitter:description" content="简单动态字符串Redis没有直接使用C语言中的以空字符结尾的字符串。而是自己构建了中名为简单动态字符串（SDS）的抽象类型。Redis中直接使用C字符串的地方仅仅是那些不需要对字符串进行修改的地方，作为字面量使用。Redis底层使用了大量的SDS。比如set msg &amp;quot;hello world&amp;quot;，这个命令会建立一个键值对，Redis会位msg创建一个SDS，位’hello wor">
+<meta name="twitter:description" content="简单动态字符串Redis没有直接使用C语言中的以空字符结尾的字符串。而是自己构建了一种名为简单动态字符串（SDS）的抽象类型。Redis中直接使用C字符串的地方仅仅是那些不需要对字符串进行修改的地方，作为字面量使用。Redis底层使用了大量的SDS。比如set msg &amp;quot;hello world&amp;quot;，这个命令会建立一个键值对，Redis会为msg创建一个SDS，为’hello wo">
 <meta name="twitter:image" content="https://s2.ax1x.com/2019/10/21/K1syu9.png">
   
     <link rel="alternative" href="/atom.xml" title="个人博客" type="application/atom+xml">
@@ -259,15 +259,15 @@
 <!-- 目录内容结束 -->
     <div class="article-entry" itemprop="articleBody">
       
-        <h2><span id="简单动态字符串">简单动态字符串</span></h2><p>Redis没有直接使用C语言中的以空字符结尾的字符串。而是自己构建了中名为简单动态字符串（SDS）的抽象类型。<br>Redis中直接使用C字符串的地方仅仅是那些不需要对字符串进行修改的地方，作为字面量使用。<br>Redis底层使用了大量的SDS。<br>比如<code>set msg &quot;hello world&quot;</code>，这个命令会建立一个键值对，Redis会位msg创建一个SDS，位’hello world’创建一个键值对。</p>
+        <h2><span id="简单动态字符串">简单动态字符串</span></h2><p>Redis没有直接使用C语言中的以空字符结尾的字符串。而是自己构建了一种名为简单动态字符串（SDS）的抽象类型。<br>Redis中直接使用C字符串的地方仅仅是那些不需要对字符串进行修改的地方，作为字面量使用。<br>Redis底层使用了大量的SDS。<br>比如<code>set msg &quot;hello world&quot;</code>，这个命令会建立一个键值对，Redis会为msg创建一个SDS，为’hello world’创建一个键值对。</p>
 <h3><span id="sds的定义">SDS的定义</span></h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">sdshdr</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> len; <span class="comment">//记录buf中已经使用的字节数，等于SDS所保存的字符串的长度</span></span><br><span class="line">    <span class="keyword">int</span> <span class="built_in">free</span>; <span class="comment">//记录buf中空闲的字节的数量</span></span><br><span class="line">    <span class="keyword">char</span> buf[]; <span class="comment">//字节数组，用于保存字符串</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <a id="more"></a>
 <p><strong>SDS也遵循了C语言字符串以空字符结尾的惯例</strong><br><img src="https://s2.ax1x.com/2019/10/21/K1syu9.png" alt="K1syu9.png"></p>
 <h3><span id="sds与c字符串的区别">SDS与C字符串的区别</span></h3><p>SDS的优势：</p>
 <ol>
-<li>常数复杂度，获取字符串的长度。</li>
+<li>常数复杂度获取字符串的长度。</li>
 <li>可以杜绝缓冲区溢出<br>C语言因为本身不记录自身长度，很容易就可能照成缓冲区溢出。比如<code>char *strcat(char *dest,const char *src)</code>，如果没有对dest分配足够的空间，那么很容易就会出现缓冲区溢出。而SDS的api需要对SDS进行修改的时候会首先检查空间是否足够，完全杜绝了溢出的可能。</li>
-<li>减少修改支付串时带来的内存重分配次数<br>C字符串的长度和其所使用的空间总是存在len+1的关系，所以在对C字符串进行长度修改的时候，都需要重新分配空间。而SDS的空间分配策略（<strong>空间预分配，惰性空间释放</strong>）使得不需要每次都需要进行内存的重新分配。</li>
+<li>减少修改字符串时带来的内存重分配次数<br>C字符串的长度和其所使用的空间总是存在len+1的关系，所以在对C字符串进行长度修改的时候，都需要重新分配空间。而SDS的空间分配策略（<strong>空间预分配，惰性空间释放</strong>）使得不需要每次都需要进行内存的重新分配。</li>
 <li>二进制安全<br>因为C字符串使用空字符作为字符串的结束符，也就是说，C语言字符串是不能包含空字符的，这种限制也使得C字符串只能保存以某种编码的文本。SDS api都是二进制安全的，所有的SDS api都会以处理二进制的方式来处理SDS存放在buf中的数据，程序不会对数据做任何限制。</li>
 <li>兼容部分的C函数<br>SDS依然遵循C语言字符串的一空字符结尾的规定，所以SDS也可以重用string.h库中定义的函数<br><img src="https://s2.ax1x.com/2019/10/23/KtM0ij.png" alt="KtM0ij.png"></li>
 </ol>
@@ -285,7 +285,7 @@
 </ol>
 <h2><span id="字典">字典</span></h2><p>字典是一种用于保存键值对的抽象数据结构。<br>字典中的每个键都是独一无二的，程序可以在字典中根据键查找与之关联的值。</p>
 <p>当我们在数据库中执行：<br><code>SET msg &quot;hello world&quot;</code>，Redis就会创建一个键为“msg”值为“hello world”的键值对。这个键值对就保存在代表数据库字典里面。<br>除了用于保存数据库之外，字典还是哈希键的底层实现之一。</p>
-<h3><span id="定义与实现">定义与实现</span></h3><p>Redis的字典使用的哈希表由dict.h/dictht结构定义<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//hash表定义</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">dictht</span>&#123;</span></span><br><span class="line">    <span class="comment">//hash表数组</span></span><br><span class="line">    dictEntry **table;</span><br><span class="line">    <span class="comment">//哈希表大小</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> size;</span><br><span class="line">    <span class="comment">//哈希表大小掩码，用于计算索引值</span></span><br><span class="line">    <span class="comment">//总是等于size-1</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> sizemask;</span><br><span class="line">    <span class="comment">//该哈希表已有节点的数量</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> used;</span><br><span class="line">&#125;dictht;</span><br><span class="line"></span><br><span class="line"><span class="comment">//哈希表节点定义</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">dictEntry</span>&#123;</span></span><br><span class="line">    <span class="comment">//键</span></span><br><span class="line">    <span class="keyword">void</span> *key;</span><br><span class="line">    <span class="comment">//值</span></span><br><span class="line">    <span class="keyword">union</span>&#123;</span><br><span class="line">        <span class="keyword">void</span> <span class="number">8</span>val;</span><br><span class="line">        uint64_tu64;</span><br><span class="line">        int64_ts64;</span><br><span class="line">    &#125;v;</span><br><span class="line">    <span class="comment">//指向下一个哈希表节点</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">dictEntry</span> *<span class="title">next</span>;</span></span><br><span class="line">&#125;dictEntry;</span><br></pre></td></tr></table></figure></p>
+<h3><span id="定义与实现">定义与实现</span></h3><p>Redis的字典使用的哈希表由dict.h/dictht结构定义<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//hash表定义</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">dictht</span>&#123;</span></span><br><span class="line">    <span class="comment">//hash表数组</span></span><br><span class="line">    dictEntry **table;</span><br><span class="line">    <span class="comment">//哈希表大小</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> size;</span><br><span class="line">    <span class="comment">//哈希表大小掩码，用于计算索引值</span></span><br><span class="line">    <span class="comment">//总是等于size-1</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> sizemask;</span><br><span class="line">    <span class="comment">//该哈希表已有节点的数量</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> used;</span><br><span class="line">&#125;dictht;</span><br><span class="line"></span><br><span class="line"><span class="comment">//哈希表节点定义</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">dictEntry</span>&#123;</span></span><br><span class="line">    <span class="comment">//键</span></span><br><span class="line">    <span class="keyword">void</span> *key;</span><br><span class="line">    <span class="comment">//值</span></span><br><span class="line">    <span class="keyword">union</span>&#123;</span><br><span class="line">        <span class="keyword">void</span> *val;</span><br><span class="line">        uint64_tu64;</span><br><span class="line">        int64_ts64;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="comment">//指向下一个哈希表节点</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">dictEntry</span> *<span class="title">next</span>;</span></span><br><span class="line">&#125;dictEntry;</span><br></pre></td></tr></table></figure></p>
 <p><img src="https://s2.ax1x.com/2019/10/23/KtYEDI.png" alt="KtYEDI.png"></p>
 <p>Redis中字典的定义<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">dict</span>&#123;</span></span><br><span class="line">    dictType *type;</span><br><span class="line">    <span class="comment">//私有数据</span></span><br><span class="line">    <span class="keyword">void</span> *privdata;</span><br><span class="line">    <span class="comment">//哈希表</span></span><br><span class="line">    dicht ht[<span class="number">2</span>];</span><br><span class="line">    <span class="comment">//rehash索引，当rehash不在进行时，值为-1</span></span><br><span class="line">    <span class="keyword">int</span> trehashidx;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>其中type属性时一个指向dictType结构的指针，每个dictType结构保存着操作用于操作特定类型的键值对的函数。<br>privadata属性则保存着需要传递给那些类型特定函数的可选参数<br>ht属性包含两个项的数组，数组中的每个项都是一个dictht哈希表，平时只使用ht[0]，ht[1]在rehash时使用。</p>
@@ -334,7 +334,7 @@
 <p>每种类型的对象都至少使用了两种不同类型的编码。<br><img src="https://s2.ax1x.com/2019/10/24/KaiUtx.png" alt="KaiUtx.png"><br>通过encoding属性来设定对象所使用的编码，而不是为特定类型的对象关联一种固定的编码，极大的提高了redis的灵活性和效率。因为Redis可以根据不同的使用场景来为对象设定不同的编码，从而优化了对象在某一场景下的效率。</p>
 <h2><span id="字符串对象">字符串对象</span></h2><p>字符串对象的编码可以是int,row,embstr.<br>如果一个字符串对象保存的是整数值，并且这个整数值可以用long类型表示，那么字符串对象会值保存在字符串对象数据结构中ptr属性里，并将编码类型设置为int。</p>
 <p>如果字符串对象保存的是一个字符串值，并且这个字符串的长度大于32字节，那么这个对象将使用SDS来保存这个字符串值，并将对象编码设置为row。</p>
-<p>如果字符串对象保存的是一个字符串值，且这个字符串值的长度小于等于32字节是，那么字符串对象间使用embstr编码的方式来保存这个字符串值。embstr编码也会使用SDS，只不过它通过一次内存分配获取一片连续的空间，就实现了redisObject 和sdshdr结构内存的分配。而row编码，需要两次.一次用来分配redisObject一次用来分配sdshar。而且因为Redis中没有embstr编码的修改程序，也就说其实embstr编码是只读的，写操作会重新分配。<br>通过embstr编码创建的内存块的结构：<br><img src="https://s2.ax1x.com/2019/10/24/KaAY7j.png" alt="KaAY7j.png"></p>
+<p>如果字符串对象保存的是一个字符串值，且这个字符串值的长度小于等于32字节是，那么字符串对象将使用embstr编码的方式来保存这个字符串值。embstr编码也会使用SDS，只不过它通过一次内存分配获取一片连续的空间，就实现了redisObject 和sdshdr结构内存的分配。而row编码，需要两次.一次用来分配redisObject一次用来分配sdshar。而且因为Redis中没有embstr编码的修改程序，也就说其实embstr编码是只读的，写操作会重新分配。<br>通过embstr编码创建的内存块的结构：<br><img src="https://s2.ax1x.com/2019/10/24/KaAY7j.png" alt="KaAY7j.png"></p>
 <p><strong>值得注意的是，可以用long double表示的浮点数，在redis中也是作为字符串值来存放的</strong></p>
 <h2><span id="列表对象">列表对象</span></h2><p>列表对象的编码可以是ziplist或linkedlist。<br>ziplist编码的列表使用压缩列表来作为底层实现，每个压缩列表节点保存一个列表节点。<br>另一个方面，linkedlist编码的列表对象使用双端链表作为底层实现。每个双端链表都保存了一个字符串对象，而每个字符串对象都保存了一个列表元素。双端列表结构中可以嵌套多个字符串对象。<br><strong>编码转换</strong><br>当列表对象同时满足以下两个条件时，列表对象可以使用ziplist。</p>
 <ol>
@@ -400,11 +400,11 @@
 <p><strong>过期键删除策略</strong></p>
 <ol>
 <li>定时删除，在设置键的过期时间的同时，创建一个定时器，让定时器在键的过期时间来临时，立即执行对键的删除操作。<br>它能及时地删除过期地键，但是对CPU时间是最不友好地。</li>
-<li>惰性删除，放任键的过期时间，只是从键空间取键时，检查是否过期，如果发现过期就进行删除。<br>对CPU是最友好的，但是对内存时不友好的。过期键可能长时间的占用内存。</li>
+<li>惰性删除，放任键的过期时间，只是从键空间取键时，检查是否过期，如果发现过期就进行删除。<br>对CPU是最友好的，但是对内存是不友好的。过期键可能长时间的占用内存。</li>
 <li>定期删除：每隔一段时间，程序就会对数据库进行一次检查，删除里面的过期键。<br>定时删除是对前两种方案的一种折中。</li>
 </ol>
-<h3><span id="过期键对aofrdb和复制功能的影响">过期键对AOF，RDB和复制功能的影响</span></h3><p><strong>RDB</strong><br>在生存RDB文件的时候，程序会对数据库中的键进行检查，已过期的键不会被保存到新创建的RDB文件中。</p>
-<p>当载入RDB文件的时候，如果服务器以主服务器运行，那么程序会对文件中的键进行检查，未过期的键会被载入数据库中。<br>如果服务器以从服务器模式运行，那么载入RDB文件时，文件中保存的所有键，无论过期与否都会被载入。<br><strong>AOF</strong><br>如果数据库中的某个键已经过期了，但是它还没有被惰性删除或定期删除，那么AOF将不会受任何的影响。当过期的键被惰性删除或定期删除之后，程序会线AOF文件中追加一条DEL命令，来显示的指明该键已被删除。<br>当在进行AOF重写的时候，程序会对键进行检查，已过期的键不会被保存到重写后的AOF文件中。</p>
+<h3><span id="过期键对aofrdb和复制功能的影响">过期键对AOF，RDB和复制功能的影响</span></h3><p><strong>RDB</strong><br>在生成RDB文件的时候，程序会对数据库中的键进行检查，已过期的键不会被保存到新创建的RDB文件中。</p>
+<p>当载入RDB文件的时候，如果服务器以主服务器运行，那么程序会对文件中的键进行检查，未过期的键会被载入数据库中。<br>如果服务器以从服务器模式运行，那么载入RDB文件时，文件中保存的所有键，无论过期与否都会被载入。<br><strong>AOF</strong><br>如果数据库中的某个键已经过期了，但是它还没有被惰性删除或定期删除，那么AOF将不会受任何的影响。当过期的键被惰性删除或定期删除之后，程序会向AOF文件中追加一条DEL命令，来显示的指明该键已被删除。<br>当在进行AOF重写的时候，程序会对键进行检查，已过期的键不会被保存到重写后的AOF文件中。</p>
 <p><strong>复制</strong><br>当服务器运行在复制模式下时，从服务器的过期键删除动作由主服务器控制。</p>
 <ol>
 <li>当主服务器在删除一个过期键之后，会显示地向所有从服务器发送一个DEL命令，告知从服务器删除这个过期键。</li>
@@ -839,11 +839,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">innoDB引擎</a>
+                <a href="javascript:void(0)" class="js-tag color4">innodb引擎</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">innodb引擎</a>
+                <a href="javascript:void(0)" class="js-tag color4">innoDB引擎</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -855,7 +855,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+                <a href="javascript:void(0)" class="js-tag color1">Netty</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -863,11 +863,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
+                <a href="javascript:void(0)" class="js-tag color5">IP协议</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">IP协议</a>
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -876,10 +880,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Netty</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -899,11 +899,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">正则表达式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">汇编</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">正则表达式</a>
+                <a href="javascript:void(0)" class="js-tag color4">TCP</a>
               </li>
              
               <li class="article-tag-list-item">

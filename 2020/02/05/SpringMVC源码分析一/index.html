@@ -8,13 +8,13 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>SpringMVC源码分析一 | 个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="什么是Servlet？Servlet实际是Servcer+Applet的缩写，表示一个服务器应用。Servlet是JavaEE规范的一部分。 在Servlet3.1中，它的结构图如下：">
+  <meta name="description" content="什么是Servlet？Servlet实际是Server+Applet的缩写，表示一个服务器应用。Servlet是JavaEE规范的一部分。 在Servlet3.1中，它的结构图如下：">
 <meta name="keywords" content="java,技术,源码,SpringMVC">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SpringMVC源码分析一">
 <meta property="og:url" content="http://yoursite.com/2020/02/05/SpringMVC源码分析一/index.html">
 <meta property="og:site_name" content="个人博客">
-<meta property="og:description" content="什么是Servlet？Servlet实际是Servcer+Applet的缩写，表示一个服务器应用。Servlet是JavaEE规范的一部分。 在Servlet3.1中，它的结构图如下：">
+<meta property="og:description" content="什么是Servlet？Servlet实际是Server+Applet的缩写，表示一个服务器应用。Servlet是JavaEE规范的一部分。 在Servlet3.1中，它的结构图如下：">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://s2.ax1x.com/2020/01/31/18mZLV.png">
 <meta property="og:image" content="https://s2.ax1x.com/2020/02/01/18gtns.png">
@@ -24,10 +24,10 @@
 <meta property="og:image" content="https://s2.ax1x.com/2020/02/01/1GXwxH.png">
 <meta property="og:image" content="https://s2.ax1x.com/2020/02/02/1YM9Zn.png">
 <meta property="og:image" content="https://s2.ax1x.com/2020/02/03/1NTGcj.png">
-<meta property="og:updated_time" content="2020-02-05T02:01:51.292Z">
+<meta property="og:updated_time" content="2020-02-26T02:58:22.497Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SpringMVC源码分析一">
-<meta name="twitter:description" content="什么是Servlet？Servlet实际是Servcer+Applet的缩写，表示一个服务器应用。Servlet是JavaEE规范的一部分。 在Servlet3.1中，它的结构图如下：">
+<meta name="twitter:description" content="什么是Servlet？Servlet实际是Server+Applet的缩写，表示一个服务器应用。Servlet是JavaEE规范的一部分。 在Servlet3.1中，它的结构图如下：">
 <meta name="twitter:image" content="https://s2.ax1x.com/2020/01/31/18mZLV.png">
   
     <link rel="alternative" href="/atom.xml" title="个人博客" type="application/atom+xml">
@@ -236,7 +236,7 @@
 <!-- 目录内容结束 -->
     <div class="article-entry" itemprop="articleBody">
       
-        <h2><span id="什么是servlet">什么是Servlet？</span></h2><p>Servlet实际是Servcer+Applet的缩写，表示一个服务器应用。Servlet是JavaEE规范的一部分。</p>
+        <h2><span id="什么是servlet">什么是Servlet？</span></h2><p>Servlet实际是Server+Applet的缩写，表示一个服务器应用。Servlet是JavaEE规范的一部分。</p>
 <p>在Servlet3.1中，它的结构图如下：<br><img src="https://s2.ax1x.com/2020/01/31/18mZLV.png" alt="18mZLV.png"></p>
 <a id="more"></a>
 <p>Servlet接口定义如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Servlet</span></span>&#123;</span><br><span class="line">    <span class="comment">/*这个方法在容器启动的时候被容器调用，</span></span><br><span class="line"><span class="comment">    但是当load-on-startup设置为负数或者不设置的时候，</span></span><br><span class="line"><span class="comment">    是在Servlet第一次被用到的时候调用*/</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">(ServletConfig config)</span> <span class="keyword">throws</span> nServletException</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/*用于获取ServletConfig*/</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ServletConfig <span class="title">getServletConfig</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="comment">/*用于处理具体的请求*/</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">service</span><span class="params">(ServletRequest req,ServletResponse res)</span> <span class="keyword">throws</span> ServletException,IOException</span>;</span><br><span class="line">    <span class="comment">/*获取Servlet的相关信息，如作者等，默认实现返回空串*/</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getServletInfo</span><span class="params">()</span></span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/*在Servlet销毁的时候（关闭服务器）调用，用于释放资源，只会调用一次*/</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">destroy</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
@@ -252,7 +252,7 @@
 <p>整个Server的启动过程如下，首先设置启动后是否进入等待的标志位，然后调用load方法来加载配置文件，创建Server对象，最后调用server对象的start方法来启动服务器，最后再注册服务器关闭的钩爪函数，根据之前设置的标志位决定是否进入等待状态。</p>
 <h3><span id="server的启动过程">Server的启动过程</span></h3><p>Server接口中提供了<code>addServer(Server service)</code>，<code>removeService(Service service)</code>来添加和删除Service。Server的init方法和start方法，分配循环调用了每个Service的init方法和start方法以此来启动所有的Service。</p>
 <p>Server的默认实现是<code>org/apache/catalina/core/StandardServer.java</code><br><code>class StandardServer extends LifecycleMBeanBase implements Server</code></p>
-<p>Server继承了<code>LifecycleMBeanBase</code>，init和start方法就是在<code>LifecycleMBeanBase</code>的父类<code>LifecycleBase</code>中定义的。<br>StandardServer中的<code>initInternal</code>和<code>startInternal</code>方法就是Tomcate生命周期的管理方式。<br>这两个方法的内部主要就是向下面一样，依次调用所有的Service的相应的方法。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">synchronized</span> (servicesLock) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; services.length; i++) &#123;</span><br><span class="line">                services[i].start();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure></p>
+<p>Server继承了<code>LifecycleBeanBase</code>，init和start方法就是在<code>LifecycleBeanBase</code>的父类<code>LifecycleBase</code>中定义的。<br>StandardServer中的<code>initInternal</code>和<code>startInternal</code>方法就是Tomcate生命周期的管理方式。<br>这两个方法的内部主要就是向下面一样，依次调用所有的Service的相应的方法。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">synchronized</span> (servicesLock) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; services.length; i++) &#123;</span><br><span class="line">                services[i].start();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure></p>
 <h3><span id="service的启动过程">Service的启动过程</span></h3><p>Service的默认实现是<code>org.apache.catalina.core.StandardService</code>,<br><code>class StandardService extends LifecycleMBeanBase implements Service</code><br>它同样也是继承自<code>LifecycleMBeanBase</code>类的，所以init和start方法最终就会调用<code>initInternal</code>和<code>startInternal</code>方法。<br>这两个方法的具体实现如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">startInternal</span><span class="params">()</span> <span class="keyword">throws</span> LifecycleException </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(log.isInfoEnabled())</span><br><span class="line">            log.info(sm.getString(<span class="string">"standardService.start.name"</span>, <span class="keyword">this</span>.name));</span><br><span class="line">        setState(LifecycleState.STARTING);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Start our defined Container first</span></span><br><span class="line">        <span class="keyword">if</span> (engine != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">synchronized</span> (engine) &#123;</span><br><span class="line">            <span class="comment">//调用engine的start方法</span></span><br><span class="line">                engine.start();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">synchronized</span> (executors) &#123;</span><br><span class="line">            <span class="keyword">for</span> (Executor executor: executors) &#123;</span><br><span class="line">                executor.start();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        mapperListener.start();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Start our defined Connectors second</span></span><br><span class="line">        <span class="keyword">synchronized</span> (connectorsLock) &#123;</span><br><span class="line">            <span class="keyword">for</span> (Connector connector: connectors) &#123;</span><br><span class="line">                <span class="comment">// If it has already failed, don't try and start it</span></span><br><span class="line">                <span class="keyword">if</span> (connector.getState() != LifecycleState.FAILED) &#123;</span><br><span class="line">                    connector.start();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
 <p>以<code>startInternal</code>为例，<code>startInternal</code>和<code>initInternal</code>方法内部主要是调用container,executors,mapperListener,connectors的init和start方法。其中executors的作用主要是管理线程池。</p>
 <p>整个Tomcat服务器的启动流程图如下：<br><img src="https://s2.ax1x.com/2020/02/01/1Gha80.png" alt="1Gha80.png"></p>
@@ -270,7 +270,7 @@
 <p><img src="https://s2.ax1x.com/2020/02/01/1GXJVx.png" alt="1GXJVx.png"></p>
 <p>Container的子容器Engine，Host，Context，Wrapper是逐层包含的关系。<br><img src="https://s2.ax1x.com/2020/02/01/1GXwxH.png" alt="1GXwxH.png"></p>
 <ul>
-<li>Engine：引擎，用于管理多个站点，一个Service最多只能由一个Engine。</li>
+<li>Engine：引擎，用于管理多个站点，一个Service最多只能有一个Engine。</li>
 <li>Host：代表一个站点，也称为虚拟主机，通过配置host就可以添加站点。</li>
 <li>Context：代表一个应用程序，对应着平时开发的一个程序，或WEB-INF下的一个web.xml文件</li>
 <li>Wrapper：每个Wrapper封装着一个Servlet。</li>
@@ -644,11 +644,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">innoDB引擎</a>
+                <a href="javascript:void(0)" class="js-tag color4">innodb引擎</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">innodb引擎</a>
+                <a href="javascript:void(0)" class="js-tag color4">innoDB引擎</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -660,7 +660,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+                <a href="javascript:void(0)" class="js-tag color1">Netty</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -668,11 +668,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
+                <a href="javascript:void(0)" class="js-tag color5">IP协议</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">IP协议</a>
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -681,10 +685,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Netty</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -704,11 +704,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">正则表达式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">汇编</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">正则表达式</a>
+                <a href="javascript:void(0)" class="js-tag color4">TCP</a>
               </li>
              
               <li class="article-tag-list-item">

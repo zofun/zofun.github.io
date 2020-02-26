@@ -17,7 +17,7 @@
 <meta property="og:description" content="事务的ACID Atomicity原子性：事务是一个原子操作，由一些列动作组成，事务的原子性确保动作要么全部完成，要么都不完成。 Consistency一致性：一旦事务完成，系统必须确保它锁建模的业务处于一致的状态，而不是部分完成或部分失败。 Isolation隔离性：可能有许多事务会同时处理相同的数据，因此每个事务都应该与其它事务隔离开来，防止数据破坏。 Durability持久性：一旦事务完成">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://s2.ax1x.com/2020/01/15/lOHA2t.png">
-<meta property="og:updated_time" content="2020-01-16T02:57:44.004Z">
+<meta property="og:updated_time" content="2020-02-26T03:12:38.698Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spring事务基础">
 <meta name="twitter:description" content="事务的ACID Atomicity原子性：事务是一个原子操作，由一些列动作组成，事务的原子性确保动作要么全部完成，要么都不完成。 Consistency一致性：一旦事务完成，系统必须确保它锁建模的业务处于一致的状态，而不是部分完成或部分失败。 Isolation隔离性：可能有许多事务会同时处理相同的数据，因此每个事务都应该与其它事务隔离开来，防止数据破坏。 Durability持久性：一旦事务完成">
@@ -238,7 +238,7 @@
 <a id="more"></a>
 <h2><span id="spring事务的核心接口">Spring事务的核心接口</span></h2><p><img src="https://s2.ax1x.com/2020/01/15/lOHA2t.png" alt="lOHA2t.png"><br>Spring并不直接管理事务，而是提供多种事务管理器，它将事务管理委托给持久化框架。</p>
 <h2><span id="事务的属性">事务的属性</span></h2><p>事务的属性是：传播行为，隔离规则，回滚规则，是否只读，事务超时。</p>
-<h3><span id="事务的传播行为">事务的传播行为</span></h3><p>当一个事务方法嗲调用另一个事务方法的时候，必须指定事务应该如何传播。<br>Spring定义了七种传播行为：</p>
+<h3><span id="事务的传播行为">事务的传播行为</span></h3><p>当一个事务方法调用另一个事务方法的时候，必须指定事务应该如何传播。<br>Spring定义了七种传播行为：</p>
 <ul>
 <li>PROPAGATION_REQUIRED:表示当前方法必须运行在事务中，如果当前事务存在，方法将会在该事务中运行。否则，会启动一个新的事务。</li>
 <li>PROPAGATION_SUPPORTS:表示当前方法不需要事务上下文，但是如果存在当前事务的话，那么该方法会在这个事务中运行。</li>
@@ -599,11 +599,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">innoDB引擎</a>
+                <a href="javascript:void(0)" class="js-tag color4">innodb引擎</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">innodb引擎</a>
+                <a href="javascript:void(0)" class="js-tag color4">innoDB引擎</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -615,7 +615,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+                <a href="javascript:void(0)" class="js-tag color1">Netty</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -623,11 +623,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
+                <a href="javascript:void(0)" class="js-tag color5">IP协议</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">IP协议</a>
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -636,10 +640,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Netty</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -659,11 +659,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">正则表达式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">汇编</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">正则表达式</a>
+                <a href="javascript:void(0)" class="js-tag color4">TCP</a>
               </li>
              
               <li class="article-tag-list-item">

@@ -181,6 +181,107 @@
 
 
   
+    <article id="post-深入理解TCP协议" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/02/26/深入理解TCP协议/">深入理解TCP协议</a>
+    </h1>
+  
+
+        
+        <a href="/2020/02/26/深入理解TCP协议/" class="archive-article-date">
+  	<time datetime="2020-02-26T13:01:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-26</time>
+</a>
+        
+      </header>
+    
+    <!-- 目录内容 -->
+
+<!-- 目录内容结束 -->
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="什么是TCP协议？"><a href="#什么是TCP协议？" class="headerlink" title="什么是TCP协议？"></a>什么是TCP协议？</h2><p>TCP协议是一种面向连接的、可靠的字节流服务，它是一种传输层协议，它会使用网络层协议IP协议。</p>
+<h2 id="TCP协议是如何保证可靠传输的"><a href="#TCP协议是如何保证可靠传输的" class="headerlink" title="TCP协议是如何保证可靠传输的"></a>TCP协议是如何保证可靠传输的</h2><ul>
+<li>序列号</li>
+<li>校验和</li>
+<li>确认应答机制</li>
+<li>连接管理</li>
+<li>重发控制</li>
+<li>流露控制</li>
+<li>阻塞控制</li>
+</ul>
+<h2 id="TCP协议的首部是怎样的？"><a href="#TCP协议的首部是怎样的？" class="headerlink" title="TCP协议的首部是怎样的？"></a>TCP协议的首部是怎样的？</h2><p>TCP数据被封装在一个IP数据报中。<br>由TCP传递给IP的信息单位称为报文端或段(segment)<br><img src="https://s2.ax1x.com/2020/02/25/3YQzfe.png" alt="3YQzfe.png"><br>标记比特介绍：<br>URG：紧急指针有效<br>ACK：确认需要有效<br>PSH：接收方应该尽快将这个报文段交给应用层。<br>RST：重建连接<br>SYN：同步序号用来发起一个连接。<br>FIN：发送端完成发送任务。</p>
+        
+          <a class="article-more-a" href="/2020/02/26/深入理解TCP协议/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">TCP</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/02/26/深入理解TCP协议/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-Netty学习笔记二" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -711,7 +812,7 @@
 <!-- 目录内容结束 -->
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="什么是Servlet？"><a href="#什么是Servlet？" class="headerlink" title="什么是Servlet？"></a>什么是Servlet？</h2><p>Servlet实际是Servcer+Applet的缩写，表示一个服务器应用。Servlet是JavaEE规范的一部分。</p>
+        <h2 id="什么是Servlet？"><a href="#什么是Servlet？" class="headerlink" title="什么是Servlet？"></a>什么是Servlet？</h2><p>Servlet实际是Server+Applet的缩写，表示一个服务器应用。Servlet是JavaEE规范的一部分。</p>
 <p>在Servlet3.1中，它的结构图如下：<br><img src="https://s2.ax1x.com/2020/01/31/18mZLV.png" alt="18mZLV.png"></p>
         
           <a class="article-more-a" href="/2020/02/05/SpringMVC源码分析一/#more">more >></a>
@@ -1077,102 +1178,6 @@
 
 
   
-    <article id="post-JVM之概述" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/01/25/JVM之概述/">JVM之概述</a>
-    </h1>
-  
-
-        
-        <a href="/2020/01/25/JVM之概述/" class="archive-article-date">
-  	<time datetime="2020-01-25T08:54:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-25</time>
-</a>
-        
-      </header>
-    
-    <!-- 目录内容 -->
-
-<!-- 目录内容结束 -->
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="什么是java虚拟机？"><a href="#什么是java虚拟机？" class="headerlink" title="什么是java虚拟机？"></a>什么是java虚拟机？</h2><p>虚拟机是一种抽象化的计算机，通过在实际上的计算机上仿真模拟各种计算机功能来实现的。Java虚拟机有自己完善的硬件架构，如处理器、堆栈、寄存器等，还具有相应的指令体系。<strong>JVM屏蔽了与具体操作系统平台相关的信息</strong>，使得Java程序只需要生成在java虚拟机上运行的目标代码，就可以在多种平台上不加修改地运行。做到了一次编译到处运行。<br>在JVM启动之后，它实际上就是一个操作系统中的进程。</p>
-<h2 id="JVM的体系结构"><a href="#JVM的体系结构" class="headerlink" title="JVM的体系结构"></a>JVM的体系结构</h2><p><img src="https://s2.ax1x.com/2020/01/17/1SuGSU.png" alt="1SuGSU.png"><br>
-        
-          <a class="article-more-a" href="/2020/01/25/JVM之概述/#more">more >></a>
-        
-      
-
-      
-    </p></div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">JVM</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/01/25/JVM之概述/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -1322,11 +1327,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">innoDB引擎</a>
+                <a href="javascript:void(0)" class="js-tag color4">innodb引擎</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">innodb引擎</a>
+                <a href="javascript:void(0)" class="js-tag color4">innoDB引擎</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1338,7 +1343,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+                <a href="javascript:void(0)" class="js-tag color1">Netty</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1346,11 +1351,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
+                <a href="javascript:void(0)" class="js-tag color5">IP协议</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">IP协议</a>
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1359,10 +1368,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Netty</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1382,11 +1387,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">正则表达式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">汇编</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">正则表达式</a>
+                <a href="javascript:void(0)" class="js-tag color4">TCP</a>
               </li>
              
               <li class="article-tag-list-item">
