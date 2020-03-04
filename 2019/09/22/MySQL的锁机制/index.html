@@ -18,7 +18,7 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://s2.ax1x.com/2019/09/21/nz5pjS.png">
 <meta property="og:image" content="https://s2.ax1x.com/2019/09/22/ups0q1.png">
-<meta property="og:updated_time" content="2019-09-22T08:02:20.163Z">
+<meta property="og:updated_time" content="2020-02-27T06:37:36.739Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MySQL的锁机制">
 <meta name="twitter:description" content="MySQL锁的概述锁是计算机协调多个进程或线程并发访问某一资源的机制。MySQL中不同的存储引擎支持不同的锁机制。InnoDB存储引擎支持行级锁和表级锁，默认情况下使用的是行级锁。MyISAM支持表级锁。表级锁：开销小，加锁快，不会出现死锁，锁定粒度大，发生锁冲突的概览极高，并发度最低。行级锁： 开销大，加锁满，会出现死锁，锁定粒度最小，发生锁冲突的概览最低，并发度也最高。页面锁： 开销和加锁时间">
@@ -231,8 +231,8 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h2><span id="mysql锁的概述">MySQL锁的概述</span></h2><p>锁是计算机协调多个进程或线程并发访问某一资源的机制。<br>MySQL中不同的存储引擎支持不同的锁机制。InnoDB存储引擎支持行级锁和表级锁，默认情况下使用的是行级锁。MyISAM支持表级锁。<br>表级锁：开销小，加锁快，不会出现死锁，锁定粒度大，发生锁冲突的概览极高，并发度最低。<br>行级锁： 开销大，加锁满，会出现死锁，锁定粒度最小，发生锁冲突的概览最低，并发度也最高。<br>页面锁： 开销和加锁时间介于表锁和行锁之间，会出现死锁，锁定粒度介于表锁和行锁之间，并发度一般。</p>
-<h2><span id="myisam表锁">MyISAM表锁</span></h2><p>MySQL的表级锁有两种模式：表共享读锁，表独占写锁。对MyISAM的读不会阻塞其它用户的读请求，但是会阻塞对同一表额写请求。当一个线程获得了一个表的写锁后，只有持有锁的线程可以对表进行更新操作。其它读写操作都会被阻塞。</p>
-<h3><span id="如何加表锁">如何加表锁</span></h3><p>MyISAM在执行select操作之前会自动给涉及到的表加读锁。在执行更新操作（update，insert，delete）前，会自动给涉及到的表添加写锁。因此一般是不需要显示的去加锁的。<br>一般手动加锁是模拟事务：<br>比如：<br>检查两个表的合计金额是否相同，<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">//这种写法显然可能会出现错误（第一条sql执行之后，可能会有金额变动）</span><br><span class="line"><span class="keyword">select</span> <span class="keyword">sum</span>(total) <span class="keyword">from</span> orders;</span><br><span class="line"><span class="keyword">select</span> <span class="keyword">sum</span>(subtotal) <span class="keyword">from</span> order_detail;</span><br></pre></td></tr></table></figure></p>
+<h2><span id="myisam表锁">MyISAM表锁</span></h2><p>MySQL的表级锁有两种模式：表共享读锁，表独占写锁。对MyISAM的读不会阻塞其它用户的读请求，但是会阻塞对同一表的写请求。当一个线程获得了一个表的写锁后，只有持有锁的线程可以对表进行更新操作。其它读写操作都会被阻塞。</p>
+<h3><span id="如何加表锁">如何加表锁</span></h3><p>MyISAM在执行select操作之前会自动给涉及到的表加读锁。在执行更新操作（update，insert，delete）前，会自动给涉及到的表添加写锁。因此一般是不需要显式的去加锁的。<br>一般手动加锁是模拟事务：<br>比如：<br>检查两个表的合计金额是否相同，<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">//这种写法显然可能会出现错误（第一条sql执行之后，可能会有金额变动）</span><br><span class="line"><span class="keyword">select</span> <span class="keyword">sum</span>(total) <span class="keyword">from</span> orders;</span><br><span class="line"><span class="keyword">select</span> <span class="keyword">sum</span>(subtotal) <span class="keyword">from</span> order_detail;</span><br></pre></td></tr></table></figure></p>
 <a id="more"></a>
 <p>采用加锁来实现模拟事务<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Loco tables orders read local,order_detail read local;</span><br><span class="line"><span class="keyword">select</span> <span class="keyword">sum</span>(total) <span class="keyword">from</span> orders;</span><br><span class="line"><span class="keyword">select</span> <span class="keyword">sum</span>(subtotal) <span class="keyword">from</span> order_detail;</span><br><span class="line"><span class="keyword">Unlock</span> <span class="keyword">tables</span>;</span><br></pre></td></tr></table></figure></p>
 <p>值得注意的是在加锁时有一个<code>Local</code>关键字，其作用是在并发情况下，允许其它用户在表尾并发插入记录。</p>
@@ -601,11 +601,11 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java</a>
+                <a href="javascript:void(0)" class="js-tag color3">技术</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">技术</a>
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -613,11 +613,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Java NIO</a>
+                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
+                <a href="javascript:void(0)" class="js-tag color4">Java NIO</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -625,19 +625,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">innodb引擎</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">innoDB引擎</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">innodb存储引擎</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">innodb引擎</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -649,15 +649,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">TCP/IP</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">IP协议</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -693,6 +693,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">计算机系统基础</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">汇编</a>
               </li>
              
@@ -701,15 +705,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">计算机系统基础</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">SpingBoot</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -721,11 +717,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">面试题</a>
+                <a href="javascript:void(0)" class="js-tag color5">SpingBoot</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">项目</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">面试题</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Dubbo</a>
               </li>
             
             <div class="clearfix"></div>

@@ -9,7 +9,7 @@
   <title>MySQL技术内幕学习笔记一 | 个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="数据库是物理操作系统文件或其它形式文件类型得集合。 实例是数据库后台线程和共享内存区。通常数据库和实例是一一对应的关系。一个数据库对应一个实例。 MySQL是一个单进程多线程架构的应用。 MySQL数据库启动时会按照/etc/my.cnf–&amp;gt;/tec/mysql/my.cnf–&amp;gt;/usr/local/mysql/etc/mycnf–&amp;gt;~/.my.cnf的顺序读取配置文件（也可能">
-<meta name="keywords" content="技术,MySQL,innoDB引擎">
+<meta name="keywords" content="技术,innoDB引擎,MySQL">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MySQL技术内幕学习笔记一">
 <meta property="og:url" content="http://yoursite.com/2019/04/07/MySQL技术内幕学习笔记一/index.html">
@@ -18,7 +18,7 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://s2.ax1x.com/2019/04/06/AWHdJ0.png">
 <meta property="og:image" content="https://s2.ax1x.com/2019/04/06/AfSKBV.png">
-<meta property="og:updated_time" content="2019-04-06T12:21:06.473Z">
+<meta property="og:updated_time" content="2020-02-27T02:31:46.793Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MySQL技术内幕学习笔记一">
 <meta name="twitter:description" content="数据库是物理操作系统文件或其它形式文件类型得集合。 实例是数据库后台线程和共享内存区。通常数据库和实例是一一对应的关系。一个数据库对应一个实例。 MySQL是一个单进程多线程架构的应用。 MySQL数据库启动时会按照/etc/my.cnf–&amp;gt;/tec/mysql/my.cnf–&amp;gt;/usr/local/mysql/etc/mycnf–&amp;gt;~/.my.cnf的顺序读取配置文件（也可能">
@@ -203,6 +203,30 @@
     
     <!-- 目录内容 -->
 
+    <p class="show-toc-btn" id="show-toc-btn" onclick="showToc();">
+          <span class="btn-bg"></span>
+          <span class="btn-text">文章导航</span>
+          </p>
+  <div id="toc-article" class="toc-article" style="display:none">
+      <span id="toc-close" class="toc-close" title="隐藏导航" onclick="showBtn();">×</span>
+    <strong class="toc-title">文章目录</strong>
+           
+         </div>
+   <script type="text/javascript">
+  function showToc(){
+    var toc_article = document.getElementById("toc-article");
+    var show_toc_btn = document.getElementById("show-toc-btn");
+    toc_article.setAttribute("style","display:block");
+    show_toc_btn.setAttribute("style","display:none");
+    };
+  function showBtn(){
+    var toc_article = document.getElementById("toc-article");
+    var show_toc_btn = document.getElementById("show-toc-btn");
+    toc_article.setAttribute("style","display:none");
+    show_toc_btn.setAttribute("style","display:block");
+    };
+   </script>
+      
 <!-- 目录内容结束 -->
     <div class="article-entry" itemprop="articleBody">
       
@@ -211,7 +235,7 @@
 <li>实例是数据库后台线程和共享内存区。通常数据库和实例是一一对应的关系。一个数据库对应一个实例。</li>
 <li>MySQL是一个单进程多线程架构的应用。</li>
 <li>MySQL数据库启动时会按照/etc/my.cnf–&gt;/tec/mysql/my.cnf–&gt;/usr/local/mysql/etc/mycnf–&gt;~/.my.cnf的顺序读取配置文件（也可能是.ini后缀）。如果配置文件中有相同的配置则按最后一个读取的文件进行配置。如果没有配置文件，则使用数据库默认参数。</li>
-<li>innodb采用聚集的方式存储数据。每张表都是按主键的顺序进行存放的。如果没有显示的在表中定义主键。innodb会为每一行生成一个6字节的ROWID作为主键。</li>
+<li>innodb采用聚集的方式存储数据。每张表都是按主键的顺序进行存放的。如果没有显式的在表中定义主键。innodb会为每一行生成一个6字节的ROWID作为主键。</li>
 <li>innodb存储引擎的体系架构<br><img src="https://s2.ax1x.com/2019/04/06/AWHdJ0.png" alt="体系架构"><br>后台线程的主要作用是负责刷新内存池中的数据，保证缓冲池中的内存缓存的是最近的数据。还要负责将已修改的数据文件刷新到新的磁盘文件。还要保证数据库发生异常情况时，能恢复innodb存储引擎到正常的运行状态。<a id="more"></a></li>
 <li><p>innodb存储引擎的undo和redo</p>
 <ul>
@@ -222,7 +246,7 @@
 <li>undo+redo事务的特点：1.为了保证持久性，必须在事务提交前将redo log持久化 2.数据不需要在事务提交前写入磁盘，而是缓存再内存中（直接将redo log写入即可）。3.redo log确保了事务的持久性 4.undo log确保了事务的原子性</li>
 </ul>
 </li>
-<li><p>脏页<br>因为硬盘的读写速度远远低于内存的速度。为了提高读写速度，系统就把读写较频繁的部分写入到内存给中，这叫高速缓存。linux以页作为高速缓存的单位。当修改了高速缓存中的数据后，linux内核就将该页数据标记为脏页。内核需要在合适的时间将脏页的数据写入磁盘，以保证数据的一致性。</p>
+<li><p>脏页<br>因为硬盘的读写速度远远低于内存的速度。为了提高读写速度，系统就把读写较频繁的部分写入到内存中，这叫高速缓存。linux以页作为高速缓存的单位。当修改了高速缓存中的数据后，linux内核就将该页数据标记为脏页。内核需要在合适的时间将脏页的数据写入磁盘，以保证数据的一致性。</p>
 </li>
 </ul>
 <ul>
@@ -236,7 +260,7 @@
 </li>
 <li><p>缓冲池</p>
 <ul>
-<li>innodb存储引擎是基于磁盘的，并按页的方式管理记录。为了解决磁盘读取速度慢的问题。引入了缓冲池。缓冲池简单来说就是一块内存。为了获得更大的缓冲池，建议数据库服务器经历使用64位的系统。数据库从磁盘读取页到内存（fix），下一次读取时，会先判断该页是否已经在内存中了。如果已经在内存中，则称为该页在缓冲池中被命中。否则，从磁盘中读页到内存。innodb使用一种（checkpoint）机制在合适的时间将缓冲池中的页刷新到磁盘中。</li>
+<li>innodb存储引擎是基于磁盘的，并按页的方式管理记录。为了解决磁盘读取速度慢的问题。引入了缓冲池。缓冲池简单来说就是一块内存。为了获得更大的缓冲池，建议数据库服务器尽量使用64位的系统。数据库从磁盘读取页到内存（fix），下一次读取时，会先判断该页是否已经在内存中了。如果已经在内存中，则称为该页在缓冲池中被命中。否则，从磁盘中读页到内存。innodb使用一种（checkpoint）机制在合适的时间将缓冲池中的页刷新到磁盘中。</li>
 <li>缓冲池中包括索引页，数据页，undo页，插入缓冲，自适应哈希索引，innodb存储的锁信息，数据字典信息。</li>
 <li>每个页的大小为16KB</li>
 <li><img src="https://s2.ax1x.com/2019/04/06/AfSKBV.png" alt="缓冲池"></li>
@@ -298,11 +322,11 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">innoDB引擎</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">innoDB引擎</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
         		</li>
       		
 		</ul>
@@ -570,11 +594,11 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java</a>
+                <a href="javascript:void(0)" class="js-tag color3">技术</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">技术</a>
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -582,11 +606,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Java NIO</a>
+                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
+                <a href="javascript:void(0)" class="js-tag color4">Java NIO</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -594,19 +618,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">innodb引擎</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">innoDB引擎</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">innodb存储引擎</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">innodb引擎</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -618,15 +642,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">TCP/IP</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">IP协议</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -662,6 +686,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">计算机系统基础</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">汇编</a>
               </li>
              
@@ -670,15 +698,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">计算机系统基础</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">SpingBoot</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -690,11 +710,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">面试题</a>
+                <a href="javascript:void(0)" class="js-tag color5">SpingBoot</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">项目</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">面试题</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Dubbo</a>
               </li>
             
             <div class="clearfix"></div>

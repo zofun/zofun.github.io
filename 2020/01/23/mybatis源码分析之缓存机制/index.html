@@ -8,20 +8,20 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>mybatis源码分析之缓存机制 | 个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="概述mybatis提供了缓存机制减轻数据库压力，提高数据库性能。mybatis的缓存分为两级：一级缓存、二级缓存。一级缓存时SqlSession级别的缓存，缓存的数据只在SqlSession内有效。二级缓存时mapper级别的缓存，同一个namespace共用一个缓存，所以对SqlSession是共享的。">
-<meta name="keywords" content="java,技术,mybatis">
+  <meta name="description" content="概述mybatis提供了缓存机制减轻数据库压力，提高数据库性能。mybatis的缓存分为两级：一级缓存、二级缓存。一级缓存是SqlSession级别的缓存，缓存的数据只在SqlSession内有效。二级缓存是mapper级别的缓存，同一个namespace共用一个缓存，所以对SqlSession是共享的。">
+<meta name="keywords" content="技术,java,mybatis">
 <meta property="og:type" content="article">
 <meta property="og:title" content="mybatis源码分析之缓存机制">
 <meta property="og:url" content="http://yoursite.com/2020/01/23/mybatis源码分析之缓存机制/index.html">
 <meta property="og:site_name" content="个人博客">
-<meta property="og:description" content="概述mybatis提供了缓存机制减轻数据库压力，提高数据库性能。mybatis的缓存分为两级：一级缓存、二级缓存。一级缓存时SqlSession级别的缓存，缓存的数据只在SqlSession内有效。二级缓存时mapper级别的缓存，同一个namespace共用一个缓存，所以对SqlSession是共享的。">
+<meta property="og:description" content="概述mybatis提供了缓存机制减轻数据库压力，提高数据库性能。mybatis的缓存分为两级：一级缓存、二级缓存。一级缓存是SqlSession级别的缓存，缓存的数据只在SqlSession内有效。二级缓存是mapper级别的缓存，同一个namespace共用一个缓存，所以对SqlSession是共享的。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://s2.ax1x.com/2020/01/23/1VSh0s.png">
 <meta property="og:image" content="https://s2.ax1x.com/2020/01/23/1VSrkt.png">
-<meta property="og:updated_time" content="2020-01-23T08:12:06.444Z">
+<meta property="og:updated_time" content="2020-02-28T02:30:42.278Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mybatis源码分析之缓存机制">
-<meta name="twitter:description" content="概述mybatis提供了缓存机制减轻数据库压力，提高数据库性能。mybatis的缓存分为两级：一级缓存、二级缓存。一级缓存时SqlSession级别的缓存，缓存的数据只在SqlSession内有效。二级缓存时mapper级别的缓存，同一个namespace共用一个缓存，所以对SqlSession是共享的。">
+<meta name="twitter:description" content="概述mybatis提供了缓存机制减轻数据库压力，提高数据库性能。mybatis的缓存分为两级：一级缓存、二级缓存。一级缓存是SqlSession级别的缓存，缓存的数据只在SqlSession内有效。二级缓存是mapper级别的缓存，同一个namespace共用一个缓存，所以对SqlSession是共享的。">
 <meta name="twitter:image" content="https://s2.ax1x.com/2020/01/23/1VSh0s.png">
   
     <link rel="alternative" href="/atom.xml" title="个人博客" type="application/atom+xml">
@@ -230,7 +230,7 @@
 <!-- 目录内容结束 -->
     <div class="article-entry" itemprop="articleBody">
       
-        <h2><span id="概述">概述</span></h2><p>mybatis提供了缓存机制减轻数据库压力，提高数据库性能。mybatis的缓存分为两级：一级缓存、二级缓存。<br>一级缓存时<code>SqlSession</code>级别的缓存，缓存的数据只在<code>SqlSession</code>内有效。<br>二级缓存时<code>mapper</code>级别的缓存，同一个<code>namespace</code>共用一个缓存，所以对<code>SqlSession</code>是共享的。<br><a id="more"></a><br><img src="https://s2.ax1x.com/2020/01/23/1VSh0s.png" alt="1VSh0s.png"></p>
+        <h2><span id="概述">概述</span></h2><p>mybatis提供了缓存机制减轻数据库压力，提高数据库性能。mybatis的缓存分为两级：一级缓存、二级缓存。<br>一级缓存是<code>SqlSession</code>级别的缓存，缓存的数据只在<code>SqlSession</code>内有效。<br>二级缓存是<code>mapper</code>级别的缓存，同一个<code>namespace</code>共用一个缓存，所以对<code>SqlSession</code>是共享的。<br><a id="more"></a><br><img src="https://s2.ax1x.com/2020/01/23/1VSh0s.png" alt="1VSh0s.png"></p>
 <h2><span id="一级缓存">一级缓存</span></h2><p>一级缓存默认是开启状态的。<br><img src="https://s2.ax1x.com/2020/01/23/1VSrkt.png" alt="1VSrkt.png"></p>
 <h3><span id="一级缓存的生命周期">一级缓存的生命周期</span></h3><ul>
 <li>mybatis在开启一个数据库会话的时，会创建一个新的<code>SqlSession</code>对象，<code>SqlSession</code>对象中会持有一个<code>Executor</code>对象，<code>Executor</code>对象中持有一个新的<code>PerpetualCache</code>对象；当会话结束时<code>SqlSession</code>对象及其内部的<code>Executor</code>对象还有<code>perpetualChache</code>对象也会被释放掉。</li>
@@ -317,11 +317,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
@@ -593,11 +593,11 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java</a>
+                <a href="javascript:void(0)" class="js-tag color3">技术</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">技术</a>
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -605,11 +605,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Java NIO</a>
+                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
+                <a href="javascript:void(0)" class="js-tag color4">Java NIO</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -617,19 +617,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">innodb引擎</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">innoDB引擎</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">innodb存储引擎</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">innodb引擎</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -641,15 +641,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">TCP/IP</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">IP协议</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -685,6 +685,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">计算机系统基础</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">汇编</a>
               </li>
              
@@ -693,15 +697,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">计算机系统基础</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">SpingBoot</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -713,11 +709,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">面试题</a>
+                <a href="javascript:void(0)" class="js-tag color5">SpingBoot</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">项目</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">面试题</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Dubbo</a>
               </li>
             
             <div class="clearfix"></div>

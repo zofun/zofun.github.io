@@ -17,7 +17,7 @@
 <meta property="og:description" content="视图视图是基于基表的虚表，它由sql查询来定义，可以当作表使用，但是视图中的数据没有实际的物理存储。视图可以作为安全层使用。其作用在于一些应用程序本身并不关心基表，只需要按照视图定义来存取数据。 oracle提供的物化视图Oracle支持物化视图，其不再是虚表，而是基于基表实际存在的表。物化视图可以用于预先计算并保存多表的链接或聚集等耗时操作的结果。在SQL server数据库中称为索引视图。在m">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://s2.ax1x.com/2019/04/27/EK1s7d.md.jpg">
-<meta property="og:updated_time" content="2019-04-28T12:38:01.479Z">
+<meta property="og:updated_time" content="2020-02-27T03:25:12.923Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MySQL技术内幕学习笔记四">
 <meta name="twitter:description" content="视图视图是基于基表的虚表，它由sql查询来定义，可以当作表使用，但是视图中的数据没有实际的物理存储。视图可以作为安全层使用。其作用在于一些应用程序本身并不关心基表，只需要按照视图定义来存取数据。 oracle提供的物化视图Oracle支持物化视图，其不再是虚表，而是基于基表实际存在的表。物化视图可以用于预先计算并保存多表的链接或聚集等耗时操作的结果。在SQL server数据库中称为索引视图。在m">
@@ -202,6 +202,30 @@
     
     <!-- 目录内容 -->
 
+    <p class="show-toc-btn" id="show-toc-btn" onclick="showToc();">
+          <span class="btn-bg"></span>
+          <span class="btn-text">文章导航</span>
+          </p>
+  <div id="toc-article" class="toc-article" style="display:none">
+      <span id="toc-close" class="toc-close" title="隐藏导航" onclick="showBtn();">×</span>
+    <strong class="toc-title">文章目录</strong>
+           <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">视图</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">1.1.</span> <span class="toc-text">oracle提供的物化视图</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">2.</span> <span class="toc-text">分区表</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">2.1.</span> <span class="toc-text">子分区</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">3.</span> <span class="toc-text">索引与算法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">3.1.</span> <span class="toc-text">B+树</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">3.2.</span> <span class="toc-text">聚集索引</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">3.3.</span> <span class="toc-text">辅助索引</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">4.</span> <span class="toc-text">B+树索引的使用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">4.1.</span> <span class="toc-text">联合索引</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">4.2.</span> <span class="toc-text">覆盖索引</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">5.</span> <span class="toc-text">Multi-Range Read优化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">6.</span> <span class="toc-text">index condition pushdown优化</span></a></li></ol>
+         </div>
+   <script type="text/javascript">
+  function showToc(){
+    var toc_article = document.getElementById("toc-article");
+    var show_toc_btn = document.getElementById("show-toc-btn");
+    toc_article.setAttribute("style","display:block");
+    show_toc_btn.setAttribute("style","display:none");
+    };
+  function showBtn(){
+    var toc_article = document.getElementById("toc-article");
+    var show_toc_btn = document.getElementById("show-toc-btn");
+    toc_article.setAttribute("style","display:none");
+    show_toc_btn.setAttribute("style","display:block");
+    };
+   </script>
+      
 <!-- 目录内容结束 -->
     <div class="article-entry" itemprop="articleBody">
       
@@ -210,7 +234,7 @@
 <h3><span id="分区表">分区表</span></h3><p>innodb存储引擎支持水平分区，主要用于数据库的高可用管理。</p>
 <p>MySQL数据库支持以下几种分区</p>
 <ul>
-<li>range分区<br>行数据基于给定分一个连续区间的列值杯放入分区</li>
+<li>range分区<br>行数据基于给定分一个连续区间的列值被放入分区</li>
 <li>list分区<br>行数据基于一些离散的值被放入分区。</li>
 <li>hash分区<br>根据用户自定义的表达式的返回值进行分区（返回值不能是负，必须是整数）</li>
 <li>key分区<br>根据mysql提供的哈希函数进行分区</li>
@@ -227,12 +251,12 @@
 <h4><span id="b树">B+树</span></h4><p><a href="https://imgchr.com/i/EK1s7d" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/04/27/EK1s7d.md.jpg" alt="EK1s7d.md.jpg"></a><br><em>B+树相关的定义和算法较为复杂，以后专门搞一篇B+树相关的笔记</em></p>
 <h4><span id="聚集索引">聚集索引</span></h4><p>innodb存储引擎将表中的数据按照主键顺序进行存放的。聚集索引就是根据每张表的主键构造一个B+树，叶子节点存放整张表的行记录数据。聚集索引的叶子节点也被称为数据页。在多数情况下查询器优化倾向于采用聚集索引。</p>
 <p>聚集索引在物理存储上是不连续的，但在逻辑上是连续的。聚集索引子在排序查找和范围查找是分非常高效的。</p>
-<h4><span id="辅助索引">辅助索引</span></h4><p>辅助索引有叫做非聚集索引。辅助索引的叶子节点并不包含完整的行数据。叶子节点除了包括键值外谋害包含了指向完整行数据的书签。辅助索引的书签就是相应的行数据的聚集索引键。</p>
+<h4><span id="辅助索引">辅助索引</span></h4><p>辅助索引有叫做非聚集索引。辅助索引的叶子节点并不包含完整的行数据。叶子节点除了包括键值外还包含了指向完整行数据的书签。辅助索引的书签就是相应的行数据的聚集索引键。</p>
 <p>辅助索引的存在并不会影响聚集索引，所以可以有多个辅助索引。</p>
 <p>什么时候添加B+树索引<br>访问表中很少的一部分时使用B+树索引才有意义。对于低选择性的字段，不适合使用B+树索引。<br>通过查看列的Cardinality来观察所以是否时高选择性的。Cardinality表示索引中不从夫记录数量的预估值。建立索引的前提时列中的数据时高选择性的。</p>
-<h3><span id="b树索引的使用">B+树索引的使用</span></h3><h4><span id="联合索引">联合索引</span></h4><p>联合索引是指队表上的多个列进行索引。联合索引也时一颗B+树，不同的是联合索引的键值的数量是大于2的。</p>
+<h3><span id="b树索引的使用">B+树索引的使用</span></h3><h4><span id="联合索引">联合索引</span></h4><p>联合索引是指对表上的多个列进行索引。联合索引也时一颗B+树，不同的是联合索引的键值的数量是大于2的。</p>
 <h4><span id="覆盖索引">覆盖索引</span></h4><p>即直接可以从辅助索引中就可以查询到想要的记录，而不需要查询聚集索引中的记录。使用覆盖索引的一个好处就是辅助索引不包含整行记录的说有信息，故其大小要远小于聚集索引，减少了IO操作的次数。</p>
-<h3><span id="multi-range-read优化">Multi-Range Read优化</span></h3><p>Multi-Range Read优化的目的是减少离散的读取，并将随机访问转化为较为顺序阿数据访问。<br>MRR优化的好处：</p>
+<h3><span id="multi-range-read优化">Multi-Range Read优化</span></h3><p>Multi-Range Read优化的目的是减少离散的读取，并将随机访问转化为较为顺序的数据访问。<br>MRR优化的好处：</p>
 <ul>
 <li>MRR使得数据的访问变得顺序，在辅助查询索引时，首先根据得到的查询结果，按照主键的进行排序，并按照主键的顺序进行书签查找。</li>
 <li>减少缓冲池中页被替换的次数</li>
@@ -559,11 +583,11 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java</a>
+                <a href="javascript:void(0)" class="js-tag color3">技术</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">技术</a>
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -571,11 +595,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Java NIO</a>
+                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
+                <a href="javascript:void(0)" class="js-tag color4">Java NIO</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -583,19 +607,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">innodb引擎</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">innoDB引擎</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">innodb存储引擎</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">innodb引擎</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -607,15 +631,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">TCP/IP</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">IP协议</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -651,6 +675,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">计算机系统基础</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">汇编</a>
               </li>
              
@@ -659,15 +687,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">计算机系统基础</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">SpingBoot</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -679,11 +699,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">面试题</a>
+                <a href="javascript:void(0)" class="js-tag color5">SpingBoot</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">项目</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">面试题</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Dubbo</a>
               </li>
             
             <div class="clearfix"></div>

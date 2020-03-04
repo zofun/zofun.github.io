@@ -8,19 +8,19 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>MySQL技术内幕学习笔记二 | 个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="目录   重做日志缓存 额外的内存池 SQL语句的分类 checkpoint技术 master thread 的工作方式 索引 innodb的关键特性 插入缓存 两次写 自适应哈希索引 异步IO 刷新邻接页     重做日志缓存 重做日志缓冲（redo log buffer） 重做日志缓冲同样也在innodb内存区。innodb存储引擎会将重做日志信息先放到重做日志缓冲区，然后以一定的频率刷新到重">
+  <meta name="description" content="重做日志缓存 重做日志缓冲（redo log buffer） 重做日志缓冲同样也在innodb内存区。innodb存储引擎会将重做日志信息先放到重做日志缓冲区，然后以一定的频率刷新到重做日志中。 重做日志缓冲不必太大。因为一般每一秒都会刷新到重做日志文件中。默认为8MB，该值可以由innodb_log_buffer_size控制 重做日志缓冲刷新的三种情况。1.master thread每一秒都会">
 <meta name="keywords" content="技术,MySQL,innodb引擎">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MySQL技术内幕学习笔记二">
 <meta property="og:url" content="http://yoursite.com/2019/04/10/MySQL技术内幕学习笔记二/index.html">
 <meta property="og:site_name" content="个人博客">
-<meta property="og:description" content="目录   重做日志缓存 额外的内存池 SQL语句的分类 checkpoint技术 master thread 的工作方式 索引 innodb的关键特性 插入缓存 两次写 自适应哈希索引 异步IO 刷新邻接页     重做日志缓存 重做日志缓冲（redo log buffer） 重做日志缓冲同样也在innodb内存区。innodb存储引擎会将重做日志信息先放到重做日志缓冲区，然后以一定的频率刷新到重">
+<meta property="og:description" content="重做日志缓存 重做日志缓冲（redo log buffer） 重做日志缓冲同样也在innodb内存区。innodb存储引擎会将重做日志信息先放到重做日志缓冲区，然后以一定的频率刷新到重做日志中。 重做日志缓冲不必太大。因为一般每一秒都会刷新到重做日志文件中。默认为8MB，该值可以由innodb_log_buffer_size控制 重做日志缓冲刷新的三种情况。1.master thread每一秒都会">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://s2.ax1x.com/2019/04/10/ATNJL8.md.png">
-<meta property="og:updated_time" content="2019-04-10T09:42:41.405Z">
+<meta property="og:updated_time" content="2020-02-27T02:43:15.917Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MySQL技术内幕学习笔记二">
-<meta name="twitter:description" content="目录   重做日志缓存 额外的内存池 SQL语句的分类 checkpoint技术 master thread 的工作方式 索引 innodb的关键特性 插入缓存 两次写 自适应哈希索引 异步IO 刷新邻接页     重做日志缓存 重做日志缓冲（redo log buffer） 重做日志缓冲同样也在innodb内存区。innodb存储引擎会将重做日志信息先放到重做日志缓冲区，然后以一定的频率刷新到重">
+<meta name="twitter:description" content="重做日志缓存 重做日志缓冲（redo log buffer） 重做日志缓冲同样也在innodb内存区。innodb存储引擎会将重做日志信息先放到重做日志缓冲区，然后以一定的频率刷新到重做日志中。 重做日志缓冲不必太大。因为一般每一秒都会刷新到重做日志文件中。默认为8MB，该值可以由innodb_log_buffer_size控制 重做日志缓冲刷新的三种情况。1.master thread每一秒都会">
 <meta name="twitter:image" content="https://s2.ax1x.com/2019/04/10/ATNJL8.md.png">
   
     <link rel="alternative" href="/atom.xml" title="个人博客" type="application/atom+xml">
@@ -202,29 +202,34 @@
     
     <!-- 目录内容 -->
 
+    <p class="show-toc-btn" id="show-toc-btn" onclick="showToc();">
+          <span class="btn-bg"></span>
+          <span class="btn-text">文章导航</span>
+          </p>
+  <div id="toc-article" class="toc-article" style="display:none">
+      <span id="toc-close" class="toc-close" title="隐藏导航" onclick="showBtn();">×</span>
+    <strong class="toc-title">文章目录</strong>
+           <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">重做日志缓存</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">2.</span> <span class="toc-text">额外的内存池</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">3.</span> <span class="toc-text">SQL语句的分类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">4.</span> <span class="toc-text">checkpoint技术</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">5.</span> <span class="toc-text">master thread 的工作方式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">6.</span> <span class="toc-text">索引</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">7.</span> <span class="toc-text">innodb的关键特性</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#undefined"><span class="toc-number">7.1.</span> <span class="toc-text">插入缓存</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#undefined"><span class="toc-number">7.2.</span> <span class="toc-text">两次写</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#undefined"><span class="toc-number">7.3.</span> <span class="toc-text">自适应哈希索引</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#undefined"><span class="toc-number">7.4.</span> <span class="toc-text">异步IO</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#undefined"><span class="toc-number">7.5.</span> <span class="toc-text">刷新邻接页</span></a></li></ol></li></ol>
+         </div>
+   <script type="text/javascript">
+  function showToc(){
+    var toc_article = document.getElementById("toc-article");
+    var show_toc_btn = document.getElementById("show-toc-btn");
+    toc_article.setAttribute("style","display:block");
+    show_toc_btn.setAttribute("style","display:none");
+    };
+  function showBtn(){
+    var toc_article = document.getElementById("toc-article");
+    var show_toc_btn = document.getElementById("show-toc-btn");
+    toc_article.setAttribute("style","display:none");
+    show_toc_btn.setAttribute("style","display:block");
+    };
+   </script>
+      
 <!-- 目录内容结束 -->
     <div class="article-entry" itemprop="articleBody">
       
-        <p>目录</p>
-<!-- toc -->
-<ul>
-<li><a href="#重做日志缓存">重做日志缓存</a></li>
-<li><a href="#额外的内存池">额外的内存池</a></li>
-<li><a href="#sql语句的分类">SQL语句的分类</a></li>
-<li><a href="#checkpoint技术">checkpoint技术</a></li>
-<li><a href="#master-thread-的工作方式">master thread 的工作方式</a></li>
-<li><a href="#索引">索引</a></li>
-<li><a href="#innodb的关键特性">innodb的关键特性</a><ul>
-<li><a href="#插入缓存">插入缓存</a></li>
-<li><a href="#两次写">两次写</a></li>
-<li><a href="#自适应哈希索引">自适应哈希索引</a></li>
-<li><a href="#异步io">异步IO</a></li>
-<li><a href="#刷新邻接页">刷新邻接页</a></li>
-</ul>
-</li>
-</ul>
-<!-- tocstop -->
-<h4><span id="重做日志缓存">重做日志缓存</span></h4><ul>
+        <h4><span id="重做日志缓存">重做日志缓存</span></h4><ul>
 <li>重做日志缓冲（redo log buffer）<ul>
 <li>重做日志缓冲同样也在innodb内存区。innodb存储引擎会将重做日志信息先放到重做日志缓冲区，然后以一定的频率刷新到重做日志中。</li>
 <li>重做日志缓冲不必太大。因为一般每一秒都会刷新到重做日志文件中。默认为8MB，该值可以由innodb_log_buffer_size控制</li>
@@ -304,7 +309,7 @@
 <li>插入缓存<ul>
 <li>为了解决非聚集索引页的离散性访问会使性能下降。在插入时，先判断该页是否在缓冲池中，如果在则之间插入。否则，加入插入缓存，再以一定的频率进行插入合并操作。</li>
 <li>插入缓存的使用条件<ul>
-<li>索引时辅助索引</li>
+<li>索引是辅助索引</li>
 <li>索引不是唯一的</li>
 </ul>
 </li>
@@ -313,7 +318,7 @@
 </ul>
 <h5><span id="两次写">两次写</span></h5><ul>
 <li>两次写<ul>
-<li>为了提高可靠性，会牺牲一点可靠性</li>
+<li>为了提高可靠性，会牺牲一点性能</li>
 <li>为了避免部分写失效时，无法使用重做日志缓存恢复数据（因为重做日志缓存记录的是对页的修改，当页被破坏后，将无法用其恢复数据。）</li>
 <li>基本原理：1.当刷新缓冲区的脏页时，不直接写到磁盘。而是送到两次写缓冲区。2.从两次写缓冲区分两次写入共享表空间（每次写1MB）。3.最后将两次写缓冲区中的数据写入磁盘。</li>
 <li>原理图<a href="https://imgchr.com/i/ATNJL8" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/04/10/ATNJL8.md.png" alt="ATNJL8.md.png"></a></li>
@@ -340,7 +345,7 @@
 </ul>
 <h5><span id="刷新邻接页">刷新邻接页</span></h5><ul>
 <li>刷新邻接页<ul>
-<li>当innodb存储引擎在刷新脏页到磁盘时，会检测该页所在的区是否还有脏页需要刷新到磁盘，有的化则一并刷新到磁盘。对应传统的机械硬盘性能提示较大。</li>
+<li>当innodb存储引擎在刷新脏页到磁盘时，会检测该页所在的区是否还有脏页需要刷新到磁盘，有的话则一并刷新到磁盘。对应传统的机械硬盘性能提示较大。</li>
 </ul>
 </li>
 </ul>
@@ -664,11 +669,11 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java</a>
+                <a href="javascript:void(0)" class="js-tag color3">技术</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">技术</a>
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -676,11 +681,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Java NIO</a>
+                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
+                <a href="javascript:void(0)" class="js-tag color4">Java NIO</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -688,19 +693,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">innodb引擎</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">innoDB引擎</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">innodb存储引擎</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">innodb引擎</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -712,15 +717,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">TCP/IP</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">IP协议</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -756,6 +761,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">计算机系统基础</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">汇编</a>
               </li>
              
@@ -764,15 +773,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">计算机系统基础</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">SpingBoot</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -784,11 +785,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">面试题</a>
+                <a href="javascript:void(0)" class="js-tag color5">SpingBoot</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">项目</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">面试题</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Dubbo</a>
               </li>
             
             <div class="clearfix"></div>

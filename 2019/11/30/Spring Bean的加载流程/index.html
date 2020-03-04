@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="个人博客">
 <meta property="og:description" content="Bean加载的总体流程以这行代码为起点，探究这背后到底经历了什么？1MyTestBean bean=(MyTestBean)bf.getBean(&quot;MyTestBean&quot;)；  调用getBean(&amp;quot;MyTestBean&amp;quot;)背后实际是调用了doGetBean(name,null,null,false)doGetBean方法。这个方法干的事情有些多，但总结起来就这们几步：   通">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-11-30T09:26:36.787Z">
+<meta property="og:updated_time" content="2020-02-29T06:16:09.243Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spring Bean的加载流程">
 <meta name="twitter:description" content="Bean加载的总体流程以这行代码为起点，探究这背后到底经历了什么？1MyTestBean bean=(MyTestBean)bf.getBean(&quot;MyTestBean&quot;)；  调用getBean(&amp;quot;MyTestBean&amp;quot;)背后实际是调用了doGetBean(name,null,null,false)doGetBean方法。这个方法干的事情有些多，但总结起来就这们几步：   通">
@@ -239,7 +239,7 @@
 </ul>
 <p>回到刚才的<code>doGetBean</code>方法，通过<code>getSingleton</code>方法的一番努力，如果拿到了bean，现在我们可以返回实例了。<br>这一步是由<code>bean = getObjectForBeanInstance(sharedInstance, name, beanName, null)</code>来实现<br>但值得注意的是，<strong>有些存在beanFactory的时候，spring并不是返回的实例本身，而是返回指定方法返回的实例</strong>。这个地方有点绕，其实很好理解，因为spring创建bean本身就有两种创建方法（大分类），一种是利用构造器，一种是利用工厂方法（又可分为静态工厂和实例工厂）。如果是利用工厂方法，我们当然不能直接返回工厂对象咯，而是应该返回该工厂对象中getObejct()方法返回的对象。</p>
 <ul>
-<li>如果没有拿到bean，那<code>doGetBean</code>还要经过一番努力。如果已经加载的类中不包括beanName（已经加载的类存在beanDefinitionMap中，值得注意的BeanDefintion对应Bean的关系，就像Class对应Object的关系一样）。那么就尝试从<code>parentBeanFactory</code>中获取BeanFactory，如果每找到就递归到BeanFactory中去找。</li>
+<li>如果没有拿到bean，那<code>doGetBean</code>还要经过一番努力。如果已经加载的类中不包括beanName（已经加载的类存在beanDefinitionMap中，值得注意的BeanDefintion对应Bean的关系，就像Class对应Object的关系一样）。那么就尝试从<code>parentBeanFactory</code>中获取BeanFactory，如果没找到就递归到BeanFactory中去找。</li>
 <li><p>如果不仅仅做类型检测而是需要创建bean，就将该beanName记录为正在创建的状态。这个一步由这段代码实现:</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">         <span class="keyword">if</span> (!typeCheckOnly) &#123;</span><br><span class="line">	markBeanAsCreated(beanName);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
@@ -295,7 +295,7 @@
 </ol>
 <p><code>removeSingletonIfCreatedForTypeCheckOnly(dependentBean)</code>方法所做的事情就是去一个<code>alreadyCreated:Map</code>中看，该bean所依赖的bean，是否已经被创建了，如果被创建了，就将该bean从三级缓存和<code>registeredSingletons:map</code>中删除，并返回true。如果所依赖的bean已经被创建，就将该bean加入<code>actualDependentBeans:Set</code>.完成对所有的依赖的bean的检测之后，如果<code>actualDependentBeans:Set</code>不为空，就抛出循环依赖异常（这个地方值得注意的是，如果一个bean创建成功了，那么它所依赖的bean也一定是创建了的，如果它所依赖的bean没有被创建，这就说明存在循环依赖）</p>
 <ol start="7">
-<li><p>根据scopse注册bean<br>所谓的注册就是将bean加入一个<code>disposableBeans:map</code>中去。便于在销毁时使用。</p>
+<li><p>根据scope注册bean<br>所谓的注册就是将bean加入一个<code>disposableBeans:map</code>中去。便于在销毁时使用。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">registerDisposableBeanIfNecessary(beanName, bean, mbd);</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>完成创建并返回</p>
@@ -306,7 +306,7 @@
 <li>拿到beanName对应的class<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Class&lt;?&gt; beanClass = resolveBeanClass(mbd, beanName);</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
-<p>像class这些信息在spring初始化的使用就已经拿到了。这个敌法只是取出来就可以了。</p>
+<p>像class这些信息在spring初始化的使用就已经拿到了。这个地方只是取出来就可以了。</p>
 <ol start="2">
 <li>如果有相应的工厂方法，就使用工厂方法创建bean<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (mbd.getFactoryMethodName() != <span class="keyword">null</span>) &#123;</span><br><span class="line">			<span class="keyword">return</span> instantiateUsingFactoryMethod(beanName, mbd, args);</span><br><span class="line">		&#125;</span><br></pre></td></tr></table></figure>
 </li>
@@ -711,11 +711,11 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java</a>
+                <a href="javascript:void(0)" class="js-tag color3">技术</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">技术</a>
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -723,11 +723,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Java NIO</a>
+                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
+                <a href="javascript:void(0)" class="js-tag color4">Java NIO</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -735,19 +735,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">innodb引擎</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">innoDB引擎</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">innodb存储引擎</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">innodb引擎</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -759,15 +759,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">TCP/IP</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">IP协议</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -803,6 +803,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">计算机系统基础</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">汇编</a>
               </li>
              
@@ -811,15 +815,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">计算机系统基础</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">SpingBoot</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -831,11 +827,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">面试题</a>
+                <a href="javascript:void(0)" class="js-tag color5">SpingBoot</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">项目</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">面试题</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Dubbo</a>
               </li>
             
             <div class="clearfix"></div>

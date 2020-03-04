@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="个人博客">
 <meta property="og:description" content="我们从最简单的一段代码开始，分析清楚mybatis的大致工作流程。然后再从代码细节上分析mybatis的一些特性。 基础代码示例1234567891011121314151617public class test &amp;#123;  public static void main(String[] args) throws IOException&amp;#123;    String resource =">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-01-13T08:14:11.953Z">
+<meta property="og:updated_time" content="2020-02-28T02:30:44.283Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mybatis源码分析一">
 <meta name="twitter:description" content="我们从最简单的一段代码开始，分析清楚mybatis的大致工作流程。然后再从代码细节上分析mybatis的一些特性。 基础代码示例1234567891011121314151617public class test &amp;#123;  public static void main(String[] args) throws IOException&amp;#123;    String resource =">
@@ -238,12 +238,12 @@
 <p>这段代码，如果我们不考虑其它东西的话，这段代码其实就做了三件事情，利用我们传入的配置文件的<code>reader</code>（后面两个参数调用的时候传的是null），创建了一个<code>XMLConfigBuilder</code>对象，然后调用该对象的<code>parse()</code>方法，拿到了一个<code>Configuration</code>对象，利用这个<code>Configuration</code>对象,使用<code>build(Configuration cofig)</code>方法，创建了<code>SqlSessionFactory</code>对象,然后将<code>SqlSessionFactory</code>对象返回。</p>
 <p>下面我们就分别解释这三个步骤到底干了什么。</p>
 <ul>
-<li>第一步：创建<code>XMLConfigBuilder</code>对象。<br>虽然看起来简单的new了一下该对象就创建好了.实际上还是比较复杂的.各种重载的构造器层层调用，最终来到了这个构造器。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="title">XMLConfigBuilder</span><span class="params">(XPathParser parser, String environment, Properties props)</span> </span>&#123;</span><br><span class="line"><span class="comment">//创建一个空的Configuration对象，实例化了XMLConfigBuilder对象</span></span><br><span class="line">  <span class="keyword">super</span>(<span class="keyword">new</span> Configuration());</span><br><span class="line">  ErrorContext.instance().resource(<span class="string">"SQL Mapper Configuration"</span>);</span><br><span class="line">  <span class="comment">//对属性各种赋值</span></span><br><span class="line">  <span class="comment">//我们配置时分离的Properties文件中的信息，就是在这里进入到mybatis的</span></span><br><span class="line">  <span class="keyword">this</span>.configuration.setVariables(props);</span><br><span class="line">  <span class="keyword">this</span>.parsed = <span class="keyword">false</span>;</span><br><span class="line">  <span class="keyword">this</span>.environment = environment;</span><br><span class="line">  <span class="comment">//parser就是用来解析XML文件的，在之前的构造器中，已经将配置文件的inputStream设置到该对象中去了</span></span><br><span class="line">  <span class="keyword">this</span>.parser = parser;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<li>第一步：创建<code>XMLConfigBuilder</code>对象。<br>虽然看起来简单的new了一下该对象就创建好了.实际上还是比较复杂的.各种重载的构造器层层调用，最终来到了这个构造器。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="title">XMLConfigBuilder</span><span class="params">(XPathParser parser, String environment, Properties props)</span> </span>&#123;</span><br><span class="line"><span class="comment">//创建一个空的Configuration对象，实例化了XMLConfigBuilder对象</span></span><br><span class="line">  <span class="keyword">super</span>(<span class="keyword">new</span> Configuration());</span><br><span class="line">  ErrorContext.instance().resource(<span class="string">"SQL Mapper Configuration"</span>);</span><br><span class="line">  <span class="comment">//对属性各种赋值</span></span><br><span class="line">  <span class="comment">//我们配置时分离出的Properties文件中的信息，就是在这里进入到mybatis的</span></span><br><span class="line">  <span class="keyword">this</span>.configuration.setVariables(props);</span><br><span class="line">  <span class="keyword">this</span>.parsed = <span class="keyword">false</span>;</span><br><span class="line">  <span class="keyword">this</span>.environment = environment;</span><br><span class="line">  <span class="comment">//parser就是用来解析XML文件的，在之前的构造器中，已经将配置文件的inputStream设置到该对象中去了</span></span><br><span class="line">  <span class="keyword">this</span>.parser = parser;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 <p>既然这个构造器所做的事情基本都是给属性赋值，那么我们就得好好分析一波，<code>XMLConfigBuilder</code>到底有哪些属性，它们的作用是什么。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//下面三个是继承自父类BaseBuilder中的属性</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 存储基础配置信息的一个对象</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">final</span> Configuration configuration; </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 故名思意，就是存储各种类型的别名的一个对象</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">final</span> TypeAliasRegistry typeAliasRegistry;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 存储各种类型的类型处理器的对象</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">final</span> TypeHandlerRegistry typeHandlerRegistry;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 标记该配置文件是否已经解析过</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span> parsed;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 解析器模块，配置文件就由它进行解析</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> XPathParser parser;</span><br><span class="line">    <span class="keyword">private</span> String environment;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 默认反射工厂实现</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> ReflectorFactory localReflectorFactory = <span class="keyword">new</span> DefaultReflectorFactory();</span><br></pre></td></tr></table></figure></p>
 <ul>
-<li>第二步：使用<code>XMLConfigBuilder</code>对象的，<code>Configuration parse()</code>方法，获取到<code>Configuration</code>对象。<br>该方法的实现如下：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Configuration <span class="title">parse</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (parsed) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> BuilderException(<span class="string">"Each XMLConfigBuilder can only be used once."</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  parsed = <span class="keyword">true</span>;<span class="comment">//将该配置文件标记为已解析</span></span><br><span class="line">  </span><br><span class="line">  <span class="comment">//对配置文件中的configuration节点下的所有属性进行解析，并将解析到的信息</span></span><br><span class="line">  <span class="comment">//XMLConfigBuilder对象的configuration属性中。</span></span><br><span class="line">  parseConfiguration(parser.evalNode(<span class="string">"/configuration"</span>));</span><br><span class="line">  <span class="comment">//将填充好各种值的configuration返回</span></span><br><span class="line">  <span class="keyword">return</span> configuration;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<li>第二步：使用<code>XMLConfigBuilder</code>对象的，<code>Configuration parse()</code>方法，获取到<code>Configuration</code>对象。<br>该方法的实现如下：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Configuration <span class="title">parse</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (parsed) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> BuilderException(<span class="string">"Each XMLConfigBuilder can only be used once."</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  parsed = <span class="keyword">true</span>;<span class="comment">//将该配置文件标记为已解析</span></span><br><span class="line">  </span><br><span class="line">  <span class="comment">//对配置文件中的configuration节点下的所有属性进行解析，并将解析到的信息封装到</span></span><br><span class="line">  <span class="comment">//XMLConfigBuilder对象的configuration属性中。</span></span><br><span class="line">  parseConfiguration(parser.evalNode(<span class="string">"/configuration"</span>));</span><br><span class="line">  <span class="comment">//将填充好各种值的configuration返回</span></span><br><span class="line">  <span class="keyword">return</span> configuration;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 <p>看完这段代码，我们可以知道，第二部其实就是去解析配置文件中的<code>configuration</code>节点下的信息，去初始化<code>XMLConfigBuilder</code>对象中的<code>configuration</code>属性，然后将初始化完毕的<code>configuration</code>返回即可。</p>
@@ -266,7 +266,7 @@
 </li>
 </ul>
 <p>这个方法的具体实现如下；<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">parse</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (!configuration.isResourceLoaded(resource)) &#123; <span class="comment">//如果没有解析过</span></span><br><span class="line">      <span class="comment">//解析每个mapper节点中的信息</span></span><br><span class="line">    configurationElement(parser.evalNode(<span class="string">"/mapper"</span>));</span><br><span class="line">    <span class="comment">//将当前文件加入已解析文件集合</span></span><br><span class="line">    configuration.addLoadedResource(resource);</span><br><span class="line">    <span class="comment">//将mapper和命名空间进行绑定</span></span><br><span class="line">    <span class="comment">//本质就是将命名空间所对应的类和mapper文件都加入configuration中</span></span><br><span class="line">    bindMapperForNamespace();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  parsePendingResultMaps();</span><br><span class="line">  parsePendingCacheRefs();</span><br><span class="line">  parsePendingStatements();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>这个部分涉及到的细节非常的多，如果你熟悉mybatis中mapper的写法你就会知道，mapper中的标签非常的多写法也比较复杂，所有这部分的源码其实也非常的复杂，因此这部分我准备之后专门分析一波。</p>
+<p>这个部分涉及到的细节非常的多，如果你熟悉mybatis中mapper的写法你就会知道，mapper中的标签非常的多，写法也比较复杂，所有这部分的源码其实也非常的复杂，因此这部分我准备之后专门分析一波。</p>
 <h3><span id="sqlsession的创建过程">SqlSession的创建过程</span></h3><p>经过前面的努力，我们已经拿到了<code>SqlSessionFactory</code>对象。现在就需要创建<code>SqlSession</code>对象了。这个过程，由这行代码来完成。<br><code>SqlSession sqlSession = factory.openSession();</code><br>它的具体实现如下:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> SqlSession <span class="title">openSession</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> openSessionFromDataSource(configuration.getDefaultExecutorType(), <span class="keyword">null</span>, <span class="keyword">false</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>这个方法中涉及到一个非常重要的方法：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> SqlSession <span class="title">openSessionFromDataSource</span><span class="params">(ExecutorType execType, TransactionIsolationLevel level, <span class="keyword">boolean</span> autoCommit)</span> </span>&#123;</span><br><span class="line">  Transaction tx = <span class="keyword">null</span>;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">final</span> Environment environment = configuration.getEnvironment();</span><br><span class="line">    <span class="keyword">final</span> TransactionFactory transactionFactory = getTransactionFactoryFromEnvironment(environment);</span><br><span class="line">    tx = transactionFactory.newTransaction(environment.getDataSource(), level, autoCommit);</span><br><span class="line">    <span class="comment">//创建执行器</span></span><br><span class="line">    <span class="keyword">final</span> Executor executor = configuration.newExecutor(tx, execType);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> DefaultSqlSession(configuration, executor, autoCommit);</span><br><span class="line">  &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">    closeTransaction(tx); <span class="comment">// may have fetched a connection so lets call close()</span></span><br><span class="line">    <span class="keyword">throw</span> ExceptionFactory.wrapException(<span class="string">"Error opening session.  Cause: "</span> + e, e);</span><br><span class="line">  &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">    ErrorContext.instance().reset();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>这个方法比较关键的地方就是拿到事务对象，创建执行器。<br>创建执行器的具体实现如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Executor <span class="title">newExecutor</span><span class="params">(Transaction transaction, ExecutorType executorType)</span> </span>&#123;</span><br><span class="line">  executorType = executorType == <span class="keyword">null</span> ? defaultExecutorType : executorType;</span><br><span class="line">  executorType = executorType == <span class="keyword">null</span> ? ExecutorType.SIMPLE : executorType;</span><br><span class="line">  Executor executor;</span><br><span class="line">  <span class="keyword">if</span> (ExecutorType.BATCH == executorType) &#123;</span><br><span class="line">    executor = <span class="keyword">new</span> BatchExecutor(<span class="keyword">this</span>, transaction);</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (ExecutorType.REUSE == executorType) &#123;</span><br><span class="line">    executor = <span class="keyword">new</span> ReuseExecutor(<span class="keyword">this</span>, transaction);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    executor = <span class="keyword">new</span> SimpleExecutor(<span class="keyword">this</span>, transaction);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (cacheEnabled) &#123;</span><br><span class="line">    executor = <span class="keyword">new</span> CachingExecutor(executor);</span><br><span class="line">  &#125;</span><br><span class="line">  executor = (Executor) interceptorChain.pluginAll(executor);</span><br><span class="line">  <span class="keyword">return</span> executor;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
@@ -603,11 +603,11 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java</a>
+                <a href="javascript:void(0)" class="js-tag color3">技术</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">技术</a>
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -615,11 +615,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Java NIO</a>
+                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
+                <a href="javascript:void(0)" class="js-tag color4">Java NIO</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -627,19 +627,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">innodb引擎</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">innoDB引擎</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">innodb存储引擎</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">innodb引擎</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -651,15 +651,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">TCP/IP</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">IP协议</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -695,6 +695,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">计算机系统基础</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">汇编</a>
               </li>
              
@@ -703,15 +707,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">计算机系统基础</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">SpingBoot</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -723,11 +719,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">面试题</a>
+                <a href="javascript:void(0)" class="js-tag color5">SpingBoot</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">项目</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">面试题</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Dubbo</a>
               </li>
             
             <div class="clearfix"></div>
