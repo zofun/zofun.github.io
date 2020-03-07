@@ -6,39 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Redis设计与实现读书笔记二 | 个人博客</title>
+  <title>ThreadLocal源码分析 | 个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="redis服务器redis服务器负责与多个客户端建立网络连接，处理客户端发送的命令请求，在数据库中保存客户端执行命令所产生的数据，并通过资源管理器来维持服务器自身的运转。 命令请求的过程加入我们使用了这样一天个命令12redis&amp;gt; SET KEY VALUEOK 整个执行的流程  客户端会将命令转换为协议格式，然后通过连接到服务器的套接字按协议格式的命令请求发送给服务器。 当客户端与服务器之">
-<meta name="keywords" content="技术,Redis">
+  <meta name="description" content="ThreadLocal是什么？ThreadLoal 变量，线程局部变量，同一个 ThreadLocal 所包含的对象，在不同的 Thread 中有不同的副本。这里有几点需要注意：  因为每个 Thread 内有自己的实例副本，且该副本只能由当前 Thread 使用。这是也是 ThreadLocal 命名的由来。 既然每个 Thread 有自己的实例副本，且其它 Thread不可访问，那就不存在多线">
+<meta name="keywords" content="技术,Java">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Redis设计与实现读书笔记二">
-<meta property="og:url" content="http://yoursite.com/2019/10/31/Redis设计与实现读书笔记二/index.html">
+<meta property="og:title" content="ThreadLocal源码分析">
+<meta property="og:url" content="http://yoursite.com/2020/03/07/ThreadLocal源码分析/index.html">
 <meta property="og:site_name" content="个人博客">
-<meta property="og:description" content="redis服务器redis服务器负责与多个客户端建立网络连接，处理客户端发送的命令请求，在数据库中保存客户端执行命令所产生的数据，并通过资源管理器来维持服务器自身的运转。 命令请求的过程加入我们使用了这样一天个命令12redis&amp;gt; SET KEY VALUEOK 整个执行的流程  客户端会将命令转换为协议格式，然后通过连接到服务器的套接字按协议格式的命令请求发送给服务器。 当客户端与服务器之">
+<meta property="og:description" content="ThreadLocal是什么？ThreadLoal 变量，线程局部变量，同一个 ThreadLocal 所包含的对象，在不同的 Thread 中有不同的副本。这里有几点需要注意：  因为每个 Thread 内有自己的实例副本，且该副本只能由当前 Thread 使用。这是也是 ThreadLocal 命名的由来。 既然每个 Thread 有自己的实例副本，且其它 Thread不可访问，那就不存在多线">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://s2.ax1x.com/2019/10/28/K6mrQS.png">
-<meta property="og:image" content="https://s2.ax1x.com/2019/10/28/K6KJLF.png">
-<meta property="og:image" content="https://s2.ax1x.com/2019/10/28/K6lXYd.png">
-<meta property="og:image" content="https://s2.ax1x.com/2019/10/28/K6wEQg.png">
-<meta property="og:image" content="https://s2.ax1x.com/2019/10/28/KcjhYd.png">
-<meta property="og:image" content="https://s2.ax1x.com/2019/10/28/Kcxivt.png">
-<meta property="og:image" content="https://s2.ax1x.com/2019/10/28/KcvIN4.png">
-<meta property="og:image" content="https://s2.ax1x.com/2019/10/28/KcxaG9.png">
-<meta property="og:image" content="https://s2.ax1x.com/2019/10/28/KgnVl6.png">
-<meta property="og:image" content="https://s2.ax1x.com/2019/10/28/Kg1XE8.png">
-<meta property="og:image" content="https://s2.ax1x.com/2019/10/29/KWUyad.png">
-<meta property="og:image" content="https://s2.ax1x.com/2019/10/29/KWx6JS.png">
-<meta property="og:image" content="https://s2.ax1x.com/2019/10/29/KfFmuD.png">
-<meta property="og:image" content="https://s2.ax1x.com/2019/10/29/KfE9Hg.png">
-<meta property="og:image" content="https://s2.ax1x.com/2019/10/29/KfJIJ0.png">
-<meta property="og:image" content="https://s2.ax1x.com/2019/10/29/KfNcQK.png">
-<meta property="og:image" content="https://s2.ax1x.com/2019/10/31/KIPiIH.png">
-<meta property="og:image" content="https://s2.ax1x.com/2019/10/31/KoEk6A.png">
-<meta property="og:updated_time" content="2019-10-31T12:55:18.714Z">
+<meta property="og:image" content="f:/学习资料/笔记/ThreadLocal源码分析.assets/3OHz7V.png">
+<meta property="og:updated_time" content="2020-03-07T03:20:58.436Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Redis设计与实现读书笔记二">
-<meta name="twitter:description" content="redis服务器redis服务器负责与多个客户端建立网络连接，处理客户端发送的命令请求，在数据库中保存客户端执行命令所产生的数据，并通过资源管理器来维持服务器自身的运转。 命令请求的过程加入我们使用了这样一天个命令12redis&amp;gt; SET KEY VALUEOK 整个执行的流程  客户端会将命令转换为协议格式，然后通过连接到服务器的套接字按协议格式的命令请求发送给服务器。 当客户端与服务器之">
-<meta name="twitter:image" content="https://s2.ax1x.com/2019/10/28/K6mrQS.png">
+<meta name="twitter:title" content="ThreadLocal源码分析">
+<meta name="twitter:description" content="ThreadLocal是什么？ThreadLoal 变量，线程局部变量，同一个 ThreadLocal 所包含的对象，在不同的 Thread 中有不同的副本。这里有几点需要注意：  因为每个 Thread 内有自己的实例副本，且该副本只能由当前 Thread 使用。这是也是 ThreadLocal 命名的由来。 既然每个 Thread 有自己的实例副本，且其它 Thread不可访问，那就不存在多线">
+<meta name="twitter:image" content="f:/学习资料/笔记/ThreadLocal源码分析.assets/3OHz7V.png">
   
     <link rel="alternative" href="/atom.xml" title="个人博客" type="application/atom+xml">
   
@@ -199,20 +182,20 @@
 
 
           <div id="js-content" class="content-ll">
-            <article id="post-Redis设计与实现读书笔记二" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-ThreadLocal源码分析" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Redis设计与实现读书笔记二
+      ThreadLocal源码分析
     </h1>
   
 
         
-        <a href="/2019/10/31/Redis设计与实现读书笔记二/" class="archive-article-date">
-  	<time datetime="2019-10-31T12:54:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-31</time>
+        <a href="/2020/03/07/ThreadLocal源码分析/" class="archive-article-date">
+  	<time datetime="2020-03-07T03:16:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-07</time>
 </a>
         
       </header>
@@ -226,7 +209,7 @@
   <div id="toc-article" class="toc-article" style="display:none">
       <span id="toc-close" class="toc-close" title="隐藏导航" onclick="showBtn();">×</span>
     <strong class="toc-title">文章目录</strong>
-           <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">redis服务器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.1.</span> <span class="toc-text">命令请求的过程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">1.1.1.</span> <span class="toc-text">serverCron函数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.</span> <span class="toc-text">服务器的初始化</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">2.</span> <span class="toc-text">多机数据库的实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">2.1.</span> <span class="toc-text">复制</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">2.1.1.</span> <span class="toc-text">复制功能的实现</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">3.</span> <span class="toc-text">Sentinel（哨兵）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">3.1.</span> <span class="toc-text">启动并初始化Sentinel</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">3.2.</span> <span class="toc-text">Sentinel的工作流程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">4.</span> <span class="toc-text">集群</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">4.1.</span> <span class="toc-text">节点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">4.2.</span> <span class="toc-text">槽指派</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">5.</span> <span class="toc-text">事务</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">5.1.</span> <span class="toc-text">事务的实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">5.2.</span> <span class="toc-text">WATCH命令的实现</span></a></li></ol></li></ol>
+           <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">ThreadLocal是什么？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">2.</span> <span class="toc-text">ThreadLocal实现原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">2.1.</span> <span class="toc-text">set方法的实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">2.2.</span> <span class="toc-text">get方法的实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">2.3.</span> <span class="toc-text">ThreadLocalMap源码分析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">3.</span> <span class="toc-text">ThreadLocal可能引起的内存泄露</span></a></li></ol>
          </div>
    <script type="text/javascript">
   function showToc(){
@@ -246,215 +229,44 @@
 <!-- 目录内容结束 -->
     <div class="article-entry" itemprop="articleBody">
       
-        <h2><span id="redis服务器">redis服务器</span></h2><p>redis服务器负责与多个客户端建立网络连接，处理客户端发送的命令请求，在数据库中保存客户端执行命令所产生的数据，并通过资源管理器来维持服务器自身的运转。</p>
-<h3><span id="命令请求的过程">命令请求的过程</span></h3><p>加入我们使用了这样一天个命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">redis&gt; SET KEY VALUE</span><br><span class="line">OK</span><br></pre></td></tr></table></figure></p>
-<p>整个执行的流程</p>
-<ol>
-<li>客户端会将命令转换为协议格式，然后通过连接到服务器的套接字按协议格式的命令请求发送给服务器。</li>
-<li>当客户端与服务器之间连接的套接字变得可读时，服务器调用命令求情处理器。</li>
-<li>读取套接字中协议格式的命令，将它保存到客户端状态的输入缓冲区里。</li>
-<li>对输入缓冲区中的数据进行分析，将请求参数存入argv中，参数个数保存在argc中。</li>
-<li>根据请求参数（查找命令表），调用相应的命令执行器，执行指定的命令（在正式执行之前还会检测出参数个数是否正确，客户端是否通过身份认证，如果服务器打开了maxmenory功能，那么在执行命令之前，先检查服务器的内存占用情况，并在需要时进行内存回收，之后再进行执行，并且服务器没被阻塞）。</li>
-<li>再实现函数调用之后，还会执行一系列的后续工作，比如检查是否需要记录到慢查询日志，更新命令的redisCommand结构的milliseconds属性，并将器calls属性加一，如果开启了AOF持久化功能，那么将刚才的命令写入到AOF缓冲区中，如果有其它服务器正在复制这个服务器，那么服务器会见刚刚执行的命令传播到所有从服务器。<a id="more"></a></li>
-<li>见结果回复保存到客户端的输出缓冲区里面，并为客户端套接字关联命令回复处理器，当客户端变为可写状态时，服务器就会执行命令回复处理器，并将保存在客户端输出缓冲区中的信息。</li>
-<li>回复处理器情况输出缓冲区，为下一次命令请求做准备。</li>
-<li>客户端接收到协议格式的命令返回后，会将这些命令转换为人类可读的格式，并打印给用户。</li>
-</ol>
-<h4><span id="servercron函数">serverCron函数</span></h4><p>serverCron函数默认100毫秒执行一次，这个函数负责管理服务器的资源，并保持服务器自身的良好运转。</p>
-<ol>
-<li><p>更新服务器时间缓存<br>Redis中许多服务都依赖于服务器时间，为了避免获取系统时间的大量开销，服务器状态（redisServer）中有unixtime属性和mstime属性被用作当前时间缓存。<br>serverCorn函数每100毫秒执行一次，获取系统时间更新这两个属性，所以这两个属性记录的时间<strong>精度不是很高</strong>。<br>对于需要高精度的时间的时候，Redis还是会执行系统调用来获取最准确的系统时间。</p>
-</li>
-<li><p>更新对象的LRU时钟<br>服务器状态中的lruclock属性保存了服务器的LRU时钟，也是服务器时间缓存的一种。<br>每个Redis对象中都有一个lru属性，该属性保持了对象最后一次被直接命中访问的时间。</p>
-</li>
-</ol>
-<p>当服务器需要计算一个数据库键的空转时间的时候，就会使用服务器的lruclock属性的记录减去对象的lru属性的记录，得出对象的空转时间。<br>serverCorn函数默认会以每10秒一次的频率更新lruclock属性，因为这个时钟不是实时的。所以根据这个属性计算出来的Lru时间实际是一个模糊的估算值。</p>
-<ol start="3">
-<li><p>更新服务器每秒执行命令次数<br>serverCron函数中的trackOperationsPerSecond函数会以每100毫秒一次的频率执行，通过抽样计算的方式，估算服务器在最近一秒钟处理的命令请求数量。trackOperationsPerSecond函数会根据ops_sec_last_sample_time记录的上次抽样时间和服务器的当前时间，以及ops_sec_last_sample_ops记录的上一次抽样的已执行命令数量和服务器当前的已执行命令数量，计算出两次trackOperationsPerSecond掉用直接，服务器平均每毫秒处理了多少个命令请求，然后将这个值乘以1000，就得到了服务器在一秒钟内能处理多少个命令请求的估计值。</p>
-</li>
-<li><p>更新服务器内存分治记录<br>服务器状态中stat_peak_memory属性记录了服务器的内存峰值大小。</p>
-</li>
-</ol>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">redisServer</span>&#123;</span></span><br><span class="line">    <span class="comment">//..</span></span><br><span class="line">    <span class="comment">//已使用内存峰值</span></span><br><span class="line">    <span class="keyword">size_t</span> stat_peak_memory;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>每次serverCron执行的时候，都会查看服务器的已使用内存，并与stat_peak_menory进行比较。如果当前的值更大，就更新stat_peak_menory</p>
-<ol start="5">
-<li>处理SIGTERM信号<br>在启动服务器的时候，Redis会为每个服务器进程关联SIGTERM信号关联处理器sigtermHandler函数，这个信号处理器负责在服务器接到SIGTERM信号时，打开服务器状态的shutdown_asap标识。每次ServerCorn函数运行时，程序都会对服务器状态的shutdown_asap属性进行检查，并根据属性的值决定是否关闭服务器。</li>
-</ol>
-<ol start="6">
-<li><p>管理客户端资源<br>serverCron函数每次执行都会调用clientCron函数检查客户端与服务器的连接是否超时（如果超时则断开），输入缓冲区是否（超过了一定的长度，如果超过了就释放原来的缓冲区，分配一个新的缓冲区）</p>
-</li>
-<li><p>管理数据库资源<br>serverCron函数每次执行都会调用databasesCron函数，这个函数对对服务器中的一部分数据库进行检查，删除其中的过期键，如果有需要时，对字典进行收缩。</p>
-</li>
-<li><p>执行被延迟的BGREWRITEAOF<br>在服务器执行BGSAVE命令期间，如果客户端向服务器发来的BGREWRITEAOF会被延迟，服务器状态中的aof_rewrite_scheduled标识记录了服务器是否延迟了BGREWRITEAOF命令。</p>
-</li>
-<li><p>检查持久化操作的运行状态。<br>服务器状态中使用rdb_child_pid属性和aof_child_pid属性记录执行BGSAVE命令和BGREWRITEAOF命令的子进程ID，这两个属性也可以用于检测BGSAVE命令或者BGREWRITEAOF命令是否正在执行。</p>
-</li>
-<li><p>将AOF缓冲区内的内容写入AOF文件<br>如果服务器开启了AOF持久化，并且AOF缓冲区内有待写入的数据，那么serverCron函数会调用相应的程序，将AOF缓冲区中的内容写入AOF文件中。</p>
-</li>
-<li><p>关闭异步客户端<br>关闭那些输出缓冲区大小超出限制的客户端。</p>
-</li>
-<li>增加cronloops计数器的值。<br>服务器状态中cronloops属性记录了serverCron函数执行的次数。</li>
-</ol>
-<h3><span id="服务器的初始化">服务器的初始化</span></h3><p>初始化服务器的第一步就是创建一个redisServer类型的示例变量，server作为服务器的状态，并为结构中的每个属性设置默认值。<br><strong>初始化server变量</strong>的工作由redis.c/initsServerConfig函数完成，它除妖进行以下的工作：</p>
-<ol>
-<li>设置服务器的运行ID</li>
-<li>设置服务器的默认运行频率</li>
-<li>设置服务器的默认配置文件路径</li>
-<li>设置服务器的运行架构</li>
-<li>设置服务器的运行架构</li>
-<li>设置服务器的默认端口号</li>
-<li>设置服务器的默认RDB持久化条件和AOF持久化条件</li>
-<li>初始化服务器的LRU时钟</li>
-<li>创建命令表 </li>
-</ol>
-<p>在启动服务器时，用户可以用户给定配置参数或指定配置文件来修改服务器的默认配置。如果用户为这些属性设置了新的值，那么服务器就使用用户设定的这些值，否则使用默认值。</p>
-<p><strong>初始化服务器数据结构</strong>：<br>initServerConfig函数初始化了server状态，服务器还需要创建其它数据结构（initServer负责）：</p>
-<ol>
-<li>server.clinets链表，器包含了所有与服务器向连的客户端的状态结构。构成链表的节点redisClients代表了一个redis客户端。</li>
-<li>server.db数组，该数组包含了所有的数据库。</li>
-<li>用于保存频道订阅信息的server.pubsub_channels字典，以及用于保存模式订阅信息的server.pubsub_patterns链表。</li>
-<li>用于执行Lua脚本的Lua环境server.lua属性</li>
-<li>用于保存慢查询日志的server.slowlog属性</li>
-</ol>
-<p>除了初始化数据结构，initServer还进行了一些非常<strong>重要的设置操作</strong>，包括：</p>
-<ol>
-<li>为服务器设置进程信号量</li>
-<li>创建共享对象（比如共享的字符串对象）</li>
-<li>打开服务器的监听端口</li>
-<li>为serverCron函数创建时间事件</li>
-<li>入股AOF持久化以及打开，那么打开现有的AOF文件，如果没有现有的文件则创建。</li>
-<li>初始化服务器后台的IO模块。</li>
-</ol>
-<p><strong>还原数据库状态</strong>：<br>在完成对服务器状态server的初始化之后，服务器需要在入RDB文件或者AOF文件。并根据文件内容还原数据库状态。<br>如果启用了AOF持久化功能，则使用AOF还原数据库，如果没有启用则使用RDB文件还原数据库。<br>完成数据库状态还原后，在日志中打印还原数据库的耗时。</p>
-<p><strong>执行事件循环</strong>：<br>在完成数据库状态的还原后，开始进入事件循环。</p>
-<h2><span id="多机数据库的实现">多机数据库的实现</span></h2><h3><span id="复制">复制</span></h3><p>Redis中可以通过执行SLAVEOF命令设置服务器去复制另一个服务器。比如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">复制127.0.0.1 6379主机，成为从服务器</span><br><span class="line">SLAVEOF 127.0.0.1 6379</span><br></pre></td></tr></table></figure></p>
-<p>我们在主服务器上添加的键值对，在从服务器和主服务器上都能查询到。</p>
-<h4><span id="复制功能的实现">复制功能的实现</span></h4><p><strong>旧版</strong><br>Redis的复制，分为同步和命令传播两个操作。<br>同步是让从服务器的状态更新至主服务器的状态。<br>命令传播，是当主服务器的数据库状态被更改后，让从服务器和主服务器保持一致的方式。</p>
-<p><strong>同步</strong><br>从服务器与主服务器同步需要从服务器向主服务器发送SYNC命令，具体步骤如下：</p>
-<ol>
-<li>从服务器向主服务器发送SYNC命令</li>
-<li>主服务器收到命令后，执行BGSAVE命令，后台生成RDB文件。同时使用缓冲区记录从现在开始执行的写命令</li>
-<li>主服务器BGSAVE执行完毕后，主服务器件RDB文件发送给从服务器。从服务器载入RDB文件，与将服务器状态更新至与RDB文件中的状态一致。</li>
-<li>主服务器将缓冲区的命令发送给RDB文件，从服务器执行这些命令，保持与主服务器状态一致。<br><img src="https://s2.ax1x.com/2019/10/28/K6mrQS.png" alt="K6mrQS.png"></li>
-</ol>
-<p><strong>命令传播</strong>：<br>当主服务器因为执行命令导致主服务器与从服务器的状态不一致后，主服务器会向从服务器发送命令，使主服务器和从服务器的状态保持一致。</p>
-<p><strong>旧版复制功能的缺陷</strong><br>旧版复制功能的最大的缺陷就是断线复制，需要重新执行一次同步操作（从发送SYNC开始）。而SYNC命令使意向非常消耗资源的操作。</p>
-<p><strong>新版</strong><br>从Redis2.8开始，使用PSYNC命令来执行复制时的同步操作。<br>PSYNC具有完整重同步和部分重同步两种模式：<br>和旧版的同步操作的区别住哟啊在于部分重同步。步骤：</p>
-<ol>
-<li>断线重连后，从服务器向主服务器发送PSYNC命令。</li>
-<li>主服务器收到PSYNC命令后，向从服务器返回+CONTINUE回复，表示执行部分重同步</li>
-<li>从服务器接收到+CONTINUE命令之后，准备执行部分从同步。</li>
-<li>主需要器向从服务器发送断线期间收到的写命令</li>
-<li>从服务器接收这些写命令并执行，完成同步。</li>
-</ol>
-<p><img src="https://s2.ax1x.com/2019/10/28/K6KJLF.png" alt="K6KJLF.png"></p>
-<p>部分重同步的<strong>实现原理</strong>：<br>主要由三个部分组成：</p>
-<ol>
-<li>主服务器的复制偏移量和从服务器的复制偏移量</li>
-<li>从服务器的复制积压缓冲区</li>
-<li>服务器的运行ID</li>
-</ol>
-<p><strong>复制偏移量</strong><br>主服务器和从服务器都分别维护了两个复制偏移量。<br>主服务器的复制偏移量记录了发送了的字节数量。<br>从服务器的复制偏移量记录了接收了的字节数量。</p>
-<p>通过对主从服务器的复制偏移量可以很容易的知道主从服务器是否处于一致状态。</p>
-<p><strong>复制积压缓冲区</strong><br>复制积压缓冲区是由主服务器维护的一个固定长度先进先出队列，默认大小为1MB。当主服务器在进行命令传播的时候，不仅会把写命令发送给所有的从服务器，还会将写命令入队到复制积压缓冲区。<br><img src="https://s2.ax1x.com/2019/10/28/K6lXYd.png" alt="K6lXYd.png"><br>当主服务器收到从服务器的复制偏移量之后，主服务器会根据偏移量之后的数据是否在复制积压缓冲区内来决定以何种同步方式进行同步。如果采用部分重同步的方式，主服务器就把复制积压缓冲区内的偏移量之后的命令发送给从服务器。</p>
-<p><strong>服务器ID</strong><br>部分重同步还需要服务器ID，无论是主服务器还是从服务器都需要有自己的服务器ID。运行ID在服务器启动的时候随机生成。当从服务器对主服务器进行初次复制时，主服务器会把自己的ID传送给从服务器，而从服务器会将这个ID保存起来。<br>从服务器通过保存的主服务器ID，可以判断断线前连接的服务器是否是断线前连接的主服务器。</p>
-<p><strong>PSYNC的执行流程</strong><br><img src="https://s2.ax1x.com/2019/10/28/K6wEQg.png" alt="K6wEQg.png"></p>
-<p>心跳检测：在命令传播阶段，还会从服务器还会以每秒一次的频率，向主服务器发送<br><code>ACK &lt;replication_offset&gt;</code>。它有三个作用，一是检测主从服务器的网络连接状态，二是辅助实现min-salaves选项，三是检测命令丢失。</p>
-<h2><span id="sentinel哨兵">Sentinel（哨兵）</span></h2><p>Sentinel（哨兵）是Redis的高可用解决方案。由一个或多个哨兵实例组成的哨兵系统可以监视任意多个主服务器，以及这些主服务器的从犯服务器。当被监视的主服务器进入下线状态时，自动将下线主服务器属下的从服务器升级为新的主服务器。然后由新的主服务器代替已下线的主服务器继续处理请求命令。</p>
-<p>哨兵监视系统的工作例子：</p>
-<ol>
-<li>下图时哨兵系统的例子<br><img src="https://s2.ax1x.com/2019/10/28/KcjhYd.png" alt="KcjhYd.png"></li>
-<li>主服务器下线，从服务器终止复制<br><img src="https://s2.ax1x.com/2019/10/28/Kcxivt.png" alt="Kcxivt.png"></li>
-<li>若下线的主服务器没有在规定的时间内上线，哨兵系统会让其从服务器升级为主服务器，并对新的主服务器的所有从服务器发送复制指令<br><img src="https://s2.ax1x.com/2019/10/28/KcvIN4.png" alt="KcvIN4.png"></li>
-<li>如果向下的主服务器从新上线，那么会被哨兵降级为从服务器。<br><img src="https://s2.ax1x.com/2019/10/28/KcxaG9.png" alt="KcxaG9.png"></li>
-</ol>
-<h3><span id="启动并初始化sentinel">启动并初始化Sentinel</span></h3><p>启动一个Sentinel可以使用的命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">redis-sentinel /path/to/your/sentinel.conf //方案一</span><br><span class="line">redis-server /path/to/your/sentinel.conf --sentinel //方案二</span><br></pre></td></tr></table></figure></p>
-<ol>
-<li>初始化服务器<br>因为Sentinel的本质时一个特殊的redis服务器，所以它会和普通的redis服务器一样被初始化，但是Sentinel不会通过在入RDB或AOF来还原数库状态，因为它不需要承担数据库的角色。</li>
-<li>将普通的redis服务器使用的代码替换为Sentinel专用代码<br>Sentinel虽然是一种特殊的Redis服务器，当终究不是Redis服务器，所以代码实现也是不一样的，它会把普通的Redis服务代码替换为Sentinel专用代码，因此如端口号命令表等东西也是不同的。</li>
-<li><p>初始化Sentinel状态<br>在启用了Sentinel专用代码之后，服务器会出初始化一个sentinelState结构，它保存了服务器中所有和Sentinel功能相关的状态。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">sentinelState</span>&#123;</span></span><br><span class="line">    <span class="keyword">uint64_t</span> current_epoch; <span class="comment">//当前纪元</span></span><br><span class="line">    dict *masters;<span class="comment">//指向保存了所有被监视的主服务器信息的字典</span></span><br><span class="line">    <span class="keyword">int</span> tilt;<span class="comment">//是否进入tilt模式</span></span><br><span class="line">    <span class="keyword">int</span> running_scripts;<span class="comment">//目前正在执行的脚本数量</span></span><br><span class="line">    <span class="keyword">mstime_t</span> tilt_start_time;<span class="comment">//进入tilt模式的时间</span></span><br><span class="line">    <span class="keyword">mstime_t</span> previous_time;<span class="comment">//最后一次执行时间处理器的时间</span></span><br><span class="line">    <span class="built_in">list</span> *script_queue; <span class="comment">//一个FIFO队列，包含了所有要执行的用户脚本</span></span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>根据给定的配置文件，初始化Sentinel的监视主服务器列表（masters属性）<br>masters属性是一个指向字典的指针，字典的键是主服务器的名称，值为保存主服务器信息的sentinelRedisInstance结构</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">sentinelRedisInstance</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> flags; <span class="comment">//标识值，记录了实例的类型，以及实例的当前状态</span></span><br><span class="line">    <span class="keyword">char</span> *name; <span class="comment">//实例名称</span></span><br><span class="line">    <span class="keyword">char</span> *runid;<span class="comment">//实例的运行ID</span></span><br><span class="line">    <span class="keyword">uint64_t</span> config_epoch;<span class="comment">//配置纪元</span></span><br><span class="line">    sentinelAddr *addr；<span class="comment">//实例的地址</span></span><br><span class="line">    <span class="keyword">mstime_t</span> down_after_period;<span class="comment">//实例多少毫米之后才会被判断为主观下线</span></span><br><span class="line">    <span class="keyword">int</span> quorum;<span class="comment">//判断这个实例为客观下线所需的支持投票数量</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">int</span> parallel_syncs;<span class="comment">//在执行故障转移操作时，可以同时对新的主服务器进行同步的从服务器数量</span></span><br><span class="line">    <span class="keyword">mstime_t</span> failover_timeoout;<span class="comment">//刷新故障转移状态的最大时限</span></span><br><span class="line">&#125;sentinelRedisInstance;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>masters字典的初始化需要根据被载入的Sentinel配置文件进行的。</p>
-<ol start="5">
-<li>创建连向主服务器的网络连接<br>最后一步是创建连向主服务器的网络连接，Sentinel将成为主服务器的客户端，它可以从主服务器发送命令，并从命令回复中获取相关信息。<br>一般是有两个连接，一个是命令连接，一个是订阅连接。</li>
-</ol>
-<h3><span id="sentinel的工作流程">Sentinel的工作流程</span></h3><p><strong>1. 获取主服务器信息</strong></p>
-<p>Sentinel默认每十秒向连接的主服务发送INFO命令，并根据INFO命令的回复来获取主服务器的当前信息。<br>INFO命令的回复信息中主要包含了两个方面的信息：</p>
-<ol>
-<li>主服务器本身的信息，如服务器运行Id，服务器角色等信息。</li>
-<li>另以方面是主服务器属性的从服务器信息。这使得Sentinel无需配置从服务器的地址就可以自动发现从服务器。</li>
-</ol>
-<p><strong>2. 获取从服务器信息</strong><br>Sentinel发现主服务器有了新的从服务器后，Sentinel会为新的从服务器创建新颖的实例结构，还会创建连接到从服务器的命令连接和订阅连接。</p>
-<p><strong>3. 向主服务器和从服务器发送信息</strong><br>在默认情况下，Sentinel会一每两秒一次的频率，通过命令连接线被监视的主服务器和从服务器发送命令。<br><img src="https://s2.ax1x.com/2019/10/28/KgnVl6.png" alt="KgnVl6.png"></p>
-<p><strong>4. 接收来自主服务器和从服务器的频道信息</strong><br>当Sentinel与一个主服务器或者从服务器建立起订阅连接之后，Sentinel就会通过订阅连接，向服务器发送以下命令。<code>SUBSCRIBE _sentinel_:hello</code><br>Sentinel对<em>sentinel</em>:hello频道的订阅会一直持续到Sentinel与服务器连接断开为止。</p>
-<p><strong>5. 更新sentinels字典</strong><br>Sentinel为主服务器创建的实例机构中的sentinels字典保存了除Sentinel本身之外，所有同样监视这个主服务器的其它Sentinel的资料。当一个Sentinel接收到其它Sentinel发来的信息是，目标Sentinel会从信息中分析并提取除以下两个方面参数：</p>
-<ol>
-<li>与Sentinel有关的参数：源Sentinel信息。</li>
-<li>与主服务器有关的参数：源Sentinel正在监视的主服务器的信息。</li>
-</ol>
-<p><strong> 6. 创建连向其它Sentinel的命令连接</strong><br>当Sentinel通过频道信息发现一个新的Sentinel时，它不仅会从新Sentinel在sentinels字典中创建相应的实例结构，还会创建一个新Sentinel的命令连接。</p>
-<p><strong>7. 检测主观下线状态</strong><br>默认情况下，Sentinel每秒都会想其它创建了连接的实例发送PING命令，并通过实例返回PING命令回复来判断实例是否在线。如果一个实例在down-after-minlliseconds毫秒内，连续向Sentinel返回回复无效。就会判定为主观下线，在结构的flags属性中打开SRI_S_DOWN标识。（多个Sentinel时，它们的主观下线时长可能不同）</p>
-<p><img src="https://s2.ax1x.com/2019/10/28/Kg1XE8.png" alt="Kg1XE8.png"></p>
-<p><strong>8. 检查客观下线状态</strong><br>当一个Sentinel将一个主观服务器判断为主观下线之后，会向同一个监视这个主服务器的其它Sentinel进行询问，看它们是否也认为主服务器已经进入了下线状态。当认为主服务器下线的Sentinel的数量超过Sentinel配置中设置的quorum参数的值。那么该Sentinel就会认为主服务器进入客观下线状态。</p>
-<p><strong>9. 选举领头Sentinel</strong><br>当一个主服务器被判定为客观下线后，所有监视这个主服务器的Sentinel会进行协商，选出一个领头的Sentinel，并由领头的Sentinel进行故障转移操作。<br>选取规则如下：</p>
-<ol>
-<li>所有在线的Sentinel都由被选为领头Sentinel的资格。</li>
-<li>每次进行领头Sentinel进行选举，无论选举是否成功，所有Sentinel的配置纪元的值都会自增一。</li>
-<li>在一个配置纪元里，每个Sentinel都有一次将某个Sentinel设置为局部领头的机会。</li>
-<li>每个发现主服务器下线的Sentinel都会要求其它的Sentinel把自己设置为局部领头。</li>
-<li>一个源Sentinel向另一个目标Sentinel发送SENTINEL is-master-down-by-addr命令，并且表示源Sentnel要求目标Sentinel将前者设置为后者的局部领头Sentinel。</li>
-<li>Sentinel设置局部领头Sentinel的规则是先到先得的。</li>
-<li>目标Sentinel在接收到SENTINEL is-master-down-by-addr后会向源Sentinel发送一条信息，其中leader_runid和leader_epoch参数分别记录了目标Sentinel的局部领头和Sentinel的运行id。</li>
-<li>如果收到命令的回复总，leader_epoch和自己的一致，且leader_runid和自己的运行id一致，那么表示自己被设置为了局部领头。</li>
-<li>如果某个Sentinel被半数以上的Sentinel设置为了局部领头Sentinel，那么其会成为领头Sentinel。</li>
-<li>如果在一段时间内没有一个Sentinel被选举为领头，那么一段时间后会进行重新选举。</li>
-</ol>
-<p><strong>10. 故障转移</strong><br>当选出领头Sentinel后，领头的Sentinel会进行故障转移：</p>
-<ol>
-<li>在已下线的主服务器的从服务器中选择一个作为新的主服务器。</li>
-<li>让一下线的主服务器属下的从服务器改为复制新的主服务器</li>
-<li>将已下线的主服务器设置为新的主服务器的从服务器。</li>
-</ol>
-<h2><span id="集群">集群</span></h2><p>Redis集群式Redis提供的分布式数据库法案，集群通过分片来进行数据共享，并提供复制和故障转移功能。</p>
-<h3><span id="节点">节点</span></h3><p>一个Redis集群通常是由多个节点组成的，在刚开始的时候，每个节点都是相互独立的，他么都处于一个只包含自己的集群当中。<br>连接各个集群可以使用：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CLUSTER MEET &lt;ip&gt; &lt;post&gt;</span><br></pre></td></tr></table></figure></p>
-<p>向一个节点发送CLUSTER MEET命令，可以让该节点与指定的节点握手，握手成功后，就会把这个节点添加到自己所在的集群中。<br>一个节点在启动的时候会根据cluster-enabled配置选项是否为yes来决定是否开启服务器的集群模式。</p>
-<p><img src="https://s2.ax1x.com/2019/10/29/KWUyad.png" alt="KWUyad.png"></p>
-<p><strong>节点的数据结构：</strong><br>clusterNode结构保存了一个节点的当前状态，比如节点的创建时间、节点的名字、节点的当前配置纪元、节点的IP地址和端口号等信息。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">clusterNode</span>&#123;</span></span><br><span class="line">    <span class="keyword">mstime_t</span> ctime; <span class="comment">//创建节点的时间</span></span><br><span class="line">    <span class="keyword">char</span> name[REDIS_CLUSTER_NAMELEN]；<span class="comment">//节点的名称</span></span><br><span class="line">    <span class="keyword">int</span> flags;<span class="comment">//节点标识</span></span><br><span class="line">    <span class="keyword">uint64_t</span> configEpoch;<span class="comment">//节点的当前配置纪元</span></span><br><span class="line">    <span class="keyword">char</span> ip[REDIS_IP_STR_LEN];<span class="comment">//节点的IP地址</span></span><br><span class="line">    <span class="keyword">int</span> port;<span class="comment">//节点的端口号</span></span><br><span class="line">    clusterLine *link;<span class="comment">//保存连接节点所需要的相关信息</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>link指向了一个clusterLink结构。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">clusterLink</span>&#123;</span></span><br><span class="line">    <span class="keyword">mstime_t</span> ctime; <span class="comment">//连接创建的时间</span></span><br><span class="line">    <span class="keyword">int</span> fd; <span class="comment">//TCP套接字连接描述符</span></span><br><span class="line">    sds sndbuf; <span class="comment">//输出缓冲区</span></span><br><span class="line">    sds rcvbuf;<span class="comment">//输入缓冲区</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">clusterNode</span> *<span class="title">node</span>;</span><span class="comment">//与这个节点相关联的节点</span></span><br><span class="line">    </span><br><span class="line">&#125;clusterLink;</span><br></pre></td></tr></table></figure></p>
-<p>每个节点都保存了一个clusterState结构，这个结构记录了在当前节点的视角下，集群目前所处的状态。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">clusterNode</span>&#123;</span></span><br><span class="line">    clusterNode *myself; <span class="comment">//指向当前节点的指针</span></span><br><span class="line">    <span class="keyword">uint64_t</span> currentEpoch;<span class="comment">//集群的当前配置纪元</span></span><br><span class="line">    <span class="keyword">int</span> state;<span class="comment">//集群当前的状态</span></span><br><span class="line">    <span class="keyword">int</span> size;<span class="comment">//集群中至少处理着一个槽的节点的数量</span></span><br><span class="line">    dict *nodes;<span class="comment">//集群节点的名单</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p><img src="https://s2.ax1x.com/2019/10/29/KWx6JS.png" alt="KWx6JS.png"></p>
-<h3><span id="槽指派">槽指派</span></h3><p>Redis集群中通过分片的方式来保存数据库中的键值对。整数数据库被划分为16384个槽，数据库中的每个键都属于一个槽，一个节点可以处理一个或多个槽，当所有的槽都被处理时，集群处于上线状态。</p>
-<p>槽指派<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CLUSTER ADDSLOTS &lt;slot&gt; [slot ...]</span><br></pre></td></tr></table></figure></p>
-<p>clusterNode结构中的slots属性和numsslsot属性记录节点复制处理哪些槽<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">clusterNode</span>&#123;</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span> slots[<span class="number">16384</span>/<span class="number">8</span>];</span><br><span class="line">    <span class="keyword">int</span> numslots;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>一个节点除了会见自己负责处理的槽记录在clusterNode结构和solt属性和numslots属性中之外，还会将自己的slots数组通过消息发送给集群中的其它节点。<br>clusterState结构中，记录了集群中所有槽的指派信息：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">clusterState</span>&#123;</span></span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">    clusterNode *slote[<span class="number">16384</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p><img src="https://s2.ax1x.com/2019/10/29/KfFmuD.png" alt="KfFmuD.png"></p>
-<p><strong>在集群中执行命令</strong><br>当客户端向集群发送命令时，接收命令的节点会计算出数据库键属于那个槽，并检查这个槽是否指派给了自己。</p>
-<ol>
-<li>如果这个槽刚好是自己，那么就执行命令</li>
-<li>如果这个槽不是属于自己，那么就会向客户端返回一个MOVED错误，指引客户端转向正确的节点</li>
-</ol>
-<p><img src="https://s2.ax1x.com/2019/10/29/KfE9Hg.png" alt="KfE9Hg.png"></p>
-<p><strong>重新分片</strong><br>Redis集群的重新分片操作可以将任意数量已经指派给某个节点的槽改为指派给另一个节点。并且相关槽所属的键值对也会从源节点被移动到目标节点。<br>重新分片操作可以在向进行，在重新分片的过程中，集群不需要下线，并且源节点和目标节点都可以继续处理命令请求。</p>
-<h2><span id="事务">事务</span></h2><p>Redis通过MULTI、EXEC、WATCH等命令来实现事务的功能。<br>Redis的事务首先以MULTI命令开始，接着放入事务当中，最后由EXEC命令将在这个事务提交给服务器执行。</p>
-<h3><span id="事务的实现">事务的实现</span></h3><p>一个事务会经历以下三个阶段：</p>
-<ol>
-<li>事务开始</li>
-<li>事务入队</li>
-<li>事务执行</li>
-</ol>
-<p><img src="https://s2.ax1x.com/2019/10/29/KfJIJ0.png" alt="KfJIJ0.png"></p>
-<p><strong>事务入队</strong><br>每个redis客户端都有自己的事务状态，这个事务站台保存在客户端状态的mstate属性里面：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> stcuct redisCline&#123;</span><br><span class="line">    <span class="comment">//..</span></span><br><span class="line">    multiState mstate;<span class="comment">//事务状态</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>每个事务状态包含了一个事务队列：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">multiState</span>&#123;</span></span><br><span class="line">    multiCmd *commands;<span class="comment">//事务队列FIFO顺序</span></span><br><span class="line">    <span class="keyword">int</span> count;<span class="comment">//已入对命令计数</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>事务队列是一个multiCmd类型的数组：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">multiCmd</span>&#123;</span></span><br><span class="line">    robj **argv;<span class="comment">//参数</span></span><br><span class="line">    <span class="keyword">int</span> argc;<span class="comment">//参数</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">redisCommand</span> *<span class="title">cmd</span>;</span><span class="comment">//命令指针</span></span><br><span class="line">&#125;multiCmd;</span><br></pre></td></tr></table></figure></p>
-<p><img src="https://s2.ax1x.com/2019/10/29/KfNcQK.png" alt="KfNcQK.png"></p>
-<p><strong>执行事务</strong><br>当一个处于事务状态的客户端向服务器发送<code>EXEC</code>命令时，这个EXEC命令会立即执行。服务器会遍历这个客户端的事务队列，执行队列中保存的所有的命令，最后将执行命令所得到的结果全部返回给客户端。</p>
-<h3><span id="watch命令的实现">WATCH命令的实现</span></h3><p>WATCH命令是一个乐观锁。它可以在事务提交前监视任意数量的键，并在事务提交时检查监视的键是否过期了，如果过期了，服务器会拒绝执行事务，并向客户端返回代表事务执行失败的空回复。<br>每个reids数据库中都保存着一个watched_keys字典。这个字典的键是某个被WATCH命令监视的数据库键，而字典的值则是一个链表。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">redisDb</span>&#123;</span></span><br><span class="line">    <span class="comment">//。。</span></span><br><span class="line">    dict *watched_keys;</span><br><span class="line">&#125;redisDb;</span><br></pre></td></tr></table></figure></p>
-<p>通过watched_keys字典，服务器可以清楚的知道，哪些数据库键正在被监视，以及哪些客户端正在监视这些数据库键。<br><img src="https://s2.ax1x.com/2019/10/31/KIPiIH.png" alt="KIPiIH.png"><br>如果被监视的键被修改，那么监视该键的所有客户端的REDIS_DIRY_CAS标识将被打开。当服务器接收到一个客户端发来的EXEC命令时，服务器会根据客户端是否打开了REDSI_EIDY_CAS标识是否打开了。<br><img src="https://s2.ax1x.com/2019/10/31/KoEk6A.png" alt="KoEk6A.png"></p>
-<p>Redis的事务和传统的关系型数据库的事务的不同之处在于<strong>Redis不支持事务的回滚机制</strong>，即使事务中的某个命令出错了，整个事务也会继续执行下去。在事务命令的入队期间，如果有错误的命令，那么Redis会拒绝执行这个事务。如果事务在执行的过程中出错了，那么数据库不会进行任何的修改，因此对事务的一致性产生任何使用。</p>
+        <h2><span id="threadlocal是什么">ThreadLocal是什么？</span></h2><p>ThreadLoal 变量，线程局部变量，同一个 ThreadLocal 所包含的对象，在不同的 Thread 中有不同的副本。这里有几点需要注意：</p>
+<ul>
+<li>因为每个 Thread 内有自己的实例副本，且该副本只能由当前 Thread 使用。这是也是 ThreadLocal 命名的由来。</li>
+<li>既然每个 Thread 有自己的实例副本，且其它 Thread不可访问，那就不存在多线程间共享的问题。</li>
+</ul>
+<a id="more"></a>
+<h2><span id="threadlocal实现原理">ThreadLocal实现原理</span></h2><h3><span id="set方法的实现">set方法的实现</span></h3><p>在使用ThreadLocal的时候，用的最多的就是get和set两个方法。我们就先从set入手来分析ThreadLocal的实现原理。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">set</span><span class="params">(T value)</span> </span>&#123;</span><br><span class="line"><span class="comment">//获取当前线程</span></span><br><span class="line">    Thread t = Thread.currentThread();</span><br><span class="line">    <span class="comment">//尝试获取当前线程的threadLocals</span></span><br><span class="line">    ThreadLocalMap map = getMap(t);</span><br><span class="line">    <span class="comment">//如果当前线程的threadLocals不为空，就直接设值</span></span><br><span class="line">    <span class="keyword">if</span> (map != <span class="keyword">null</span>)</span><br><span class="line">        map.set(<span class="keyword">this</span>, value);</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    <span class="comment">//否则为当前线程设置threadLocals</span></span><br><span class="line">        createMap(t, value);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个方法中我们首先需要注意的一点就是<code>getMap(t)</code>方法。<br>它的实现就一行代码<code>return t.threadLocals;</code>就是获取当前Thread对象的一个threadLocal属性。</p>
+<p>在Thread类中有这么一个属性：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ThreadLocal.ThreadLocalMap threadLocals = <span class="keyword">null</span>;</span><br></pre></td></tr></table></figure></p>
+<p>这里的<code>ThreadLocal.ThreadLocalMap</code>就是ThreadLocal中的一个静态内部类。<br>从这里我们也可以看出，<strong>ThreadLocal每个线程的变量副本并不是存在ThreadLocal中的，而是存在线程对象（Thread）中的。</strong></p>
+<p>尝试直接从当前Thread对象中直接获取失败之后，就会执行<code>createMap(t, value);</code>方法，这个方法的具体实现如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">createMap</span><span class="params">(Thread t, T firstValue)</span> </span>&#123;</span><br><span class="line"><span class="comment">//创建一个ThreadLocalMap对象，交由Thread对象的threadLocals属性保存</span></span><br><span class="line">    t.threadLocals = <span class="keyword">new</span> ThreadLocalMap(<span class="keyword">this</span>, firstValue);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这里再一次印证了我们的结论。</p>
+<p>现在我们基本清楚了ThreadLocal是如何为每个Thread维护变量副本的了，ThreadLocal实际上只充当了中间人的角色，实际上变量副本的存储是由每个线程本身完成的。</p>
+<h3><span id="get方法的实现">get方法的实现</span></h3><p>下面我们来分析一下get方法的实现。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> T <span class="title">get</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">//拿到当前线程</span></span><br><span class="line">    Thread t = Thread.currentThread();</span><br><span class="line">    <span class="comment">//尝试获取线程对象中的threadLocal属性</span></span><br><span class="line">    ThreadLocalMap map = getMap(t);</span><br><span class="line">    <span class="keyword">if</span> (map != <span class="keyword">null</span>) &#123;</span><br><span class="line">    <span class="comment">//尝试从该线程对象的threadLocal属性中取值</span></span><br><span class="line">        ThreadLocalMap.Entry e = map.getEntry(<span class="keyword">this</span>);</span><br><span class="line">        <span class="keyword">if</span> (e != <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="comment">//却遇到值了，就完成类型转换，并返回</span></span><br><span class="line">            <span class="meta">@SuppressWarnings</span>(<span class="string">"unchecked"</span>)</span><br><span class="line">            T result = (T)e.value;</span><br><span class="line">            <span class="keyword">return</span> result;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//没有取到，就返回初始值。</span></span><br><span class="line">    <span class="keyword">return</span> setInitialValue();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>通过代码不难看出，get方法就是简简单单的从Thread对象中取值，如果取到了就返回，没取到就返回初始值。</p>
+<h3><span id="threadlocalmap源码分析">ThreadLocalMap源码分析</span></h3><p>通过对set、get方法的源码分析，我们可以清楚的知道，每个线程的变量副本实际上是由线程对象本身通过一个ThreadLocalMap对象存储的。而ThreadLocalMap是ThreadLocal中的一个静态内部类。想要搞清楚整个原理，这个ThreadLocalMap的实现就是绕不开的。那么下面，我们来看一下它的内部实现。</p>
+<p>TreadLocalMap本质上也是一个Map，那么我们首先看一下它的节点类。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Entry</span> <span class="keyword">extends</span> <span class="title">WeakReference</span>&lt;<span class="title">ThreadLocal</span>&lt;?&gt;&gt; </span>&#123;</span><br><span class="line">    Object value;</span><br><span class="line">    Entry(ThreadLocal&lt;?&gt; k, Object v) &#123;</span><br><span class="line">        <span class="keyword">super</span>(k);</span><br><span class="line">        value = v;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果熟悉HashMap源码的同学可能就已经看出不同来了，这个Entry继承自WeakReference。这里的<code>WeakReference&lt;ThreadLocal&lt;?&gt;&gt;</code>,<code>ThreadLocal</code>就是弱引用对象，如果<code>ThreadLocal</code>对象没有被任何强引用指向时，一旦发生GC无论内存空间是否足够，都会被回收。</p>
+<p>既然是Map，那么我们就从set和get方法来入手来分析一下这个Map和我们熟悉的HashMap等有什么区别。</p>
+<p>下面我们就来看一个set方法的具体实现；</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"> <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">set</span><span class="params">(ThreadLocal&lt;?&gt; key, Object value)</span> </span>&#123;</span><br><span class="line">            Entry[] tab = table;</span><br><span class="line">            <span class="keyword">int</span> len = tab.length;</span><br><span class="line">     		<span class="comment">//计算索引</span></span><br><span class="line">            <span class="keyword">int</span> i = key.threadLocalHashCode &amp; (len-<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">for</span> (Entry e = tab[i];</span><br><span class="line">                 e != <span class="keyword">null</span>;</span><br><span class="line">                 e = tab[i = nextIndex(i, len)]) &#123;</span><br><span class="line">                <span class="comment">//如果索引位置已被占，就往后找位置（线性探测法）</span></span><br><span class="line">                ThreadLocal&lt;?&gt; k = e.get();</span><br><span class="line"><span class="comment">//如果table[i]上的key不为空，并且和当前key相同，更新value</span></span><br><span class="line">                <span class="keyword">if</span> (k == key) &#123;</span><br><span class="line">                    </span><br><span class="line">                    e.value = value;</span><br><span class="line">                    <span class="keyword">return</span>;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (k == <span class="keyword">null</span>) &#123;</span><br><span class="line">                    <span class="comment">/*如果table[i]上的key为空，说明已经弱引用对象</span></span><br><span class="line"><span class="comment">                    ThreadLocal被回收了，这个地方就可以重新使用了</span></span><br><span class="line"><span class="comment">                    重新设置key（ThreadLocal），替换掉value</span></span><br><span class="line"><span class="comment">                    */</span></span><br><span class="line">                    replaceStaleEntry(key, value, i);</span><br><span class="line">                    <span class="keyword">return</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">     <span class="comment">//找到为空的位置。插入节点</span></span><br><span class="line">            tab[i] = <span class="keyword">new</span> Entry(key, value);</span><br><span class="line">     		<span class="comment">//更新容量       </span></span><br><span class="line">     		<span class="keyword">int</span> sz = ++size;</span><br><span class="line">     <span class="comment">/*</span></span><br><span class="line"><span class="comment">     cleanSomeSlots(i, sz)用于回收那些key已经被回收了的节点</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">            <span class="keyword">if</span> (!cleanSomeSlots(i, sz) &amp;&amp; sz &gt;= threshold)</span><br><span class="line">                <span class="comment">//如果负载因子达到了所定义地址，那么进行rehash</span></span><br><span class="line">                rehash();</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+<p><code>rehash</code>是每个Map必须要分析的方法，那么我们看一下ThreadLocalMap是如何<code>rehash</code>的。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">rehash</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">//清理所有无效的entry，即key被回收了的entry</span></span><br><span class="line">           expungeStaleEntries();</span><br><span class="line"></span><br><span class="line">		<span class="comment">//如果清理后，还size依然大于掉地了的阈值，则进行扩容</span></span><br><span class="line">           <span class="keyword">if</span> (size &gt;= threshold - threshold / <span class="number">4</span>)</span><br><span class="line">               resize();</span><br><span class="line">       &#125;</span><br></pre></td></tr></table></figure>
+<p>下面我们重点看一下，<code>resieze</code>方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">resize</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Entry[] oldTab = table;</span><br><span class="line">    <span class="keyword">int</span> oldLen = oldTab.length;</span><br><span class="line">    <span class="keyword">int</span> newLen = oldLen * <span class="number">2</span>;</span><br><span class="line">    <span class="comment">//新申请一个长度为原来两倍的entry数组</span></span><br><span class="line">    Entry[] newTab = <span class="keyword">new</span> Entry[newLen];</span><br><span class="line">    <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; oldLen; ++j) &#123;</span><br><span class="line">        Entry e = oldTab[j];</span><br><span class="line">        <span class="keyword">if</span> (e != <span class="keyword">null</span>) &#123;</span><br><span class="line">            ThreadLocal&lt;?&gt; k = e.get();</span><br><span class="line">            <span class="keyword">if</span> (k == <span class="keyword">null</span>) &#123;</span><br><span class="line">                e.value = <span class="keyword">null</span>; <span class="comment">// Help the GC</span></span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">int</span> h = k.threadLocalHashCode &amp; (newLen - <span class="number">1</span>);</span><br><span class="line">                <span class="keyword">while</span> (newTab[h] != <span class="keyword">null</span>)</span><br><span class="line">                    h = nextIndex(h, newLen);</span><br><span class="line">                newTab[h] = e;</span><br><span class="line">                count++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    setThreshold(newLen);</span><br><span class="line">    size = count;</span><br><span class="line">    table = newTab;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这段代码的逻辑还是比较清晰的。新建一个长度为原先两倍的Entry数组，然后把旧数组中的数据重新计算索引后放入新的Entry数组。</p>
+<p>看完了ThreadLocalMap是如何存的，下面我们就来分析一下，ThreadLocalmap是如何取得。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> Entry <span class="title">getEntry</span><span class="params">(ThreadLocal&lt;?&gt; key)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//计算索引</span></span><br><span class="line">    <span class="keyword">int</span> i = key.threadLocalHashCode &amp; (table.length - <span class="number">1</span>);</span><br><span class="line">  </span><br><span class="line">    Entry e = table[i];</span><br><span class="line">    <span class="keyword">if</span> (e != <span class="keyword">null</span> &amp;&amp; e.get() == key)</span><br><span class="line">        <span class="comment">//取到了，直接返回</span></span><br><span class="line">        <span class="keyword">return</span> e;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="comment">//通过key计算出得直接索引找到不value得时候</span></span><br><span class="line">        <span class="comment">//调用这个方法</span></span><br><span class="line">        <span class="keyword">return</span> getEntryAfterMiss(key, i, e);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>取到了直接返回，没取了就调用了<code>getEntryAfterMiss</code>方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> Entry <span class="title">getEntryAfterMiss</span><span class="params">(ThreadLocal&lt;?&gt; key, <span class="keyword">int</span> i, Entry e)</span> </span>&#123;</span><br><span class="line">           Entry[] tab = table;</span><br><span class="line">           <span class="keyword">int</span> len = tab.length;</span><br><span class="line"></span><br><span class="line">           <span class="keyword">while</span> (e != <span class="keyword">null</span>) &#123;</span><br><span class="line">               ThreadLocal&lt;?&gt; k = e.get();</span><br><span class="line">               <span class="keyword">if</span> (k == key)</span><br><span class="line">                   <span class="keyword">return</span> e;</span><br><span class="line">               <span class="keyword">if</span> (k == <span class="keyword">null</span>)</span><br><span class="line">                   <span class="comment">//清楚无效得entry</span></span><br><span class="line">                   expungeStaleEntry(i);</span><br><span class="line">               <span class="keyword">else</span></span><br><span class="line">                   <span class="comment">//基于线性探测法向后扫描</span></span><br><span class="line">                   i = nextIndex(i, len);</span><br><span class="line">               e = tab[i];</span><br><span class="line">           &#125;</span><br><span class="line">           <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">       &#125;</span><br></pre></td></tr></table></figure>
+<p>到此，我们清楚了ThreadLocalMap是如何工作的了。</p>
+<h2><span id="threadlocal可能引起的内存泄露">ThreadLocal可能引起的内存泄露</span></h2><p>刚才我们分析了ThreadLocalMap，我们知道这个Map的key是一个弱引用对象，当没有强引用指向这个作为key的弱引用对象之后，它会被下一次gc回收掉，失去了key，我们就无法再访问Map中的value了，但是value却不会被回收，因为存在一条current thread连接过来的强引用，只有当前thread结束以后，强引用才会断开，这个时候Current Thread，Map，value才会被GC回收。</p>
+<p><img src="F:\学习资料\笔记\ThreadLocal源码分析.assets\3OHz7V.png" alt="示意图"></p>
+<p>在之前的源码分析的时候，我们也看到了在get，set等方法中都清除了ThreadLocalMap中所有key为null的value。一定程度上缓解了内存泄漏的风险，但是这些被动的预防措施不能确保不发生内存泄漏。</p>
+<p>而且很多时候使用static修饰ThreadLocal延长ThreadLocal的生命周期，可能导致内存泄漏。但是我们也不能说用static修饰ThreadLocal就不好，其实用static修饰还是有好处的，它可以避免重复创建等同的对象。</p>
+<p>我们在使用的时候，一定要注意调用remove方法。</p>
 
       
 
@@ -503,7 +315,7 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Redis</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
         		</li>
       		
 		</ul>
@@ -559,7 +371,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/10/31/Redis设计与实现读书笔记二/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/03/07/ThreadLocal源码分析/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -573,18 +385,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/11/04/变强日记0/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          变强日记0
-        
-      </div>
-    </a>
   
-  
-    <a href="/2019/10/27/Redis设计与实现读书笔记一/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Redis设计与实现读书笔记一</div>
+    <a href="/2020/03/06/Netty启动流程分析/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Netty启动流程分析</div>
       <i class="icon-circle-right"></i>
     </a>
   
