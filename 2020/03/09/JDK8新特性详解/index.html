@@ -6,20 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>java synchronized关键字 | 个人博客</title>
+  <title>JDK8新特性详解 | 个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="在java编程中，当可能存在多个线程同时访问一部分资源时，可能会出现一些访问冲突。为了解决冲突，java提供了synchronized关键值，通过加锁的方式，保证访问的有序性。 synchronized关键字的两种作用范围1.作用于对象. 12345678910public synchronized void method()&amp;#123;   //&amp;#125;等价写法public void met">
-<meta name="keywords" content="技术,java">
+  <meta name="description" content="JDK8新特性详解JDK8主要引入了这些新特性：  接口的默认实现 Lambda表达式 函数式接口 方法与构造函数引用 内置了许多函数式接口 Stream流">
+<meta name="keywords" content="技术,Java">
 <meta property="og:type" content="article">
-<meta property="og:title" content="java synchronized关键字">
-<meta property="og:url" content="http://yoursite.com/2019/05/24/java_synchronized关键字/index.html">
+<meta property="og:title" content="JDK8新特性详解">
+<meta property="og:url" content="http://yoursite.com/2020/03/09/JDK8新特性详解/index.html">
 <meta property="og:site_name" content="个人博客">
-<meta property="og:description" content="在java编程中，当可能存在多个线程同时访问一部分资源时，可能会出现一些访问冲突。为了解决冲突，java提供了synchronized关键值，通过加锁的方式，保证访问的有序性。 synchronized关键字的两种作用范围1.作用于对象. 12345678910public synchronized void method()&amp;#123;   //&amp;#125;等价写法public void met">
+<meta property="og:description" content="JDK8新特性详解JDK8主要引入了这些新特性：  接口的默认实现 Lambda表达式 函数式接口 方法与构造函数引用 内置了许多函数式接口 Stream流">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-05-24T13:29:54.134Z">
+<meta property="og:updated_time" content="2020-03-09T13:37:35.281Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="java synchronized关键字">
-<meta name="twitter:description" content="在java编程中，当可能存在多个线程同时访问一部分资源时，可能会出现一些访问冲突。为了解决冲突，java提供了synchronized关键值，通过加锁的方式，保证访问的有序性。 synchronized关键字的两种作用范围1.作用于对象. 12345678910public synchronized void method()&amp;#123;   //&amp;#125;等价写法public void met">
+<meta name="twitter:title" content="JDK8新特性详解">
+<meta name="twitter:description" content="JDK8新特性详解JDK8主要引入了这些新特性：  接口的默认实现 Lambda表达式 函数式接口 方法与构造函数引用 内置了许多函数式接口 Stream流">
   
     <link rel="alternative" href="/atom.xml" title="个人博客" type="application/atom+xml">
   
@@ -180,47 +180,98 @@
 
 
           <div id="js-content" class="content-ll">
-            <article id="post-java_synchronized关键字" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-JDK8新特性详解" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      java synchronized关键字
+      JDK8新特性详解
     </h1>
   
 
         
-        <a href="/2019/05/24/java_synchronized关键字/" class="archive-article-date">
-  	<time datetime="2019-05-24T13:24:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-24</time>
+        <a href="/2020/03/09/JDK8新特性详解/" class="archive-article-date">
+  	<time datetime="2020-03-09T13:37:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-09</time>
 </a>
         
       </header>
     
     <!-- 目录内容 -->
 
+    <p class="show-toc-btn" id="show-toc-btn" onclick="showToc();">
+          <span class="btn-bg"></span>
+          <span class="btn-text">文章导航</span>
+          </p>
+  <div id="toc-article" class="toc-article" style="display:none">
+      <span id="toc-close" class="toc-close" title="隐藏导航" onclick="showBtn();">×</span>
+    <strong class="toc-title">文章目录</strong>
+           <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">JDK8新特性详解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.1.</span> <span class="toc-text">接口的默认实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.</span> <span class="toc-text">Lambda表达式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.3.</span> <span class="toc-text">函数式接口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.4.</span> <span class="toc-text">方法与构造函数引用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.5.</span> <span class="toc-text">内置函数式接口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.6.</span> <span class="toc-text">Stream流</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">1.6.1.</span> <span class="toc-text">Filter过滤</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">1.6.2.</span> <span class="toc-text">Sorted排序</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">1.6.3.</span> <span class="toc-text">Map</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">1.6.4.</span> <span class="toc-text">Match匹配</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">1.6.5.</span> <span class="toc-text">Count计数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">1.6.6.</span> <span class="toc-text">Reduce</span></a></li></ol></li></ol></li></ol>
+         </div>
+   <script type="text/javascript">
+  function showToc(){
+    var toc_article = document.getElementById("toc-article");
+    var show_toc_btn = document.getElementById("show-toc-btn");
+    toc_article.setAttribute("style","display:block");
+    show_toc_btn.setAttribute("style","display:none");
+    };
+  function showBtn(){
+    var toc_article = document.getElementById("toc-article");
+    var show_toc_btn = document.getElementById("show-toc-btn");
+    toc_article.setAttribute("style","display:none");
+    show_toc_btn.setAttribute("style","display:block");
+    };
+   </script>
+      
 <!-- 目录内容结束 -->
     <div class="article-entry" itemprop="articleBody">
       
-        <p>在java编程中，当可能存在多个线程同时访问一部分资源时，可能会出现一些访问冲突。<br>为了解决冲突，java提供了synchronized关键值，通过加锁的方式，保证访问的有序性。</p>
-<h3><span id="synchronized关键字的两种作用范围">synchronized关键字的两种作用范围</span></h3><p>1.作用于对象.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">method</span><span class="params">()</span></span>&#123;</span><br><span class="line">   <span class="comment">//</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">等价写法</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">synchronized</span>(<span class="keyword">this</span>)&#123;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>作用于对象可以防止多个线程同时访问<strong>该对象</strong>的sychronized方法。所以不同实例时不干扰的，也就是说，以该类创建的其它对象依然可以同时访问该sychronized方法。</p>
-<p>2.作用于类<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">method</span><span class="params">()</span></span>&#123;</span><br><span class="line">   </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">等价写法：</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">synchronized</span>(Myclass.class)&#123;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>作用于类可以防止多个线程同时访问<strong>该类的实例</strong>的synchronized方法。所以该类的实例之间时存在干扰的。也就是说，该类创建的对象不能同时访问该synchronized方法了。<br><a id="more"></a></p>
-<h3><span id="synchronized方法">synchronized方法</span></h3><p>每个调用sychronized方法的线程都必须获得调用给方法的类实例的锁才能执行，否者所属的线程阻塞。方法一旦执行就独占该锁，直到从该方法返回时财将锁释放。同步方法实质是将synchronized作用于object reference。将一个大的方法什么伟synchronized会严重影响效率。</p>
-<h3><span id="synchronized代码块">synchronized代码块</span></h3><p>对一块代码进行加锁，表示只对这个区块的资源进行互斥访问，他的作用域是当前对象，当没有明确的对象作为锁时，可以创建一个特殊的instance变量，来充当锁。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span> <span class="keyword">implements</span> <span class="title">Runnable</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">byte</span>[] lock=<span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">0</span>];</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">methodA</span><span class="params">()</span></span>&#123;</span><br><span class="line">            <span class="keyword">synchronized</span>(lock)&#123;</span><br><span class="line">                <span class="comment">//</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>零长度的byte数组，创建的时候只需要三行字节码即可。</p>
-<h3><span id="重进入">重进入</span></h3><p>内部锁是可重进入的，因此线程在试图获得它自己占有的锁时，请求会成功。重进入意味着请求是基于“每线程”，而不是基于”每调用的“。原理是每个锁都关联一个请求计数器。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Widget</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">doSomething</span><span class="params">()</span></span>&#123;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LoggingWidget</span> <span class="keyword">extends</span> <span class="title">Widget</span></span>&#123;</span><br><span class="line">    <span class="comment">//代码没有死锁，说明内部锁是可重入的</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> doSomething&#123;</span><br><span class="line">        System.out.println(toString()+<span class="string">":calling doSomething"</span>);</span><br><span class="line">        <span class="keyword">super</span>.doSomething();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3><span id="synchronized-与原子性">synchronized 与原子性</span></h3><p>原子性是指一个操作时不可中断的，要么全部执行完成，要么都不执行。<br>线程时CPU调度的基本单位，CPU有时间篇的概念，会根据不同的调度算法来进行线程的调度。当一个线程获得时间片之后开始执行，在时间片耗尽之后，就会失去CPU的使用权。所以在多线程的场景下，就会出现原子性的问题。<br>java提供了<code>monitorenter</code>和<code>monitorexit</code>两个高级操作字节码，来确保被synchronized修饰的代码在同一时间只能被同一个线程访问到，在锁为释放之前，其它线程无法获得该段代码的执行权。<br>原理是：<br>线程1在执行<code>monitorenter</code>时，会对Monitor进行加锁，加锁后其它线程无法获得锁，除非线程1主动释放锁。及时在执行过程中，线程1放弃了CPU使用权，但是因为它没有释放锁，由于<code>synchronized</code>是<strong>可重进入的</strong>，下一次还是只有线程1才能获得执行权，还会继续执行代码，保证所有的代码在没有其它线程打扰下执行完，所以保证了原子性。</p>
-<h3><span id="synchronzied-与可见性">synchronzied 与可见性</span></h3><p>可见性是指当多个线程访问同一个变量时，一个线程修改了这个变量，其它线程是能够立刻看到修改的值。<br><strong>synchronized锁住的对象，其值具有可见性。</strong><br>原理是：<br>java内存模型规定了所有的变量都存放在主存中，每个线程还有自己的工作内存，线程会将要主存中的变量拷贝到工作内存中，线程对所有的操作都必须在工作内存中进行，不能直接读写主内存，不同的线程之间也无法直接访问对方的工作内存，线程之间变量需要借助主存作为中转。<br>为了保证可见性，对一个变量解锁之前，必须要将变量同步会主存。这样解锁后，后续线程就可以访问到被修改后的值。</p>
-<h3><span id="synchronized与有序性">synchronized与有序性</span></h3><p>有序性即程序执行的顺序按照代码的先后顺序执行。<br><strong>synchronized提供了有序性保证</strong><br>由于存在处理器优化和指令重排，CPU可能对代码乱序执行。当synchronized是不能禁止指令重拍和处理优化的。</p>
-<blockquote>
-<p>如果在本线程内观察，所有操作都是天然有序的。如果在一个线程中观察另一个线程，所有操作都是无序的。</p>
-</blockquote>
-<p>重排序是有规则限制的，其必须保证单线程程序执行的结果不能因为重排序而改变。由于synchronized确保了同一时间只能被唯一线程访问（单线程执行），所以可以保证有序性。</p>
+        <h2><span id="jdk8新特性详解">JDK8新特性详解</span></h2><p>JDK8主要引入了这些新特性：</p>
+<ol>
+<li>接口的默认实现</li>
+<li>Lambda表达式</li>
+<li>函数式接口</li>
+<li>方法与构造函数引用</li>
+<li>内置了许多函数式接口</li>
+<li>Stream流</li>
+</ol>
+<a id="more"></a>
+<h3><span id="接口的默认实现">接口的默认实现</span></h3><p>jdk8允许我们给接口添加一个非抽象的方法实现，只需要使用default关键字接口，这个特性又叫做拓展方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Formula</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">double</span> <span class="title">calculate</span><span class="params">(<span class="keyword">int</span> a)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">default</span> <span class="keyword">double</span> <span class="title">sqrt</span><span class="params">(<span class="keyword">int</span> a)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Math.sqrt(a);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个接口同时定义了两个方法<code>calculate</code>和<code>sqrt</code>.只不过<code>sqrt</code>方法拥有自己的默认实现。</p>
+<h3><span id="lambda表达式">Lambda表达式</span></h3><p>在老版本中我们对一个list进行排序，我们一般需要这样写：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; names = Arrays.asList(<span class="string">"peter"</span>, <span class="string">"anna"</span>, <span class="string">"mike"</span>, <span class="string">"xenia"</span>);</span><br><span class="line"></span><br><span class="line">Collections.sort(names, <span class="keyword">new</span> Comparator&lt;String&gt;() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(String a, String b)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> b.compareTo(a);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>通过JDK8之后提供的Lambda表达式，可以避免使用匿名对象，可以这样写：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Collections.sort(names, (String a, String b) -&gt; b.compareTo(a));</span><br><span class="line"><span class="comment">//编译器可以自动推导参数类型，所以我们甚至不需要写参数类型</span></span><br><span class="line">Collections.sort(names, (a, b) -&gt; b.compareTo(a));</span><br></pre></td></tr></table></figure>
+<p>Lambda的访问外层作用域与匿名对象类类似。可以直接访问标记了final的外层局部变量或者实例的字段以及静态变量。</p>
+<h3><span id="函数式接口">函数式接口</span></h3><p>所谓的函数式接口是指有且仅有一个抽象方法的接口。</p>
+<p>函数式接口的写法如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@FunctionalInterface</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">MyFunctionalInterface</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">myMethod</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>函数式接口的典型使用场景就是作为方法的参数：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FunctionalInterface</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//函数式接口作为方法参数</span></span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">doSomething</span><span class="params">(MyFunctionalInterface inter)</span> </span>&#123;</span><br><span class="line">		inter.myMethod(); <span class="comment">// 调用自定义的函数式接口方法</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="comment">//	调用使用函数式接口的方法</span></span><br><span class="line">		doSomething(() ‐&gt; System.out.println(<span class="string">"Lambda执行啦！"</span>));</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3><span id="方法与构造函数引用">方法与构造函数引用</span></h3><p>假如我们又这样一个函数式接口：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@FunctionalInterface</span></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">IConvert</span>&lt;<span class="title">F</span>,<span class="title">T</span>&gt;</span>&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//将F类型转换成T类型</span></span><br><span class="line">	<span class="function">T <span class="title">convert</span><span class="params">(F from)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们可以这样使用这个新特性：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">		IConvert&lt;String, Integer&gt; convertor = (from) -&gt; ( Integer.parseInt(from));</span><br><span class="line"><span class="comment">//简化写法</span></span><br><span class="line">		IConvert&lt;String, Integer&gt; convertor = Integer::parseInt;</span><br></pre></td></tr></table></figure>
+<p>还可以引用对象的方法；</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MyObject obj=<span class="keyword">new</span> MyObject();</span><br><span class="line">IConvert&lt;String,String&gt; convertor=something::startWith;</span><br></pre></td></tr></table></figure>
+<p>还可以引用构造函数</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@FunctionalInterface</span></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">PersonFactory</span>&lt;<span class="title">P</span> <span class="keyword">extends</span> <span class="title">Person</span>&gt;</span>&#123;</span><br><span class="line">	<span class="function">P <span class="title">create</span><span class="params">(String firstName, String lastName)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们可以通过引用构造函数实现工厂类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">PersonFactory&lt;Person&gt; factory = Person::<span class="keyword">new</span>;</span><br><span class="line">Person p = factory.create(<span class="string">"zhuge"</span>, <span class="string">"xx"</span>);</span><br></pre></td></tr></table></figure>
+<h3><span id="内置函数式接口">内置函数式接口</span></h3><p>JDK8中内置了许多函数式接口，包括Comparator和Runnable等，它们被添加了@FunctionalNterface注解，以用来支持Lambda表示式。</p>
+<h3><span id="stream流">Stream流</span></h3><p>Stream流提供了一种对集合Collection的方便的操作。</p>
+<h4><span id="filter过滤">Filter过滤</span></h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; list = Arrays.asList(<span class="string">"hello"</span>,<span class="string">"world"</span>,<span class="string">"apple"</span>,<span class="string">"people"</span>,<span class="string">"sea"</span>,</span><br><span class="line">                                  <span class="string">"watch"</span>,<span class="string">"table"</span>,<span class="string">"book"</span>,<span class="string">"school"</span>,<span class="string">"help"</span>);</span><br><span class="line">list</span><br><span class="line">    .stream() <span class="comment">//获取stream</span></span><br><span class="line">    .filter(s -&gt; s.startsWith(<span class="string">"s"</span>))  <span class="comment">//设置filter。中间操作</span></span><br><span class="line">    .forEach(System.out::println);   <span class="comment">//打印出流中的元素。终端操作</span></span><br></pre></td></tr></table></figure>
+<h4><span id="sorted排序">Sorted排序</span></h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">list</span><br><span class="line">    .stream()</span><br><span class="line">    .sorted((a,b) -&gt; b.compareTo(a))</span><br><span class="line">    .forEach(System.out::println);</span><br></pre></td></tr></table></figure>
+<h4><span id="map">Map</span></h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; list = Arrays.asList(<span class="string">"10"</span>,<span class="string">"100"</span>,<span class="string">"1000"</span>);</span><br><span class="line"></span><br><span class="line">System.out.println(<span class="string">"---- test map ----"</span>);</span><br><span class="line">list</span><br><span class="line">    .stream()</span><br><span class="line">    .map(Integer::valueOf)  <span class="comment">//转换为整数</span></span><br><span class="line">    .map(a -&gt; a + <span class="number">1</span>)        <span class="comment">//执行加一操作</span></span><br><span class="line">    .forEach(System.out::println);</span><br></pre></td></tr></table></figure>
+<h4><span id="match匹配">Match匹配</span></h4><p>这是一种终端操作，姐u共不是stream对象，而是boolean值。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">anyMatch</span><span class="params">(Predicate&lt;? <span class="keyword">super</span> T&gt; predicate)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">allMatch</span><span class="params">(Predicate&lt;? <span class="keyword">super</span> T&gt; predicate)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">noneMatch</span><span class="params">(Predicate&lt;? <span class="keyword">super</span> T&gt; predicate)</span></span>;</span><br></pre></td></tr></table></figure>
+<h4><span id="count计数">Count计数</span></h4><p>这是一种终端操作，用来统计stream中元素的个数。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">long</span> count = </span><br><span class="line">    list</span><br><span class="line">        .stream() <span class="comment">//获取stream</span></span><br><span class="line">        .filter(s -&gt; s.startsWith(<span class="string">"s"</span>))  <span class="comment">//设置filter。中间操作</span></span><br><span class="line">        .count();</span><br></pre></td></tr></table></figure>
+<h4><span id="reduce">Reduce</span></h4><p>list[0]和list[1]执行操作，得到的结果为result。result再和list[2]执行操作，得到的结果result。依次进行，对所有元素执行一遍.根据上述描述也可以看出，这里的“操作”必须满足两个入参、返回值是同一类型的</p>
+<p>比如求和：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer&gt; list = Arrays.asList(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>);</span><br><span class="line"></span><br><span class="line">System.out.println(<span class="string">"---- test reduce ----"</span>);</span><br><span class="line">Optional&lt;Integer&gt; sum = </span><br><span class="line">    list</span><br><span class="line">        .stream()</span><br><span class="line">        .reduce((a,b) -&gt; a + b);</span><br><span class="line"></span><br><span class="line">sum.ifPresent(System.out::println);</span><br></pre></td></tr></table></figure>
 
       
 
@@ -269,7 +320,7 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
         		</li>
       		
 		</ul>
@@ -325,7 +376,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/05/24/java_synchronized关键字/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/03/09/JDK8新特性详解/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -339,18 +390,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/05/30/java并发编程实践学习笔记二/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          java并发编程学习笔记二
-        
-      </div>
-    </a>
   
-  
-    <a href="/2019/05/14/javastatic关键字的几种用法/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Java static关键字的几种用法</div>
+    <a href="/2020/03/07/ThreadLocal源码分析/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">ThreadLocal源码分析</div>
       <i class="icon-circle-right"></i>
     </a>
   
