@@ -6,31 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Java多线程编程实战指南读书笔记四 | 个人博客</title>
+  <title>MySQL索引 | 个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="java运行时存储空间Java运行时空间可以非位堆空间，栈空间和非堆空间。其中堆空间和非堆空间时被多个线程共享的，而栈空间则是线程的私有空间。每个线程都有自己私有的栈空间。栈空间时为线程的执行而准备的一段固定大小的内存空间，栈空间时线程创建的时候非配的。线程的方法调用是利用栈帧。局部变量的变量之存储在栈空间中，基础类型变量和引用的类型的变量的变量值都是直接存储在栈帧中的。由于一个线程无法访问另一个">
-<meta name="keywords" content="技术,java,并发编程">
+  <meta name="description" content="索引的类型因为索引是在存储引擎层实现的，索引并没有统一的索引标准，不同的存储引擎的索引的工作方式并不一样，也不是所有的存储引擎都支持所有类型的索引。 B-Tree索引B-Tree索引底层使用的是B+树。存储引擎以不同的方式使用B-Tree索引，性能也各有不同，例如MyISAM使用前缀压缩计数使得索引更小，当InnoDB则按照原数据格式进行存储。再如MyISAM索引通过数据的物理位置引用被索引的行，">
+<meta name="keywords" content="技术,MySQL">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java多线程编程实战指南读书笔记四">
-<meta property="og:url" content="http://yoursite.com/2019/09/16/Java多线程编程实战指南读书笔记四/index.html">
+<meta property="og:title" content="MySQL索引">
+<meta property="og:url" content="http://yoursite.com/2020/03/11/MySQL索引/index.html">
 <meta property="og:site_name" content="个人博客">
-<meta property="og:description" content="java运行时存储空间Java运行时空间可以非位堆空间，栈空间和非堆空间。其中堆空间和非堆空间时被多个线程共享的，而栈空间则是线程的私有空间。每个线程都有自己私有的栈空间。栈空间时为线程的执行而准备的一段固定大小的内存空间，栈空间时线程创建的时候非配的。线程的方法调用是利用栈帧。局部变量的变量之存储在栈空间中，基础类型变量和引用的类型的变量的变量值都是直接存储在栈帧中的。由于一个线程无法访问另一个">
+<meta property="og:description" content="索引的类型因为索引是在存储引擎层实现的，索引并没有统一的索引标准，不同的存储引擎的索引的工作方式并不一样，也不是所有的存储引擎都支持所有类型的索引。 B-Tree索引B-Tree索引底层使用的是B+树。存储引擎以不同的方式使用B-Tree索引，性能也各有不同，例如MyISAM使用前缀压缩计数使得索引更小，当InnoDB则按照原数据格式进行存储。再如MyISAM索引通过数据的物理位置引用被索引的行，">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://s2.ax1x.com/2019/09/13/nrHVBT.png">
-<meta property="og:image" content="https://s2.ax1x.com/2019/09/13/nrOcyn.png">
-<meta property="og:image" content="https://s2.ax1x.com/2019/09/13/nsZjWd.png">
-<meta property="og:image" content="https://s2.ax1x.com/2019/09/14/n6FwkQ.png">
-<meta property="og:image" content="https://s2.ax1x.com/2019/09/14/n6VAAO.png">
-<meta property="og:image" content="https://s2.ax1x.com/2019/09/14/n6IIiQ.png">
-<meta property="og:image" content="https://s2.ax1x.com/2019/09/15/nglvdJ.png">
-<meta property="og:image" content="https://s2.ax1x.com/2019/09/15/ng8xoQ.png">
-<meta property="og:image" content="https://s2.ax1x.com/2019/09/15/n2GVED.png">
-<meta property="og:image" content="https://s2.ax1x.com/2019/09/15/n2adxJ.png">
-<meta property="og:updated_time" content="2019-09-26T12:50:02.958Z">
+<meta property="og:updated_time" content="2020-03-11T13:47:52.752Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Java多线程编程实战指南读书笔记四">
-<meta name="twitter:description" content="java运行时存储空间Java运行时空间可以非位堆空间，栈空间和非堆空间。其中堆空间和非堆空间时被多个线程共享的，而栈空间则是线程的私有空间。每个线程都有自己私有的栈空间。栈空间时为线程的执行而准备的一段固定大小的内存空间，栈空间时线程创建的时候非配的。线程的方法调用是利用栈帧。局部变量的变量之存储在栈空间中，基础类型变量和引用的类型的变量的变量值都是直接存储在栈帧中的。由于一个线程无法访问另一个">
-<meta name="twitter:image" content="https://s2.ax1x.com/2019/09/13/nrHVBT.png">
+<meta name="twitter:title" content="MySQL索引">
+<meta name="twitter:description" content="索引的类型因为索引是在存储引擎层实现的，索引并没有统一的索引标准，不同的存储引擎的索引的工作方式并不一样，也不是所有的存储引擎都支持所有类型的索引。 B-Tree索引B-Tree索引底层使用的是B+树。存储引擎以不同的方式使用B-Tree索引，性能也各有不同，例如MyISAM使用前缀压缩计数使得索引更小，当InnoDB则按照原数据格式进行存储。再如MyISAM索引通过数据的物理位置引用被索引的行，">
   
     <link rel="alternative" href="/atom.xml" title="个人博客" type="application/atom+xml">
   
@@ -191,20 +180,20 @@
 
 
           <div id="js-content" class="content-ll">
-            <article id="post-Java多线程编程实战指南读书笔记四" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-MySQL索引" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Java多线程编程实战指南读书笔记四
+      MySQL索引
     </h1>
   
 
         
-        <a href="/2019/09/16/Java多线程编程实战指南读书笔记四/" class="archive-article-date">
-  	<time datetime="2019-09-16T02:15:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-16</time>
+        <a href="/2020/03/11/MySQL索引/" class="archive-article-date">
+  	<time datetime="2020-03-11T13:47:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-11</time>
 </a>
         
       </header>
@@ -218,7 +207,7 @@
   <div id="toc-article" class="toc-article" style="display:none">
       <span id="toc-close" class="toc-close" title="隐藏导航" onclick="showBtn();">×</span>
     <strong class="toc-title">文章目录</strong>
-           <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">java运行时存储空间</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">2.</span> <span class="toc-text">无状态对象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">3.</span> <span class="toc-text">不可变对象</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">3.1.</span> <span class="toc-text">不可变对象的应用场景</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">4.</span> <span class="toc-text">线程特有对象</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">4.1.</span> <span class="toc-text">线程特有对象的典型应用场景</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">5.</span> <span class="toc-text">装饰器模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">6.</span> <span class="toc-text">并发集合</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">7.</span> <span class="toc-text">死锁</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">7.1.</span> <span class="toc-text">死锁产生的条件与规避</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">7.2.</span> <span class="toc-text">规避死锁的方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">8.</span> <span class="toc-text">锁死</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">8.1.</span> <span class="toc-text">信号丢失锁死</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">8.2.</span> <span class="toc-text">嵌套监视器锁死</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">9.</span> <span class="toc-text">线程饥饿</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">10.</span> <span class="toc-text">活锁</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">11.</span> <span class="toc-text">线程组</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">12.</span> <span class="toc-text">线程的未捕获异常与监控</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">13.</span> <span class="toc-text">线程工厂</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">14.</span> <span class="toc-text">线程池</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">14.1.</span> <span class="toc-text">线程池的启动和关闭</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">14.2.</span> <span class="toc-text">任务的处理结果、异常处理与取消</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">14.3.</span> <span class="toc-text">线程池死锁</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">15.</span> <span class="toc-text">同步计算与异步计算</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">16.</span> <span class="toc-text">Java Executor框架</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">17.</span> <span class="toc-text">使用工具类Executors</span></a></li></ol>
+           <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">索引的类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.1.</span> <span class="toc-text">B-Tree索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.</span> <span class="toc-text">哈希索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.3.</span> <span class="toc-text">空间数据索引（R-Tree）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.4.</span> <span class="toc-text">全文索引</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">2.</span> <span class="toc-text">索引的优点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">3.</span> <span class="toc-text">高性能的索引策略</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">3.1.</span> <span class="toc-text">索引列不能是表达式的一部分，也不能是函数的参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">3.2.</span> <span class="toc-text">前缀索引和索引选择性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">3.3.</span> <span class="toc-text">多列索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">3.4.</span> <span class="toc-text">聚簇索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">3.5.</span> <span class="toc-text">覆盖索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">3.6.</span> <span class="toc-text">使用索引扫描来做排序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">3.7.</span> <span class="toc-text">压缩（前缀压缩）索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">3.8.</span> <span class="toc-text">冗余和重复索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">3.9.</span> <span class="toc-text">未使用的索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">3.10.</span> <span class="toc-text">索引和锁</span></a></li></ol></li></ol>
          </div>
    <script type="text/javascript">
   function showToc(){
@@ -238,104 +227,48 @@
 <!-- 目录内容结束 -->
     <div class="article-entry" itemprop="articleBody">
       
-        <h2><span id="java运行时存储空间">java运行时存储空间</span></h2><p>Java运行时空间可以非位堆空间，栈空间和非堆空间<strong>。其中堆空间和非堆空间时被多个线程共享的</strong>，而栈空间则是线程的私有空间。每个线程都有自己<strong>私有的</strong>栈空间。<br>栈空间时为线程的执行而准备的一段固定大小的内存空间，栈空间时线程创建的时候非配的。线程的方法调用是利用栈帧。局部变量的变量之存储在栈空间中，基础类型变量和引用的类型的变量的变量值都是直接存储在栈帧中的。<br><strong>由于一个线程无法访问另一个线程的栈空间，所以线程堆局部变量以及对只能通过当前线程的局部变量才能访问的对象进行操作具有固有的线程安全性</strong><br>堆空间用于存储对象，它也时垃圾回收器工作的场所，即堆空间中没有可达引用的对象会被回收。<br>非堆空间用于存储常量以及类的元数据等，它是Java虚拟机系统的时候分配的一段可以动态扩容的内存空间。类的元数据包括类的静态变量、类有哪些方法以及这些方法的元数据（包括名称，参数和返回值等）<br><a id="more"></a></p>
-<h2><span id="无状态对象">无状态对象</span></h2><p>对象是对操作和数据的封装，对象所包含的数据就被称为该对象的状态。如果一个类的同一个实例被多个线程共享并不会使这些线程存在共享状态，那么这个类及其任意一个实例就被称为无状态对象。</p>
-<p>线程安全的本质来源于多个线程之间存在共享数据，因此无状态对象使线程安全的。</p>
-<p>无状态对象具有线程安全性，这有两层含义：</p>
+        <h2><span id="索引的类型">索引的类型</span></h2><p>因为索引是在存储引擎层实现的，索引并没有统一的索引标准，不同的存储引擎的索引的工作方式并不一样，也不是所有的存储引擎都支持所有类型的索引。</p>
+<h3><span id="b-tree索引">B-Tree索引</span></h3><p>B-Tree索引底层使用的是B+树。存储引擎以不同的方式使用B-Tree索引，性能也各有不同，例如MyISAM使用前缀压缩计数使得索引更小，当InnoDB则按照原数据格式进行存储。再如MyISAM索引通过数据的物理位置引用被索引的行，而InnoDB则根据主键引用被索引的行。</p>
+<p>B-Tree索引通常意味着所有的值都是按顺序存储的，并且每个叶子页到根的距离相同。B-Tree索引能够加快访问数据的速度，因为存储引擎不再需要进行全表扫描来获取需要的数据，取而代之的是从索引的根节点开始进行搜索。</p>
+<a id="more"></a>
+<h3><span id="哈希索引">哈希索引</span></h3><p>哈希索引基于哈希表实现的，只有精确匹配索引所有列的查询才有效。对于每一行数据，存储引擎都会对所有的索引列计算一个哈希码，哈希码是一个较小的只，并且不同键值的行计算出来的哈希码也不一样。哈希索引键所有的哈希码存储在索引中，同时在哈希表中保持指向每隔个数据行的指针。</p>
+<p>在使用哈希索引的时候也有许多的限制：</p>
+<ul>
+<li>哈希索引只包含哈希值和行指针，而不存储字段值，所以不能使用哦索引中的值来避免回表的。</li>
+<li>哈希索引的数据并不是按索引值顺序排序的，所以也就无法用于排序。</li>
+<li>哈希索引也不支持部分索引列匹配查找，因为哈希索引始终是使用索引列的全部内容来计算哈希值的。</li>
+<li>哈希索引只支持等值比较查询。</li>
+<li>访问哈希索引的数据非常的块，除非有很多哈希冲突。当出现哈希冲突后会遍历链表中所有的行指针，逐行进行比较。</li>
+<li>如果哈希冲突很多的话，一些索引维护操作的代价会非常的高。</li>
+</ul>
+<h3><span id="空间数据索引r-tree">空间数据索引（R-Tree）</span></h3><p>MyISAM表支持空间索引，可以用作地理数据存储。这类索引无需前缀查询。</p>
+<h3><span id="全文索引">全文索引</span></h3><p>全文索引是一种特殊类型的索引，它查找的是文本中的关键词，而不是直接比较索引中的值。</p>
+<h2><span id="索引的优点">索引的优点</span></h2><p>总结下来索引有如下三个优点：</p>
 <ol>
-<li>无状态对象的客户端代码在调用任何该对象的任何方法时都无须进行加锁。</li>
-<li>其次无状态对象自身的方法实现也无需使用锁。</li>
+<li>索引大大减少了服务需要扫描的数据量</li>
+<li>索引可以大大帮助服务器避免排序和临时表</li>
+<li>索引可以将随机IO变为排序IO。</li>
 </ol>
-<p><strong>无状态对象不包含任何实例变量或者可更新静态变量，但是一个不包含任何实例变量或者静态变量却不一定是无状态对象。特殊情况下，不包含任何实例变量或者静态变量的类，其方法实现时仍然需要借助锁来保障线程安全。</strong></p>
-<h2><span id="不可变对象">不可变对象</span></h2><p>不可变对象是指一经创建其就会保持不变的对象。不可变对象也具有固有的线程安全性。</p>
-<p>严格意义的不可变对象需要满足的条件：</p>
-<ol>
-<li>类本身使用final修饰：防止通过创建子类来改变其定义的行为</li>
-<li>所有字段都需要使用final修饰：确保字段值保持不变，更重要的是在多线程环境下保证了被修饰字段的初始化安全。</li>
-<li>对象在此初始化过程中没有逸出</li>
-<li>任何字段如果引用了其它状态可变的对象（如集合，数组）则这些字段必须是private修饰的。</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//一个典型的不可变对象</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">Canditiion</span> <span class="keyword">implements</span> <span class="title">Iterable</span>&lt;<span class="title">Endpoint</span>&gt;</span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//引用了其它状态可变的对象,需要使用private修饰</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Set&lt;Endpoint&gt; endpoints;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> totalWeight;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Canditiion</span><span class="params">(Set&lt;Endpoint&gt; endpoints)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> sum=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(Endpoint endpoint:endpoints)&#123;</span><br><span class="line">            sum+=endpoint.weight;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">this</span>.totalWeight=sum;</span><br><span class="line">        <span class="keyword">this</span>.endpoints=endpoints;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> Iterator&lt;Endpoint&gt; <span class="title">iterator</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> ReadOnlyIterator.with(endpoints.interator);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>虽然不可变对象自身的实例变量或者静态变量的值是不可变的，但是这些变量所引用的对象本身的状态可能是可变的。如果这些对象所包含的状态对外暴露的话，那么我们需要注意这些对象状态也不能被改变。</p>
-<h3><span id="不可变对象的应用场景">不可变对象的应用场景</span></h3><ol>
-<li>被建模对象的状态变化不频繁</li>
-<li>同时对一组相关的数据进行写操作，因此需要保证原子性。</li>
-<li>使用不可变对象作为安全可靠恶的Map键。</li>
-</ol>
-<h2><span id="线程特有对象">线程特有对象</span></h2><p>各个线程都创建一个自有的实例，一个实例只能被一个线程访问的对象就被称为线程<strong>特有对象</strong>。ThreadLocal<t>类相当于线程访问器线程特有对象的代理。线程通过这个对象可以创建并访问各自的线程特有对象。<br><img src="https://s2.ax1x.com/2019/09/13/nrHVBT.png" alt="nrHVBT.png"></t></p>
-<p>ThreadLocal类的常用方法<br><img src="https://s2.ax1x.com/2019/09/13/nrOcyn.png" alt="nrOcyn.png"></p>
-<p>ThreadLocal实例通常会被作为某个类的静态字段使用<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//一个随机数生成器</span></span><br><span class="line"><span class="comment">//使用ThreadLocal避免锁的争用</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> ThreadSpecilficSecureRandom&#123;</span><br><span class="line">    INSTANCE;</span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">static</span> ThreadLocal&lt;SecureRandom&gt; SECURE_RANDOM</span><br><span class="line">            =<span class="keyword">new</span> ThreadLocal&lt;SecureRandom&gt;()&#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">protected</span> SecureRandom <span class="title">initialValue</span><span class="params">()</span></span>&#123;</span><br><span class="line">            SecureRandom srnd;</span><br><span class="line">            <span class="keyword">try</span>&#123;</span><br><span class="line">                srnd=SecureRandom.getInstance(<span class="string">"SHA1PRNG"</span>);</span><br><span class="line">            &#125;<span class="keyword">catch</span> (NoSuchAlgorithmException e)&#123;</span><br><span class="line">                srnd=<span class="keyword">new</span> SecureRandom();</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            srnd.nextBytes(<span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">20</span>]);</span><br><span class="line">            <span class="keyword">return</span> srnd;</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">nexeInt</span><span class="params">(<span class="keyword">int</span> upperBound)</span></span>&#123;</span><br><span class="line">        SecureRandom random = SECURE_RANDOM.get();</span><br><span class="line">        <span class="keyword">return</span> random.nextInt(upperBound);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setSeed</span><span class="params">(<span class="keyword">long</span> seed)</span></span>&#123;</span><br><span class="line">        SecureRandom random = SECURE_RANDOM.get();</span><br><span class="line">        random.setSeed(seed);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h3><span id="线程特有对象的典型应用场景">线程特有对象的典型应用场景</span></h3><ol>
-<li>需要使用非线程安全的对象，但不希望因此而引入锁。</li>
-<li>使用线程安全对象，但希望避免其它使用锁的开销和相关问题。</li>
-<li>隐式参数传递。线程特有对象在一个具体的线程中，他是线程全局可见的。</li>
-<li>特定于线程的单例模式。</li>
-</ol>
-<h2><span id="装饰器模式">装饰器模式</span></h2><p>装饰器模式可以用来实现线程安全，其基本思想式为非线程安全对象创建一个相应的线程安全的外包装对象。客户端代码不直接访问非线程安全对象而实访问器外包装对象。</p>
-<p>java.util.Conllections.synchroniezdX(X可以是set，list，map等)方法就是使用装饰器模式将指定的非线程安全的集合对象对外暴露为线程安全的对象。<br>使用装饰器模式装饰的线程安全的对象也要注意。他们返回的同步集合存在弊端，这些集合返回的Interator实例并不是线程安全的。所以我们<strong>需要给遍历操作加锁</strong>。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//正确的遍历同步集合</span></span><br><span class="line"> <span class="keyword">final</span> List&lt;String&gt; synchronizedList = Collections.synchronizedList(<span class="keyword">new</span> ArrayList&lt;String&gt;());</span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">dump</span><span class="params">()</span></span>&#123;</span><br><span class="line">       Iterator&lt;String&gt; iterator = synchronizedList.iterator();</span><br><span class="line">       <span class="comment">//必须正确的加锁</span></span><br><span class="line">       <span class="keyword">synchronized</span>(synchronizedList)&#123;</span><br><span class="line">           <span class="keyword">while</span> (iterator.hasNext())&#123;</span><br><span class="line">               System.out.println(iterator.next());</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
-<p>对同步集合进行遍历操作时，我们需要<strong>以被遍历同步集合对象本身作为内部锁</strong>。这样做的实质是利用了内部锁的排他性，从而阻止了遍历过程中其它线程改变了同步集合的内部结构。这种不利用提高并发。</p>
-<h2><span id="并发集合">并发集合</span></h2><p>java 1.5以后java.util.concurrent包中引入了一些线程安全的集合对象，他们被称为并发集合。<br><img src="https://s2.ax1x.com/2019/09/13/nsZjWd.png" alt="nsZjWd.png"><br>并发集合对象自身就支持对其进行线程安全的遍历操作。<br><strong>如果由多个线程需要对同一并发集合进行遍历操作，那么这些线程不适合共享同一个Iterator实例</strong><br>并发集合内部再保障其线程安全的时候通常不借助锁，而是使用CAS操作，或者对锁的使用进行了优化。</p>
-<h2><span id="死锁">死锁</span></h2><p>如果两个或多个线程因相互等待对方而被永远暂停，那么我们就称这些线程产生了死锁。由于产生死锁的线程的生命周期状态永远是非运行状态，因此这些线程所要执行的任务也<strong>永远无法进展</strong>。</p>
-<p><img src="https://s2.ax1x.com/2019/09/14/n6FwkQ.png" alt="n6FwkQ.png"></p>
-<h3><span id="死锁产生的条件与规避">死锁产生的条件与规避</span></h3><p>可能产生死锁的必要非充分条件：</p>
-<ol>
-<li>资源互斥。涉及到的资源必须是独占的，即每个资源一次只能够杯一个线程使用。</li>
-<li>资源不可抢夺。涉及的资源只能够杯其持有者主动释放，而无法杯资源的持有者和申请者之外的第三方线程所抢夺（被动释放）</li>
-<li>占用并等待资源。涉及到的线程当前至少持有一个资源，并申请其它资源，如果需要等待其它线程释放资源，在等待过程中，线程不会释放其已经持有的资源。</li>
-<li>循环等待资源。涉及到的形成必须在等待别的线程持有的资源，而这些线程又反过来在等待第一个线程所持有的资源。</li>
-</ol>
-<p>死锁的代码特征：<br><img src="https://s2.ax1x.com/2019/09/14/n6VAAO.png" alt="n6VAAO.png"></p>
-<p><strong>一个线程在已经持有一个锁的情况下再次申请这个锁，并不会导致死锁。</strong>这是因为Java中的锁（包括内部锁和显式锁）都是可重入的。</p>
-<h3><span id="规避死锁的方法">规避死锁的方法</span></h3><p>规避死锁只能从两个方面下手：消除“占用并等待资源”和消除“循环等待资源”。</p>
-<p>几种方法：</p>
-<ol>
-<li>粗锁法。使用粗粒度的锁代替多个锁。从而消除“占用并等待资源”</li>
-<li>锁排序法。相关线程使用全局同一的顺序申请锁。假设又多个线程需要申请资源（锁），呢吗我们只徐娅让这些线程一张一个全局统一的顺序区申请这些资源，就可以消除“循环等待资源”这个条件，从而规避死锁。</li>
-<li>使用ReentrantLock.tryLock(long,TimeUnit)申请锁。它允许我们位锁的申请这个操作设定一个超时时间。可以避免线程无限制的等待，从而消除“占用并等待资源”</li>
-<li>使用开放调用，在调用外部方法时不加锁</li>
-<li>使用锁的替代品</li>
-</ol>
-<h2><span id="锁死">锁死</span></h2><p>等待线程由于唤醒其所需的条件永远无法成立，或者其它线程无法唤醒这个线程而一直处于非运行状态（线程并未终止）导致其任务一直无法进展。</p>
-<h3><span id="信号丢失锁死">信号丢失锁死</span></h3><p>信号丢失锁死是由于没有相应的通知线程来唤醒等待线程而使得等待线程一直处于等待状态的一种活性故障。</p>
-<p>信号丢失的典型例子：<br>等待线程在执行Object.wait()/Condition.await()前没有对保护条件进行判断，而此时保护条件时间上已经成立，然而此后可能并无其它线程更新相应保护条件涉及的共享遍历使其成立并通知等待线程。</p>
-<h3><span id="嵌套监视器锁死">嵌套监视器锁死</span></h3><p>嵌套监视器锁死是嵌套锁导致等待线程永远无法被唤醒的一种活性故障，</p>
-<p><img src="https://s2.ax1x.com/2019/09/14/n6IIiQ.png" alt="n6IIiQ.png"></p>
-<p>等待线程在执行到monitorY.wait()的时候会被暂停并且其所持有的所monitorY会被释放，但是等待线程持有的外层锁monitorX并不会被释放掉。通知线程在唤醒等待线程后，monitorY所引导的临界区位于monitorX引导的临界区之内，因此通知线程必须向持有外层锁monitorX，而这个时候monitorX被其它线程持有，这个时候就通知线程就无法唤醒受保护的方法，这样就形成了锁实。</p>
-<h2><span id="线程饥饿">线程饥饿</span></h2><p>线程饥饿是指线程<strong>一直无法获得其所需要的资源</strong>而导致其任务一直无法进展的一种活性故障。</p>
-<p>把锁看作一种资源，那么我们不难发现死锁也是一种线程饥饿。失锁的结果是故障线程都无法获得其所需要的全部锁中的一个锁，导致使其任务一直无法进展。</p>
-<p>线程饥饿的一个典型例子是在高争用的环境下使用非公平模式的读写锁。</p>
-<h2><span id="活锁">活锁</span></h2><p>活锁是指线程一直处于运行状态，但是其任务却一直无法进展的一种活性故障。也就是说，产生活锁的线程一直在做无用功。</p>
-<p>线程一直在申请其所需的资源而一直未申请成功，那么此时线程饥饿实际上就演变成为了活锁。</p>
-<h2><span id="线程组">线程组</span></h2><p>线程组（ThreadGroup类）可以用来表示一组相似的线程。<br>Thread类有几个构造器允许我们在创建线程的时候指定线程所属的线程组，如果没有指定线程组，那么这个线程就属于其父线程所属的线程组。由于java虚拟机在创建main线程的时候会为其指定一个线程组，因此java平台中的任何一个线程都有一个线程组与之关联。<br><strong>线程组的设计有许多缺陷，现在已经用得很少</strong>。</p>
-<h2><span id="线程的未捕获异常与监控">线程的未捕获异常与监控</span></h2><p>如果线程的run方法抛出未被捕获的异常，那么随着run方法的退出，相应的线程也提前终止。对于线程的这种异常终止，我们可以得知并做出补救。<br>Thread类内部定义了一个UncaughtExceptionHandler接口。该接口是在Thread类内部定义的。它只有一个方法：<br><code>void uncaughtException(Thread t,Throwable e)</code><br>该方法包含两个参数，一个是异常终止的线程本身，以及导致线程提前终止的异常。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.concurrent.ArrayBlockingQueue;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.BlockingQueue;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ThreadMonitorDemo</span> </span>&#123;</span><br><span class="line">    <span class="keyword">volatile</span> <span class="keyword">boolean</span> inited=<span class="keyword">false</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span> threadIndex=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">final</span> BlockingQueue&lt;String&gt; channel=<span class="keyword">new</span> ArrayBlockingQueue&lt;String&gt;(<span class="number">100</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">        ThreadMonitorDemo threadMonitor = <span class="keyword">new</span> ThreadMonitorDemo();</span><br><span class="line">        threadMonitor.init();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">100</span>;i++)&#123;</span><br><span class="line">            threadMonitor.service(<span class="string">"message"</span>+i);</span><br><span class="line">        &#125;</span><br><span class="line">        Thread.sleep(<span class="number">5000</span>);</span><br><span class="line">        System.exit(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(inited)&#123;</span><br><span class="line">            <span class="keyword">return</span> ;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">"开始启动"</span>);</span><br><span class="line">        WokerThread thread=<span class="keyword">new</span> WokerThread();</span><br><span class="line">        thread.setName(<span class="string">"woker-"</span>+threadIndex++);</span><br><span class="line">        thread.setUncaughtExceptionHandler(<span class="keyword">new</span> ThreadMonitor());</span><br><span class="line">        thread.start();</span><br><span class="line">        inited=<span class="keyword">true</span>;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">service</span><span class="params">(String message)</span> <span class="keyword">throws</span> InterruptedException</span>&#123;</span><br><span class="line">        channel.put(message);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">ThreadMonitor</span> <span class="keyword">implements</span> <span class="title">Thread</span>.<span class="title">UncaughtExceptionHandler</span></span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">uncaughtException</span><span class="params">(Thread t, Throwable e)</span> </span>&#123;</span><br><span class="line">            System.out.println(t.getName()+<span class="string">"异常终止"</span>);</span><br><span class="line">            System.out.println(<span class="string">"启动替代线程"</span>);</span><br><span class="line">            inited=<span class="keyword">false</span>; <span class="comment">//重置启动标志</span></span><br><span class="line">            init();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">WokerThread</span> <span class="keyword">extends</span> <span class="title">Thread</span></span>&#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</span><br><span class="line">            System.out.println(<span class="string">"工作线程开始工作"</span>);</span><br><span class="line">            String msg;</span><br><span class="line">            <span class="keyword">try</span>&#123;</span><br><span class="line">                <span class="keyword">for</span>(;;)&#123;</span><br><span class="line">                    msg=channel.take();</span><br><span class="line">                    process(msg);</span><br><span class="line"></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;<span class="keyword">catch</span> (InterruptedException e)&#123;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">process</span><span class="params">(String message)</span></span>&#123;</span><br><span class="line">            System.out.println(<span class="string">"处理message:"</span>+message);</span><br><span class="line">            <span class="keyword">if</span>((<span class="keyword">int</span>)(Math.random()*<span class="number">100</span>)&lt;<span class="number">2</span>)&#123;</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"test"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            Utils.randomPauser(<span class="number">100</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2><span id="线程工厂">线程工厂</span></h2><p>从jdk1.5开始Java标准库提供了创建线程的工厂方法。ThreadFactory接口时工厂方法的模式的一个实例，它定义了如下工厂方法：<br><code>public Thread newThread(Runnable r)</code><br>我们可以在ThreadFactory.newThread方法中封装线程创建的逻辑，这使得我们能够以统一的方式未线程的创建、配置做一些非常有用的动作。</p>
-<h2><span id="线程池">线程池</span></h2><p>线程是一种昂贵的资源，其开销包括以下几个方面：</p>
-<ol>
-<li>线程的创建和启动的开销</li>
-<li>线程的销毁开销</li>
-<li>线程的调度开销</li>
-<li>一个系统能够创建的线程总是受限于该系统所拥有的处理器数目</li>
-</ol>
-<p>线程池的实现和一些对象池的实现不同，线程池内部可以预先创建一定数量的工作者线程，客户端代码并不需要向线程池借用线程而是将其需要执行的任务作为一个对象提交给线程池，线程池可能将这些任务缓冲在队列之中，而线程池内部的各个工作者向则不断地从队列中取出任务并执行。</p>
-<p><img src="https://s2.ax1x.com/2019/09/15/nglvdJ.png" alt="nglvdJ.png"></p>
-<p>java.util.concurrent.ThreadPpplExecutor类就是一个线程池，客户端代码可以调用<br><code>public Future&lt;?&gt; submint(Runnable task)</code></p>
-<p>ThreadPoolexecutor中地参数数量最多地一个构造器<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ThreadPoolExecutor(<span class="keyword">int</span> corePoolSize, </span><br><span class="line">                    <span class="keyword">int</span> maximumPoolSize,</span><br><span class="line">                    <span class="keyword">long</span> keepAliveTime,</span><br><span class="line">                    TimeUnit unit, </span><br><span class="line">                    BlockingQueue&lt;Runnable&gt; workQueue,</span><br><span class="line">                    ThreadFactory threadFactory, </span><br><span class="line">                    RejectedExecutionHandler handler)</span><br></pre></td></tr></table></figure></p>
-<p>其中workQueue是被称为工作队列地阻塞队列，corePoolSize用于指定线程池核心大小，maximumPoolSize用于指定最大线程池大小。keepAliveTime和unit何在一起用于指定线程池中空闲线程地最大存活时间。threadFactory指定用于创建工作者线程地的线程工厂。</p>
-<p>在初始状态下，客户端每提交一个任务线程池就创建一个工作线程来处理任务，随着客户端不断地提交任务，当前线程池地大小也相应地增加。在当前线程池大小达到核心线程池大小地时候，新来地任务会被存入工作队列之中。<br>当工作队列满地时候，线程池会继续传教新地工作者线程，直到当前线程池带线啊哦达到最大线程池大小。<br>当线程池饱和时，即工作者队列满并且当前线程池大小达到最大线程池地大小地情况下，客户端试图提交地任务会被拒绝。Java标准库中引入了一个RejectedExecutionHandler接口用于封装被拒绝地任务地处理策略。接口地定义如下：<br><code>void rejectedExecution(Runnable r,ThreadpoolExecutor executor)</code><br><img src="https://s2.ax1x.com/2019/09/15/ng8xoQ.png" alt="ng8xoQ.png"></p>
-<p>在当前线程池大小超过线程池核心大小地时候，超过线程池核心大小部分地工作者线程空闲时间达到keepAliveTime所指定地时间后就会被清理掉。</p>
-<h3><span id="线程池的启动和关闭">线程池的启动和关闭</span></h3><p>ThreadPoolExecutor.prestartAllCoreThreads()则使得我们可以使线程池在未接受到任何任务的情况下预先创建并启动所有核心线程，这样可以减少任务被线程池处理时所需要的等待时间。</p>
-<p>调用<code>ThreadPoolExecutor.shutdown()/shutdownNow()</code>方法可能用来关闭线程池。使用shutdown()关闭线程池的时候，已提交的任务会被继续执行，而新提交的任务会被拒绝。调用返回时线程池可能尚未关闭，因为其中还有任务没结束。</p>
-<p>可以通过调用<code>ThreadPoolExecutor.awaitTermination(long timeout,TimeUnit unit)</code>来等待线程池关闭结束。<br>可以调用<code>ThreadPoolExecutor.shutdownNow()</code>来立即关闭线程池，正在执行的任务会被终止。</p>
-<h3><span id="任务的处理结果-异常处理与取消">任务的处理结果、异常处理与取消</span></h3><p>如果客户端关心任务的处理结果，那么它可以使用ThreadPoolExecutor中另一个submit方法来提交任务。<br><code>public &lt;T&gt; Future&lt;T&gt; submit(Callable&lt;T&gt; task)</code><br>task表示客户端需要提交的任务，其类型为java.util.concurrent.Callable。其接口定义为：<br><code>V call() throws Exception</code></p>
-<p>上述submit方法的返回值类型为java.util.concurrent.Future.该接口的实例可以看作提交给线程池执行的任务的处理结果句柄，Future.get()方法可以用来获取task参数所指定的任务的处理结果。<br><code>V get() throws InterruptedException,ExecutionException</code><br>Future.get()被调用的时，如果相应的任务尚未执行完毕，法吗Future.get()会使当前线程暂停，直到相应的任务执行结束。</p>
-<p><strong>客户端代码应该尽早地向线程池提交任务，并仅在需要相应任务地处理结果数据地那一刻才调用Future.get()方法</strong></p>
-<h3><span id="线程池死锁">线程池死锁</span></h3><p>如果线程池中执行的任务在执行过程中又会向同一个线程池提交另外一个任务，而前一个任务的执行结果又依赖于后一个任务的执行结果，那么线程池中的所有工作者线程都处于等待其它任务的处理结果而这些任务仍在工作队列中等待执行，这时由于线程池中已经没有可以对工作队列中的任务进程任务的工作者线程，这种等待就会一直持续下去从而形成死锁。</p>
-<p><strong>同一个线程池只能用于执行相互独立的任务。彼此有依赖关系的任务需要提交给不同的线程池执行以避免死锁</strong></p>
-<h2><span id="同步计算与异步计算">同步计算与异步计算</span></h2><p>从多个任务的角度来看，任务可以是串行执行的，也可以是并发执行的。从单个任务的角度来看，任务的执行方式可以是同步的，也可以是异步的。</p>
-<p><img src="https://s2.ax1x.com/2019/09/15/n2GVED.png" alt="n2GVED.png"></p>
-<h2><span id="java-executor框架">Java Executor框架</span></h2><p>Runnable接口和Callable接口都是对任务处理逻辑的抽象。<br>java.util.concurrent.Executor接口则是对任务的执行进行的抽象。<br>该接口的定义为：<br><code>void execute(Runnable command)</code><br>其中command参数代表需要执行的任务，Executor接口使得任务的提交方，只需要知道它调用Executor.execute方法便可以使指定的任务被执行，而无需关心任务的具体执行细节。<br>解耦任务的提交与任务的具体执行细节在一定程度上能够屏蔽任务同步执行和异步执行的差异。<br>Executor接口比较简单，功能也十分有限，它只能为客户端代码执行任务，而无法将任务的处理结果返回给客户端代码。</p>
-<h2><span id="使用工具类executors">使用工具类Executors</span></h2><p>实用工具类java.util.concurrent.Executors<br><img src="https://s2.ax1x.com/2019/09/15/n2adxJ.png" alt="n2adxJ.png"></p>
+<h2><span id="高性能的索引策略">高性能的索引策略</span></h2><h3><span id="索引列不能是表达式的一部分也不能是函数的参数">索引列不能是表达式的一部分，也不能是函数的参数</span></h3><p>当索引列作为表达式的一部分或者函数的参数的时候，MySQL就不会使用该索引列了。</p>
+<h3><span id="前缀索引和索引选择性">前缀索引和索引选择性</span></h3><p>前缀索引是一种使索引更小、更快的有效办法。选择足够长的前缀以保证较高的选择性，同时又不能太长，前缀应该足够长，以使得前缀索引的选择性接近于索引整个列。</p>
+<h3><span id="多列索引">多列索引</span></h3><p>多列索引要注意设置合适的顺序，正确的顺序依赖于使用该索引的查询，并且同时需要考虑如何更好的满足排序和分组的需要。</p>
+<h3><span id="聚簇索引">聚簇索引</span></h3><p>聚簇索引并不是一种单独的索引类型，而是一种数据存储方式。具体的细节依赖于其实现方式，但InnoDB的聚簇索引实际上在同一个结构中保持了B-Tree索引和数据行。当表又聚簇索引使，它的数据行实际上存放在索引的叶子页中。</p>
+<h3><span id="覆盖索引">覆盖索引</span></h3><p>覆盖索引是非常有用的工具，能够极大地提高性能。合理地使用覆盖索引可以使得查询只扫描索引而无须回表。</p>
+<p>它主要有这些好处：</p>
+<ul>
+<li>索引条目地大小是小于数据行地大小地，索引如果只需要读取索引，那么MySQL就回极大地减少数据访问量。</li>
+<li>因为索引是按照列值顺序存储地，索引对于IO密集型地访问查询会比随机从磁盘读取每一行数据的IO要少得多。</li>
+<li>一些存储引擎入MyISAM在内存中只缓存索引，数据则依赖于操作系统来缓存，因此要访问数据需要一次系统调用。</li>
+<li>对于InnoDB的聚簇索引，覆盖索引对于InnoDB表特别有用，InnoDB的二级索引在叶子节点中保存了行的主键值，所以如果二级主键能够覆盖索引，则可以避免对主键索引的二次查询。</li>
+</ul>
+<h3><span id="使用索引扫描来做排序">使用索引扫描来做排序</span></h3><p>MySQL有两种方式可以生成有序的结果：通过排序操作，或者按索引顺序烧苗。扫描索引本身是很快的，因为只需要从一条索引记录移动到紧接着的下一条记录。但是如果索引不能覆盖查询所需的全部列，那就不得不每扫描一条索引记录就都回表查询一次对应的行。这基本都是随机IO，因此按索引顺序读取数据的数据通常要比顺序地全表扫描慢，尤其是在IO密集型地工作负载时。</p>
+<p>只有当索引地列顺序和Order by子句地顺序完全一致，并且所有列地排序方式都一样时，MySQL才能够使用索引来对结果进行排序。如果查询需要关联多张表，则只有当order by子句引用地字段全部为第一个表时，才能使用索引做排序。</p>
+<h3><span id="压缩前缀压缩索引">压缩（前缀压缩）索引</span></h3><p>MyISAM使用前缀压缩来减少索引的大小，从而让更多的索引可以放入内存，这在某些情况下能极大地提高性能。默认只压缩字符串，但通过参数设置也可以对整数进行压缩。压缩块使用更少地空间，代价时某些操作可能更慢。因为每个值得压缩前缀都依赖于前面得值，索引MyISAM查找时无法在索引块使用二分查找而只能从头开始扫描。</p>
+<h3><span id="冗余和重复索引">冗余和重复索引</span></h3><p>MySQL运行在相同列上创建多个索引，无论是有意得还是无意得。MySQL需要单独维护重复得索引，并且优化器在优化查询得时候也需要逐个地进行考虑，这会影响性能。</p>
+<p>重复索引是指在相同地列上按照相同的顺序创建相同类型的索引。应该避免这样创建重复索引，发现后应该立即移除。</p>
+<p>大多数情况下都不需要冗余索引，应该尽量扩展已有的索引而不是创建新索引。但也有时候出于性能方面的考虑需要冗余索引，因为拓展已有的索引会导致其变得太大，从而影响其它使用该索引的查询的性能。</p>
+<h3><span id="未使用的索引">未使用的索引</span></h3><p>服务器永远不用的索引，应该被删除。</p>
+<h3><span id="索引和锁">索引和锁</span></h3><p>索引可以让查询锁定更少的行，如果查询从不访问那些不需要的行，那么就会锁定更少的行，从这两方面来看对性能都有好处。首先，虽然InnoDB的行锁效率很高，内存使用也很少，但是锁定行的时候仍然会带来额外开销；其次，锁定超过需要的行会增加锁争用并减少并发性。</p>
 
       
 
@@ -384,11 +317,7 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">并发编程</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
         		</li>
       		
 		</ul>
@@ -444,7 +373,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/09/16/Java多线程编程实战指南读书笔记四/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/03/11/MySQL索引/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -458,18 +387,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/09/21/高性能 MySQL读书笔记一/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          高性能MySQL读书笔记一
-        
-      </div>
-    </a>
   
-  
-    <a href="/2019/09/13/Java多线程编程实战指南读书笔记三/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Java多线程编程实战指南读书笔记三</div>
+    <a href="/2020/03/09/JDK8新特性详解/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">JDK8新特性详解</div>
       <i class="icon-circle-right"></i>
     </a>
   
