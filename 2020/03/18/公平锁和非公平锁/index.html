@@ -6,24 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>汇编学习笔记一 | 个人博客</title>
+  <title>公平锁与非公平锁 | 个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="寄存器  通用寄存器AX (accumulate累加寄存器);BX(base基地址寄存器)；CX（count计数器寄存器）；DX（data数据寄存器）。 指针寄存器SP（stack pointer堆栈指针寄存器）BP（base pointer基地址寄存器） 变址寄存器SI（source index源地址寄存器）DI（destination index目标变址寄存器） 控制寄存器IP（instru">
-<meta name="keywords" content="技术,汇编">
+  <meta name="description" content="什么是公平锁？什么是非公平锁？公平锁：多个线程按照申请锁的先后顺序去获得锁，线程会直接进入队列去排队，永远都是队列的第一位才能获得锁。 非公平锁：多个线程去获得锁的时候，会直接去尝试获取，获取不到，再去进入等待队列，如果能获取到，就直接获取到锁。 优缺点比较公平锁优点：所有的线程都能够得到资源，不会饿死在队列中。 缺点：吞吐量会下降很多，队列里面除了第一个线程，其它线程都会阻塞，CPU唤醒阻塞线程">
+<meta name="keywords" content="技术,Java">
 <meta property="og:type" content="article">
-<meta property="og:title" content="汇编学习笔记一">
-<meta property="og:url" content="http://yoursite.com/2019/04/06/汇编学习笔记一/index.html">
+<meta property="og:title" content="公平锁与非公平锁">
+<meta property="og:url" content="http://yoursite.com/2020/03/18/公平锁和非公平锁/index.html">
 <meta property="og:site_name" content="个人博客">
-<meta property="og:description" content="寄存器  通用寄存器AX (accumulate累加寄存器);BX(base基地址寄存器)；CX（count计数器寄存器）；DX（data数据寄存器）。 指针寄存器SP（stack pointer堆栈指针寄存器）BP（base pointer基地址寄存器） 变址寄存器SI（source index源地址寄存器）DI（destination index目标变址寄存器） 控制寄存器IP（instru">
+<meta property="og:description" content="什么是公平锁？什么是非公平锁？公平锁：多个线程按照申请锁的先后顺序去获得锁，线程会直接进入队列去排队，永远都是队列的第一位才能获得锁。 非公平锁：多个线程去获得锁的时候，会直接去尝试获取，获取不到，再去进入等待队列，如果能获取到，就直接获取到锁。 优缺点比较公平锁优点：所有的线程都能够得到资源，不会饿死在队列中。 缺点：吞吐量会下降很多，队列里面除了第一个线程，其它线程都会阻塞，CPU唤醒阻塞线程">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://s2.ax1x.com/2019/03/29/ABEA2V.png">
-<meta property="og:image" content="https://t1.picb.cc/uploads/2019/04/01/VXslka.png">
-<meta property="og:image" content="https://s2.ax1x.com/2019/04/06/AWTW7R.md.png">
-<meta property="og:updated_time" content="2019-04-06T08:45:48.989Z">
+<meta property="og:updated_time" content="2020-03-18T13:51:16.830Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="汇编学习笔记一">
-<meta name="twitter:description" content="寄存器  通用寄存器AX (accumulate累加寄存器);BX(base基地址寄存器)；CX（count计数器寄存器）；DX（data数据寄存器）。 指针寄存器SP（stack pointer堆栈指针寄存器）BP（base pointer基地址寄存器） 变址寄存器SI（source index源地址寄存器）DI（destination index目标变址寄存器） 控制寄存器IP（instru">
-<meta name="twitter:image" content="https://s2.ax1x.com/2019/03/29/ABEA2V.png">
+<meta name="twitter:title" content="公平锁与非公平锁">
+<meta name="twitter:description" content="什么是公平锁？什么是非公平锁？公平锁：多个线程按照申请锁的先后顺序去获得锁，线程会直接进入队列去排队，永远都是队列的第一位才能获得锁。 非公平锁：多个线程去获得锁的时候，会直接去尝试获取，获取不到，再去进入等待队列，如果能获取到，就直接获取到锁。 优缺点比较公平锁优点：所有的线程都能够得到资源，不会饿死在队列中。 缺点：吞吐量会下降很多，队列里面除了第一个线程，其它线程都会阻塞，CPU唤醒阻塞线程">
   
     <link rel="alternative" href="/atom.xml" title="个人博客" type="application/atom+xml">
   
@@ -184,93 +180,65 @@
 
 
           <div id="js-content" class="content-ll">
-            <article id="post-汇编学习笔记一" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-公平锁和非公平锁" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      汇编学习笔记一
+      公平锁与非公平锁
     </h1>
   
 
         
-        <a href="/2019/04/06/汇编学习笔记一/" class="archive-article-date">
-  	<time datetime="2019-04-06T08:38:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-06</time>
+        <a href="/2020/03/18/公平锁和非公平锁/" class="archive-article-date">
+  	<time datetime="2020-03-18T13:50:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-18</time>
 </a>
         
       </header>
     
     <!-- 目录内容 -->
 
+    <p class="show-toc-btn" id="show-toc-btn" onclick="showToc();">
+          <span class="btn-bg"></span>
+          <span class="btn-text">文章导航</span>
+          </p>
+  <div id="toc-article" class="toc-article" style="display:none">
+      <span id="toc-close" class="toc-close" title="隐藏导航" onclick="showBtn();">×</span>
+    <strong class="toc-title">文章目录</strong>
+           <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">什么是公平锁？什么是非公平锁？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">2.</span> <span class="toc-text">优缺点比较</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">2.1.</span> <span class="toc-text">公平锁</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">2.2.</span> <span class="toc-text">非公平锁</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">3.</span> <span class="toc-text">源码体现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">3.1.</span> <span class="toc-text">公平锁实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">3.2.</span> <span class="toc-text">非公平锁实现</span></a></li></ol></li></ol>
+         </div>
+   <script type="text/javascript">
+  function showToc(){
+    var toc_article = document.getElementById("toc-article");
+    var show_toc_btn = document.getElementById("show-toc-btn");
+    toc_article.setAttribute("style","display:block");
+    show_toc_btn.setAttribute("style","display:none");
+    };
+  function showBtn(){
+    var toc_article = document.getElementById("toc-article");
+    var show_toc_btn = document.getElementById("show-toc-btn");
+    toc_article.setAttribute("style","display:none");
+    show_toc_btn.setAttribute("style","display:block");
+    };
+   </script>
+      
 <!-- 目录内容结束 -->
     <div class="article-entry" itemprop="articleBody">
       
-        <ul>
-<li><p>寄存器</p>
-<ul>
-<li>通用寄存器<br>AX (accumulate累加寄存器);<br>BX(base基地址寄存器)；<br>CX（count计数器寄存器）；<br>DX（data数据寄存器）。</li>
-<li>指针寄存器<br>SP（stack pointer堆栈指针寄存器）<br>BP（base pointer基地址寄存器）</li>
-<li>变址寄存器<br>SI（source index源地址寄存器）<br>DI（destination index目标变址寄存器）</li>
-<li><p>控制寄存器<br>IP（instruction pointer指令指针寄存器）<br>FlAG标志寄存器</p>
-</li>
-<li><p>段寄存器<br>CS（code segment代码段寄存器）<br>DS（data segment数据段寄存器）<br>SS（stack segment堆栈段寄存器）<br>ES（extra segment附加段寄存器）</p>
-</li>
-</ul>
-</li>
-</ul>
-<p><em>为了和8位机兼容，通用寄存器，可以分为高8位和低8位。如AX可以分为AH和AL。</em><br><a id="more"></a></p>
-<ul>
-<li><p>8086CPU可以一次处理两种尺度的数据，字节（8 bit）和字（16bit）。在数据传送或运算时，要注意指令的两个操作对象的位数应当是一致的。</p>
-</li>
-<li><p>8086CPU物理地址的标识方法<br>8086CPU是16位的，它的寄存器只能存储16位，但是其有20位的地址总线（寻址能力为1mb）。所以它使用段地址加偏移地址的形式来寻址。<br><a href="https://imgchr.com/i/ABEA2V" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/03/29/ABEA2V.png" alt="ABEA2V.png"></a></p>
-</li>
-</ul>
-<p>地址加法器采用：物理地址=段地址*16+偏移地址。段地址可以理解为基地址。</p>
-<hr>
-<p>8086使用CS寄存器和IP寄存器，来标识cpu当前要读取的指令的地址。</p>
-<hr>
-<p>debug 的常用命令<br>-r 查看改变寄存器中的内容<br>-d 查看内存中的内容<br>-e 改写内存中的内容<br>-u 将内容中的机器指令翻译为汇编指令<br>-t 执行一条汇编指令<br>-a 以汇编的格式写入内存一条指令</p>
-<ul>
-<li>使用DS和[address]来表示一个内存单元的地址<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mov bx,1000H</span><br><span class="line">mov ds,bx</span><br><span class="line">mov al,[0]</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>以上指令的意思是将（1000:0）地址中的数据读入al寄存器中。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mov ax,1234H</span><br><span class="line">mov bx,1000H</span><br><span class="line">mov [0],ax</span><br></pre></td></tr></table></figure>
-<p>以上指令的意识是将ax寄存器中的值送回地址为（1000:0）的内存中</p>
-<ul>
-<li><p>栈</p>
-<ul>
-<li>内存中一块连续的空间来作为栈。高地址为栈底。入栈时栈顶从高地址向低地址方向增长。</li>
-<li>任意时刻，[ss:sp]指向栈顶元素。</li>
-<li>栈操作都是以字为单位的</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">push 寄存器/段寄存器/内存单元</span><br><span class="line">pop 寄存器/段寄存器/内存单元</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p> <img src="https://t1.picb.cc/uploads/2019/04/01/VXslka.png" alt="VXslka.png"></p>
-<ul>
-<li><p>汇编源程序</p>
-<ul>
-<li>汇编源程序包括汇编指令和伪指令 </li>
-</ul>
-</li>
-<li><p>定义一个段</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">XXX segment</span><br><span class="line">...</span><br><span class="line">...</span><br><span class="line">XXX ends</span><br></pre></td></tr></table></figure>
-</li>
-<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">- ```assume```将某个段寄存器和段关联起来</span><br><span class="line"></span><br><span class="line">- loop指令</span><br><span class="line">格式为 ```loop 标号```；要执行两步操作（cx）=（cx）- 1；判断cx中的值，不为零则跳转到标号处执行程序</span><br><span class="line"></span><br><span class="line">- 在汇编源程序中，数据不能以字母开头</span><br><span class="line">-  inc指令，格式为```inc bx ```.作用是加一</span><br><span class="line">-  多段汇编程序,结构</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>assume cs:code<br>code segment<br>    数据。。。<br>start:<br>    代码。。。<br>code ends<br>end start<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">```</span><br><span class="line">assume cs:code,ds:data,ss:stack</span><br><span class="line"></span><br><span class="line">data segment</span><br><span class="line">    dw 0235H,0456H</span><br><span class="line">data ends</span><br><span class="line">stack segment</span><br><span class="line">    dw 0,0,0,0</span><br><span class="line">stack ends</span><br><span class="line">code segment</span><br><span class="line">    start:</span><br><span class="line">    代码。。</span><br><span class="line"></span><br><span class="line">code ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure></p>
-<p><em>段名就是段的首地址，段空间是连续的</em></p>
-<ul>
-<li>使用[bx + idata]<br><code>mov ax,[bx+200]</code>  的含义是将ax送入段地址为ds，偏移地址为bx+200的内存中</li>
-<li><p>使用[bx+si]和[bx+di]<br>si和di寄存器不能分为高八位和低八位</p>
-</li>
-<li><p>寻址方式小结<br><a href="https://imgchr.com/i/AWTW7R" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/04/06/AWTW7R.md.png" alt="寻址方式小结"></a></p>
-</li>
-</ul>
+        <h2><span id="什么是公平锁什么是非公平锁">什么是公平锁？什么是非公平锁？</span></h2><p>公平锁：多个线程按照申请锁的先后顺序去获得锁，线程会直接进入队列去排队，永远都是队列的第一位才能获得锁。</p>
+<p>非公平锁：多个线程去获得锁的时候，会直接去尝试获取，获取不到，再去进入等待队列，如果能获取到，就直接获取到锁。</p>
+<h2><span id="优缺点比较">优缺点比较</span></h2><h3><span id="公平锁">公平锁</span></h3><p>优点：所有的线程都能够得到资源，不会饿死在队列中。</p>
+<p>缺点：吞吐量会下降很多，队列里面除了第一个线程，其它线程都会阻塞，CPU唤醒阻塞线程的开销会很大。</p>
+<h3><span id="非公平锁">非公平锁</span></h3><p>优点：可以减少CPU唤醒线程的开销，整体的吞吐率提高。</p>
+<p>缺点：可能导致队列中的线程一直获取不到锁或者长时间获取不到锁，导致饿死。</p>
+<h2><span id="源码体现">源码体现</span></h2><p>在<code>ReentrantLock</code>中就提供了公平锁和非公平锁两种模式(<strong>默认是非公平实现</strong>)。</p>
+<h3><span id="公平锁实现">公平锁实现</span></h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">final</span> <span class="keyword">boolean</span> <span class="title">tryAcquire</span><span class="params">(<span class="keyword">int</span> acquires)</span> </span>&#123;</span><br><span class="line">           <span class="keyword">final</span> Thread current = Thread.currentThread();</span><br><span class="line">           <span class="keyword">int</span> c = getState();</span><br><span class="line">           <span class="keyword">if</span> (c == <span class="number">0</span>) &#123;</span><br><span class="line">               <span class="keyword">if</span> (!hasQueuedPredecessors() &amp;&amp;</span><br><span class="line">                   compareAndSetState(<span class="number">0</span>, acquires)) &#123;</span><br><span class="line">                   <span class="comment">//只有当队列为空或自己是队列头的时候，才会尝试CAS修改state</span></span><br><span class="line">                   <span class="comment">//修改state成功后，才算获取到了锁，否则加入到队列中等待</span></span><br><span class="line">                   setExclusiveOwnerThread(current);</span><br><span class="line">                   <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">           <span class="keyword">else</span> <span class="keyword">if</span> (current == getExclusiveOwnerThread()) &#123;</span><br><span class="line">               <span class="keyword">int</span> nextc = c + acquires;</span><br><span class="line">               <span class="keyword">if</span> (nextc &lt; <span class="number">0</span>)</span><br><span class="line">                   <span class="keyword">throw</span> <span class="keyword">new</span> Error(<span class="string">"Maximum lock count exceeded"</span>);</span><br><span class="line">               setState(nextc);</span><br><span class="line">               <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">           &#125;</span><br><span class="line">           <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">       &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">判断当前队列是否为空或者自己是否是在同步队列的首位，</span></span><br><span class="line"><span class="comment">如果是，则返回true</span></span><br><span class="line"><span class="comment">否则返回false</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">boolean</span> <span class="title">hasQueuedPredecessors</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Node t = tail;</span><br><span class="line">        Node h = head;</span><br><span class="line">        Node s;</span><br><span class="line">        <span class="keyword">return</span> h != t &amp;&amp;</span><br><span class="line">            ((s = h.next) == <span class="keyword">null</span> || s.thread != Thread.currentThread());</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>公平锁只有在队列为空，或者自己为队头的时候才会尝试去修改state，当修改成功后则直接拿到了锁，否则进入排队。</p>
+<h3><span id="非公平锁实现">非公平锁实现</span></h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">final</span> <span class="keyword">boolean</span> <span class="title">nonfairTryAcquire</span><span class="params">(<span class="keyword">int</span> acquires)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">final</span> Thread current = Thread.currentThread();</span><br><span class="line">            <span class="keyword">int</span> c = getState();</span><br><span class="line">            <span class="keyword">if</span> (c == <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="comment">//state==0，通过CAS尝试修改state，而不是直接去排队</span></span><br><span class="line">                <span class="keyword">if</span> (compareAndSetState(<span class="number">0</span>, acquires)) &#123;</span><br><span class="line">                    setExclusiveOwnerThread(current);</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (current == getExclusiveOwnerThread()) &#123;</span><br><span class="line">                <span class="keyword">int</span> nextc = c + acquires;</span><br><span class="line">                <span class="keyword">if</span> (nextc &lt; <span class="number">0</span>) <span class="comment">// overflow</span></span><br><span class="line">                    <span class="keyword">throw</span> <span class="keyword">new</span> Error(<span class="string">"Maximum lock count exceeded"</span>);</span><br><span class="line">                setState(nextc);</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+<p>非公平锁当state==0，就会立即去尝试CAS修改state，修改成功了则直接拿到了锁，否则加入阻塞队列。</p>
 
       
 
@@ -319,7 +287,7 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">汇编</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
         		</li>
       		
 		</ul>
@@ -375,7 +343,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/04/06/汇编学习笔记一/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/03/18/公平锁和非公平锁/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -389,18 +357,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/04/07/MySQL技术内幕学习笔记一/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          MySQL技术内幕学习笔记一
-        
-      </div>
-    </a>
   
-  
-    <a href="/2019/04/03/TCPIP学习笔记三/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">TCP/IP学习笔记(三)</div>
+    <a href="/2020/03/15/select、poll、epoll的原理与区别/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">select、poll、epoll的原理与区别</div>
       <i class="icon-circle-right"></i>
     </a>
   
