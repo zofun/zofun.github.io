@@ -17,7 +17,7 @@
 <meta property="og:description" content="ApplicationContext的创建过程在之前，我已经写过一篇关于BeanFactory的文章。但是在实际开发中，直接使用BeanFactory的场景还是比较少的，更多的时候是使用ApplicationContext。 那么下面我们就从ApplicationContext context=new ClassPathXmlApplicationContext(&amp;quot;beanFactory">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://s1.ax1x.com/2020/03/14/8QHPCd.png">
-<meta property="og:updated_time" content="2020-03-14T09:06:26.768Z">
+<meta property="og:updated_time" content="2020-03-22T13:49:36.160Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="再读Sping源码一">
 <meta name="twitter:description" content="ApplicationContext的创建过程在之前，我已经写过一篇关于BeanFactory的文章。但是在实际开发中，直接使用BeanFactory的场景还是比较少的，更多的时候是使用ApplicationContext。 那么下面我们就从ApplicationContext context=new ClassPathXmlApplicationContext(&amp;quot;beanFactory">
@@ -232,6 +232,7 @@
         <h2><span id="applicationcontext的创建过程">ApplicationContext的创建过程</span></h2><p>在之前，我已经写过一篇关于BeanFactory的文章。但是在实际开发中，直接使用BeanFactory的场景还是比较少的，更多的时候是使用ApplicationContext。</p>
 <p>那么下面我们就从<code>ApplicationContext context=new ClassPathXmlApplicationContext(&quot;beanFactoryTest.xml&quot;);</code>来探究ApplicationContext是如何启动的。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">ClassPathXmlApplicationContext</span><span class="params">(String configLocation)</span> <span class="keyword">throws</span> BeansException </span>&#123;</span><br><span class="line">	<span class="keyword">this</span>(<span class="keyword">new</span> String[] &#123;configLocation&#125;, <span class="keyword">true</span>, <span class="keyword">null</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">ClassPathXmlApplicationContext</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">		String[] configLocations, <span class="keyword">boolean</span> refresh, @Nullable ApplicationContext parent)</span></span></span><br><span class="line"><span class="function">		<span class="keyword">throws</span> BeansException </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">super</span>(parent);</span><br><span class="line">	setConfigLocations(configLocations);</span><br><span class="line">	<span class="keyword">if</span> (refresh) &#123;</span><br><span class="line">		refresh();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
 <p>实例化ApplicatoinContext的关键就在于这个<code>refresh()</code>方法。我们来看一下具体实现：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">refresh</span><span class="params">()</span> <span class="keyword">throws</span> BeansException, IllegalStateException </span>&#123;</span><br><span class="line">		<span class="keyword">synchronized</span> (<span class="keyword">this</span>.startupShutdownMonitor) &#123;</span><br><span class="line">			<span class="comment">// 准备工作，初始化Spring的状态，使Spring进入运行状态</span></span><br><span class="line">			prepareRefresh();</span><br><span class="line"></span><br><span class="line">			<span class="comment">//初始化BeanFactory</span></span><br><span class="line">			ConfigurableListableBeanFactory beanFactory = obtainFreshBeanFactory();</span><br><span class="line"></span><br><span class="line">			<span class="comment">// 准备bean工厂以供在此上下文中使用。</span></span><br><span class="line">			prepareBeanFactory(beanFactory);</span><br><span class="line"></span><br><span class="line">			<span class="keyword">try</span> &#123;</span><br><span class="line">				<span class="comment">//没有具体实现，谁要使用谁就实现，作用就是BeanFactory准备工作完成后做一些定制化的处理</span></span><br><span class="line">				postProcessBeanFactory(beanFactory);</span><br><span class="line"></span><br><span class="line">				<span class="comment">//调用工厂后处理器 </span></span><br><span class="line">			invokeBeanFactoryPostProcessors(beanFactory);</span><br><span class="line"></span><br><span class="line">				<span class="comment">// 注册Bean后处理器</span></span><br><span class="line">				registerBeanPostProcessors(beanFactory);</span><br><span class="line"></span><br><span class="line">				<span class="comment">// 初始化消息源：初始化容器的国际化信息资源</span></span><br><span class="line">				initMessageSource();</span><br><span class="line"></span><br><span class="line">				<span class="comment">//初始化应用上下文事件广播器</span></span><br><span class="line">				initApplicationEventMulticaster();</span><br><span class="line"></span><br><span class="line">				<span class="comment">// 初始化其它特殊的bean</span></span><br><span class="line">				onRefresh();</span><br><span class="line"></span><br><span class="line">				<span class="comment">// 注册事件监听器</span></span><br><span class="line">				registerListeners();</span><br><span class="line"></span><br><span class="line">				<span class="comment">// 初始化所有的单例bean</span></span><br><span class="line">				finishBeanFactoryInitialization(beanFactory);</span><br><span class="line"></span><br><span class="line">				<span class="comment">//发布上下文刷新事件</span></span><br><span class="line">				finishRefresh();</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">			<span class="keyword">catch</span> (BeansException ex) &#123;</span><br><span class="line">				<span class="keyword">if</span> (logger.isWarnEnabled()) &#123;</span><br><span class="line">					logger.warn(<span class="string">"Exception encountered during context initialization - "</span> +</span><br><span class="line">							<span class="string">"cancelling refresh attempt: "</span> + ex);</span><br><span class="line">				&#125;</span><br><span class="line"></span><br><span class="line">				<span class="comment">// Destroy already created singletons to avoid dangling resources.</span></span><br><span class="line">				destroyBeans();</span><br><span class="line"></span><br><span class="line">				<span class="comment">// Reset 'active' flag.</span></span><br><span class="line">				cancelRefresh(ex);</span><br><span class="line"></span><br><span class="line">				<span class="comment">// Propagate exception to caller.</span></span><br><span class="line">				<span class="keyword">throw</span> ex;</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">			<span class="keyword">finally</span> &#123;</span><br><span class="line">				<span class="comment">// Reset common introspection caches in Spring's core, since we</span></span><br><span class="line">				<span class="comment">// might not ever need metadata for singleton beans anymore...</span></span><br><span class="line">				resetCommonCaches();</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
 <p><code>refresh()</code>方法中调用了许多其它的方法。下面我们就依次进入这些方法的实现中去探究一下，它们完成了什么工作。</p>
@@ -685,7 +686,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
+                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -693,7 +694,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
+                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -705,15 +706,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Netty</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">RabbitMQ</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Netty</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">TCP/IP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -725,15 +730,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">并发编程</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -745,15 +750,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">多线程</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">正则表达式</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -761,11 +758,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">计算机系统基础</a>
+                <a href="javascript:void(0)" class="js-tag color1">正则表达式</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">TCP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">计算机系统基础</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -785,11 +786,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">项目</a>
+                <a href="javascript:void(0)" class="js-tag color4">面试题</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">面试题</a>
+                <a href="javascript:void(0)" class="js-tag color3">项目</a>
               </li>
              
               <li class="article-tag-list-item">
