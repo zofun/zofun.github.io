@@ -181,6 +181,387 @@
 
 
   
+    <article id="post-JVM之G1和CMS收集器" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/01/27/JVM之G1和CMS收集器/">JVM之G1和CMS收集器</a>
+    </h1>
+  
+
+        
+        <a href="/2020/01/27/JVM之G1和CMS收集器/" class="archive-article-date">
+  	<time datetime="2020-01-27T08:43:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-27</time>
+</a>
+        
+      </header>
+    
+    <!-- 目录内容 -->
+
+<!-- 目录内容结束 -->
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="CMS垃圾回收器"><a href="#CMS垃圾回收器" class="headerlink" title="CMS垃圾回收器"></a>CMS垃圾回收器</h1><h2 id="什么是CMS垃圾回收器，CMS回收器的特点"><a href="#什么是CMS垃圾回收器，CMS回收器的特点" class="headerlink" title="什么是CMS垃圾回收器，CMS回收器的特点"></a>什么是CMS垃圾回收器，CMS回收器的特点</h2><p>CMS即Concurrent Mark Sweep，是一款并发的、使用标记-清除算法的针对老年代的垃圾回收器。如果老年代使用CMS垃圾回收器，需要添加虚拟机参数<code>-XX:+UseConcMarkSweepGC</code><br>CMS垃圾回收器GC过程暂停短，适合对时延要求较高的服务，用户线程不允许长时间的停顿的场景。但是容易造成严重的内存碎片化，且对CPU资源非常的敏感，无法处理浮动垃圾，可能出现<code>Concurrent Mode Failure</code>失败而导致Full GC产生。</p>
+        
+          <a class="article-more-a" href="/2020/01/27/JVM之G1和CMS收集器/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">JVM</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/01/27/JVM之G1和CMS收集器/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-JVM之垃圾回收" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/01/26/JVM之垃圾回收/">JVM之垃圾回收</a>
+    </h1>
+  
+
+        
+        <a href="/2020/01/26/JVM之垃圾回收/" class="archive-article-date">
+  	<time datetime="2020-01-26T13:47:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-26</time>
+</a>
+        
+      </header>
+    
+    <!-- 目录内容 -->
+
+<!-- 目录内容结束 -->
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="需要回收的区域"><a href="#需要回收的区域" class="headerlink" title="需要回收的区域"></a>需要回收的区域</h2><p>JVM的运行时内存可以分为5个区域：程序计数器，虚拟机栈，本地方法栈，方法区，堆区。其中程序计数器，虚拟机栈，本地方法栈都是与线程同生共死的，因此不要进行垃圾回收。垃圾回收主要关注的堆区和方法区。</p>
+        
+          <a class="article-more-a" href="/2020/01/26/JVM之垃圾回收/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">JVM</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/01/26/JVM之垃圾回收/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-JVM之概述" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/01/25/JVM之概述/">JVM之概述</a>
+    </h1>
+  
+
+        
+        <a href="/2020/01/25/JVM之概述/" class="archive-article-date">
+  	<time datetime="2020-01-25T08:54:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-25</time>
+</a>
+        
+      </header>
+    
+    <!-- 目录内容 -->
+
+<!-- 目录内容结束 -->
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="什么是java虚拟机？"><a href="#什么是java虚拟机？" class="headerlink" title="什么是java虚拟机？"></a>什么是java虚拟机？</h2><p>虚拟机是一种抽象化的计算机，通过在实际上的计算机上仿真模拟各种计算机功能来实现的。Java虚拟机有自己完善的硬件架构，如处理器、堆栈、寄存器等，还具有相应的指令体系。<strong>JVM屏蔽了与具体操作系统平台相关的信息</strong>，使得Java程序只需要生成在java虚拟机上运行的目标代码，就可以在多种平台上不加修改地运行。做到了一次编译到处运行。<br>在JVM启动之后，它实际上就是一个操作系统中的进程。</p>
+<h2 id="JVM的体系结构"><a href="#JVM的体系结构" class="headerlink" title="JVM的体系结构"></a>JVM的体系结构</h2><p><img src="https://s2.ax1x.com/2020/01/17/1SuGSU.png" alt="1SuGSU.png"><br>
+        
+          <a class="article-more-a" href="/2020/01/25/JVM之概述/#more">more >></a>
+        
+      
+
+      
+    </p></div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">JVM</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/01/25/JVM之概述/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-mybatis源码分析之缓存机制" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/01/23/mybatis源码分析之缓存机制/">mybatis源码分析之缓存机制</a>
+    </h1>
+  
+
+        
+        <a href="/2020/01/23/mybatis源码分析之缓存机制/" class="archive-article-date">
+  	<time datetime="2020-01-23T08:11:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-23</time>
+</a>
+        
+      </header>
+    
+    <!-- 目录内容 -->
+
+<!-- 目录内容结束 -->
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>mybatis提供了缓存机制减轻数据库压力，提高数据库性能。mybatis的缓存分为两级：一级缓存、二级缓存。<br>一级缓存是<code>SqlSession</code>级别的缓存，缓存的数据只在<code>SqlSession</code>内有效。<br>二级缓存是<code>mapper</code>级别的缓存，同一个<code>namespace</code>共用一个缓存，所以对<code>SqlSession</code>是共享的。<br>
+        
+          <a class="article-more-a" href="/2020/01/23/mybatis源码分析之缓存机制/#more">more >></a>
+        
+      
+
+      
+    </p></div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">mybatis</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/01/23/mybatis源码分析之缓存机制/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-mybatis源码分析之插件机制" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -561,101 +942,6 @@
 
 
   
-    <article id="post-ConcurrentLinkedQueue源码分析" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/01/17/ConcurrentLinkedQueue源码分析/">ConcurrentLinkedQueue源码分析</a>
-    </h1>
-  
-
-        
-        <a href="/2020/01/17/ConcurrentLinkedQueue源码分析/" class="archive-article-date">
-  	<time datetime="2020-01-17T08:54:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-17</time>
-</a>
-        
-      </header>
-    
-    <!-- 目录内容 -->
-
-<!-- 目录内容结束 -->
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p><code>ConcurrentLinkedQueue</code>是一个单向链表结构的无界并发队列。通过CAS来实现并发安全。内存一致性遵循对<code>ConcurrentLinkedQueue</code>的插入插入操作先行于访问会或移除操作。</p>
-        
-          <a class="article-more-a" href="/2020/01/17/ConcurrentLinkedQueue源码分析/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">源码</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/01/17/ConcurrentLinkedQueue源码分析/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-
-
-
-
-
-
-  
     <article id="post-ThreadPoolExecutor源码分析" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -751,20 +1037,20 @@
 
 
   
-    <article id="post-ConcurrentSkipListMap源码分析" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-ConcurrentLinkedQueue源码分析" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/01/16/ConcurrentSkipListMap源码分析/">ConcurrentSkipListMap源码分析</a>
+      <a class="article-title" href="/2020/01/17/ConcurrentLinkedQueue源码分析/">ConcurrentLinkedQueue源码分析</a>
     </h1>
   
 
         
-        <a href="/2020/01/16/ConcurrentSkipListMap源码分析/" class="archive-article-date">
-  	<time datetime="2020-01-16T12:31:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-16</time>
+        <a href="/2020/01/17/ConcurrentLinkedQueue源码分析/" class="archive-article-date">
+  	<time datetime="2020-01-17T08:54:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-17</time>
 </a>
         
       </header>
@@ -774,9 +1060,9 @@
 <!-- 目录内容结束 -->
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p><code>ConcurrentSkipListMap</code>是一个线程安全的有序的哈希表，并发安全主要由CAS来实现。内部的使用了跳表这种数据结构。<code>ConcurrentSkipListSet</code>的底层是基于<code>ConcurrentSkipListMap</code>实现的。</p>
+        <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p><code>ConcurrentLinkedQueue</code>是一个单向链表结构的无界并发队列。通过CAS来实现并发安全。内存一致性遵循对<code>ConcurrentLinkedQueue</code>的插入插入操作先行于访问会或移除操作。</p>
         
-          <a class="article-more-a" href="/2020/01/16/ConcurrentSkipListMap源码分析/#more">more >></a>
+          <a class="article-more-a" href="/2020/01/17/ConcurrentLinkedQueue源码分析/#more">more >></a>
         
       
 
@@ -808,293 +1094,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2020/01/16/ConcurrentSkipListMap源码分析/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Spring事务基础" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/01/15/Spring事务基础/">Spring事务基础</a>
-    </h1>
-  
-
-        
-        <a href="/2020/01/15/Spring事务基础/" class="archive-article-date">
-  	<time datetime="2020-01-15T13:35:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-15</time>
-</a>
-        
-      </header>
-    
-    <!-- 目录内容 -->
-
-<!-- 目录内容结束 -->
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="事务的ACID"><a href="#事务的ACID" class="headerlink" title="事务的ACID"></a>事务的ACID</h2><ul>
-<li>Atomicity原子性：事务是一个原子操作，由一些列动作组成，事务的原子性确保动作要么全部完成，要么都不完成。</li>
-<li>Consistency一致性：一旦事务完成，系统必须确保它锁建模的业务处于一致的状态，而不是部分完成或部分失败。</li>
-<li>Isolation隔离性：可能有许多事务会同时处理相同的数据，因此每个事务都应该与其它事务隔离开来，防止数据破坏。</li>
-<li>Durability持久性：一旦事务完成，无论系统发生什么故障，它的结果都不应该受到影响，这样就能从任何系统崩溃中恢复过来，通常情况下，事务的结果会被持久化到存储器中。</li>
-</ul>
-        
-          <a class="article-more-a" href="/2020/01/15/Spring事务基础/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Spring</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/01/15/Spring事务基础/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-CopyOnWriteArrayList,CopyOnWriteArraySet源码分析" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/01/15/CopyOnWriteArrayList,CopyOnWriteArraySet源码分析/">CopyOnWriteArrayList,CopyOnWriteArraySet源码分析</a>
-    </h1>
-  
-
-        
-        <a href="/2020/01/15/CopyOnWriteArrayList,CopyOnWriteArraySet源码分析/" class="archive-article-date">
-  	<time datetime="2020-01-15T03:21:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-15</time>
-</a>
-        
-      </header>
-    
-    <!-- 目录内容 -->
-
-<!-- 目录内容结束 -->
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p><code>CopyOnWriteArrayList</code>是一个线程安全的<code>ArrayList</code>，通过内部的<code>volatile</code>数组和显示锁ReentrantLock来实现线程安全。<code>CopyOnWriteArraySet</code>的底层也是基于<code>CopyOnWriteArrayList</code>实现的。<code>CopyOnWriteArrayList</code>更适合于读多写少的环节。</p>
-        
-          <a class="article-more-a" href="/2020/01/15/CopyOnWriteArrayList,CopyOnWriteArraySet源码分析/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">源码</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/01/15/CopyOnWriteArrayList,CopyOnWriteArraySet源码分析/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-RabbitMQ的消息确认机制" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/01/14/RabbitMQ的消息确认机制/">RabbitMQ的消息确认机制</a>
-    </h1>
-  
-
-        
-        <a href="/2020/01/14/RabbitMQ的消息确认机制/" class="archive-article-date">
-  	<time datetime="2020-01-14T13:46:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-14</time>
-</a>
-        
-      </header>
-    
-    <!-- 目录内容 -->
-
-<!-- 目录内容结束 -->
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>RabbitMQ中提供了消息确认的机制，通过消息确认机制可以确保我们的消息可靠的送达到用户的手中。即便消息丢失掉，我们也可以通过重发来确保消息送达。<br>RabbitMQ提供了两种消息确认的机制：</p>
-<ul>
-<li>通过AMQP事务机制来实现消息确认，这是通过AMQP协议来实现的。</li>
-<li>通过将channel设置为confirm模式来实现</li>
-</ul>
-        
-          <a class="article-more-a" href="/2020/01/14/RabbitMQ的消息确认机制/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">RabbitMQ</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/01/14/RabbitMQ的消息确认机制/">展开全文 >></a>
+          <a class="article-more-a" href="/2020/01/17/ConcurrentLinkedQueue源码分析/">展开全文 >></a>
         </p>
       
 
@@ -1134,7 +1134,7 @@
   
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
     </nav>
   
 
@@ -1265,15 +1265,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Java NIO</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1285,11 +1281,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">innoDB引擎</a>
+                <a href="javascript:void(0)" class="js-tag color1">innodb存储引擎</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">innodb存储引擎</a>
+                <a href="javascript:void(0)" class="js-tag color4">innoDB引擎</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1305,10 +1301,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">TCP/IP</a>
               </li>
              
@@ -1321,11 +1313,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">并发编程</a>
+                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">并发编程</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1361,6 +1361,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Redis</a>
               </li>
              
@@ -1369,19 +1373,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">SpringCloud</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">SpringMVC</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">项目</a>
+                <a href="javascript:void(0)" class="js-tag color2">SpringCloud</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">面试题</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">项目</a>
               </li>
              
               <li class="article-tag-list-item">
