@@ -181,6 +181,102 @@
 
 
   
+    <article id="post-Java NIO学习笔记一" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/30/Java NIO学习笔记一/">Java NIO 学习笔记一</a>
+    </h1>
+  
+
+        
+        <a href="/2019/08/30/Java NIO学习笔记一/" class="archive-article-date">
+  	<time datetime="2019-08-30T02:21:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-30</time>
+</a>
+        
+      </header>
+    
+    <!-- 目录内容 -->
+
+<!-- 目录内容结束 -->
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="缓冲区操作"><a href="#缓冲区操作" class="headerlink" title="缓冲区操作"></a>缓冲区操作</h2><p>进程执行I/O操作，归结起来就是向操作系统发出请求，它要么把缓存区例的数据排干（写），要么用数据把数据区填满（读）。进程使用这一机制处理所有数据进出操作。<br><img src="https://s2.ax1x.com/2019/08/28/m7IfQH.png" alt="m7IfQH.png"><br>进程使用read()系统调用，要求其缓存区被填满。内核随即向磁盘控制器发出命令，要求其从磁盘读取数据。通过DMA技术直接将磁盘中的数据写入内核内存缓存区，一旦磁盘控制器把缓存区填满，内存立即把数据从内核空间的里你是缓冲区拷贝到进程执行read()调用时指定的缓冲区。</p>
+<h3 id="发散-汇聚"><a href="#发散-汇聚" class="headerlink" title="发散/汇聚"></a>发散/汇聚</h3><p>根据发散/汇聚的概念，进程只需要一个系统调用，就能把一连串的缓冲区地址传递给操作系统。然后，内核就能顺序填充或排干多个缓冲区，读的时候将数据发散到多个用户空间缓冲区，写的时候再从多个缓冲区把数据汇聚起来。<br><img src="https://s2.ax1x.com/2019/08/28/m7oYnA.png" alt="m7oYnA.png"></p>
+<h3 id="利用虚拟内存避免一些拷贝"><a href="#利用虚拟内存避免一些拷贝" class="headerlink" title="利用虚拟内存避免一些拷贝"></a>利用虚拟内存避免一些拷贝</h3><p>前面提到设备控制器不能使用DMA直接存储到用户空间，需要从内核空间拷贝到用户空间。但在使用内存多重映射技术可以避免这种拷贝。<br>现代操作系统都使用虚拟内存，它有极大优点：</p>
+<ol>
+<li>多个虚拟地址可以映射到同一个物理地址。</li>
+<li>虚拟内存空间可能大于实际可用的硬件内存。
+        
+          <a class="article-more-a" href="/2019/08/30/Java NIO学习笔记一/#more">more >></a>
+        
+      
+
+      
+    </li></ol></div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Java NIO</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/08/30/Java NIO学习笔记一/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-大三上的学习计划" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1075,110 +1171,6 @@
 
 
   
-    <article id="post-Vector源码分析" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/06/01/Vector源码分析/">Vector源码分析</a>
-    </h1>
-  
-
-        
-        <a href="/2019/06/01/Vector源码分析/" class="archive-article-date">
-  	<time datetime="2019-06-01T02:24:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-01</time>
-</a>
-        
-      </header>
-    
-    <!-- 目录内容 -->
-
-<!-- 目录内容结束 -->
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Vector</span>&lt;<span class="title">E</span>&gt;</span></span><br><span class="line"><span class="class">    <span class="keyword">extends</span> <span class="title">AbstractList</span>&lt;<span class="title">E</span>&gt;</span></span><br><span class="line"><span class="class">    <span class="keyword">implements</span> <span class="title">List</span>&lt;<span class="title">E</span>&gt;, <span class="title">RandomAccess</span>, <span class="title">Cloneable</span>, <span class="title">java</span>.<span class="title">io</span>.<span class="title">Serializable</span></span></span><br></pre></td></tr></table></figure>
-<p>Vector和ArrayList非常的相似，两者都是基于数组实现的。两者最大的不同在于Vector是线程安全的。Vector为了确保线程安全，使用了大量的<code>synchronized</code>方法，这也使得Vector的性能较差。</p>
-<h3 id="属性解释"><a href="#属性解释" class="headerlink" title="属性解释"></a>属性解释</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protected</span> Object[] elementData;</span><br></pre></td></tr></table></figure>
-<p>和ArrayList类似，使用了数组来作为容器，但和ArrayList不同的是，它并没有<code>transient</code>修饰，也就是说在序列化时，它也会被序列化。</p>
-<hr>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protected</span> <span class="keyword">int</span> elementCount;</span><br></pre></td></tr></table></figure>
-<p>elementCount记录了Vector对象中存储的有效对象的数量。在创建Vector对象的时候如果没有指明大小的话，默认的大小为10.</p>
-<hr>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protected</span> <span class="keyword">int</span> capacityIncrement;</span><br></pre></td></tr></table></figure>
-<p><code>capacityIncrement</code>记录了每次扩容时增加的容量大小。如果在创建Vector对象时指定了<code>capacityIncrement</code>的大小，那么每次扩容增加的大小就为：<code>capacityIncrement</code>。如果在创建的时候，没有指定<code>capacityIncrement</code>的大小，那么每次扩容就会扩大两倍。这和ArrayList有些许的不同。</p>
-        
-          <a class="article-more-a" href="/2019/06/01/Vector源码分析/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">源码</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/06/01/Vector源码分析/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/9/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><a class="page-number" href="/page/12/">12</a><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/11/">Next &raquo;</a>
@@ -1312,15 +1304,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Java NIO</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">JVM</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Java</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Java NIO</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1344,15 +1336,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Netty</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">RabbitMQ</a>
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Netty</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">TCP/IP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1364,7 +1360,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
+                <a href="javascript:void(0)" class="js-tag color5">并发编程</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1372,7 +1368,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">并发编程</a>
+                <a href="javascript:void(0)" class="js-tag color1">项目小技巧</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1381,10 +1377,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">变强日记</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">项目小技巧</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1420,19 +1412,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">SpringCloud</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">SpringMVC</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">项目</a>
+                <a href="javascript:void(0)" class="js-tag color2">SpringCloud</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">面试题</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">项目</a>
               </li>
              
               <li class="article-tag-list-item">
