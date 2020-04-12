@@ -181,6 +181,212 @@
 
 
   
+    <article id="post-变强日记3" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/11/07/变强日记3/">变强日记3</a>
+    </h1>
+  
+
+        
+        <a href="/2019/11/07/变强日记3/" class="archive-article-date">
+  	<time datetime="2019-11-07T12:55:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-07</time>
+</a>
+        
+      </header>
+    
+    <!-- 目录内容 -->
+
+<!-- 目录内容结束 -->
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2><span id="主要内容">主要内容</span></h2><ol>
+<li>java中的==、equals()和hashCode()</li>
+<li>算法题leetcode[15]:3Sum</li>
+</ol>
+<h2><span id="java中的-equals和hashcode">java中的==、equals()和hashCode()</span></h2><h3><span id="运算符">“==”运算符</span></h3><p>首先来看最基础的<code>==</code>符号，它比较的是变量（栈）内存中存放的对象（堆）的内存地址，用来判断两个对象的地址是否相同，即是否指向同一个对象。<br><strong>简单来说==比较的是，是否指向同一个对象（堆）</strong><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">       String str1=<span class="keyword">new</span> String(<span class="string">"abc"</span>);</span><br><span class="line">       String str2=<span class="keyword">new</span> String(<span class="string">"abc"</span>);</span><br><span class="line"></span><br><span class="line">       String str3=<span class="string">"efg"</span>;</span><br><span class="line">       String str4=<span class="string">"efg"</span>;</span><br><span class="line">       System.out.println(str1==str2);</span><br><span class="line">       System.out.println(str3==str4);</span><br><span class="line">       <span class="comment">//输出：</span></span><br><span class="line">       <span class="comment">//false</span></span><br><span class="line">       <span class="comment">//true</span></span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
+<p>现象解释：<code>str1==str2</code>输出false，是因为str1和str2虽然存储的字符串相同，但是它们各自new了自己单独的对象，而==比较的是指向的对象是否相同，所以输出false。<br>而<code>str3==str4</code>是因为<strong>java中变量池</strong>的存在，定义str3和str4的时候，java回到变量池中寻找是否存在已经定义过的，如果有已经定义了的，那么直接将引用指向它就可以了，不必再重新新建对象了。因为str3和str4指向同一个对象，所以<code>str3==str4</code>为true。</p>
+<h3><span id="equals">equals()</span></h3><p>首先看一段代码我们写了一个Myobj，并new了两个对象，分别使用==和equals()来进行比较<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        Myobj obj1=<span class="keyword">new</span> Myobj(<span class="string">"aaa"</span>);</span><br><span class="line">        Myobj obj2=<span class="keyword">new</span> Myobj(<span class="string">"aaa"</span>);</span><br><span class="line">        System.out.println(obj1==obj2);</span><br><span class="line">        System.out.println(obj1.equals(obj2));</span><br><span class="line">        <span class="comment">//输出</span></span><br><span class="line">        <span class="comment">//false</span></span><br><span class="line">        <span class="comment">//false</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Myobj</span></span>&#123;</span><br><span class="line">    String name;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Myobj</span><span class="params">(String name)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name=name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>现象解释：</strong><br><code>obj1==obj2</code>输出false，很好理解，因为==比较的是指向的对象是否是同一个，因为obj1和obj2指向了它们各自new的对象，所以为false。<br><code>obj1.equals(obj2)</code>输出false，是因为我们在<code>Myobj</code>没有重写<code>equals()</code>方法,使用的是<code>Object</code>中的<code>equals()</code>方法.<br><code>Object</code>类中的<code>equals()</code>方法的实现<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (<span class="keyword">this</span> == obj);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>看到了<code>Object</code>类中的<code>equals()</code>方法的实现，对<code>obj1.equals(obj2)</code>输出false也很好理解了，因为它本质上和<code>obj1==obj2</code>是一样的。<br><strong>重写equals()方法：</strong><br>如果我们认为name相同的MyObject对象就是equals的的话，我们就需要重写equals()方法了。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        Myobj obj1=<span class="keyword">new</span> Myobj(<span class="string">"aaa"</span>);</span><br><span class="line">        Myobj obj2=<span class="keyword">new</span> Myobj(<span class="string">"aaa"</span>);</span><br><span class="line">        System.out.println(obj1==obj2);</span><br><span class="line">        System.out.println(obj1.equals(obj2));</span><br><span class="line">        <span class="comment">//输出；</span></span><br><span class="line">        <span class="comment">//false</span></span><br><span class="line">        <span class="comment">//true</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Myobj</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> String name;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Myobj</span><span class="params">(String name)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name=name;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Myobj obj)</span></span>&#123;</span><br><span class="line">       <span class="keyword">return</span> <span class="keyword">this</span>.name.equals(obj.name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3><span id="hashcode">hashCode()</span></h3><ol>
+<li>hashCode()方法的作用是什么<br>HashCode()方法主要是在哈希表中起作用，如HashSet、HashMap等。单我们向哈希表中添加对象的时候，首先会调用hashCode()方法计算Object的哈希码，根据哈希码的值，确定该对象在哈希表中的位置，如果该位置已经有对象了，那么就调用equals()比较这些对象与Object是否相等，如果相等，则不需要保存object对象，如果不相等，则把对象加入链表中。<br>这也就解释了<strong>equals()相等，则hashCode()必须相等</strong>，如果两个对象equals相等，那么它们在哈希表中应该只出现一次，如果hashCode不相等，那么它们会被散列到哈希表中的不同位置，就不止出现一次了。</li>
+</ol>
+<p><strong>重写hashCode()</strong><br>几个原则：</p>
+<ol>
+<li>equals相等，则hashCode必须相等（重点）</li>
+<li>hashCode不能太简单，否则哈希冲突会很多</li>
+<li>hashCode不能太复杂，否则计算耗时，影响性能</li>
+</ol>
+<p><code>Object</code>类中的hashCode方法：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">native</span> <span class="keyword">int</span> <span class="title">hashCode</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure></p>
+<p>重写hashcode<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        Myobj obj1=<span class="keyword">new</span> Myobj(<span class="string">"aaa"</span>,<span class="number">1</span>);</span><br><span class="line">        Myobj obj2=<span class="keyword">new</span> Myobj(<span class="string">"aaa"</span>,<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">        System.out.println(obj1.equals(obj2));</span><br><span class="line">        System.out.println(obj1.hashCode()==obj2.hashCode());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Myobj</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> String name;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> id;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Myobj</span><span class="params">(String name,<span class="keyword">int</span> id)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name=name;</span><br><span class="line">        <span class="keyword">this</span>.id=id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Myobj obj)</span></span>&#123;</span><br><span class="line">       <span class="keyword">return</span> <span class="keyword">this</span>.name.equals(obj.name)&amp;&amp;<span class="keyword">this</span>.id==obj.id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">hashCode</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> hash=<span class="number">17</span>;</span><br><span class="line">        <span class="comment">//选取了equals方法中的两个用于比较的域name和id</span></span><br><span class="line">        hash=hash*<span class="number">31</span>+name.hashCode();</span><br><span class="line">        hash=hash*<span class="number">31</span>+id;</span><br><span class="line">        <span class="keyword">return</span> hash;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>《Effective Java》中提出的一种重写hashCode的方法：</p>
+<ol>
+<li>初始化一个整形变量，并赋予一个非零的常数</li>
+<li>选取equals方法中用于比较的所有域，然后针对每个域的属性进行计算（确保原则一）</li>
+<li>将每个域的散列码合并到对象的哈希码中</li>
+</ol>
+<h2><span id="算法题leetcode153sum">算法题leetcode[15]:3Sum</span></h2><p><strong>题目：</strong><br>Given an array nums of n integers, are there elements a, b, c in nums such that a + b + c = 0? Find all unique triplets in the array which gives the sum of zero.</p>
+<p>Note:<br>The solution set must not contain duplicate triplets.</p>
+<p>Example:<br>Given array nums = [-1, 0, 1, 2, -1, -4],<br>A solution set is:<br>[<br>  [-1, 0, 1],<br>  [-1, -1, 2]<br>]</p>
+<p><strong>分析：</strong><br>首先对数据进行排序，然后固定也给位置，从两边进行夹逼。</p>
+<p><strong>解法：</strong><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    List&lt;List&lt;Integer&gt;&gt; result=<span class="keyword">new</span> ArrayList&lt;List&lt;Integer&gt;&gt;();</span><br><span class="line">    <span class="keyword">public</span> List&lt;List&lt;Integer&gt;&gt; threeSum(<span class="keyword">int</span>[] nums) &#123;</span><br><span class="line">        <span class="comment">//用于存储结果</span></span><br><span class="line">       </span><br><span class="line">        <span class="keyword">if</span>(nums==<span class="keyword">null</span>||nums.length&lt;<span class="number">3</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> result;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 首先进行排序</span></span><br><span class="line">        Arrays.sort(nums);</span><br><span class="line">        <span class="comment">//首先国定一个位置，再去寻找另外两个数</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums.length-<span class="number">2</span>;i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(i&gt;<span class="number">0</span>&amp;&amp;nums[i]==nums[i-<span class="number">1</span>])&#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            find(nums,i+<span class="number">1</span>,nums.length-<span class="number">1</span>,nums[i]);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span>[] nums,<span class="keyword">int</span> begin,<span class="keyword">int</span> end,<span class="keyword">int</span> target)</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> l=begin;</span><br><span class="line">        <span class="keyword">int</span> r=end;</span><br><span class="line">        <span class="keyword">while</span>(l&lt;r)&#123;</span><br><span class="line">            <span class="keyword">if</span>((nums[l]+nums[r]+target)==<span class="number">0</span>)&#123;</span><br><span class="line">                List&lt;Integer&gt; list=<span class="keyword">new</span> ArrayList&lt;Integer&gt;();</span><br><span class="line">                list.add(target);</span><br><span class="line">                list.add(nums[l]);</span><br><span class="line">                list.add(nums[r]);</span><br><span class="line">                result.add(list); <span class="comment">//加入结果集</span></span><br><span class="line">                <span class="keyword">while</span>(l&lt;r&amp;&amp;nums[l]==nums[l+<span class="number">1</span>])&#123;</span><br><span class="line">                    l++;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">while</span>(l&lt;r&amp;&amp;nums[r]==nums[r-<span class="number">1</span>])&#123;</span><br><span class="line">                    r--;</span><br><span class="line">                &#125;</span><br><span class="line">                l++;</span><br><span class="line">                r--;</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>((nums[l]+nums[r]+target)&lt;<span class="number">0</span>)&#123;</span><br><span class="line">                l++;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                r--;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">变强日记</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/11/07/变强日记3/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-变强日记2" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/11/06/变强日记2/">变强日记2</a>
+    </h1>
+  
+
+        
+        <a href="/2019/11/06/变强日记2/" class="archive-article-date">
+  	<time datetime="2019-11-06T13:36:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-06</time>
+</a>
+        
+      </header>
+    
+    <!-- 目录内容 -->
+
+<!-- 目录内容结束 -->
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>不得不说，周末要去考软考了，有点小慌张。天气冷了，早上起床好难受啊！！<br><img src="https://s2.ax1x.com/2019/11/06/MiJpGD.png" alt="MiJpGD.png"></p>
+<h2 id="主要内容"><a href="#主要内容" class="headerlink" title="主要内容"></a>主要内容</h2><ol>
+<li>单例模式的实现方式</li>
+<li>滑动窗口算法解leetcode[3]Longest Substring Without Repeating Characters</li>
+</ol>
+        
+          <a class="article-more-a" href="/2019/11/06/变强日记2/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">变强日记</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/11/06/变强日记2/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-变强日记1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -942,220 +1148,6 @@
 
 
   
-    <article id="post-SpringCloud学习笔记一" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/10/09/SpringCloud学习笔记一/">SpringCloud学习笔记一</a>
-    </h1>
-  
-
-        
-        <a href="/2019/10/09/SpringCloud学习笔记一/" class="archive-article-date">
-  	<time datetime="2019-10-09T08:25:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-09</time>
-</a>
-        
-      </header>
-    
-    <!-- 目录内容 -->
-
-<!-- 目录内容结束 -->
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>spring cloud是一个基于spring boot实现的微服务架构开发工具。它包含了多个子项目。</p>
-<ul>
-<li>spring cloud config： 配置管理工具，支持使用git存储配置内容，可以使用它实现应用配置的外部化存储，并支持客户端配置信息刷新、加密/解密配置内容等。</li>
-<li>spring cloud Netflix： 核心组件<ul>
-<li>Eureka：服务治理组件，包含服务注册中心、服务注册与发现机制的实现。</li>
-<li>Hystrix：容错管理组件，实现断路器模式，帮助服务依赖中出现的延迟和为故障提供强大的容错能力。</li>
-<li>Ribbon：客户端负载均衡的服务调用组件。</li>
-<li>Feign： 基于Ribbon和Hystrix的声明式服务调用组件。</li>
-<li>Zuul： 网关组件，提供智能路由、访问过滤等功能。</li>
-<li>Archaius：外部化配置组件。</li>
-</ul>
-</li>
-<li>spring cloud bus：事件、消息总线。</li>
-</ul>
-        
-          <a class="article-more-a" href="/2019/10/09/SpringCloud学习笔记一/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">SpringCloud</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/10/09/SpringCloud学习笔记一/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-九月学习总结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/10/04/九月学习总结/">九月学习总结</a>
-    </h1>
-  
-
-        
-        <a href="/2019/10/04/九月学习总结/" class="archive-article-date">
-  	<time datetime="2019-10-04T09:06:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-04</time>
-</a>
-        
-      </header>
-    
-    <!-- 目录内容 -->
-
-<!-- 目录内容结束 -->
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>九月是实施学习计划的第一月。学习的任务已经圆满的完成了。有许多的收获，也发现了许多的问题。</p>
-<h2><span id="存在的问题">存在的问题</span></h2><ol>
-<li>在练习算法的时候缺乏深度的思考。在做完题后，也没有及时的阅读题解，寻求更加优秀的解答方案。</li>
-<li>在本月任务完成后的那段时间，缺乏安排，学习效率很低。</li>
-<li>在进行有针对性的学习的时候，对之前学习的东西缺乏巩固。</li>
-<li>九月的学习有点少。</li>
-<li>在确定任务的时候，有些缺乏考虑。比如NIO的学习的收益就很低，该直接学习Netty。</li>
-<li>在后期学习的注意力不够集中。</li>
-</ol>
-<h2><span id="值得肯定的地方">值得肯定的地方</span></h2><ol>
-<li>学习任务是严格按照计划完成了的，并且整理了读书笔记和脑图。</li>
-<li>算法练习一直都在练习，并且对之前练习的算法进行了回顾。</li>
-<li>在书籍不太合适的时候，能够及时的换符合实际情况的书籍来阅读。</li>
-<li>并且完成技术学习的同时，能够很好的利用晚上的时间进行软考的复习。</li>
-</ol>
-<h2><span id="下一月的改进措施">下一月的改进措施</span></h2><ol>
-<li>下一月要针对数据结构与算法进行练习，暂停leetcode的算法练习。将数据结构与算法的练习作为机动的学习任务。确保十月一整月都是忙碌的。</li>
-<li>要加大软考的复习力度，确保软考一次通过。</li>
-<li>注意课堂学习，特别是那些老师上课扯皮的课程，这学期的绩点必须起来。要利用好每天的零散时间进行复习。</li>
-<li>忙起来，不给自己走神的时间。</li>
-<li>适当的关注一些招聘的信息，确保大的方向是正确的。</li>
-</ol>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/10/04/九月学习总结/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/7/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/9/">Next &raquo;</a>
@@ -1293,15 +1285,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Java NIO</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1313,11 +1305,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">innodb引擎</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">innodb存储引擎</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">innodb引擎</a>
+                <a href="javascript:void(0)" class="js-tag color1">Netty</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1325,7 +1321,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Netty</a>
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1341,7 +1337,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+                <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1349,15 +1345,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">项目小技巧</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1377,11 +1369,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">TCP</a>
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+                <a href="javascript:void(0)" class="js-tag color4">TCP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1397,19 +1389,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">SpringMVC</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">SpringCloud</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">面试题</a>
+                <a href="javascript:void(0)" class="js-tag color5">SpringMVC</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">项目</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">面试题</a>
               </li>
              
               <li class="article-tag-list-item">
