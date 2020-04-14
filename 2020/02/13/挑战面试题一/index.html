@@ -5,14 +5,14 @@
   
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <link rel="dns-prefetch" href="http://yoursite.com">
+  <link rel="dns-prefetch" href="https://zofun.github.io">
   <title>挑战面试题一 | 个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="所有面试题都是从网上收集的，知识面比较广，可能有重复的题目。所有的答案都是我自己查阅资料加上自己的理解所写的，难免有不详之处，希望大家不吝赐教！ volatile的底层如何实现，怎么就能保住可见性了？volatile关键字修饰的变量可以确保内存可见性，禁止指令重排序。volatile修饰的变量不允许线程内存cache缓存和重排序，线程读取数据的时候直接读取内存，同时volatile不会对变量加锁，">
-<meta name="keywords" content="java,技术,面试题">
+<meta name="keywords" content="技术,java,面试题">
 <meta property="og:type" content="article">
 <meta property="og:title" content="挑战面试题一">
-<meta property="og:url" content="http://yoursite.com/2020/02/13/挑战面试题一/index.html">
+<meta property="og:url" content="https://zofun.github.io/2020/02/13/挑战面试题一/index.html">
 <meta property="og:site_name" content="个人博客">
 <meta property="og:description" content="所有面试题都是从网上收集的，知识面比较广，可能有重复的题目。所有的答案都是我自己查阅资料加上自己的理解所写的，难免有不详之处，希望大家不吝赐教！ volatile的底层如何实现，怎么就能保住可见性了？volatile关键字修饰的变量可以确保内存可见性，禁止指令重排序。volatile修饰的变量不允许线程内存cache缓存和重排序，线程读取数据的时候直接读取内存，同时volatile不会对变量加锁，">
 <meta property="og:locale" content="zh-CN">
@@ -239,7 +239,7 @@
 <a id="more"></a>
 <h3><span id="线程池有哪些创建方式">线程池有哪些创建方式</span></h3><p>线程池的创建方式有两种：</p>
 <ul>
-<li>使用<code>ThreadPoolExecutor</code>类创建。使用该方法创建时，参数比较复杂可以参考<a href="https://zofun.github.io/2020/01/17/ThreadPoolExecutor%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" target="_blank" rel="noopener">ThreadPoolExecutor源码分析 </a></li>
+<li>使用<code>ThreadPoolExecutor</code>类创建。使用该方法创建时，参数比较复杂可以参考<a href="https://zofun.github.io/2020/01/17/ThreadPoolExecutor%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">ThreadPoolExecutor源码分析 </a></li>
 <li>使用<code>Executor</code>类。具体的创建方法可参考下一个问题。</li>
 </ul>
 <h3><span id="有哪些线程池的类型">有哪些线程池的类型</span></h3><ul>
@@ -296,7 +296,7 @@
 </ol>
 <p>并且在1.6之后，还增加了<strong>自适应自旋</strong>，减少了CAS操作时自旋的成本。即如果某个锁自旋很少就成功获得，那么下一次就会减少自旋。</p>
 <p>编译器还会进行<strong>锁消除</strong>优化，消除没有必要的加锁。<br>我们在编写代码的时候，尽量减少同步的范围，即<strong>锁粗化</strong>。</p>
-<p>而显示Lock都是基于AQS实现的。比如：ReentrantLock。关于AQS我在另一篇博客中有详细介绍<a href="https://zofun.github.io/2020/01/10/ReentrantLock%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" target="_blank" rel="noopener">AQS</a></p>
+<p>而显示Lock都是基于AQS实现的。比如：ReentrantLock。关于AQS我在另一篇博客中有详细介绍<a href="https://zofun.github.io/2020/01/10/ReentrantLock%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/">AQS</a></p>
 <h3><span id="除了responsebodycontroller层如何标准返回给前端所要的数据类型你会怎么实现">除了@ResponseBody，controller层如何标准返回给前端所要的数据类型？你会怎么实现？</span></h3><p>还可以自定义消息转化器，通过继承<code>AbstractHttpMessageConverter</code>重写其中的方法，并注入的Spring容器即可。</p>
 <p><em>目前只想到了这一种</em></p>
 <h3><span id="异常捕获处理">异常捕获处理</span></h3><p>Java异常Throwable分为两类，一类是Error，一类是Exception。Error是编程时需要避免的，程序无法处理的。而Exception就是我们平常需要处理异常。除了Exception下的RunTimeException及其子类都是可查异常，即编译器要求必须捕获的异常。<br>对于异常有三种处理方案：<br>一种是通过try，catch进行捕获，一种是定义方法的时候通过throws关键字声明，表明该方法不处理该异常，交由调用方处理。最后一种就是通过throw关键字抛出异常。</p>
@@ -378,11 +378,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
@@ -442,7 +442,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/02/13/挑战面试题一/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=https://zofun.github.io/2020/02/13/挑战面试题一/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -654,11 +654,11 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java</a>
+                <a href="javascript:void(0)" class="js-tag color3">技术</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">技术</a>
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -698,7 +698,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+                <a href="javascript:void(0)" class="js-tag color5">IP协议</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -706,11 +706,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">IP协议</a>
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -722,15 +722,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">项目小技巧</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">变强日记</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">随笔</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">项目小技巧</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -746,11 +746,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+                <a href="javascript:void(0)" class="js-tag color4">TCP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">TCP</a>
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -762,15 +762,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">SpringCloud</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">SpingBoot</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">SpringMVC</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">SpringCloud</a>
               </li>
              
               <li class="article-tag-list-item">
