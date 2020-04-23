@@ -6,25 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://zofun.github.io">
-  <title>深入理解计算机系统读书笔记一 | 个人博客</title>
+  <title>JVM是如何实现多态的 | 个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="基础知识为什么计算机需要高速缓存？计算机程序是存储在磁盘中的。程序运行时，需要将程序加载到主存(内存条)中，但处理器处理程序时，又需要将指令从主存复制到处理器。程序的复制是开销。需要使用一种方式来使复制操作尽可能快的执行。根据机械原理，存储能力较大的设备的读写速度较慢。为了解决主存与处理器之间存在的读取数据的差距，就使用一种更小更快的存储设备，称为高数缓存存储器（cache memory）作为暂时">
-<meta name="keywords" content="技术,计算机系统基础">
+  <meta name="description" content="Java中的多态多态是面向对象的三大核心概念之一。多态简单来讲就是父类引用指向子类对象。 在Java中要实现多态需要满足三个必要条件：继承、重写、父类引用指向子类对象。 Parent p=new Child(); 多态的引入带来了这写好处：  消除类型之间的耦合关系 可替换性 可扩充性 接口性 灵活性 简化性">
+<meta name="keywords" content="技术,Java,JVM">
 <meta property="og:type" content="article">
-<meta property="og:title" content="深入理解计算机系统读书笔记一">
-<meta property="og:url" content="https://zofun.github.io/2019/08/05/计算机系统基础读书笔记一/index.html">
+<meta property="og:title" content="JVM是如何实现多态的">
+<meta property="og:url" content="https://zofun.github.io/2020/04/23/JVM是如何实现多态的/index.html">
 <meta property="og:site_name" content="个人博客">
-<meta property="og:description" content="基础知识为什么计算机需要高速缓存？计算机程序是存储在磁盘中的。程序运行时，需要将程序加载到主存(内存条)中，但处理器处理程序时，又需要将指令从主存复制到处理器。程序的复制是开销。需要使用一种方式来使复制操作尽可能快的执行。根据机械原理，存储能力较大的设备的读写速度较慢。为了解决主存与处理器之间存在的读取数据的差距，就使用一种更小更快的存储设备，称为高数缓存存储器（cache memory）作为暂时">
+<meta property="og:description" content="Java中的多态多态是面向对象的三大核心概念之一。多态简单来讲就是父类引用指向子类对象。 在Java中要实现多态需要满足三个必要条件：继承、重写、父类引用指向子类对象。 Parent p=new Child(); 多态的引入带来了这写好处：  消除类型之间的耦合关系 可替换性 可扩充性 接口性 灵活性 简化性">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://s2.ax1x.com/2019/08/01/eaYWxx.png">
-<meta property="og:image" content="https://s2.ax1x.com/2019/08/01/eat9oQ.md.png">
-<meta property="og:image" content="https://s2.ax1x.com/2019/08/02/ewXldA.png">
-<meta property="og:image" content="https://s2.ax1x.com/2019/08/04/e6AJ8P.md.png">
-<meta property="og:updated_time" content="2019-08-05T08:45:26.503Z">
+<meta property="og:updated_time" content="2020-04-23T14:05:59.393Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="深入理解计算机系统读书笔记一">
-<meta name="twitter:description" content="基础知识为什么计算机需要高速缓存？计算机程序是存储在磁盘中的。程序运行时，需要将程序加载到主存(内存条)中，但处理器处理程序时，又需要将指令从主存复制到处理器。程序的复制是开销。需要使用一种方式来使复制操作尽可能快的执行。根据机械原理，存储能力较大的设备的读写速度较慢。为了解决主存与处理器之间存在的读取数据的差距，就使用一种更小更快的存储设备，称为高数缓存存储器（cache memory）作为暂时">
-<meta name="twitter:image" content="https://s2.ax1x.com/2019/08/01/eaYWxx.png">
+<meta name="twitter:title" content="JVM是如何实现多态的">
+<meta name="twitter:description" content="Java中的多态多态是面向对象的三大核心概念之一。多态简单来讲就是父类引用指向子类对象。 在Java中要实现多态需要满足三个必要条件：继承、重写、父类引用指向子类对象。 Parent p=new Child(); 多态的引入带来了这写好处：  消除类型之间的耦合关系 可替换性 可扩充性 接口性 灵活性 简化性">
   
     <link rel="alternative" href="/atom.xml" title="个人博客" type="application/atom+xml">
   
@@ -185,51 +180,100 @@
 
 
           <div id="js-content" class="content-ll">
-            <article id="post-计算机系统基础读书笔记一" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-JVM是如何实现多态的" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      深入理解计算机系统读书笔记一
+      JVM是如何实现多态的
     </h1>
   
 
         
-        <a href="/2019/08/05/计算机系统基础读书笔记一/" class="archive-article-date">
-  	<time datetime="2019-08-05T08:42:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-05</time>
+        <a href="/2020/04/23/JVM是如何实现多态的/" class="archive-article-date">
+  	<time datetime="2020-04-23T14:04:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-23</time>
 </a>
         
       </header>
     
     <!-- 目录内容 -->
 
+    <p class="show-toc-btn" id="show-toc-btn" onclick="showToc();">
+          <span class="btn-bg"></span>
+          <span class="btn-text">文章导航</span>
+          </p>
+  <div id="toc-article" class="toc-article" style="display:none">
+      <span id="toc-close" class="toc-close" title="隐藏导航" onclick="showBtn();">×</span>
+    <strong class="toc-title">文章目录</strong>
+           <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">Java中的多态</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">2.</span> <span class="toc-text">JVM是如何实现多态的</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">2.1.</span> <span class="toc-text">JVM方法调用的背景知识</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">2.1.1.</span> <span class="toc-text">Java的方法调用</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">2.2.</span> <span class="toc-text">分派</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">2.2.1.</span> <span class="toc-text">静态分派</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#undefined"><span class="toc-number">2.2.2.</span> <span class="toc-text">动态分派</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">2.3.</span> <span class="toc-text">虚拟机是如何实现动态分配的</span></a></li></ol></li></ol>
+         </div>
+   <script type="text/javascript">
+  function showToc(){
+    var toc_article = document.getElementById("toc-article");
+    var show_toc_btn = document.getElementById("show-toc-btn");
+    toc_article.setAttribute("style","display:block");
+    show_toc_btn.setAttribute("style","display:none");
+    };
+  function showBtn(){
+    var toc_article = document.getElementById("toc-article");
+    var show_toc_btn = document.getElementById("show-toc-btn");
+    toc_article.setAttribute("style","display:none");
+    show_toc_btn.setAttribute("style","display:block");
+    };
+   </script>
+      
 <!-- 目录内容结束 -->
     <div class="article-entry" itemprop="articleBody">
       
-        <h1><span id="基础知识">基础知识</span></h1><h2><span id="为什么计算机需要高速缓存">为什么计算机需要高速缓存？</span></h2><p>计算机程序是存储在磁盘中的。程序运行时，需要将程序加载到主存(内存条)中，但处理器处理程序时，又需要将指令从主存复制到处理器。程序的复制是开销。需要使用一种方式来使复制操作尽可能快的执行。根据机械原理，存储能力较大的设备的读写速度较慢。为了解决主存与处理器之间存在的读取数据的差距，就使用一种更小更快的存储设备，称为高数缓存存储器（cache memory）作为暂时集结的地方。<br><img src="https://s2.ax1x.com/2019/08/01/eaYWxx.png" alt="eaYWxx.png"></p>
-<p><img src="https://s2.ax1x.com/2019/08/01/eat9oQ.md.png" alt="eat9oQ.md.png"></p>
-<h2><span id="操作系统的两个基本功能">操作系统的两个基本功能</span></h2><p>1.防止硬件杯失控的应用程序滥用<br>2.向应用程序提供简单一致的机制来控制复制而又通常不大相同的低级硬件设备。操作系统通过几个基本的抽象概念（进程、虚拟内存和文件）来实现这两个功能。<br><a id="more"></a></p>
-<h2><span id="什么是进程">什么是进程？</span></h2><p>进程是操作系统对一个正在运行的硬件的一种抽象。操作系统会保持跟踪进程运行所需的所有状态信息，这些状态信息被称为上下文信息，器包括PC和寄存器的当前值，以及主存的内容。当操作系统决定要把控制权从当前进程转移道某个新进程时，就会进行上下文切换，即保存当前进程的上下文、恢复新进程的上下文，将控制权转移道新进程。<br>从一个进程道另一个进程的转换是由操作系统内核进行管理的。内核是操作系统代码常驻内存的部分。</p>
-<h2><span id="什么是线程">什么是线程</span></h2><p>在现代操作系统中，一个进程可以由多个称为线程的执行单元组成。每个线程都运行在进程的上下文中，线程共享进程的代码和全局数据。线程之间更容易进行数据共享，线程也比进程更加的高效。在多处理器环境中，多线程是一种使得程序k</p>
-<h2><span id="什么是虚拟内存">什么是虚拟内存</span></h2><p>虚拟内存为每个进程提供了一个假象，即每个进程都在独占的使用内存。每个进程看到的内存都是一致的，称为虚拟地址空间。<br><img src="https://s2.ax1x.com/2019/08/02/ewXldA.png" alt="ewXldA.png"><br>每个进程的虚拟地址空间由大量准确定义的区构成，每个区都有专门的功能。从低地址道高地址逐步向上分别是：<br>1.程序代码和数据区。代码是从同一固定地址开始的，紧接着是和C全局变量相对应的数据位置。其大小在进程运行时就被指定了大小。<br>2.堆。堆可以在运行是动态的扩展和收索。<br>3.共享库。在地址空间中的一部分是用来存放共享库代码和数据的区域。<br>3.栈。位于用户虚拟地址空间顶部的是用户栈，编译器用它来实现函数调用。用户栈也可以在程序执行期间动态的拓展和收缩。<br>4.内核虚拟内存。地址空间的顶部时为内核保留的。不允许应用程序读写这个区域的内容或直接调用内核代码定义的函数。</p>
-<h2><span id="文件">文件</span></h2><p>文件是就是字节序列。磁盘、键盘、显示器、网络都可以看作文件。</p>
-<h2><span id="什么是指令集体系结构它有什么作用">什么是指令集体系结构，它有什么作用？</span></h2><p>一个处理器支撑的指令和指令的字节级编码称为它的指令集体系结构（ISA）。ISA在编译器编写者和处理器设计人员之间提供了一个概念的抽象层，编译器编写者只需要知道允许那些指令，以及它们是如何编码的；而处理器设计者必须建造出执行这些指令的处理器。</p>
-<h2><span id="影响编译器对程序进行优化的几个因数">影响编译器对程序进行优化的几个因数</span></h2><p>1.是否存在内存别名的使用<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">twiddle1</span><span class="params">(<span class="keyword">long</span> *xp,<span class="keyword">long</span> *yp)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    *xp += *yp;</span><br><span class="line">    *xp += *yp;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">twiddle2</span><span class="params">(<span class="keyword">long</span> *xp,<span class="keyword">long</span> *yp)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    *xp+=<span class="number">2</span>* *yp;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*twiddle1好像和twiddle2的功能好像是一样的，但如果考虑xp和yp指向同一片内存空间（内存别名）,那么显然两个函数的功能也就完全不同了，这会严重限制编译器对代码的优化*/</span></span><br></pre></td></tr></table></figure></p>
-<p>2.函数调用可能有副作用<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">long</span> <span class="title">f</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">long</span> <span class="title">func1</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> f()+f()+f()+f();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">long</span> <span class="title">func2</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">4</span>*f();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">看似func1和func2计算结果相同。但是如果f()有副作用（比如调用其会对某一全局变量进行修改），这样func1和func2的结果就是不同的了，编译器一般不会试图判断一个函数是否存在副作用，所以编译器一般也不会冒风险进行向上面这样的优化，编译器会假设最糟的情况，保持所有的函数调用不变</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure></p>
-<h2><span id="流水线优化和分支预测技术">流水线优化和分支预测技术</span></h2><p>在传统的单周期处理机中，一条指令必须要等待上一条指令结束才能执行。通过使用流水线优化延伸重叠方式，使指令的解释过程进一步细化，提高各部件的利用率，一调高指令的执行速度。<br><img src="https://s2.ax1x.com/2019/08/04/e6AJ8P.md.png" alt="e6AJ8P.md.png"></p>
-<p>当图中的流水线只不过是一种理想的状态。当遇到分支指令时，因为可能会产生跳转所以处理器无法确定下一条指令。处理器必须等待分支指令处理完毕，才能确定下一条进入流水线的指令，而造成了性能的下降。分支预测技术就是为了解决这个问题的。<br>分支预测技术分为编译时进行的静态分支预测和硬件在执行时的动态分支预测。</p>
-<h3><span id="静态分支预测技术">静态分支预测技术</span></h3><p>静态分支预测技术是在编译时进行的。一种简单的办法时二选一；更将精确的办法是基于原先的运行结果的统计进行预测。</p>
-<h3><span id="动态分支预测技术">动态分支预测技术</span></h3><p>处理器使用投机执行的技术，处理器会开始取出位于他预测的分支会跳转到的地方的指令，并对指令译码，如果过后确定分支预测错误，会将状态设置到分支点的状态，并开始取出和执行另一个分支的指令。<br>在指令控制单元中存在一个退役单元，它记录正在进行的处理，并保证它遵守机器机程序的语义顺序。退役单元还控制着寄存器的更新。指令译码时，关于指令的信息都被防止到一个队列中。这个信息会一直保持到队列中，知道发现以下两种结果中的一个：一旦一条指令的操作执行完成了，而且引起这条指令的分支点也都被确认预测正确，那么这条指令就可以退役了，它对寄存器的所有更新都回被实际执行。另一方面，如果引起这条指令的分支点预测错误，那么该指令会被清空，所有计算结果都被丢弃。</p>
-<blockquote>
-<p>关于分支预测的一个例子<a href="https://www.cnblogs.com/yangecnu/p/4196026.html" target="_blank" rel="noopener">https://www.cnblogs.com/yangecnu/p/4196026.html</a></p>
-</blockquote>
-<h2><span id="访问主存">访问主存</span></h2><p>数据流通过称为总线的共享电子电路在处理器何让DRAM主存之间来来回回。每次CPU和主存之间的数据传送都是通过一系列步骤来完成的，这些步骤称为总线事务。读事务从主存传送数据到CPU。写事务从CPU传送数据到主存。</p>
-<h2><span id="cpu是如何将主存中的内容加载到寄存器的">CPU是如何将主存中的内容加载到寄存器的</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">movq A,%rax</span><br></pre></td></tr></table></figure>
-<p>首先CPU通过总线接口在总线上发起读事务。CPU将地址A放到系统总线上，I/O桥将信号传递到内存总线。主存从内存总线中收到地址信号，并以此在DRAM中取出数据，并及那个数据写到内存总线中。I/O桥将内存总线信号翻译为系统总线信号，然后沿着西戎总线传递。CPU通过系统总线接收数据，并将数据复制到寄存器%rax.</p>
-<h2><span id="cpu是如何将寄存器中的值写到主存">CPU是如何将寄存器中的值写到主存</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">movq %rax,A</span><br></pre></td></tr></table></figure>
-<p>CPU发起写事务。CPU将地址放到系统总线上。内存从内存总线读出地址，并等待数据到达。接下来，CPU将%rax中的数据复制到系统总线。最后主存从内存总线独处数据字，并将这些位存储到DRAM中。</p>
+        <h2><span id="java中的多态">Java中的多态</span></h2><p>多态是面向对象的三大核心概念之一。多态简单来讲就是父类引用指向子类对象。</p>
+<p>在Java中要实现多态需要满足三个必要条件：<strong>继承、重写、父类引用指向子类对象</strong>。</p>
+<p><code>Parent p=new Child();</code></p>
+<p>多态的引入带来了这写好处：</p>
+<ul>
+<li>消除类型之间的耦合关系</li>
+<li>可替换性</li>
+<li>可扩充性</li>
+<li>接口性</li>
+<li>灵活性</li>
+<li>简化性</li>
+</ul>
+<a id="more"></a>
+<h2><span id="jvm是如何实现多态的">JVM是如何实现多态的</span></h2><h3><span id="jvm方法调用的背景知识">JVM方法调用的背景知识</span></h3><h4><span id="java的方法调用">Java的方法调用</span></h4><p>Java的class文件的编译过程中并不包含传统编译过程的链接阶段。class文件中的方法都是以符号引用的形式存储的，而不是方法的入口地址。这个特性使得Java具有强大的动态拓展的能力，但同时也增加了Java方法调用过程的复杂性。Java的方法需要在类加载期间或者运行期间才能确定真正的入口地址，即符号引用转换为直接引用。</p>
+<p>JVM中提供了5种方法调用的字节码指令：</p>
+<ul>
+<li><code>invokestatic</code>:调用静态方法</li>
+<li><code>invokespecial</code>:调用实例构造器<code>&lt;init&gt;</code>方法、私有方法和父类方法</li>
+<li><code>invokevirtual</code>:调用虚方法</li>
+<li><code>invokeinterface</code>：调用接口方法，会在运行是再确定一个实现此接口的对象</li>
+<li><code>invokedynamic</code>：先在运行时动态解析处调用点限定符所用的方法，然后再执行该方法。</li>
+</ul>
+<p>只要能被<code>invokestatic</code>和<code>invokespecial</code>指令调用的方法，都可以在类加载过程中的解析阶段确定唯一的调用版本，符合这个条件的方法有：静态方法、私有方法、实例构造器和父类方法，它们在类加载过程中的解析阶段就会将符号引用解析为该方法的直接引用。这些方法可被称为非虚方法（也就是不涉及多态的方法）。</p>
+<p>因此方法调用可以分为两种，一种是类加载过程中的解析阶段完成的，另一种要在运行时完成，叫作<strong>分派</strong>。</p>
+<h3><span id="分派">分派</span></h3><p>正是因为多态的存在，使得在判断方法调用的版本的时候会存在选择的问题，这也是分派阶段存在的原因。</p>
+<h4><span id="静态分派">静态分派</span></h4><p>编译器会根据变量的静态类型作为判断的依据选择合适的重载版本。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StaticDispatch</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//定义三个静态内部类</span></span><br><span class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Human</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Man</span> <span class="keyword">extends</span> <span class="title">Human</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Woman</span> <span class="keyword">extends</span> <span class="title">Human</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sayHello</span><span class="params">(Human human)</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"human"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sayHello</span><span class="params">(Man man)</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"man"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sayHello</span><span class="params">(Woman woman)</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"woman"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//这两个对象的静态类型就是Human</span></span><br><span class="line">        Human man=<span class="keyword">new</span> Man();</span><br><span class="line">        Human woman=<span class="keyword">new</span> Woman();</span><br><span class="line">        </span><br><span class="line">        sayHello(man);</span><br><span class="line">        sayHello(woman);</span><br><span class="line">		<span class="comment">//修改静态类型</span></span><br><span class="line">        sayHello((Man) man);</span><br><span class="line">        sayHello((Woman) woman);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">输出：</span></span><br><span class="line"><span class="comment">human</span></span><br><span class="line"><span class="comment">human</span></span><br><span class="line"><span class="comment">man</span></span><br><span class="line"><span class="comment">woman</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<p>静态分派就是Java语言是心啊重载的本质。jvm通过静态类型来选择具体的方法，完成符号引用到直接引用的转换。</p>
+<h4><span id="动态分派">动态分派</span></h4><p>动态分派与多态的重写有关。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DynamicDispatch</span>  </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//定义三个静态内部类</span></span><br><span class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Human</span></span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span>  <span class="keyword">void</span> <span class="title">sayHello</span><span class="params">()</span></span>&#123;</span><br><span class="line">            System.out.println(<span class="string">"human"</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Man</span> <span class="keyword">extends</span> <span class="title">Human</span></span>&#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span>  <span class="keyword">void</span> <span class="title">sayHello</span><span class="params">()</span></span>&#123;</span><br><span class="line">            System.out.println(<span class="string">"man"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Woman</span> <span class="keyword">extends</span> <span class="title">Human</span></span>&#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span>  <span class="keyword">void</span> <span class="title">sayHello</span><span class="params">()</span></span>&#123;</span><br><span class="line">            System.out.println(<span class="string">"woman"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Human man=<span class="keyword">new</span> Man();</span><br><span class="line">        Human woman=<span class="keyword">new</span> Woman();</span><br><span class="line">        man.sayHello();</span><br><span class="line">        woman.sayHello();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">运行结果：</span></span><br><span class="line"><span class="comment">man</span></span><br><span class="line"><span class="comment">woman</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<p>查看字节码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">  public static void main(java.lang.String[]);</span><br><span class="line">    descriptor: ([Ljava/lang/String;)V</span><br><span class="line">    flags: ACC_PUBLIC, ACC_STATIC</span><br><span class="line">    Code:</span><br><span class="line">      stack=2, locals=3, args_size=1</span><br><span class="line">         0: new           #2                  // class test/DynamicDispatch$Man</span><br><span class="line">         3: dup</span><br><span class="line">         4: invokespecial #3                  // Method test/DynamicDispatch$Man.&quot;&lt;init&gt;&quot;:()V</span><br><span class="line">         7: astore_1</span><br><span class="line">         8: new           #4                  // class test/DynamicDispatch$Woman</span><br><span class="line">        11: dup</span><br><span class="line">        12: invokespecial #5                  // Method test/DynamicDispatch$Woman.&quot;&lt;init&gt;&quot;:()V</span><br><span class="line">        15: astore_2</span><br><span class="line">        16: aload_1</span><br><span class="line">        17: invokevirtual #6                  // Method test/DynamicDispatch$Human.sayHello:()V</span><br><span class="line">        20: aload_2</span><br><span class="line">        21: invokevirtual #6                  // Method test/DynamicDispatch$Human.sayHello:()V</span><br><span class="line">        24: return</span><br><span class="line">      LineNumberTable:</span><br><span class="line">        line 33: 0</span><br><span class="line">        line 34: 8</span><br><span class="line">        line 35: 16</span><br><span class="line">        line 36: 20</span><br><span class="line">        line 38: 24</span><br><span class="line">      LocalVariableTable:</span><br><span class="line">        Start  Length  Slot  Name   Signature</span><br><span class="line">            0      25     0  args   [Ljava/lang/String;</span><br><span class="line">            8      17     1   man   Ltest/DynamicDispatch$Human;</span><br><span class="line">           16       9     2 woman   Ltest/DynamicDispatch$Human;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>从字节码中我们可以看出在完成man和woman两个对象的创建之后，它将创建的对象压入栈中。</p>
+<p>然后通过<code>invokevirtual</code>进行方法调用。</p>
+<p><code>invokevirtual</code>指令的运行时解析过程大致分为以下几个步骤：</p>
+<ul>
+<li>找到操作数栈顶的第一个元素所指向的对象的实际类型，记为C。</li>
+<li>如果在类型C中找到与常量池中描述符和简单名称一样的方法，则进行访问权限校验，如果通过则返回这个方法的直接引用，查找过程结束；如果不通过，返回<code>java.lang.IllegalAccessError</code>异常。</li>
+<li>否则，按照继承关系从下到上依次对C的各个父类进行搜索和验证。</li>
+<li>如果还没有找到合适的方法，则抛出<code>java.lang.AbstractMethodError</code>异常。</li>
+</ul>
+<p>由于<code>invokevirtual</code>指令执行的第一步就是在运行期间确定接收者的实际类型，所以两次调用中的<code>invokevirtual</code>指令把常量池中的类方法符号引用解析到了不同的直接引用上，这个过程就是Java语言中方法重写的本质。这种在运行期根据实际类型确定方法执行版本的分派过程叫做动态分派。</p>
+<h3><span id="虚拟机是如何实现动态分配的">虚拟机是如何实现动态分配的</span></h3><p>由于动态分派是非常频繁的操作，而且动态分派的方法版本选择过程需要运行时在类的方法元数据中搜索合适的目标方法，因此虚拟机会进行优化。常用的方法就是为类在方法区中建立一个虚方法表（Virtual Method Table，在<code>invokeinterface</code>执行时也会用到接口方法表，Interface Method Table），使用虚方法表索引来替代元数据查找以提升性能。</p>
+<p>虚方法表中存放着各个方法的实际入口地址。如果某个方法在子类中没有被重写，那子类的虚方法表里面的地址入口和父类相同方法的地址入口是一致的，都指向父类的实现入口。如果子类重写了父类的方法，子类方法表中的地址会替换为指向子类实现版本的入口地址。</p>
+<p>为了程序实现上的方便，具有相同签名的方法，在父类和子类的虚方法表中都应该具有一样的索引号，这样当类型变换时，仅仅需要变更查找的方法表，就可以从不同的虚方法表中按索引转换出所需的入口地址。</p>
+<p>方法表一般在类加载的连接阶段进行初始化，准备了类的变量初始值后，虚拟机会把该类的方法表也初始化完毕。</p>
+<p><a href="https://blog.csdn.net/q982151756/article/details/81588284" target="_blank" rel="noopener">参考博客地址</a></p>
 
       
 
@@ -278,7 +322,11 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">计算机系统基础</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">JVM</a>
         		</li>
       		
 		</ul>
@@ -334,7 +382,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=https://zofun.github.io/2019/08/05/计算机系统基础读书笔记一/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=https://zofun.github.io/2020/04/23/JVM是如何实现多态的/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -348,18 +396,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/08/06/HashSet源码分析/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          HashSet源码分析
-        
-      </div>
-    </a>
   
-  
-    <a href="/2019/06/08/HashMap和Hashtable的区别/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">HashMap和Hashtable有什么不同？</div>
+    <a href="/2020/04/16/MySQL主从复制/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">MySQL主从复制</div>
       <i class="icon-circle-right"></i>
     </a>
   
