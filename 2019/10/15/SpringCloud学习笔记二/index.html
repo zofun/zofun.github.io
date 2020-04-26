@@ -9,7 +9,7 @@
   <title>SpringCloud学习笔记二 | 个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="服务容错保护Hystrix在微服务架构中，我们将服务拆分为多个服务，通过远程调用的方式执行，很容易出现因为网络或服务本身问题而导致的调用故障和延迟，并且导致调用方的对外服务也出现延迟，若此时调用方的请求不断增加，最终就会出现因为等待故障方响应而形成任务积压，最终导致自身服务的瘫痪。 在分布式架构中，但某个服务单元发生故障之后，通过断路器的故障监测，向调用方返回一个响应，而不是长时间的等待。这样就不">
-<meta name="keywords" content="技术,java,SpringCloud">
+<meta name="keywords" content="java,技术,SpringCloud">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SpringCloud学习笔记二">
 <meta property="og:url" content="https://zofun.github.io/2019/10/15/SpringCloud学习笔记二/index.html">
@@ -108,7 +108,8 @@
 		        
 			</div>
 		</nav>
-	</header>		
+	</header>
+	
 </div>
 
     </div>
@@ -436,11 +437,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
@@ -615,6 +616,29 @@
       	</div>
     </div>
   </div>
+
+
+      <div style="text-align:center;margin:0 auto">
+          小破站已运行[<span id="span_dt_dt" style="color: #228B22;"></span> <script language="javascript">function show_date_time(){
+    window.setTimeout("show_date_time()", 1000);
+    BirthDay=new Date("3/10/2019 16:34:00");
+    today=new Date();
+    timeold=(today.getTime()-BirthDay.getTime());
+    sectimeold=timeold/1000
+    secondsold=Math.floor(sectimeold);
+    msPerDay=24*60*60*1000
+    e_daysold=timeold/msPerDay
+    daysold=Math.floor(e_daysold);
+    e_hrsold=(e_daysold-daysold)*24;
+    hrsold=Math.floor(e_hrsold);
+    e_minsold=(e_hrsold-hrsold)*60;
+    minsold=Math.floor((e_hrsold-hrsold)*60);
+    seconds=Math.floor((e_minsold-minsold)*60);
+    span_dt_dt.innerHTML='<font style=color:#FF0000>'+daysold+'</font> 天 <font style=color:#FF0000>'+hrsold+'</font> 时 <font style=color:#FF0000>'+minsold+'</font> 分 <font style=color:#FF0000>'+seconds+'</font> 秒';
+    }
+    show_date_time();</script>]
+
+    </div>
 </footer>
     </div>
     <script>
@@ -712,11 +736,11 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">技术</a>
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java</a>
+                <a href="javascript:void(0)" class="js-tag color3">技术</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -724,11 +748,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -756,11 +780,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+                <a href="javascript:void(0)" class="js-tag color2">TCP/IP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">TCP/IP</a>
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -768,7 +792,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -820,10 +844,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">SpringCloud</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">SpingBoot</a>
               </li>
              
@@ -832,11 +852,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">项目</a>
+                <a href="javascript:void(0)" class="js-tag color2">SpringCloud</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">面试题</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">项目</a>
               </li>
              
               <li class="article-tag-list-item">

@@ -9,7 +9,7 @@
   <title>Java多线程编程实战指南读书笔记三 | 个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="线程数设置的原则 对于CPU密集型线程，考虑到这些线程执行任务值消耗的主要是处理器资源，我们可以将线程数设置为$N_{cpu}$,有事也可以设置为$N_{cpu}+1$ 对于I/O密集型线程，考虑到I/O操作可能导致上下文切换，为这样的线程设置过多的线程数会导致过多的额外系统开销，如果一个工作线程能够满足旧不需要设置更多的线程，如果一个工作者线程不够用，我们可以考虑将这类线程的数量设置为$2*N_">
-<meta name="keywords" content="技术,java,并发编程">
+<meta name="keywords" content="java,技术,并发编程">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java多线程编程实战指南读书笔记三">
 <meta property="og:url" content="https://zofun.github.io/2019/09/13/Java多线程编程实战指南读书笔记三/index.html">
@@ -104,7 +104,8 @@
 		        
 			</div>
 		</nav>
-	</header>		
+	</header>
+	
 </div>
 
     </div>
@@ -337,11 +338,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
@@ -516,6 +517,29 @@
       	</div>
     </div>
   </div>
+
+
+      <div style="text-align:center;margin:0 auto">
+          小破站已运行[<span id="span_dt_dt" style="color: #228B22;"></span> <script language="javascript">function show_date_time(){
+    window.setTimeout("show_date_time()", 1000);
+    BirthDay=new Date("3/10/2019 16:34:00");
+    today=new Date();
+    timeold=(today.getTime()-BirthDay.getTime());
+    sectimeold=timeold/1000
+    secondsold=Math.floor(sectimeold);
+    msPerDay=24*60*60*1000
+    e_daysold=timeold/msPerDay
+    daysold=Math.floor(e_daysold);
+    e_hrsold=(e_daysold-daysold)*24;
+    hrsold=Math.floor(e_hrsold);
+    e_minsold=(e_hrsold-hrsold)*60;
+    minsold=Math.floor((e_hrsold-hrsold)*60);
+    seconds=Math.floor((e_minsold-minsold)*60);
+    span_dt_dt.innerHTML='<font style=color:#FF0000>'+daysold+'</font> 天 <font style=color:#FF0000>'+hrsold+'</font> 时 <font style=color:#FF0000>'+minsold+'</font> 分 <font style=color:#FF0000>'+seconds+'</font> 秒';
+    }
+    show_date_time();</script>]
+
+    </div>
 </footer>
     </div>
     <script>
@@ -613,11 +637,11 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">技术</a>
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java</a>
+                <a href="javascript:void(0)" class="js-tag color3">技术</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -625,11 +649,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -657,11 +681,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+                <a href="javascript:void(0)" class="js-tag color2">TCP/IP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">TCP/IP</a>
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -669,7 +693,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -721,10 +745,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">SpringCloud</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">SpingBoot</a>
               </li>
              
@@ -733,11 +753,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">项目</a>
+                <a href="javascript:void(0)" class="js-tag color2">SpringCloud</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">面试题</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">项目</a>
               </li>
              
               <li class="article-tag-list-item">
