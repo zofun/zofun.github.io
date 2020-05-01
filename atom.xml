@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://zofun.github.io/"/>
-  <updated>2020-04-23T14:05:59.393Z</updated>
+  <updated>2020-05-01T14:23:03.286Z</updated>
   <id>https://zofun.github.io/</id>
   
   <author>
@@ -15,6 +15,37 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>高可用Redis：Redis Cluster</title>
+    <link href="https://zofun.github.io/2020/05/01/%E9%AB%98%E5%8F%AF%E7%94%A8Redis%EF%BC%9ARedis%20Cluster/"/>
+    <id>https://zofun.github.io/2020/05/01/高可用Redis：Redis Cluster/</id>
+    <published>2020-05-01T14:20:00.000Z</published>
+    <updated>2020-05-01T14:23:03.286Z</updated>
+    
+    <content type="html"><![CDATA[<p>Redis Cluster是Redis官方提供的Redis集群功能。</p><h2><span id="为什么现需要redis-cluster">为什么现需要Redis Cluster</span></h2><ol><li>主从复制不能满足高可用的要求</li><li>随着业务的发展，需要更高的QPS</li><li>数据量的增长导致服务器内存不足以存储</li><li>网络流量的增长，业务的流量已经超过了服务器的网卡的上限值，可以考虑使用分布式技术来进行分流。</li><li>离线计算，需要中间环节缓冲等别的需求。</li></ol><h2><span id="数据分布">数据分布</span></h2><p>当单机的redis节点无法满足要求，按照分区规则把数据分到若干个子集中。<br><a id="more"></a></p><h3><span id="常见的数据分布方法">常见的数据分布方法</span></h3><h4><span id="顺序分布">顺序分布</span></h4><p>比如有1-100个数据，要保存的三个节点上，那么1-33号数据放在第一个节点上，34-66号数据放在第二个节点上，依此类推。</p><h4><span id="哈希分布">哈希分布</span></h4><p>对键进行hash后，根据哈希码，来进行分区。</p><p>常见的分区方式有：</p><ol><li>节点取余分区：对key进行hash之后，与节点数进行取余运算，根据余数不同保存在不同的节点上。该分区方式的问题就是不利于节点数量的调整。但节点数量变动时，大量的数据需要迁移。</li><li>一致性哈希分区：将所有的数据当作一个token环，token环中的数据范围时0到2的32次方，然后为每一个数据节点分配一个token范围值，这个节点就负责保存这个节点范围的数据。对每一个key进行hash运算，将哈希后的结果在哪个token范围内，则按照顺时针去找最近的节点，这个key就会被保存在这个节点上。</li><li>虚拟槽分区：虚拟槽分区时Redis Cluster采用的分区方式，预设虚拟槽，每个槽就相当于一个数字，有一定的范围。每个槽映射一个数据子集，一般比节点数大。Redis cluster中预设的虚拟槽的范围为0到16383</li></ol><p>虚拟槽分区的步骤：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">1.把16384槽按照节点数量进行平均分配，由节点进行管理</span><br><span class="line">2.对每个key按照CRC16规则进行hash运算</span><br><span class="line">3.把hash结果对16383进行取余</span><br><span class="line">4.把余数发送给Redis节点</span><br><span class="line">5.节点接收到数据，验证是否在自己管理的槽编号的范围</span><br><span class="line">    如果在自己管理的槽编号范围内，则把数据保存到数据槽中，然后返回执行结果</span><br><span class="line">    如果在自己管理的槽编号范围外，则会把数据发送给正确的节点，由正确的节点来把数据保存在对应的槽中</span><br></pre></td></tr></table></figure><p>虚拟槽分区的特点：<br>使用服务器端话管理节点，槽，数据<br>可以对数据进行打散，又可以保证数据分布均匀。</p><h2><span id="redis-cluster基本架构">Redis Cluster基本架构</span></h2><h3><span id="节点">节点</span></h3><p>Redis Cluster是分布式架构，即Redis Cluster中有多个节点，每个节点购汇负责数据读写操作，每个节点之间会进行通信，</p><h3><span id="meet操作">meet操作</span></h3><p>节点之间会互相通信<br>meet操作时节点之间完成相互通信的基础，meet操作有一定的频率和规则。</p><h3><span id="分配槽">分配槽</span></h3><p>把16384个槽平均分配给节点进行管理，每个节点只能对自己负责的槽进行读写。由于每个节点之间都彼此通信，每个节点都知道另外节点负责管理的槽范围。<br>客户端访问任意任意节点时，对数据key按照CRC16规则进行hash运算，然后对运算结果对16383进行取余，如果余数在当前访问的节点管理的槽的范围内，则直接返回对应的数据，否则会告诉客户端去哪个节点获取数据，由客户端去正确的节点获取数据。</p><h3><span id="复制">复制</span></h3><p>保证高可用，每个主节点都有一个从节点，当主节点故障，cluster会按照规则实现主备的高可用</p><h3><span id="客户端路由">客户端路由</span></h3><h4><span id="moved重定向">moved重定向</span></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">1. 每个节点通过通信都会共享redis cluster中槽和集群中对应节点的关系</span><br><span class="line">2. 客户端向redis cluster的任意节点发送命令，接收命令的节点会根据CRC16规则进行hash算法与16383取余，计算自己的槽和对应节点</span><br><span class="line">3. 如果保存数据槽被分配给当前节点，则去槽中执行命令，并把命令执行结果返回给客户端</span><br><span class="line">4. 如果保存数据的槽不再当前节点的管理范围内，则向客户端返回moved重定向异常</span><br><span class="line">5. 客户端接收到节点返回的节点，如果时moved异常，则从moved异常中获取目标节点的信息</span><br><span class="line">6. 客户端向目标节点发送命令，获取命令执行命令。</span><br></pre></td></tr></table></figure><h3><span id="ask重定向">ask重定向</span></h3><p>对集群进行扩容和缩容时，需要对槽及槽中的数据进行迁移。<br>当客户端向某个节点发送命令，节点向客户端返回moved异常，告诉客户端数据对应的槽节点信息。如果此时正在进行集群拓展或者缩空操作，当客户端向正确的节点发送命令时，槽及槽中数据已经被迁移到被的节点了，就会返回ask。<br>步骤：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1. 客户端向目标节点发送命令，目标节点中的槽已经迁移到别的节点上，此时目标节点会返回ask转向给客户端</span><br><span class="line">2. 客户端向新的节点发送asking命令给新的节点，然后再次给新节点发送命令</span><br><span class="line">3. 新节点执行命令，把命令执行结果返回给客户端。</span><br></pre></td></tr></table></figure><h2><span id="故障发现">故障发现</span></h2><p>Redis cluster通过pin/pong消息实现故障发现，不需要sentinel。<br>ping/pong不仅能传递节点与槽的对应消息，也能传递其它状态，比如：节点主从状态，节点故障等。</p><h3><span id="主观下线">主观下线</span></h3><p>主观下线只代表一个节点对另一个节点的判断，不代表所有节点的认知。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1. 节点1定期发送ping消息给节点2</span><br><span class="line">2. 如果发送成功，代表节点2正常运行，节点2会响应pong消息给节点1，节点1更新与节点2的最后通信时间</span><br><span class="line">3. 如果发送失败，则节点1和节点2之间的通信异常判断连接，在下一个定时任务周期时，仍然会与节点2发送ping消息。</span><br><span class="line">4. 如果节点1发送与节点2最后通信时间超过node-timeout，则把节点2标识为pfail状态</span><br></pre></td></tr></table></figure><p><img src="https://s1.ax1x.com/2020/05/01/JXzyVJ.png" alt="JXzyVJ.png"></p><h4><span id="客观下线">客观下线</span></h4><p>当半数以上持有槽的主节点都标记某节点主观下线时，可以保证判断的公平性。<br>客观下线流程：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1. 某个节点接收到其它节点发送的ping信息，如果接收到的ping消息中包含了其它pfail节点，这个节点会将主观下线消息添加到自身的故障列表中，故障列表中包含了当前节点接收到的每一个节点对其它节点的状态信息。</span><br><span class="line">2. 当前节点把主观下线的消息内容添加到故障列表之后，会尝试对故障节点进行客观下线操作。</span><br></pre></td></tr></table></figure><h2><span id="故障恢复">故障恢复</span></h2><h3><span id="资格检查">资格检查</span></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">对从节点的资格进行检查，只有难过检查的从节点才可以开始进行故障恢复</span><br><span class="line">每个从节点检查与故障主节点的断线时间</span><br><span class="line">超过cluster-node-timeout * cluster-slave-validity-factor数字，则取消资格</span><br><span class="line">cluster-node-timeout默认为15秒，cluster-slave-validity-factor默认值为10</span><br><span class="line">如果这两个参数都使用默认值，则每个节点都检查与故障主节点的断线时间，如果超过150秒，则这个节点就没有成为替换主节点的可能性</span><br></pre></td></tr></table></figure><h3><span id="准备选举时间">准备选举时间</span></h3><p>使偏移量最大的从节点具备优先级成为主节点的条件。<br><img src="https://s1.ax1x.com/2020/05/01/Jjpo4A.png" alt="Jjpo4A.png"></p><h3><span id="选举投票">选举投票</span></h3><p>对选举出来的多个从节点进行投票，选出新的主节点<br><img src="https://s1.ax1x.com/2020/05/01/Jjpqjf.png" alt="Jjpqjf.png"></p><h3><span id="替换主节点">替换主节点</span></h3><p>当前从节点取消复制变成离节点。执行cluster del slot撤销故障主节点负责的槽，并执行cluster add slot把这些槽分配给自己<br>向集群广播自己的pong消息，表明已经替换了故障从节点</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Redis Cluster是Redis官方提供的Redis集群功能。&lt;/p&gt;
+&lt;h2 id=&quot;为什么现需要Redis-Cluster&quot;&gt;&lt;a href=&quot;#为什么现需要Redis-Cluster&quot; class=&quot;headerlink&quot; title=&quot;为什么现需要Redis Cluster&quot;&gt;&lt;/a&gt;为什么现需要Redis Cluster&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;主从复制不能满足高可用的要求&lt;/li&gt;
+&lt;li&gt;随着业务的发展，需要更高的QPS&lt;/li&gt;
+&lt;li&gt;数据量的增长导致服务器内存不足以存储&lt;/li&gt;
+&lt;li&gt;网络流量的增长，业务的流量已经超过了服务器的网卡的上限值，可以考虑使用分布式技术来进行分流。&lt;/li&gt;
+&lt;li&gt;离线计算，需要中间环节缓冲等别的需求。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&quot;数据分布&quot;&gt;&lt;a href=&quot;#数据分布&quot; class=&quot;headerlink&quot; title=&quot;数据分布&quot;&gt;&lt;/a&gt;数据分布&lt;/h2&gt;&lt;p&gt;当单机的redis节点无法满足要求，按照分区规则把数据分到若干个子集中。&lt;br&gt;
+    
+    </summary>
+    
+    
+    
+      <category term="技术" scheme="https://zofun.github.io/tags/%E6%8A%80%E6%9C%AF/"/>
+    
+      <category term="Redis" scheme="https://zofun.github.io/tags/Redis/"/>
+    
+  </entry>
   
   <entry>
     <title>JVM是如何实现多态的</title>
@@ -46,9 +77,9 @@
     
       <category term="技术" scheme="https://zofun.github.io/tags/%E6%8A%80%E6%9C%AF/"/>
     
-      <category term="JVM" scheme="https://zofun.github.io/tags/JVM/"/>
-    
       <category term="Java" scheme="https://zofun.github.io/tags/Java/"/>
+    
+      <category term="JVM" scheme="https://zofun.github.io/tags/JVM/"/>
     
   </entry>
   
@@ -133,9 +164,9 @@
     
       <category term="技术" scheme="https://zofun.github.io/tags/%E6%8A%80%E6%9C%AF/"/>
     
-      <category term="JVM" scheme="https://zofun.github.io/tags/JVM/"/>
-    
       <category term="Java" scheme="https://zofun.github.io/tags/Java/"/>
+    
+      <category term="JVM" scheme="https://zofun.github.io/tags/JVM/"/>
     
   </entry>
   
@@ -557,33 +588,6 @@ empty() -- 返回队列是否为空。
       <category term="Java" scheme="https://zofun.github.io/tags/Java/"/>
     
       <category term="算法" scheme="https://zofun.github.io/tags/%E7%AE%97%E6%B3%95/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>公平锁与非公平锁</title>
-    <link href="https://zofun.github.io/2020/03/18/%E5%85%AC%E5%B9%B3%E9%94%81%E5%92%8C%E9%9D%9E%E5%85%AC%E5%B9%B3%E9%94%81/"/>
-    <id>https://zofun.github.io/2020/03/18/公平锁和非公平锁/</id>
-    <published>2020-03-18T13:50:00.000Z</published>
-    <updated>2020-03-18T13:51:16.830Z</updated>
-    
-    <content type="html"><![CDATA[<h2><span id="什么是公平锁什么是非公平锁">什么是公平锁？什么是非公平锁？</span></h2><p>公平锁：多个线程按照申请锁的先后顺序去获得锁，线程会直接进入队列去排队，永远都是队列的第一位才能获得锁。</p><p>非公平锁：多个线程去获得锁的时候，会直接去尝试获取，获取不到，再去进入等待队列，如果能获取到，就直接获取到锁。</p><h2><span id="优缺点比较">优缺点比较</span></h2><h3><span id="公平锁">公平锁</span></h3><p>优点：所有的线程都能够得到资源，不会饿死在队列中。</p><p>缺点：吞吐量会下降很多，队列里面除了第一个线程，其它线程都会阻塞，CPU唤醒阻塞线程的开销会很大。</p><h3><span id="非公平锁">非公平锁</span></h3><p>优点：可以减少CPU唤醒线程的开销，整体的吞吐率提高。</p><p>缺点：可能导致队列中的线程一直获取不到锁或者长时间获取不到锁，导致饿死。</p><h2><span id="源码体现">源码体现</span></h2><p>在<code>ReentrantLock</code>中就提供了公平锁和非公平锁两种模式(<strong>默认是非公平实现</strong>)。</p><h3><span id="公平锁实现">公平锁实现</span></h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">final</span> <span class="keyword">boolean</span> <span class="title">tryAcquire</span><span class="params">(<span class="keyword">int</span> acquires)</span> </span>&#123;</span><br><span class="line">           <span class="keyword">final</span> Thread current = Thread.currentThread();</span><br><span class="line">           <span class="keyword">int</span> c = getState();</span><br><span class="line">           <span class="keyword">if</span> (c == <span class="number">0</span>) &#123;</span><br><span class="line">               <span class="keyword">if</span> (!hasQueuedPredecessors() &amp;&amp;</span><br><span class="line">                   compareAndSetState(<span class="number">0</span>, acquires)) &#123;</span><br><span class="line">                   <span class="comment">//只有当队列为空或自己是队列头的时候，才会尝试CAS修改state</span></span><br><span class="line">                   <span class="comment">//修改state成功后，才算获取到了锁，否则加入到队列中等待</span></span><br><span class="line">                   setExclusiveOwnerThread(current);</span><br><span class="line">                   <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">           <span class="keyword">else</span> <span class="keyword">if</span> (current == getExclusiveOwnerThread()) &#123;</span><br><span class="line">               <span class="keyword">int</span> nextc = c + acquires;</span><br><span class="line">               <span class="keyword">if</span> (nextc &lt; <span class="number">0</span>)</span><br><span class="line">                   <span class="keyword">throw</span> <span class="keyword">new</span> Error(<span class="string">"Maximum lock count exceeded"</span>);</span><br><span class="line">               setState(nextc);</span><br><span class="line">               <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">           &#125;</span><br><span class="line">           <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">       &#125;</span><br></pre></td></tr></table></figure><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">判断当前队列是否为空或者自己是否是在同步队列的首位，</span></span><br><span class="line"><span class="comment">如果是，则返回true</span></span><br><span class="line"><span class="comment">否则返回false</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">boolean</span> <span class="title">hasQueuedPredecessors</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Node t = tail;</span><br><span class="line">        Node h = head;</span><br><span class="line">        Node s;</span><br><span class="line">        <span class="keyword">return</span> h != t &amp;&amp;</span><br><span class="line">            ((s = h.next) == <span class="keyword">null</span> || s.thread != Thread.currentThread());</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure><p>公平锁只有在队列为空，或者自己为队头的时候才会尝试去修改state，当修改成功后则直接拿到了锁，否则进入排队。</p><h3><span id="非公平锁实现">非公平锁实现</span></h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">final</span> <span class="keyword">boolean</span> <span class="title">nonfairTryAcquire</span><span class="params">(<span class="keyword">int</span> acquires)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">final</span> Thread current = Thread.currentThread();</span><br><span class="line">            <span class="keyword">int</span> c = getState();</span><br><span class="line">            <span class="keyword">if</span> (c == <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="comment">//state==0，通过CAS尝试修改state，而不是直接去排队</span></span><br><span class="line">                <span class="keyword">if</span> (compareAndSetState(<span class="number">0</span>, acquires)) &#123;</span><br><span class="line">                    setExclusiveOwnerThread(current);</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (current == getExclusiveOwnerThread()) &#123;</span><br><span class="line">                <span class="keyword">int</span> nextc = c + acquires;</span><br><span class="line">                <span class="keyword">if</span> (nextc &lt; <span class="number">0</span>) <span class="comment">// overflow</span></span><br><span class="line">                    <span class="keyword">throw</span> <span class="keyword">new</span> Error(<span class="string">"Maximum lock count exceeded"</span>);</span><br><span class="line">                setState(nextc);</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure><p>非公平锁当state==0，就会立即去尝试CAS修改state，修改成功了则直接拿到了锁，否则加入阻塞队列。</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2&gt;&lt;span id=&quot;什么是公平锁什么是非公平锁&quot;&gt;什么是公平锁？什么是非公平锁？&lt;/span&gt;&lt;/h2&gt;&lt;p&gt;公平锁：多个线程按照申请锁的先后顺序去获得锁，线程会直接进入队列去排队，永远都是队列的第一位才能获得锁。&lt;/p&gt;
-&lt;p&gt;非公平锁：多个线程去获得锁的时候，会直接去
-      
-    
-    </summary>
-    
-    
-    
-      <category term="技术" scheme="https://zofun.github.io/tags/%E6%8A%80%E6%9C%AF/"/>
-    
-      <category term="Java" scheme="https://zofun.github.io/tags/Java/"/>
     
   </entry>
   

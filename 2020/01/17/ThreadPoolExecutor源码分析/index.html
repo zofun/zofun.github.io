@@ -9,7 +9,7 @@
   <title>ThreadPoolExecutor源码分析 | 个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="概述任务是一组逻辑工作单元，而线程则是是任务异步执行的机制。通过线程池就可以简化线程的管理工作。ThreadPoolExecutor是线程池的核心实现。线程池中预先提供了指定数量的可重用的线程，使用线程池避免了线程创建和终止的开销，节省了系统的资源。并且线程池维护了一些基础的数据统计，方便了线程的监控和管理。">
-<meta name="keywords" content="java,技术,源码">
+<meta name="keywords" content="技术,java,源码">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ThreadPoolExecutor源码分析">
 <meta property="og:url" content="https://zofun.github.io/2020/01/17/ThreadPoolExecutor源码分析/index.html">
@@ -18,7 +18,7 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://s2.ax1x.com/2020/01/19/1C7IpT.png">
 <meta property="og:image" content="https://s2.ax1x.com/2020/01/19/1CHiBd.png">
-<meta property="og:updated_time" content="2020-02-06T13:05:10.784Z">
+<meta property="og:updated_time" content="2020-04-30T11:42:05.223Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ThreadPoolExecutor源码分析">
 <meta name="twitter:description" content="概述任务是一组逻辑工作单元，而线程则是是任务异步执行的机制。通过线程池就可以简化线程的管理工作。ThreadPoolExecutor是线程池的核心实现。线程池中预先提供了指定数量的可重用的线程，使用线程池避免了线程创建和终止的开销，节省了系统的资源。并且线程池维护了一些基础的数据统计，方便了线程的监控和管理。">
@@ -233,7 +233,7 @@
       
         <h2><span id="概述">概述</span></h2><p>任务是一组逻辑工作单元，而线程则是是任务异步执行的机制。通过线程池就可以简化线程的管理工作。<br>ThreadPoolExecutor是线程池的核心实现。线程池中预先提供了指定数量的可重用的线程，使用线程池避免了线程创建和终止的开销，节省了系统的资源。并且线程池维护了一些基础的数据统计，方便了线程的监控和管理。</p>
 <a id="more"></a>
-<h2><span id="线程池的基本使用">线程池的基本使用</span></h2><h3><span id="参数解释">参数解释</span></h3><p>线程池的创建的需要指定非常的参数，我们需要理解每个参数的含义.我们就以参数最多的构造器为例，来解释每个参数的含义。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ThreadPoolExecutor(<span class="keyword">int</span> corePoolSize,</span><br><span class="line">                   <span class="keyword">int</span> maximumPoolSize,</span><br><span class="line">                   <span class="keyword">long</span> keepAliveTime,</span><br><span class="line">                   TimeUnit unit,</span><br><span class="line">                   BlockingQueue&lt;Runnable&gt; workQueue,</span><br><span class="line">                   ThreadFactory threadFactory,</span><br><span class="line">                   RejectedExecutionHandler handler)</span><br></pre></td></tr></table></figure></p>
+<h2><span id="线程池的基本使用">线程池的基本使用</span></h2><h3><span id="参数解释">参数解释</span></h3><p>线程池的创建的需要指定非常多的参数，我们需要理解每个参数的含义.我们就以参数最多的构造器为例，来解释每个参数的含义。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ThreadPoolExecutor(<span class="keyword">int</span> corePoolSize,</span><br><span class="line">                   <span class="keyword">int</span> maximumPoolSize,</span><br><span class="line">                   <span class="keyword">long</span> keepAliveTime,</span><br><span class="line">                   TimeUnit unit,</span><br><span class="line">                   BlockingQueue&lt;Runnable&gt; workQueue,</span><br><span class="line">                   ThreadFactory threadFactory,</span><br><span class="line">                   RejectedExecutionHandler handler)</span><br></pre></td></tr></table></figure></p>
 <p><code>corePoolSize</code> 核心线程数。<br><code>maximumPoolSize</code>最大线程数。<br>这里需要注意：当一个新的任务提交给线程池之后：</p>
 <ul>
 <li>如果当前运行线程的数量小于核心线程数，无论有无空闲的线程，都换创建新的线程。</li>
@@ -326,11 +326,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
@@ -625,11 +625,11 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java</a>
+                <a href="javascript:void(0)" class="js-tag color3">技术</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">技术</a>
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -637,11 +637,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -653,11 +653,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">innoDB引擎</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">innoDB引擎</a>
+                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -666,6 +666,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">RabbitMQ</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -681,10 +685,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">并发编程</a>
               </li>
              
@@ -697,11 +697,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+                <a href="javascript:void(0)" class="js-tag color5">变强日记</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">变强日记</a>
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -737,11 +737,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">SpringMVC</a>
+                <a href="javascript:void(0)" class="js-tag color2">SpringCloud</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">SpringCloud</a>
+                <a href="javascript:void(0)" class="js-tag color5">SpringMVC</a>
               </li>
              
               <li class="article-tag-list-item">

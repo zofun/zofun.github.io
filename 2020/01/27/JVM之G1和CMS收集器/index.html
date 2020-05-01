@@ -9,7 +9,7 @@
   <title>JVM之G1和CMS收集器 | 个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="CMS垃圾回收器什么是CMS垃圾回收器，CMS回收器的特点CMS即Concurrent Mark Sweep，是一款并发的、使用标记-清除算法的针对老年代的垃圾回收器。如果老年代使用CMS垃圾回收器，需要添加虚拟机参数-XX:+UseConcMarkSweepGCCMS垃圾回收器GC过程暂停短，适合对时延要求较高的服务，用户线程不允许长时间的停顿的场景。但是容易造成严重的内存碎片化，且对CPU资源">
-<meta name="keywords" content="java,技术,JVM">
+<meta name="keywords" content="技术,java,JVM">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JVM之G1和CMS收集器">
 <meta property="og:url" content="https://zofun.github.io/2020/01/27/JVM之G1和CMS收集器/index.html">
@@ -21,7 +21,7 @@
 <meta property="og:image" content="https://s2.ax1x.com/2020/01/27/1nsyRK.png">
 <meta property="og:image" content="https://s2.ax1x.com/2020/01/27/1nsgMD.png">
 <meta property="og:image" content="https://s2.ax1x.com/2020/01/27/1nsTRf.png">
-<meta property="og:updated_time" content="2020-04-18T11:44:48.197Z">
+<meta property="og:updated_time" content="2020-04-30T11:42:05.223Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JVM之G1和CMS收集器">
 <meta name="twitter:description" content="CMS垃圾回收器什么是CMS垃圾回收器，CMS回收器的特点CMS即Concurrent Mark Sweep，是一款并发的、使用标记-清除算法的针对老年代的垃圾回收器。如果老年代使用CMS垃圾回收器，需要添加虚拟机参数-XX:+UseConcMarkSweepGCCMS垃圾回收器GC过程暂停短，适合对时延要求较高的服务，用户线程不允许长时间的停顿的场景。但是容易造成严重的内存碎片化，且对CPU资源">
@@ -256,9 +256,9 @@
 <h1><span id="g1垃圾回收器">G1垃圾回收器</span></h1><h2><span id="什么是g1回收器g1回收器的特点">什么是G1回收器，G1回收器的特点</span></h2><p>G1回收器(Garbage First).可以通过<code>-XX+UseG1GC</code>.G1垃圾回收器以关注延迟为目标、服务器短应用的垃圾收集器。G1的设置原则是“首先收集尽可能多的垃圾”，因此G1并不会等内存耗尽或者快耗尽的时候开始垃圾收集，而是在内部采用了启发式算法，在老年代中找出具有高回收收益的分区进行收集。同时G1可以根据用户设置的暂停时间目标自动调整年轻代和总堆大小，暂停目标越短年轻代空间越小、总空间就越大。</p>
 <h2><span id="g1的内存模型">G1的内存模型</span></h2><p>G1采用自动分区(Region)的思路，将内存划分为一个个相等大小的内存分区，回收时则以分区为单位进行回收，存活的对象复制到另一个空闲分区中。由于都是以相等大小获得分区为单位进行操作，因此G1天然就是一种压缩方案。这些reding最后又被分别标记为Eden，Survivor和old，这里只是逻辑分区不是物理表示<br>。在这之外还有Humongous Regin，巨型对象分区，巨型对象会独占一个或多个连续分区，确定巨型对象分区空间需要扫描整个堆，因此应用程序应该避免生成巨型对象。</p>
 <h2><span id="g1工作的流程">G1工作的流程</span></h2><ol>
-<li><p>RSet的维护<br>RSet即已记忆集合。在串行和并行收集器中，GC通过整个堆扫描，来去顶对象是否处于可达路径中。然而G1为了避免整堆扫描时的Stop the world，它在每个分区记录了一个已记忆集合，内部类似一个方向指针，记录引用分区对象的卡片索引。当要回收该分区时，通过扫描分区的RSet，来确定引用本分区内的对象是否存活，进而确定本分区的对象存活情况。</p>
+<li><p>RSet的维护<br>RSet即已记忆集合。在串行和并行收集器中，GC通过整个堆扫描，来去确定对象是否处于可达路径中。然而G1为了避免整堆扫描时的Stop the world，它在每个分区记录了一个已记忆集合，内部类似一个方向指针，记录引用分区对象的卡片索引。当要回收该分区时，通过扫描分区的RSet，来确定引用本分区内的对象是否存活，进而确定本分区的对象存活情况。</p>
 </li>
-<li><p>初始标记<br>初始标记负责标记所有能直接可达的根对象(虚拟机栈对象，全局对象，本地方法栈对象)。在初始标记过程之中需要暂停用户线程(Stop the world).G1一般利用年轻代STW时间段完成初始标记。初始标记时并发执行的，直到所有的分区处理完。</p>
+<li><p>初始标记<br>初始标记负责标记所有能直接可达的根对象(虚拟机栈对象，全局对象，本地方法栈对象)。在初始标记过程之中需要暂停用户线程(Stop the world).G1一般利用年轻代STW时间段完成初始标记。初始标记是并发执行的，直到所有的分区处理完。</p>
 </li>
 <li>并发标记<br>并发标记和应用线程并发执行，每个线程每次只扫描一个分区，从而标记出存活对象图。</li>
 <li>最终标记<br>最终标记是最后一个标记阶段。在该阶段中，G1需要一个暂停的时间，区处理剩下的SATB日志缓冲区和所有更新，找出所有未被访问的存活对象，同时完成存活数据统计。这个阶段也是并行执行的。</li>
@@ -308,11 +308,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
@@ -607,11 +607,11 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java</a>
+                <a href="javascript:void(0)" class="js-tag color3">技术</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">技术</a>
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -619,11 +619,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -635,11 +635,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">innoDB引擎</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">innoDB引擎</a>
+                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -648,6 +648,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">RabbitMQ</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -663,10 +667,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">并发编程</a>
               </li>
              
@@ -679,11 +679,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+                <a href="javascript:void(0)" class="js-tag color5">变强日记</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">变强日记</a>
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -719,11 +719,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">SpringMVC</a>
+                <a href="javascript:void(0)" class="js-tag color2">SpringCloud</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">SpringCloud</a>
+                <a href="javascript:void(0)" class="js-tag color5">SpringMVC</a>
               </li>
              
               <li class="article-tag-list-item">

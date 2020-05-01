@@ -9,7 +9,7 @@
   <title>mybatis源码分析之缓存机制 | 个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="概述mybatis提供了缓存机制减轻数据库压力，提高数据库性能。mybatis的缓存分为两级：一级缓存、二级缓存。一级缓存是SqlSession级别的缓存，缓存的数据只在SqlSession内有效。二级缓存是mapper级别的缓存，同一个namespace共用一个缓存，所以对SqlSession是共享的。">
-<meta name="keywords" content="java,技术,mybatis">
+<meta name="keywords" content="技术,java,mybatis">
 <meta property="og:type" content="article">
 <meta property="og:title" content="mybatis源码分析之缓存机制">
 <meta property="og:url" content="https://zofun.github.io/2020/01/23/mybatis源码分析之缓存机制/index.html">
@@ -18,7 +18,7 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://s2.ax1x.com/2020/01/23/1VSh0s.png">
 <meta property="og:image" content="https://s2.ax1x.com/2020/01/23/1VSrkt.png">
-<meta property="og:updated_time" content="2020-02-28T02:30:42.278Z">
+<meta property="og:updated_time" content="2020-04-30T11:42:05.223Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mybatis源码分析之缓存机制">
 <meta name="twitter:description" content="概述mybatis提供了缓存机制减轻数据库压力，提高数据库性能。mybatis的缓存分为两级：一级缓存、二级缓存。一级缓存是SqlSession级别的缓存，缓存的数据只在SqlSession内有效。二级缓存是mapper级别的缓存，同一个namespace共用一个缓存，所以对SqlSession是共享的。">
@@ -239,7 +239,7 @@
 <li>如果<code>SqlSession</code>调用了<code>clearCache()</code>，会清空<code>PerpetualCache</code>对象中的数据（缓存数据），但是一级缓存仍然是可用的，只是之前的数据被清空了。</li>
 <li><code>SqlSession</code>中执行了任何一个update操作，都会清空<code>perpetualCache</code>对象的数据，但是该对象可以继续使用。</li>
 </ul>
-<h3><span id="如何判断两次查询时完全相同的">如何判断两次查询时完全相同的？</span></h3><p>mybaits认为，对于两次查询，如果以下条件都完全一样，那么就任务它们时完全相同的两次查询。</p>
+<h3><span id="如何判断两次查询时完全相同的">如何判断两次查询时完全相同的？</span></h3><p>mybaits认为，对于两次查询，如果以下条件都完全一样，那么就任务它们是完全相同的两次查询。</p>
 <ul>
 <li>传入的statementId</li>
 <li>查询时要求的结果集的结果的范围</li>
@@ -250,7 +250,7 @@
 <li>缓存会使用默认的LRU算法来回收。</li>
 <li>根据时间表，缓存不会以任何时间顺序来刷新。</li>
 <li>缓存会存储列表集合或对象的1024个引用。</li>
-<li>缓存会被视为可读可写的缓存，意味着对象检索式不共享的，而且可以安全的被调用者修改，不干扰其它调用者或线程所做的潜在修改。</li>
+<li>缓存会被视为可读可写的缓存，意味着对象检索是不共享的，而且可以安全的被调用者修改，不干扰其它调用者或线程所做的潜在修改。</li>
 </ul>
 <h3><span id="如何开启二级缓存">如何开启二级缓存</span></h3><ol>
 <li>首先查询返回的pojo类必须要实现<code>Serializable</code>即可，表示式可序列化的。</li>
@@ -318,11 +318,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
@@ -617,11 +617,11 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java</a>
+                <a href="javascript:void(0)" class="js-tag color3">技术</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">技术</a>
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -629,11 +629,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -645,11 +645,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">innoDB引擎</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">innoDB引擎</a>
+                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -658,6 +658,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">RabbitMQ</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -673,10 +677,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">并发编程</a>
               </li>
              
@@ -689,11 +689,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+                <a href="javascript:void(0)" class="js-tag color5">变强日记</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">变强日记</a>
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -729,11 +729,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">SpringMVC</a>
+                <a href="javascript:void(0)" class="js-tag color2">SpringCloud</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">SpringCloud</a>
+                <a href="javascript:void(0)" class="js-tag color5">SpringMVC</a>
               </li>
              
               <li class="article-tag-list-item">
