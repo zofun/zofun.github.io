@@ -182,6 +182,106 @@
 
 
   
+    <article id="post-Redis设计与实现读书笔记二" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/10/31/Redis设计与实现读书笔记二/">Redis设计与实现读书笔记二</a>
+    </h1>
+  
+
+        
+        <a href="/2019/10/31/Redis设计与实现读书笔记二/" class="archive-article-date">
+  	<time datetime="2019-10-31T12:54:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-31</time>
+</a>
+        
+      </header>
+    
+    <!-- 目录内容 -->
+
+<!-- 目录内容结束 -->
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="redis服务器"><a href="#redis服务器" class="headerlink" title="redis服务器"></a>redis服务器</h2><p>redis服务器负责与多个客户端建立网络连接，处理客户端发送的命令请求，在数据库中保存客户端执行命令所产生的数据，并通过资源管理器来维持服务器自身的运转。</p>
+<h3 id="命令请求的过程"><a href="#命令请求的过程" class="headerlink" title="命令请求的过程"></a>命令请求的过程</h3><p>加入我们使用了这样一天个命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">redis&gt; SET KEY VALUE</span><br><span class="line">OK</span><br></pre></td></tr></table></figure></p>
+<p>整个执行的流程</p>
+<ol>
+<li>客户端会将命令转换为协议格式，然后通过连接到服务器的套接字按协议格式的命令请求发送给服务器。</li>
+<li>当客户端与服务器之间连接的套接字变得可读时，服务器调用命令求情处理器。</li>
+<li>读取套接字中协议格式的命令，将它保存到客户端状态的输入缓冲区里。</li>
+<li>对输入缓冲区中的数据进行分析，将请求参数存入argv中，参数个数保存在argc中。</li>
+<li>根据请求参数（查找命令表），调用相应的命令执行器，执行指定的命令（在正式执行之前还会检测出参数个数是否正确，客户端是否通过身份认证，如果服务器打开了maxmenory功能，那么在执行命令之前，先检查服务器的内存占用情况，并在需要时进行内存回收，之后再进行执行，并且服务器没被阻塞）。</li>
+<li>再实现函数调用之后，还会执行一系列的后续工作，比如检查是否需要记录到慢查询日志，更新命令的redisCommand结构的milliseconds属性，并将器calls属性加一，如果开启了AOF持久化功能，那么将刚才的命令写入到AOF缓冲区中，如果有其它服务器正在复制这个服务器，那么服务器会见刚刚执行的命令传播到所有从服务器。
+        
+          <a class="article-more-a" href="/2019/10/31/Redis设计与实现读书笔记二/#more">more >></a>
+        
+      
+
+      
+    </li></ol></div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Redis</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/10/31/Redis设计与实现读书笔记二/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-Redis设计与实现读书笔记一" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1067,99 +1167,6 @@
 
 
   
-    <article id="post-MySQL的锁机制" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/09/22/MySQL的锁机制/">MySQL的锁机制</a>
-    </h1>
-  
-
-        
-        <a href="/2019/09/22/MySQL的锁机制/" class="archive-article-date">
-  	<time datetime="2019-09-22T08:22:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-22</time>
-</a>
-        
-      </header>
-    
-    <!-- 目录内容 -->
-
-<!-- 目录内容结束 -->
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="MySQL锁的概述"><a href="#MySQL锁的概述" class="headerlink" title="MySQL锁的概述"></a>MySQL锁的概述</h2><p>锁是计算机协调多个进程或线程并发访问某一资源的机制。<br>MySQL中不同的存储引擎支持不同的锁机制。InnoDB存储引擎支持行级锁和表级锁，默认情况下使用的是行级锁。MyISAM支持表级锁。<br>表级锁：开销小，加锁快，不会出现死锁，锁定粒度大，发生锁冲突的概览极高，并发度最低。<br>行级锁： 开销大，加锁满，会出现死锁，锁定粒度最小，发生锁冲突的概览最低，并发度也最高。<br>页面锁： 开销和加锁时间介于表锁和行锁之间，会出现死锁，锁定粒度介于表锁和行锁之间，并发度一般。</p>
-<h2 id="MyISAM表锁"><a href="#MyISAM表锁" class="headerlink" title="MyISAM表锁"></a>MyISAM表锁</h2><p>MySQL的表级锁有两种模式：表共享读锁，表独占写锁。对MyISAM的读不会阻塞其它用户的读请求，但是会阻塞对同一表的写请求。当一个线程获得了一个表的写锁后，只有持有锁的线程可以对表进行更新操作。其它读写操作都会被阻塞。</p>
-<h3 id="如何加表锁"><a href="#如何加表锁" class="headerlink" title="如何加表锁"></a>如何加表锁</h3><p>MyISAM在执行select操作之前会自动给涉及到的表加读锁。在执行更新操作（update，insert，delete）前，会自动给涉及到的表添加写锁。因此一般是不需要显式的去加锁的。<br>一般手动加锁是模拟事务：<br>比如：<br>检查两个表的合计金额是否相同，<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">//这种写法显然可能会出现错误（第一条sql执行之后，可能会有金额变动）</span><br><span class="line"><span class="keyword">select</span> <span class="keyword">sum</span>(total) <span class="keyword">from</span> orders;</span><br><span class="line"><span class="keyword">select</span> <span class="keyword">sum</span>(subtotal) <span class="keyword">from</span> order_detail;</span><br></pre></td></tr></table></figure></p>
-        
-          <a class="article-more-a" href="/2019/09/22/MySQL的锁机制/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/09/22/MySQL的锁机制/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/8/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><a class="page-number" href="/page/11/">11</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/10/">Next &raquo;</a>
@@ -1316,11 +1323,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1336,6 +1343,14 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Maven</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">innoDB引擎</a>
               </li>
              
@@ -1348,19 +1363,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">TCP/IP</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">IP协议</a>
+                <a href="javascript:void(0)" class="js-tag color2">TCP/IP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
+                <a href="javascript:void(0)" class="js-tag color5">IP协议</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1372,19 +1383,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">项目小技巧</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Maven</a>
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Git</a>
+                <a href="javascript:void(0)" class="js-tag color1">项目小技巧</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1396,7 +1403,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">正则表达式</a>
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1404,7 +1411,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+                <a href="javascript:void(0)" class="js-tag color1">正则表达式</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1437,6 +1444,10 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">项目</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">SpringBoot</a>
               </li>
              
               <li class="article-tag-list-item">
