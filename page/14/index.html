@@ -176,6 +176,232 @@
 
 
   
+    <article id="post-TCPIP学习笔记三" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/04/03/TCPIP学习笔记三/">TCP/IP学习笔记(三)</a>
+    </h1>
+  
+
+        
+        <a href="/2019/04/03/TCPIP学习笔记三/" class="archive-article-date">
+  	<time datetime="2019-04-03T07:58:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-03</time>
+</a>
+        
+      </header>
+    
+    <!-- 目录内容 -->
+
+<!-- 目录内容结束 -->
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ul>
+<li><p>DNS（域名解析服务）<br>DNS可以将字符串自动转化为具体的IP地址。</p>
+</li>
+<li><p>ARP（地址解析协议）</p>
+<ul>
+<li>以目标IP地址为线索，来定位下一个应该接收数据分包的网络设备对应的MAC地址。ARP只适用于IPv4.</li>
+<li>通过广播发送一个ARP请求包，其中含有想要了解MAC地址的IP。同一个链路中的主机接收并解析。如何发现需要解析的是自己的IP地址对应的MAC地址的话。就将自己的MAC地址加入ARP响应包中。然后把获取到的MAC地址与IP建立映射。然后缓存一段时间。</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>RARP</p>
+<ul>
+<li>从MAC地址获取IP地址的一种协议。</li>
+<li>为了解决一些嵌入式设备无法通过DHCP获得自己的IP地址的问题。所以需要建立一个RARP服务器。</li>
+<li><img src="https://s2.ax1x.com/2019/04/02/AygKb9.png" alt="AygKb9.png"></li>
+</ul>
+</li>
+<li><p>NAT技术</p>
+<ul>
+<li>是在本地网络中使用私有地址，在连接互联网式转而使用全局IP地址的技术。</li>
+<li>内部有一张进行转换的地址的表。</li>
+<li>NAPT为了解决私有网络内部多台机器同时通信时，可能会造成全局IP地址不够用。NAPT采用将端口号一起转换的方式来解决这个问题。</li>
+<li><img src="https://s2.ax1x.com/2019/04/02/A6ZEFS.png" alt="A6ZEFS.png"></li>
+<li>无法从NAT外部向内部服务器建立连接。</li>
+<li>转换表的生成和转换操作都会产生一定的开销。</li>
+<li>通信过程中如果NAT遇到异常所有的TCP连接都会被重置。即使做了容灾备份也无法避免TCP连接的重置。</li>
+</ul>
+</li>
+</ul>
+        
+          <a class="article-more-a" href="/2019/04/03/TCPIP学习笔记三/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">TCP/IP</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/04/03/TCPIP学习笔记三/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-TCPIP学习笔记二" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/29/TCPIP学习笔记二/">TCP/IP学习笔记(二)</a>
+    </h1>
+  
+
+        
+        <a href="/2019/03/29/TCPIP学习笔记二/" class="archive-article-date">
+  	<time datetime="2019-03-29T08:32:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-29</time>
+</a>
+        
+      </header>
+    
+    <!-- 目录内容 -->
+
+<!-- 目录内容结束 -->
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="IP协议"><a href="#IP协议" class="headerlink" title="IP协议"></a>IP协议</h4><ul>
+<li><p>IP相当于OSI参考模型中的网络层。主要作用是实现终端节点之间的通信。数据链路层的主要作用是在同一种互联的数据链路中进行包传递。如果需要跨越多种数据链路，就需要网络层的协助。</p>
+</li>
+<li><p>IP协议的三大模块<br>1.IP寻址 2.路由 3.IP分包和组包</p>
+</li>
+<li><p>IP地址<br>用于连接到网络中所有主机中识别出进行通信的目标地址。所以在TCP/IP中所有的主机或路由器都必须设定自己的IP，而网桥或交换集线器不需要自己的IP，因为他们只负责简单的将比特流转发。</p>
+</li>
+<li><p>路由控制<br>是指将分组数据发送到最终目标地址的功能，即使网络非常复杂，也可以通过路由控制确定到达目标地址的通路。</p>
+</li>
+<li><p>路由控制表（路由择域信息库）<br>为了将数据包发送到目标主机，所有主机都维护着一张路由控制表，该表记录了IP数据下一步应该发给那个路由器。路由控制表存储在路由器或联网计算机上。</p>
+</li>
+<li><p>IP链路的抽象化<br>IP实现了多个数据链路之间的的通信协议。不同的数据链路有各自的特点。需要对不同的数据链路进行抽象化。不同的数据链路的最大传输单位往往不同。为了解决这个问题IP协议对链路进行了抽象化，屏蔽了链路的差异。</p>
+</li>
+<li><p>IP是面向无连接型<br>在发送IP数据包之前，不需要建立对端目标之间的连接。其优点在于简化了协议，提高了速度。</p>
+</li>
+<li><p>IP地址<br>1.IP地址由32位整数来表示。<br>2.IP地址由网络标识（地址）和主机标识（主机地址）两部分组成。<br>3.网络标识在数据链路中的每个端配置不同的值。网络标识必须保证互相连接的每个端的地址不相重复。<br>4.同一个网段中的地址也必须保证主机标识不相重复。<br><img src="https://s2.ax1x.com/2019/03/28/AwIAFx.png" alt="AwIAFx.png"></p>
+        
+          <a class="article-more-a" href="/2019/03/29/TCPIP学习笔记二/#more">more >></a>
+        
+      
+
+      
+    </li></ul></div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">IP协议</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/03/29/TCPIP学习笔记二/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-TCPIP学习笔记一" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -905,11 +1131,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">InnoDB</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+                <a href="javascript:void(0)" class="js-tag color2">InnoDB</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -933,11 +1159,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
+                <a href="javascript:void(0)" class="js-tag color4">innoDB引擎</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">innoDB引擎</a>
+                <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -957,11 +1183,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -973,15 +1199,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">项目小技巧</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">变强日记</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -993,7 +1219,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">汇编</a>
+                <a href="javascript:void(0)" class="js-tag color4">TCP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1001,7 +1227,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">TCP</a>
+                <a href="javascript:void(0)" class="js-tag color3">汇编</a>
               </li>
              
               <li class="article-tag-list-item">
