@@ -176,6 +176,194 @@
 
 
   
+    <article id="post-如何让多个线程同时开始执行" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/09/22/如何让多个线程同时开始执行/">如何让多个线程同时开始执行</a>
+    </h1>
+  
+
+        
+        <a href="/2019/09/22/如何让多个线程同时开始执行/" class="archive-article-date">
+  	<time datetime="2019-09-22T09:12:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-22</time>
+</a>
+        
+      </header>
+    
+    <!-- 目录内容 -->
+
+<!-- 目录内容结束 -->
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>有些时候有这样的情况，需要多个线程同时开始执行任务。为了实现这样的需求，我大概想到了以下两种方式。<br>第一种方式是采用<code>CyclicBarrier</code>类来实现，让多个线程相互等待，直到达到一个屏障点，并且<code>CyclicBarrier</code>是可重用的。<br>第二种方案是使用<code>CountDownLatch</code>来实现，当计数器为0的时候，所有等待的线程都被唤醒，开始执行他们的任务。<br>
+        
+          <a class="article-more-a" href="/2019/09/22/如何让多个线程同时开始执行/#more">more >></a>
+        
+      
+
+      
+    </p></div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">多线程</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/09/22/如何让多个线程同时开始执行/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-MySQL的锁机制" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/09/22/MySQL的锁机制/">MySQL的锁机制</a>
+    </h1>
+  
+
+        
+        <a href="/2019/09/22/MySQL的锁机制/" class="archive-article-date">
+  	<time datetime="2019-09-22T08:22:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-22</time>
+</a>
+        
+      </header>
+    
+    <!-- 目录内容 -->
+
+<!-- 目录内容结束 -->
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="MySQL锁的概述"><a href="#MySQL锁的概述" class="headerlink" title="MySQL锁的概述"></a>MySQL锁的概述</h2><p>锁是计算机协调多个进程或线程并发访问某一资源的机制。<br>MySQL中不同的存储引擎支持不同的锁机制。InnoDB存储引擎支持行级锁和表级锁，默认情况下使用的是行级锁。MyISAM支持表级锁。<br>表级锁：开销小，加锁快，不会出现死锁，锁定粒度大，发生锁冲突的概览极高，并发度最低。<br>行级锁： 开销大，加锁满，会出现死锁，锁定粒度最小，发生锁冲突的概览最低，并发度也最高。<br>页面锁： 开销和加锁时间介于表锁和行锁之间，会出现死锁，锁定粒度介于表锁和行锁之间，并发度一般。</p>
+<h2 id="MyISAM表锁"><a href="#MyISAM表锁" class="headerlink" title="MyISAM表锁"></a>MyISAM表锁</h2><p>MySQL的表级锁有两种模式：表共享读锁，表独占写锁。对MyISAM的读不会阻塞其它用户的读请求，但是会阻塞对同一表的写请求。当一个线程获得了一个表的写锁后，只有持有锁的线程可以对表进行更新操作。其它读写操作都会被阻塞。</p>
+<h3 id="如何加表锁"><a href="#如何加表锁" class="headerlink" title="如何加表锁"></a>如何加表锁</h3><p>MyISAM在执行select操作之前会自动给涉及到的表加读锁。在执行更新操作（update，insert，delete）前，会自动给涉及到的表添加写锁。因此一般是不需要显式的去加锁的。<br>一般手动加锁是模拟事务：<br>比如：<br>检查两个表的合计金额是否相同，<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">//这种写法显然可能会出现错误（第一条sql执行之后，可能会有金额变动）</span><br><span class="line"><span class="keyword">select</span> <span class="keyword">sum</span>(total) <span class="keyword">from</span> orders;</span><br><span class="line"><span class="keyword">select</span> <span class="keyword">sum</span>(subtotal) <span class="keyword">from</span> order_detail;</span><br></pre></td></tr></table></figure></p>
+        
+          <a class="article-more-a" href="/2019/09/22/MySQL的锁机制/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MySQL</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/09/22/MySQL的锁机制/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-高性能 MySQL读书笔记一" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -950,224 +1138,9 @@
 
 
   
-    <article id="post-大三上的学习计划" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/08/29/大三上的学习计划/">大三上的学习计划</a>
-    </h1>
-  
-
-        
-        <a href="/2019/08/29/大三上的学习计划/" class="archive-article-date">
-  	<time datetime="2019-08-29T11:21:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-29</time>
-</a>
-        
-      </header>
-    
-    <!-- 目录内容 -->
-
-<!-- 目录内容结束 -->
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2><span id="总的目标">总的目标</span></h2><ol>
-<li>这学期得把软件设计师给考过</li>
-<li>六级成绩至少得提高吧</li>
-<li>绩点要提高，课上讲得也很重要。利用周末做好总结。</li>
-<li>减肥减到115斤，要注意健康管理了。</li>
-<li>算法得每天练习，每天至少两道。</li>
-<li>技术学习要抓紧了。</li>
-<li>冬天到了不要起不来啊！！！</li>
-</ol>
-<h2><span id="每个阶段的任务">每个阶段的任务</span></h2><ul>
-<li style="list-style: none"><input type="checkbox" checked> <strong>九月</strong><ul>
-<li style="list-style: none"><input type="checkbox" checked> Java NIO相关的知识</li>
-<li style="list-style: none"><input type="checkbox" checked> 数据库的高阶知识</li>
-<li style="list-style: none"><input type="checkbox" checked> Java 并发编程</li>
-</ul>
-</li>
-<li style="list-style: none"><input type="checkbox"> <strong>十月</strong><ul>
-<li style="list-style: none"><input type="checkbox"> SpringBoot 技术和一般原理</li>
-<li style="list-style: none"><input type="checkbox"> Spring Cloud 相关的技术</li>
-<li style="list-style: none"><input type="checkbox"> 消息队列，分布式缓存技术</li>
-<li style="list-style: none"><input type="checkbox"> Java 集合框架中没读过的源码</li>
-<li style="list-style: none"><input type="checkbox"> 数据结构与算法</li>
-</ul>
-</li>
-<li style="list-style: none"><input type="checkbox"> <strong>十一月</strong><ul>
-<li style="list-style: none"><input type="checkbox"> Spring 源码分析 （再难也要啃下来）</li>
-<li style="list-style: none"><input type="checkbox"> 计算机网络 (得深入的学习)</li>
-</ul>
-</li>
-<li style="list-style: none"><input type="checkbox"> <strong>十二月</strong><ul>
-<li style="list-style: none"><input type="checkbox"> Spring MVC 源码</li>
-<li style="list-style: none"><input type="checkbox"> Java虚拟机</li>
-</ul>
-</li>
-<li style="list-style: none"><input type="checkbox"> <strong>一月</strong><ul>
-<li style="list-style: none"><input type="checkbox"> 该好好复习期末考试了</li>
-</ul>
-</li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/08/29/大三上的学习计划/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-计算机系统基础读书笔记四" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/08/18/计算机系统基础读书笔记四/">深入理解计算机系统读书笔记四</a>
-    </h1>
-  
-
-        
-        <a href="/2019/08/18/计算机系统基础读书笔记四/" class="archive-article-date">
-  	<time datetime="2019-08-18T12:21:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-18</time>
-</a>
-        
-      </header>
-    
-    <!-- 目录内容 -->
-
-<!-- 目录内容结束 -->
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="异常控制流（Exceptional-Control-Flow-ECF）"><a href="#异常控制流（Exceptional-Control-Flow-ECF）" class="headerlink" title="异常控制流（Exceptional Control Flow ,ECF）"></a>异常控制流（Exceptional Control Flow ,ECF）</h2><h3 id="什么是控制流"><a href="#什么是控制流" class="headerlink" title="什么是控制流"></a>什么是控制流</h3><p>从给处理器加电开始，直到断电为止，程序计数器假设一个值的序列：a0,a1,a2…a n-1,<br>其中a k是相应的指令的地址，每次从a k到a k-1的过渡称为控制转移（control transfer）。这样的控制转移序列称为处理器的控制流（flow of control）。</p>
-<h3 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h3><p>异常是异常控制流的一种形式，它一部分由硬件实现，一部分由操作系统实现。异常（Exception）就是控制流中的突变，用来响应处理器状态中的某些变化。<br><img src="https://s2.ax1x.com/2019/08/15/mVtmb6.png" alt="mVtmb6.png"><br>在任何情况下，当处理器检测到有事件发生时，它就会通过一张叫做异常表（Exception Table）的跳转表，进行一个间接过程调用，到一个专门设计的用来处理这类事件的操作系统子程序（异常处理程序（exception handler））。当异常处理程序处理完成后，根据引起异常的事件类型，会发生以下3种情况种的一种。<br>1.处理程序将控制返回当前指令<br>2.处理程序将控制返回下一条<br>3.处理程序终止被中断的程序</p>
-        
-          <a class="article-more-a" href="/2019/08/18/计算机系统基础读书笔记四/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">计算机系统基础</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/08/18/计算机系统基础读书笔记四/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/10/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/page/12/">12</a><a class="page-number" href="/page/13/">13</a><a class="page-number" href="/page/14/">14</a><a class="extend next" rel="next" href="/page/12/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/10/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/page/12/">12</a><a class="page-number" href="/page/13/">13</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/12/">Next &raquo;</a>
     </nav>
   
 
@@ -1325,7 +1298,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+                <a href="javascript:void(0)" class="js-tag color2">InnoDB</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1333,11 +1306,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">InnoDB</a>
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Java NIO</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1346,10 +1323,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1373,11 +1346,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">IP协议</a>
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
+                <a href="javascript:void(0)" class="js-tag color5">IP协议</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1385,19 +1358,19 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">并发编程</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">mybatis</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">项目小技巧</a>
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+                <a href="javascript:void(0)" class="js-tag color5">并发编程</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">项目小技巧</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1417,11 +1390,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+                <a href="javascript:void(0)" class="js-tag color4">TCP</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">TCP</a>
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
