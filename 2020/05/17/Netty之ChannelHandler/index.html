@@ -8,13 +8,13 @@
   <link rel="dns-prefetch" href="https://zofun.github.io">
   <title>Netty之ChannelHandler | 个人博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Channel的生命周期Channel包含4个状态：| ChannelUnregistered | Channel已经被创建，但还未注册到EventLoop        || ——————- | ———————————————– || ChannelRegistered   | Channel已经被注册到EventLoop                    || ChannelActive">
+  <meta name="description" content="Channel的生命周期Channel包含4个状态：    ChannelUnregistered Channel已经被创建，但还未注册到EventLoop     ChannelRegistered Channel已经被注册到EventLoop   ChannelActive Channel处于活动状态，它现在可以接受和发送数据了   ChannelInactive Channel没有连接到远程">
 <meta name="keywords" content="技术,Netty">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Netty之ChannelHandler">
 <meta property="og:url" content="https://zofun.github.io/2020/05/17/Netty之ChannelHandler/index.html">
 <meta property="og:site_name" content="个人博客">
-<meta property="og:description" content="Channel的生命周期Channel包含4个状态：| ChannelUnregistered | Channel已经被创建，但还未注册到EventLoop        || ——————- | ———————————————– || ChannelRegistered   | Channel已经被注册到EventLoop                    || ChannelActive">
+<meta property="og:description" content="Channel的生命周期Channel包含4个状态：    ChannelUnregistered Channel已经被创建，但还未注册到EventLoop     ChannelRegistered Channel已经被注册到EventLoop   ChannelActive Channel处于活动状态，它现在可以接受和发送数据了   ChannelInactive Channel没有连接到远程">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://s1.ax1x.com/2020/05/17/YRSkl9.png">
 <meta property="og:image" content="https://s1.ax1x.com/2020/05/17/YRSew6.png">
@@ -24,10 +24,10 @@
 <meta property="og:image" content="https://s1.ax1x.com/2020/05/17/YRdAgK.png">
 <meta property="og:image" content="https://s1.ax1x.com/2020/05/17/YRd18P.png">
 <meta property="og:image" content="https://s1.ax1x.com/2020/05/17/YRdB80.png">
-<meta property="og:updated_time" content="2020-05-17T14:22:15.322Z">
+<meta property="og:updated_time" content="2020-05-18T09:55:56.753Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Netty之ChannelHandler">
-<meta name="twitter:description" content="Channel的生命周期Channel包含4个状态：| ChannelUnregistered | Channel已经被创建，但还未注册到EventLoop        || ——————- | ———————————————– || ChannelRegistered   | Channel已经被注册到EventLoop                    || ChannelActive">
+<meta name="twitter:description" content="Channel的生命周期Channel包含4个状态：    ChannelUnregistered Channel已经被创建，但还未注册到EventLoop     ChannelRegistered Channel已经被注册到EventLoop   ChannelActive Channel处于活动状态，它现在可以接受和发送数据了   ChannelInactive Channel没有连接到远程">
 <meta name="twitter:image" content="https://s1.ax1x.com/2020/05/17/YRSkl9.png">
   
     <link rel="alternative" href="/atom.xml" title="个人博客" type="application/atom+xml">
@@ -231,7 +231,29 @@
 <!-- 目录内容结束 -->
     <div class="article-entry" itemprop="articleBody">
       
-        <h2><span id="channel的生命周期">Channel的生命周期</span></h2><p><code>Channel</code>包含4个状态：<br>| ChannelUnregistered | Channel已经被创建，但还未注册到EventLoop        |<br>| ——————- | ———————————————– |<br>| ChannelRegistered   | Channel已经被注册到EventLoop                    |<br>| ChannelActive       | Channel处于活动状态，它现在可以接受和发送数据了 |<br>| ChannelInactive     | Channel没有连接到远程节点                       |</p>
+        <h2><span id="channel的生命周期">Channel的生命周期</span></h2><p><code>Channel</code>包含4个状态：</p>
+<table>
+<thead>
+<tr>
+<th>ChannelUnregistered</th>
+<th>Channel已经被创建，但还未注册到EventLoop</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ChannelRegistered</td>
+<td>Channel已经被注册到EventLoop</td>
+</tr>
+<tr>
+<td>ChannelActive</td>
+<td>Channel处于活动状态，它现在可以接受和发送数据了</td>
+</tr>
+<tr>
+<td>ChannelInactive</td>
+<td>Channel没有连接到远程节点</td>
+</tr>
+</tbody>
+</table>
 <a id="more"></a>
 <h2><span id="channelhandler的生命周期">ChannelHandler的生命周期</span></h2><p><code>ChannelHandler</code>接口定义了一系列生命周期操作：</p>
 <table>
@@ -420,8 +442,8 @@
 <nav id="article-nav">
   
   
-    <a href="/2020/05/17/Netty之ByteBuf/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Netty之ByteBuf</div>
+    <a href="/2020/05/17/负载均衡的实现方式与算法/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">负载均衡的实现方式与算法</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -647,11 +669,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">InnoDB</a>
+                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">JVM</a>
+                <a href="javascript:void(0)" class="js-tag color2">InnoDB</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -667,14 +689,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Maven</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">MySQL</a>
               </li>
              
@@ -684,6 +698,14 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Netty</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Maven</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -703,6 +725,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">并发编程</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
@@ -712,10 +738,6 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">随笔</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">并发编程</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -755,6 +777,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">分布式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">MyBatis</a>
               </li>
              
@@ -763,11 +789,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">SpringCloud</a>
+                <a href="javascript:void(0)" class="js-tag color5">SpringMVC</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">SpringMVC</a>
+                <a href="javascript:void(0)" class="js-tag color2">SpringCloud</a>
               </li>
              
               <li class="article-tag-list-item">
