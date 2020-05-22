@@ -176,6 +176,333 @@
 
 
   
+    <article id="post-Dubbo小知识点总结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/05/12/Dubbo小知识点总结/">Dubbo小知识点总结</a>
+    </h1>
+  
+
+        
+        <a href="/2020/05/12/Dubbo小知识点总结/" class="archive-article-date">
+  	<time datetime="2020-05-12T12:49:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-12</time>
+</a>
+        
+      </header>
+    
+    <!-- 目录内容 -->
+
+<!-- 目录内容结束 -->
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2><span id="dubbo的几种集群容错方案">Dubbo的几种集群容错方案</span></h2><table>
+<thead>
+<tr>
+<th>集群容错方案</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Failover（默认）</td>
+<td>快速失败，只发起一次调用，失败立即报错。通常用于非幂等性的写操作，比如新增记录。</td>
+</tr>
+<tr>
+<td>Failsafe</td>
+<td>安全失败，出现异常时，直接忽略，通常用于写入日志</td>
+</tr>
+<tr>
+<td>Failback</td>
+<td>失败自动恢复，后台记录失败请求，定时重发。通常用于消息通知等。</td>
+</tr>
+<tr>
+<td>Forking</td>
+<td>并行调用多个服务器，只要有一个成功即放hi。通常用于对实时性要求较高的读操作。</td>
+</tr>
+<tr>
+<td>Broadcast</td>
+<td>广播所有的调用者，逐个调用，任意一台报错即报错。通常用于通知所有的提供者更新缓存本地资源信息。</td>
+</tr>
+</tbody>
+</table>
+<p>它的配置方式是这样的：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dubbo:service</span> <span class="attr">cluster</span>=<span class="string">"failsafe"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<h2><span id="dubbo的负载均衡算法有哪些">Dubbo的负载均衡算法有哪些</span></h2><p>Dubbo内部提供了4种负载均衡算法。</p>
+<ol>
+<li>基于权重随机算法的RandomLoadBalance(默认)</li>
+<li>基于最少活跃调用数算法的LeastActiveBalance</li>
+<li>基于一致性hash算法的ConsistentHashLoadBalance</li>
+<li>基于加权轮询算法的RoundRobinLoadBalance<br> 基于加权的轮询算法会根据每台服务器的性能为服务器设置一个权值，加权后，每台服务器能够得到的请求数比例，接近或等于他们的权重比。比如服务器 A、B、C 权重比为 5:2:1。那么在8次请求中，服务器 A 将收到其中的5次请求，服务器 B 会收到其中的2次请求，服务器 C 则收到其中的1次请求。</li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dubbo:service</span> <span class="attr">interface</span>=<span class="string">"com.alibaba.hello.api.WorldService"</span> <span class="attr">version</span>=<span class="string">"1.0.0"</span> <span class="attr">ref</span>=<span class="string">"helloService"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">timeout</span>=<span class="string">"300"</span> <span class="attr">retries</span>=<span class="string">"2"</span> <span class="attr">loadbalance</span>=<span class="string">"random"</span> <span class="attr">actives</span>=<span class="string">"0"</span> &gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dubbo:method</span> <span class="attr">name</span>=<span class="string">"findAllPerson"</span> <span class="attr">timeout</span>=<span class="string">"10000"</span> <span class="attr">retries</span>=<span class="string">"9"</span> <span class="attr">loadbalance</span>=<span class="string">"leastactive"</span> <span class="attr">actives</span>=<span class="string">"5"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dubbo:service</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<h2><span id="服务化推荐用法">服务化推荐用法</span></h2><h3><span id="分包">分包</span></h3><p>将服务接口、服务模型、服务异常均放在API包中，因为服务模型和异常也是API的一部分，这样做服务分包原则：重用发布等价原则（REP），共同重用原则(CRP)</p>
+<h3><span id="粒度">粒度</span></h3><p>服务接口应该尽可能大粒度，每个服务方法应代表一个功能，而不是某功能的一个步骤，否则将面临分布式事务问题，而Dubbo并未提供分布式事务解决方案。</p>
+<h3><span id="版本">版本</span></h3><p>每个接口都应该定义版本号，为后序不兼容升级提供可能。</p>
+<h3><span id="兼容性">兼容性</span></h3><p>服务接口增加方法，或服务模型增加字段，可向后兼容，删除方法或删除字段，将不兼容，枚举类型新增字段也不兼容，需要通过变更版本号升级。</p>
+<h3><span id="枚举值">枚举值</span></h3><p>如果是完备集，可以使用<code>Enum</code><br>如果后期可能会有变更，建议使用<code>String</code>代替。</p>
+<h3><span id="序列化">序列化</span></h3><p>服务参数和返回值建议使用POJO对象。</p>
+<h3><span id="异常">异常</span></h3><p>建议使用异常汇报错误，而不是返回错误码，异常信息能够携带更多信息，并且语义更加友好。</p>
+<h3><span id="调用">调用</span></h3><p>不要只是因为是 Dubbo 调用，而把调用 <code>try...catch</code> 起来。<code>try...catch</code> 应该加上合适的回滚边界上。<br>Provider 端需要对输入参数进行校验。如有性能上的考虑，服务实现者可以考虑在 API 包上加上服务 Stub 类来完成检验。</p>
+<h2><span id="dubbo推荐用法">Dubbo推荐用法</span></h2><h3><span id="在provider端尽可能多配置consumer端属性">在Provider端尽可能多配置consumer端属性</span></h3><p>因为作为服务的提供方，比服务消费方更清楚服务的性能。在服务提供端配置后，消费端不配置则会使用服务提供端的配置。如果在消费端进行配置，那么对服务端来讲就是不可控的。</p>
+<p>一个配置示例：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dubbo:service</span> <span class="attr">interface</span>=<span class="string">"com.alibaba.hello.api.HelloService"</span> <span class="attr">version</span>=<span class="string">"1.0.0"</span> <span class="attr">ref</span>=<span class="string">"helloService"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">timeout</span>=<span class="string">"300"</span> <span class="attr">retries</span>=<span class="string">"2"</span> <span class="attr">loadbalance</span>=<span class="string">"random"</span> <span class="attr">actives</span>=<span class="string">"0"</span> /&gt;</span></span><br><span class="line"> </span><br><span class="line"><span class="tag">&lt;<span class="name">dubbo:service</span> <span class="attr">interface</span>=<span class="string">"com.alibaba.hello.api.WorldService"</span> <span class="attr">version</span>=<span class="string">"1.0.0"</span> <span class="attr">ref</span>=<span class="string">"helloService"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">timeout</span>=<span class="string">"300"</span> <span class="attr">retries</span>=<span class="string">"2"</span> <span class="attr">loadbalance</span>=<span class="string">"random"</span> <span class="attr">actives</span>=<span class="string">"0"</span> &gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dubbo:method</span> <span class="attr">name</span>=<span class="string">"findAllPerson"</span> <span class="attr">timeout</span>=<span class="string">"10000"</span> <span class="attr">retries</span>=<span class="string">"9"</span> <span class="attr">loadbalance</span>=<span class="string">"leastactive"</span> <span class="attr">actives</span>=<span class="string">"5"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dubbo:service</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<p>建议在服务提供端配置的消费端属性有：<br><code>timeout</code>、<code>retries</code>  、 <code>loadbalance</code> <code>actives</code></p>
+<h3><span id="在服务提供端配置合理的提供端属性">在服务提供端配置合理的提供端属性</span></h3><p>比如这样：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dubbo:protocol</span> <span class="attr">threads</span>=<span class="string">"200"</span> /&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">dubbo:service</span> <span class="attr">interface</span>=<span class="string">"com.alibaba.hello.api.HelloService"</span> <span class="attr">version</span>=<span class="string">"1.0.0"</span> <span class="attr">ref</span>=<span class="string">"helloService"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">executes</span>=<span class="string">"200"</span> &gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dubbo:method</span> <span class="attr">name</span>=<span class="string">"findAllPerson"</span> <span class="attr">executes</span>=<span class="string">"50"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dubbo:service</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>建议在服务提供端配置的提供端属性有：<br><code>threads</code> (服务线程池的大小)、<code>executes</code>（一个服务提供者并行执行请求的上限）</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Dubbo</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/05/12/Dubbo小知识点总结/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-MyBatis的使用回顾" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/05/12/MyBatis的使用回顾/">MyBatis的使用回顾</a>
+    </h1>
+  
+
+        
+        <a href="/2020/05/12/MyBatis的使用回顾/" class="archive-article-date">
+  	<time datetime="2020-05-12T08:13:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-12</time>
+</a>
+        
+      </header>
+    
+    <!-- 目录内容 -->
+
+<!-- 目录内容结束 -->
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Mapper文件的编写"><a href="#Mapper文件的编写" class="headerlink" title="Mapper文件的编写"></a>Mapper文件的编写</h2><h3 id="select"><a href="#select" class="headerlink" title="select"></a>select</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span> = <span class="string">“</span> <span class="attr">selectPerson</span>” <span class="attr">parameterType</span> = <span class="string">“</span> <span class="attr">int</span>” <span class="attr">resultType</span> = <span class="string">“</span> <span class="attr">hashmap</span>” &gt;</span>   </span><br><span class="line">  SELECT * FROM PERSON WHERE ID =＃&#123;id&#125;</span><br><span class="line"><span class="tag">&lt;/ <span class="attr">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>这里有两点需要注意的，一是区分<code>#</code>和<code>$</code>的区别.<code>#</code>的底层是基于预编译语句来实现了，这样可以避免SQL注入的风险。而<code>$</code>在底层是通过字符串的直接拼接来实现了，因此有SQL注入的风险。</p>
+        
+          <a class="article-more-a" href="/2020/05/12/MyBatis的使用回顾/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">MyBatis</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/05/12/MyBatis的使用回顾/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-Dubbo集群容错" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/05/11/Dubbo集群容错/">Dubbo集群容错</a>
+    </h1>
+  
+
+        
+        <a href="/2020/05/11/Dubbo集群容错/" class="archive-article-date">
+  	<time datetime="2020-05-11T09:36:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-11</time>
+</a>
+        
+      </header>
+    
+    <!-- 目录内容 -->
+
+<!-- 目录内容结束 -->
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Dubbo集群容错方面的源码包括四个部分，分别式服务目录Directory、服务路由Router、集群Cluster和负载均衡LoadBalance。</p>
+<p>它们之间的关系是这样的：</p>
+<p><img src="https://s1.ax1x.com/2020/05/11/YJAi1H.png" alt="YJAi1H.png"></p>
+        
+          <a class="article-more-a" href="/2020/05/11/Dubbo集群容错/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Dubbo</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/05/11/Dubbo集群容错/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-Dubbo服务调用过程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -717,11 +1044,11 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">JVM</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">JVM</a>
         		</li>
       		
 		</ul>
@@ -830,298 +1157,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2020/04/16/MySQL主从复制/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-再读线程池源码" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/04/13/再读线程池源码/">再读线程池源码</a>
-    </h1>
-  
-
-        
-        <a href="/2020/04/13/再读线程池源码/" class="archive-article-date">
-  	<time datetime="2020-04-13T09:36:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-13</time>
-</a>
-        
-      </header>
-    
-    <!-- 目录内容 -->
-
-<!-- 目录内容结束 -->
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>线程池故名思意就是存放线程的池子。线程是JVM的稀缺资源，使用线程池可以减少线程的创建和销毁的次数，<strong>降低系统的资源消耗</strong>。当有任务到达的时候，无效等待创建新的线程便能立即执行，<strong>提高了响应速度</strong>。使用线程池还可以<strong>方便对线程进行管理</strong>。</p>
-<p><code>ThreadPoolExecuter</code>是线程池框架的一个核心类，下面就对<code>ThreadPoolExecuter</code>进行分析。</p>
-        
-          <a class="article-more-a" href="/2020/04/13/再读线程池源码/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">源码</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/04/13/再读线程池源码/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-JVM之分代收集算法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/04/12/JVM之分代收集算法/">JVM之分代收集算法</a>
-    </h1>
-  
-
-        
-        <a href="/2020/04/12/JVM之分代收集算法/" class="archive-article-date">
-  	<time datetime="2020-04-12T11:52:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-12</time>
-</a>
-        
-      </header>
-    
-    <!-- 目录内容 -->
-
-<!-- 目录内容结束 -->
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="对象分类"><a href="#对象分类" class="headerlink" title="对象分类"></a>对象分类</h2><p>JVM将对象分成不同的分代，然后根据每个分代的特点采取不同的垃圾回收算法。</p>
-<ul>
-<li>新生代：朝生夕灭的对象，比如方法的局部变量。</li>
-<li>老年代：存活的比较久，但是还是要死的对象。比如缓存对象，单例对象等。</li>
-<li>永久代：对象生成后几乎不灭的对象，例如加载过的类对象。</li>
-</ul>
-<p>永久代是在方法区/元空间。新生代和老年代是在堆区。</p>
-        
-          <a class="article-more-a" href="/2020/04/12/JVM之分代收集算法/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">JVM</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/04/12/JVM之分代收集算法/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-并发编程之volatile" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/04/10/并发编程之volatile/">并发编程之volatile</a>
-    </h1>
-  
-
-        
-        <a href="/2020/04/10/并发编程之volatile/" class="archive-article-date">
-  	<time datetime="2020-04-10T11:52:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-10</time>
-</a>
-        
-      </header>
-    
-    <!-- 目录内容 -->
-
-<!-- 目录内容结束 -->
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="volatile的定义和实现原理"><a href="#volatile的定义和实现原理" class="headerlink" title="volatile的定义和实现原理"></a>volatile的定义和实现原理</h2><p>在Java语言规范中将volatile定义如下：Java编程语言允许线程访问共享变量，为了确保共享变量能被准确和一致的更新，线程应该通过排他锁单独获得这个变量。Java语言提供了volatile，在某型情况下比使用锁更加方便。如果一个字段被声明为volatile，Java线程内存模型确保所有线程看到这个变量的值是一致的。</p>
-        
-          <a class="article-more-a" href="/2020/04/10/并发编程之volatile/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">技术</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">多线程</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/04/10/并发编程之volatile/">展开全文 >></a>
         </p>
       
 
@@ -1303,11 +1338,11 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">java</a>
+                <a href="javascript:void(0)" class="js-tag color3">技术</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">技术</a>
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1319,6 +1354,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">JVM</a>
               </li>
              
@@ -1327,11 +1366,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+                <a href="javascript:void(0)" class="js-tag color4">Java NIO</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Java NIO</a>
+                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1351,10 +1390,6 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Netty</a>
               </li>
              
@@ -1363,7 +1398,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+                <a href="javascript:void(0)" class="js-tag color5">并发编程</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">MyBatis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1379,15 +1418,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">并发编程</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">项目小技巧</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1395,7 +1426,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">项目小技巧</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">变强日记</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1403,7 +1442,7 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">正则表达式</a>
+                <a href="javascript:void(0)" class="js-tag color4">TCP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1411,11 +1450,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">TCP</a>
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+                <a href="javascript:void(0)" class="js-tag color1">正则表达式</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1423,15 +1462,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">分布式</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">MyBatis</a>
+                <a href="javascript:void(0)" class="js-tag color1">Redis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1439,15 +1474,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">SpringCloud</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">SpringMVC</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">项目</a>
+                <a href="javascript:void(0)" class="js-tag color2">SpringCloud</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1455,7 +1486,15 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">项目</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">SpringBoot</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">web安全</a>
               </li>
             
             <div class="clearfix"></div>
