@@ -599,9 +599,9 @@
     
       <category term="技术" scheme="https://zofun.github.io/tags/%E6%8A%80%E6%9C%AF/"/>
     
-      <category term="JVM" scheme="https://zofun.github.io/tags/JVM/"/>
-    
       <category term="Java" scheme="https://zofun.github.io/tags/Java/"/>
+    
+      <category term="JVM" scheme="https://zofun.github.io/tags/JVM/"/>
     
   </entry>
   
